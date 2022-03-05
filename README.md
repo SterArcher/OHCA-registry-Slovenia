@@ -1,1 +1,1 @@
-# dispatch
+# OHCA registry Slovenia - pilot project
