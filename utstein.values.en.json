@@ -1,0 +1,581 @@
+{
+    "cases": {
+        "caseID": {
+            "title": "Case UUID",
+            "description": "Unique ID of this case"
+        },
+        "systemID": {
+            "title": "System UUID",
+            "description": "Unique ID of the system in which this case was handled"
+        },
+        "localID": {
+            "title": "Locale UUID",
+            "description": "Unique ID of the locale in which this case was handled"
+        },
+        "dispIdentifiedCA": {
+            "title": "Dispatcher identified presence of cardiac arrest",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "dispProvidedCPRinst": {
+            "title": "Dispatcher provided CPR instructions",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "age": {
+            "title": "Age",
+            "description": "Integer of length 3, denoting patient's age at treatment"
+        },
+        "gender": {
+            "title": "Gender",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "Male",
+                "1": "Female"
+            }
+        },
+        "witnesses": {
+            "title": "Witnessed arrest",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "None",
+                "1": "Bystander",
+                "2": "NMP",
+                "3": "Bystander & NMP"
+            }
+        },
+        "location": {
+            "title": "Arrest location",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "1": "Home/residence",
+                "2": "Industrial/workplace",
+                "3": "Sports/recreation event",
+                "4": "Street/highway",
+                "5": "Public building",
+                "6": "Assisted living/nursing home",
+                "7": "Educational institution",
+                "8": "Other"
+            },
+            "description": "General location of patient at incident time"
+        },
+        "bystanderResponse": {
+            "title": "Bystander response",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "No bystander CPR",
+                "1": "Bystander CPR (Compression only)",
+                "2": "Bystander CPR (Compression & ventilations)"
+            }
+        },
+        "bystanderAED": {
+            "title": "Bystander AED use",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "Not used",
+                "1": "AED used, shock not delivered",
+                "2": "AED used, shock delivered"
+            }
+        },
+        "deadOnArrival": {
+            "title": "Dead on arrival",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "firstMonitoredRhy": {
+            "title": "First monitored rhythm",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "1": "VT",
+                "2": "Pulseless VT",
+                "3": "PEA",
+                "4": "Asystole",
+                "5": "Bradycardia",
+                "6": "AED nonshockable",
+                "7": "AED shockable"
+            }
+        },
+        "pathogenesis": {
+            "title": "Pathogenesis",
+            "values": {
+                "null": "Not recorded",
+                "1": "Medical",
+                "2": "Traumatic cause",
+                "3": "Drug overdose",
+                "4": "Drowning",
+                "5": "Electrocution",
+                "6": "Asphyxia"
+            },
+            "description": "Note this variable does not include the unknown option as unknown causes should be assigned as medical causes."
+        },
+        "independentLiving": {
+            "title": "Independent living",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            },
+            "description": "Does the patient live alone"
+        },
+        "comorbidities": {
+            "title": "Comorbidities",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "vad": {
+            "title": "VAD",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "cardioverterDefib": {
+            "title": "Cardioverter-defibrillator",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "Internal",
+                "2": "External"
+            }
+        },
+        "stemiPresent": {
+            "title": "Presence of STEMI",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "responseTime": {
+            "title": "Response time",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                ">0": "value"
+            },
+            "description": "Response time in seconds"
+        },
+        "defibTime": {
+            "title": "Defibrillation time",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                ">0": "value"
+            },
+            "description": "Defibrilation time in seconds"
+        },
+        "ttm": {
+            "title": "TTM",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "1": "Intra-arrest",
+                "2": "Post-ROSC prehospital",
+                "3": "Post-ROSC in-hospital",
+                "4": "TTM indicated but not performed",
+                "5": "TTM not indicated"
+            }
+        },
+        "ttmTemp": {
+            "title": "TTM Temperature",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                ">0": "value"
+            },
+            "description": "If TTM was used, what was the target temperature (in Kelvin)"
+        },
+        "drugs": {
+            "title": "Drugs given",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "None",
+                "1": "Adrenaline",
+                "2": "Amiodarone",
+                "4": "Vasopressin"
+            },
+            "description": "Set of all drugs administered, multiple choices allowed (as sum of value IDs)"
+        },
+        "airwayControl": {
+            "title": "Airway control (type)",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "None used",
+                "1": "Oropharyngeal airway",
+                "2": "Supraglottic airway",
+                "4": "Endotracheal tube",
+                "8": "Surgical airway"
+            },
+            "description": "Set of all airway control types used, multiple choices allowed (as sum of value IDs)"
+        },
+        "cprQuality": {
+            "title": "CPR quality",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "shocks": {
+            "title": "Number of shocks",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                ">=0": "value"
+            }
+        },
+        "drugTimings": {
+            "title": "Drug timings",
+            "description": "JSON as described"
+        },
+        "vascularAccess": {
+            "title": "Vascular access (type)",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "None",
+                "1": "Central line",
+                "2": "Peripheral IV",
+                "3": "IO",
+                "4": "Endotracheal"
+            }
+        },
+        "mechanicalCPR": {
+            "title": "Mechanical CPR",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "None",
+                "1": "Mechanical compression-decompression device",
+                "2": "Load-distributing band",
+                "3": "Other mechanical device"
+            }
+        },
+        "targetVent": {
+            "title": "Targeted oxygenation/ventilation",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "Not used",
+                "1": "O2 only",
+                "2": "CO2 only",
+                "3": "O2 & CO2"
+            },
+            "description": "If this variable is reported, include details of specific targets in system description."
+        },
+        "reperfusionAttempt": {
+            "title": "Reperfusion attempted",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "None",
+                "1": "Angiography only",
+                "2": "PCI",
+                "4": "Thrombolysis"
+            },
+            "description": "Set of all reperfusion attempts, multiple choices allowed (as sum of value IDs)"
+        },
+        "reperfusionTime": {
+            "title": "Reperfusion time",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "1": "Intra-arrest",
+                "2": "Within 24 h of ROSC",
+                "3": ">24 h but before discharge"
+            }
+        },
+        "ecls": {
+            "title": "ECLS",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "None",
+                "1": "Before ROSC",
+                "2": "After ROSC"
+            }
+        },
+        "iabp": {
+            "title": "IABP",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "ph": {
+            "title": "Blood pH",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                ">=0": "value"
+            }
+        },
+        "lactate": {
+            "title": "Lactate",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                ">=0": "value"
+            }
+        },
+        "glucose": {
+            "title": "Glucose",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                ">=0": "value"
+            }
+        },
+        "neuroprognosticTests": {
+            "title": "Number and type of neuroprognostic tests",
+            "description": "JSON as described"
+        },
+        "specialistHospital": {
+            "title": "Hospital type",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "hospitalVolume": {
+            "title": "Hospital volume",
+            "values": {
+                ">=0": "value"
+            },
+            "description": "Number of cases per year"
+        },
+        "ecg": {
+            "title": "12-Lead ECG",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "ecgBLOB": {
+            "title": "ECG file",
+            "values": "BLOB",
+            "description": "ECG file as base64 encoded data"
+        },
+        "targetBP": {
+            "title": "Targeted blood pressure management",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "No target",
+                ">0": "value"
+            },
+            "description": "Targeted MAP in mmHg"
+        },
+        "survived": {
+            "title": "Survived event",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "rosc": {
+            "title": "Any ROSC",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "30dSurvivalDischarge": {
+            "title": "30-d survival or survival to discharge",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "cpcDischarge": {
+            "title": "Neurological outcome at hospital discharge (CPC)",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "1-5": "value"
+            }
+        },
+        "mrsDischarge": {
+            "title": "Neurological outcome at hospital discharge (mRS)",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0-6": "value"
+            }
+        },
+        "survivalStatus": {
+            "title": "Survival status",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "transportToHospital": {
+            "title": "Transported to hospital",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "False",
+                "1": "True"
+            }
+        },
+        "treatmentWithdrawn": {
+            "title": "Treatment withdrawn (including timing)*",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                ">0": "value"
+            },
+            "description": "Hours until treatment withdrawal, days should be converted to hours (rounded up)"
+        },
+        "cod": {
+            "title": "Cause of death",
+            "description": "Cause of death as free text"
+        },
+        "organDonation": {
+            "title": "Organ donation",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                ">=0": "value"
+            },
+            "description": "Number of cases of organ donation?"
+        },
+        "patientReportedOutcome": {
+            "title": "Patient-reported outcome measures",
+            "description": "Outcomes selected by patients as being important"
+        },
+        "qualityOfLife": {
+            "title": "Quality-of-life measurements (standardized questionnaires, eg, EQ-5D, SF-12)",
+            "description": "JSON as described"
+        }
+    },
+    "locales": {
+        "localID": {
+            "title": "Locale UUID",
+            "description": "Unique ID of the locale in which this case was handled"
+        },
+        "firendlyName": {
+            "title": "Friendly name",
+            "description": "Human readable name of locale"
+        },
+        "population": {
+            "title": "Population served",
+            "description": "Number of cases (per year?)"
+        },
+        "attendedCAs": {
+            "title": "Number of cardiac arrests attended"
+        },
+        "attemptedResusc": {
+            "title": "Resuscitation attempted"
+        },
+        "casesDNR": {
+            "title": "Signed DNACPR",
+            "description": "Cases with resuscitation not attempted, had signed DNR"
+        },
+        "casesFutile": {
+            "title": "Considered futile",
+            "description": "Cases with resuscitation not attempted, case considered futile"
+        },
+        "casesCirculation": {
+            "title": "Signs of circulation",
+            "description": "Cases with resuscitation not attempted, had signs of circulation"
+        },
+        "casesUnknown": {
+            "title": "Resuscitation not attempted, reason unknown"
+        },
+        "description": {
+            "title": "System description",
+            "description": "JSON: Number and type of EMS tier; providers’ skill set; number of EMS calls, excluding interfacility transfers; population served based on census data; footprint served in square kilometers or square miles"
+        },
+        "descriptionSupplemental": {
+            "title": "System description (supplemental)"
+        }
+    },
+    "systems": {
+        "systemID": {
+            "title": "System UUID",
+            "description": "Unique ID of the system in which this case was handled"
+        },
+        "firendlyName": {
+            "title": "Friendly name",
+            "description": "Human readable name of locale"
+        },
+        "population": {
+            "title": "Population served",
+            "description": "Number of cases (per year?)"
+        },
+        "attendedCAs": {
+            "title": "Number of cardiac arrests attended"
+        },
+        "attemptedResusc": {
+            "title": "Resuscitation attempted"
+        },
+        "casesDNR": {
+            "title": "Signed DNACPR",
+            "description": "Cases with resuscitation not attempted, had signed DNR"
+        },
+        "casesFutile": {
+            "title": "Considered futile",
+            "description": "Cases with resuscitation not attempted, case considered futile"
+        },
+        "casesCirculation": {
+            "title": "Signs of circulation",
+            "description": "Cases with resuscitation not attempted, had signs of circulation"
+        },
+        "casesUnknown": {
+            "title": "Resuscitation not attempted, reason unknown"
+        },
+        "description": {
+            "title": "System description",
+            "description": "JSON: Number and type of EMS tier; providers’ skill set; number of EMS calls, excluding interfacility transfers; population served based on census data; footprint served in square kilometers or square miles"
+        },
+        "descriptionSupplemental": {
+            "title": "System description (supplemental)"
+        }
+    }
+}
