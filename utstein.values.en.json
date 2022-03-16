@@ -548,7 +548,7 @@
         },
         "population": {
             "title": "Population served",
-            "description": "Population that EMS serves"
+            "description": "Population of the area that the EMS serves"
         },
         "attendedCAs": {
             "title": "Number of cardiac arrests attended"
