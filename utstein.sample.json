@@ -81,7 +81,7 @@
     "survivalStatus": -1,
     "transportToHospital": 1,
     "treatmentWithdrawn": 0,
-    "cod": "Survived",
+    "cod": null,
     "organDonation": 0,
     "patientReportedOutcome": "Amazing, loved the experience!",
     "qualityOfLife": {
