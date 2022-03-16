@@ -481,9 +481,10 @@
             "values": {
                 "null": "Not recorded",
                 "-1": "Unknown",
-                ">=0": "value"
+                "0": "not a donor"
+                "1": "donor"
             },
-            "description": "Number of cases of organ donation?"
+            "description": "Is this patient an organ donor"
         },
         "patientReportedOutcome": {
             "title": "Patient-reported outcome measures",
@@ -505,7 +506,7 @@
         },
         "population": {
             "title": "Population served",
-            "description": "Number of cases (per year?)"
+            "description": "Population of the area that the EMS serves"
         },
         "attendedCAs": {
             "title": "Number of cardiac arrests attended"
@@ -547,7 +548,7 @@
         },
         "population": {
             "title": "Population served",
-            "description": "Number of cases (per year?)"
+            "description": "Population that EMS serves"
         },
         "attendedCAs": {
             "title": "Number of cardiac arrests attended"
