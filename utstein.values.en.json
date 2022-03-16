@@ -474,7 +474,7 @@
         },
         "cod": {
             "title": "Cause of death",
-            "description": "Cause of death as free text"
+            "description": "Cause of death as MKB-10-AM ver. 6 code"
         },
         "organDonation": {
             "title": "Organ donation",
