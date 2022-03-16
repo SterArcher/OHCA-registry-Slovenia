@@ -2,15 +2,18 @@
     "cases": {
         "caseID": {
             "title": "Case UUID",
-            "description": "Unique ID of this case"
+            "description": "Unique ID of this case",
+            "core": true
         },
         "systemID": {
             "title": "System UUID",
-            "description": "Unique ID of the system in which this case was handled"
+            "description": "Unique ID of the system in which this case was handled",
+            "core": true
         },
         "localID": {
             "title": "Locale UUID",
-            "description": "Unique ID of the locale in which this case was handled"
+            "description": "Unique ID of the locale in which this case was handled",
+            "core": true
         },
         "dispIdentifiedCA": {
             "title": "Dispatcher identified presence of cardiac arrest",
@@ -19,7 +22,8 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": true
         },
         "dispProvidedCPRinst": {
             "title": "Dispatcher provided CPR instructions",
@@ -28,11 +32,13 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": true
         },
         "age": {
             "title": "Age",
-            "description": "Integer of length 3, denoting patient's age at treatment"
+            "description": "Integer of length 3, denoting patient's age at treatment",
+            "core": true
         },
         "gender": {
             "title": "Gender",
@@ -41,7 +47,8 @@
                 "-1": "Unknown",
                 "0": "Male",
                 "1": "Female"
-            }
+            },
+            "core": true
         },
         "witnesses": {
             "title": "Witnessed arrest",
@@ -52,7 +59,8 @@
                 "1": "Bystander",
                 "2": "NMP",
                 "3": "Bystander & NMP"
-            }
+            },
+            "core": true
         },
         "location": {
             "title": "Arrest location",
@@ -68,7 +76,8 @@
                 "7": "Educational institution",
                 "8": "Other"
             },
-            "description": "General location of patient at incident time"
+            "description": "General location of patient at incident time",
+            "core": true
         },
         "bystanderResponse": {
             "title": "Bystander response",
@@ -78,7 +87,8 @@
                 "0": "No bystander CPR",
                 "1": "Bystander CPR (Compression only)",
                 "2": "Bystander CPR (Compression & ventilations)"
-            }
+            },
+            "core": true
         },
         "bystanderAED": {
             "title": "Bystander AED use",
@@ -88,7 +98,8 @@
                 "0": "Not used",
                 "1": "AED used, shock not delivered",
                 "2": "AED used, shock delivered"
-            }
+            },
+            "core": true
         },
         "deadOnArrival": {
             "title": "Dead on arrival",
@@ -97,7 +108,8 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": true
         },
         "firstMonitoredRhy": {
             "title": "First monitored rhythm",
@@ -111,7 +123,8 @@
                 "5": "Bradycardia",
                 "6": "AED nonshockable",
                 "7": "AED shockable"
-            }
+            },
+            "core": true
         },
         "pathogenesis": {
             "title": "Pathogenesis",
@@ -124,7 +137,8 @@
                 "5": "Electrocution",
                 "6": "Asphyxia"
             },
-            "description": "Note this variable does not include the unknown option as unknown causes should be assigned as medical causes."
+            "description": "Note this variable does not include the unknown option as unknown causes should be assigned as medical causes.",
+            "core": true
         },
         "independentLiving": {
             "title": "Independent living",
@@ -134,7 +148,8 @@
                 "0": "False",
                 "1": "True"
             },
-            "description": "Does the patient live alone"
+            "description": "Does the patient live alone",
+            "core": false
         },
         "comorbidities": {
             "title": "Comorbidities",
@@ -143,7 +158,8 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": false
         },
         "vad": {
             "title": "VAD",
@@ -152,7 +168,8 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": false
         },
         "cardioverterDefib": {
             "title": "Cardioverter-defibrillator",
@@ -162,7 +179,8 @@
                 "0": "False",
                 "1": "Internal",
                 "2": "External"
-            }
+            },
+            "core": false
         },
         "stemiPresent": {
             "title": "Presence of STEMI",
@@ -171,7 +189,8 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": false
         },
         "responseTime": {
             "title": "Response time",
@@ -180,7 +199,8 @@
                 "-1": "Unknown",
                 ">0": "value"
             },
-            "description": "Response time in seconds"
+            "description": "Response time in seconds",
+            "core": true
         },
         "defibTime": {
             "title": "Defibrillation time",
@@ -189,7 +209,8 @@
                 "-1": "Unknown",
                 ">0": "value"
             },
-            "description": "Defibrilation time in seconds"
+            "description": "Defibrilation time in seconds",
+            "core": true
         },
         "ttm": {
             "title": "TTM",
@@ -201,7 +222,8 @@
                 "3": "Post-ROSC in-hospital",
                 "4": "TTM indicated but not performed",
                 "5": "TTM not indicated"
-            }
+            },
+            "core": true
         },
         "ttmTemp": {
             "title": "TTM Temperature",
@@ -210,7 +232,8 @@
                 "-1": "Unknown",
                 ">0": "value"
             },
-            "description": "If TTM was used, what was the target temperature (in Kelvin)"
+            "description": "If TTM was used, what was the target temperature (in Kelvin)",
+            "core": false
         },
         "drugs": {
             "title": "Drugs given",
@@ -222,7 +245,8 @@
                 "2": "Amiodarone",
                 "4": "Vasopressin"
             },
-            "description": "Set of all drugs administered, multiple choices allowed (as sum of value IDs)"
+            "description": "Set of all drugs administered, multiple choices allowed (as sum of value IDs)",
+            "core": true
         },
         "airwayControl": {
             "title": "Airway control (type)",
@@ -235,7 +259,8 @@
                 "4": "Endotracheal tube",
                 "8": "Surgical airway"
             },
-            "description": "Set of all airway control types used, multiple choices allowed (as sum of value IDs)"
+            "description": "Set of all airway control types used, multiple choices allowed (as sum of value IDs)",
+            "core": false
         },
         "cprQuality": {
             "title": "CPR quality",
@@ -244,7 +269,8 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": false
         },
         "shocks": {
             "title": "Number of shocks",
@@ -252,11 +278,13 @@
                 "null": "Not recorded",
                 "-1": "Unknown",
                 ">=0": "value"
-            }
+            },
+            "core": false
         },
         "drugTimings": {
             "title": "Drug timings",
-            "description": "JSON as described"
+            "description": "JSON as described",
+            "core": false
         },
         "vascularAccess": {
             "title": "Vascular access (type)",
@@ -268,7 +296,8 @@
                 "2": "Peripheral IV",
                 "3": "IO",
                 "4": "Endotracheal"
-            }
+            },
+            "core": false
         },
         "mechanicalCPR": {
             "title": "Mechanical CPR",
@@ -279,7 +308,8 @@
                 "1": "Mechanical compression-decompression device",
                 "2": "Load-distributing band",
                 "3": "Other mechanical device"
-            }
+            },
+            "core": false
         },
         "targetVent": {
             "title": "Targeted oxygenation/ventilation",
@@ -291,7 +321,8 @@
                 "2": "CO2 only",
                 "3": "O2 & CO2"
             },
-            "description": "If this variable is reported, include details of specific targets in system description."
+            "description": "If this variable is reported, include details of specific targets in system description.",
+            "core": false
         },
         "reperfusionAttempt": {
             "title": "Reperfusion attempted",
@@ -303,7 +334,8 @@
                 "2": "PCI",
                 "4": "Thrombolysis"
             },
-            "description": "Set of all reperfusion attempts, multiple choices allowed (as sum of value IDs)"
+            "description": "Set of all reperfusion attempts, multiple choices allowed (as sum of value IDs)",
+            "core": true
         },
         "reperfusionTime": {
             "title": "Reperfusion time",
@@ -313,7 +345,8 @@
                 "1": "Intra-arrest",
                 "2": "Within 24 h of ROSC",
                 "3": ">24 h but before discharge"
-            }
+            },
+            "core": true
         },
         "ecls": {
             "title": "ECLS",
@@ -323,7 +356,8 @@
                 "0": "None",
                 "1": "Before ROSC",
                 "2": "After ROSC"
-            }
+            },
+            "core": false
         },
         "iabp": {
             "title": "IABP",
@@ -332,15 +366,17 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": false
         },
         "ph": {
             "title": "Blood pH",
             "values": {
                 "null": "Not recorded",
                 "-1": "Unknown",
-                ">=0": "value"
-            }
+                "0-14": "value"
+            },
+            "core": false
         },
         "lactate": {
             "title": "Lactate",
@@ -348,7 +384,8 @@
                 "null": "Not recorded",
                 "-1": "Unknown",
                 ">=0": "value"
-            }
+            },
+            "core": false
         },
         "glucose": {
             "title": "Glucose",
@@ -356,11 +393,13 @@
                 "null": "Not recorded",
                 "-1": "Unknown",
                 ">=0": "value"
-            }
+            },
+            "core": false
         },
         "neuroprognosticTests": {
             "title": "Number and type of neuroprognostic tests",
-            "description": "JSON as described"
+            "description": "JSON as described",
+            "core": false
         },
         "specialistHospital": {
             "title": "Hospital type",
@@ -369,14 +408,16 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": false
         },
         "hospitalVolume": {
             "title": "Hospital volume",
             "values": {
                 ">=0": "value"
             },
-            "description": "Number of cases per year"
+            "description": "Number of cases per year",
+            "core": false
         },
         "ecg": {
             "title": "12-Lead ECG",
@@ -385,12 +426,14 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": false
         },
         "ecgBLOB": {
             "title": "ECG file",
             "values": "BLOB",
-            "description": "ECG file as base64 encoded data"
+            "description": "ECG file as base64 encoded data",
+            "core": false
         },
         "targetBP": {
             "title": "Targeted blood pressure management",
@@ -400,7 +443,8 @@
                 "0": "No target",
                 ">0": "value"
             },
-            "description": "Targeted MAP in mmHg"
+            "description": "Targeted MAP in mmHg",
+            "core": false
         },
         "survived": {
             "title": "Survived event",
@@ -409,7 +453,8 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": true
         },
         "rosc": {
             "title": "Any ROSC",
@@ -418,7 +463,8 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": true
         },
         "30dSurvivalDischarge": {
             "title": "30-d survival or survival to discharge",
@@ -427,7 +473,8 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": true
         },
         "cpcDischarge": {
             "title": "Neurological outcome at hospital discharge (CPC)",
@@ -435,7 +482,8 @@
                 "null": "Not recorded",
                 "-1": "Unknown",
                 "1-5": "value"
-            }
+            },
+            "core": true
         },
         "mrsDischarge": {
             "title": "Neurological outcome at hospital discharge (mRS)",
@@ -443,7 +491,8 @@
                 "null": "Not recorded",
                 "-1": "Unknown",
                 "0-6": "value"
-            }
+            },
+            "core": true
         },
         "survivalStatus": {
             "title": "Survival status",
@@ -452,7 +501,8 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": false
         },
         "transportToHospital": {
             "title": "Transported to hospital",
@@ -461,7 +511,8 @@
                 "-1": "Unknown",
                 "0": "False",
                 "1": "True"
-            }
+            },
+            "core": false
         },
         "treatmentWithdrawn": {
             "title": "Treatment withdrawn (including timing)*",
@@ -470,11 +521,13 @@
                 "-1": "Unknown",
                 ">0": "value"
             },
-            "description": "Hours until treatment withdrawal, days should be converted to hours (rounded up)"
+            "description": "Hours until treatment withdrawal, days should be converted to hours (rounded up)",
+            "core": false
         },
         "cod": {
             "title": "Cause of death",
-            "description": "Cause of death as MKB-10-AM ver. 6 code"
+            "description": "Cause of death as MKB-10-AM ver. 6 code",
+            "core": false
         },
         "organDonation": {
             "title": "Organ donation",
@@ -484,15 +537,18 @@
                 "0": "not a donor"
                 "1": "donor"
             },
-            "description": "Is this patient an organ donor"
+            "description": "Is this patient an organ donor",
+            "core": false
         },
         "patientReportedOutcome": {
             "title": "Patient-reported outcome measures",
-            "description": "Outcomes selected by patients as being important"
+            "description": "Outcomes selected by patients as being important",
+            "core": false
         },
         "qualityOfLife": {
             "title": "Quality-of-life measurements (standardized questionnaires, eg, EQ-5D, SF-12)",
-            "description": "JSON as described"
+            "description": "JSON as described",
+            "core": false
         }
     },
     "locales": {
