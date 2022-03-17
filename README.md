@@ -9,6 +9,12 @@ Out-of-hospital cardiac arrest (OHCA) describes the loss of mechanical cardiac f
 
 source:https://doi.org/10.1016/S0140-6736(18)30552-X
 
+## Utstein 2015 OHCA reporting template
+
+The Utstein Style is a set of guidelines for uniform reporting of cardiac arrest. The Utstein Style was first proposed for emergency medical services in 1991. The name derives from a 1990 conference of the European Society of Cardiology, the European Academy of Anesthesiology, the European Society for Intensive Care Medicine, and related national societies, held at the Utstein Abbey on the island of Mosterøy, Norway.
+
+You can access the complete consensus article here: https://www.ahajournals.org/doi/10.1161/hcq.0000000000000024 
+
 ## Data sources
 
 
