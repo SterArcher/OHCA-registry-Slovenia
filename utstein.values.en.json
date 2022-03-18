@@ -392,7 +392,8 @@
             "values": {
                 "null": "Not recorded",
                 "-1": "Unknown",
-                ">=0": "value"
+                "0": "False",
+                "1": "True"
             },
             "core": false
         },
