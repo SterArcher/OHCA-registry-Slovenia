@@ -1,0 +1,97 @@
+{
+    "caseID": "00d64fae-96a5-477e-bd4f-4261dad3aac0",
+    "systemID": "bf82361d-3d07-4900-a058-6126be2a763d",
+    "localID": "11935e0d-1e3a-4532-b876-8e37362b2e30",
+    "dispIdentifiedCA": 1,
+    "dispProvidedCPRinst": 1,
+    "age": 35,
+    "gender": 1,
+    "witnesses": 3,
+    "location": 6,
+    "bystanderResponse": 2,
+    "bystanderResponseTime": 7438,
+    "bystanderAED": 1,
+    "bystanderAEDTime": 7484,
+    "deadOnArrival": 0,
+    "firstMonitoredRhy": 3,
+    "pathogenesis": 5,
+    "independentLiving": 1,
+    "comorbidities": 1,
+    "vad": 0,
+    "cardioverterDefib": 1,
+    "stemiPresent": 0,
+    "responseTime": 503,
+    "defibTime": 800,
+    "ttm": 4,
+    "drugs": 7,
+    "airwayControl": 0,
+    "cprQuality": 1,
+    "shocks": 5,
+    "drugTimings": {
+        "adrenaline": 30,
+        "amiodarone": 65,
+        "vasopressin": 104
+    },
+    "vascularAccess": 1,
+    "mechanicalCPR": 3,
+    "targetVent": 0,
+    "reperfusionAttempt": 0,
+    "reperfusionTime": 7,
+    "ecls": 0,
+    "iabp": -2,
+    "ph": 7.40000,
+    "lactate": -1.00000,
+    "glucose": -1.00000,
+    "neuroprognosticTests": {
+        "eeg": {
+            "status": 1,
+            "timing": 5,
+            "discontinuedCare": false
+        },
+        "nevroCT": {
+            "status": 0,
+            "timing": 0,
+            "discontinuedCare": false
+        },
+        "nevroMRI": {
+            "status": 0,
+            "timing": 0,
+            "discontinuedCare": false
+        },
+        "klinicniPregl": {
+            "status": 0,
+            "timing": 0,
+            "discontinuedCare": false
+        },
+        "other": [{
+            "imeTesta": "Asked “You good?”",
+            "status": 1,
+            "timing": 5,
+            "discontinuedCare": false
+        }]
+    },
+    "specialistHospital": 0,
+    "hospitalVolume": 50,
+    "ecg": 0,
+    "ecgBLOB": "base64 encoded ecg graph",
+    "targetBP": 60,
+    "survived": 1,
+    "rosc": 0,
+    "roscTime": 0,
+    "30dSurvivalDischarge": 1,
+    "cpcDischarge": 1,
+    "mrsDischarge": 1,
+    "survivalStatus": -1,
+    "transportToHospital": 1,
+    "treatmentWithdrawn": 0,
+    "cod": null,
+    "organDonation": 0,
+    "patientReportedOutcome": "Amazing, loved the experience!",
+    "qualityOfLife": {
+        "status": 1,
+        "tests": [{
+            "name": "EQ-5D",
+            "score": 0.9
+        }]
+    }
+}
