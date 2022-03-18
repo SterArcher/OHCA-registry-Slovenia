@@ -467,6 +467,17 @@
             },
             "core": true
         },
+        "roscTime": {
+            "title": "Time of ROSC",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "No ROSC",
+                ">0": "value"
+            },
+            "description": "Time of ROSC in seconds",
+            "core": true
+        },
         "30dSurvivalDischarge": {
             "title": "30-d survival or survival to discharge",
             "values": {
