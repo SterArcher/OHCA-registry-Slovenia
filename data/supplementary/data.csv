@@ -1,0 +1,60 @@
+﻿Domain;Element;Elements;PNI;PPO;PNRV;SI;COMPUTEL/ZD MB;PPP;NIJZ (SMRT);DISP;BOLNICE/LIFEPAK;values
+System;System core;Oskrbovana populacija;0;0;0;1;1;0;0;0;0;1
+System;System core;Število srčnih zastojev;0;0;0;0;0;0;0;0;0;1
+System;System core;Število primerov s poskusom oživljanja;0;0;0;0;0;0;0;0;0;1
+System;System core;Število primerov brez poskusa oživljanja;0;0;0;0;0;0;1;0;0;1
+System;System core;Opis sistema;0;0;0;0;0;1;0;0;0;1
+System;System supplemental;Dodaten opis sistema;0;0;0;0;0;0;0;0;0;1
+Dispatch;Dispatch core;Dispečer je prepoznal prisotnost zastoja srca;0;0;0;0;0;0;0;1;0;1
+Dispatch;Dispatch core;Dispečer je posredoval navodila za TPO;0;0;0;0;0;0;0;1;0;1
+Patient;Patient core;Starost;1;1;1;1;1;1;0;0;0;1
+Patient;Patient core;Spol;1;1;1;1;1;1;0;0;0;1
+Patient;Patient core;Priče zastoja;1;1;0;0;1;0;0;0;0;1
+Patient;Patient core;Lokacija zastoja;0;0;1;1;1;1;0;0;0;1
+Patient;Patient core;Odziv očividca;0;1;0;0;1;1;0;0;0;1
+Patient;Patient core;Uporaba AED;0;1;0;0;1;1;0;0;0;1
+Patient;Patient core;Prvi zaznan ritem;0;1;0;0;1;0;0;0;0;1
+Patient;Patient core;Patogeneza;0;1;0;0;1;0;0;0;0;1
+Patient;Patient supplemental;Samostojno življenje;0;0;0;0;0;0;0;0;0;1
+Patient;Patient supplemental;Pridružene bolezni;0;1;0;0;1;0;0;0;1;1
+Patient;Patient supplemental;VAD;0;0;0;0;0;0;0;0;0;1
+Patient;Patient supplemental;Kardiokonverter defibrilator;1;1;1;1;1;0;0;0;0;1
+Patient;Patient supplemental;Prisoten STEMI;1;0;0;0;1;0;0;0;0;1
+Process;Process core;Odzivni čas;0;1;0;0;1;1;0;1;0;1
+Process;Process core;Čas do defibrilacije;0;0;0;0;0;0;0;0;1;1
+Process;Process core;Terapevtska hipotermija;0;1;0;0;1;1;0;0;0;1
+Process;Process core;Zdravila;0;0;1;0;1;0;0;0;0;1
+Process;Process supplemental;Tip nadzora dihalne poti;0;1;0;0;1;0;0;0;0;1
+Process;Process supplemental;Kvaliteta TPO;0;1;0;0;1;0;0;0;1;1
+Process;Process supplemental;Število elektrošokov;0;0;0;0;0;0;0;0;1;1
+Process;Process supplemental;Čas do aplikacije zdravil;0;0;1;0;1;0;0;0;0;1
+Process;Process supplemental;Vaskularna pot;1;1;1;0;1;0;0;0;0;1
+Process;Process supplemental;Mehanski stiski prnega koša;0;0;0;0;0;1;0;0;0;1
+Process;Process supplemental;Ciljana okisgenacija/ventilacija;0;0;0;0;0;0;0;0;0;1
+Post Resurection Process;Post Resurection Process core;Poskus reperfuzije;0;0;0;0;0;0;0;0;1;1
+Post Resurection Process;Post Resurection Process supplemental;ECLS;0;0;0;0;0;0;0;0;1;1
+Post Resurection Process;Post Resurection Process supplemental;IABP;0;0;0;0;0;0;0;0;0;1
+Post Resurection Process;Post Resurection Process supplemental;pH;0;0;0;0;0;0;0;0;0;1
+Post Resurection Process;Post Resurection Process supplemental;Laktat;0;0;0;0;0;0;0;0;0;1
+Post Resurection Process;Post Resurection Process supplemental;Glukoza;0;0;1;0;1;0;0;0;0;1
+Post Resurection Process;Post Resurection Process supplemental;Število in tip nevroprognostičnih testov;0;0;0;0;0;0;0;0;1;1
+Post Resurection Process;Post Resurection Process supplemental;CT;0;0;0;0;0;0;0;0;1;1
+Post Resurection Process;Post Resurection Process supplemental;MRI;0;0;0;0;0;0;0;0;1;1
+Post Resurection Process;Post Resurection Process supplemental;Klinični pregled;0;0;0;0;0;0;0;0;1;1
+Post Resurection Process;Post Resurection Process supplemental;Drugo;0;0;0;0;0;0;0;0;1;1
+Post Resurection Process;Post Resurection Process supplemental;Časovnica pregledov;0;0;0;0;0;0;0;0;1;1
+Post Resurection Process;Post Resurection Process supplemental;Tip bolnišnice;0;1;0;0;1;0;0;0;1;1
+Post Resurection Process;Post Resurection Process supplemental;Obremenitev bolnišnice;0;0;0;0;0;0;0;0;1;1
+Post Resurection Process;Post Resurection Process supplemental;EKG z 12 odvodi;1;1;1;0;1;0;0;0;0;1
+Post Resurection Process;Post Resurection Process supplemental;Ciljano upravljanje krvnega pritiska;0;0;0;0;0;0;0;0;0;1
+Outcome;Outcome core;Preživetje;0;1;0;0;1;1;1;0;0;1
+Outcome;Outcome core;ROSC;0;1;0;0;1;0;0;0;0;1
+Outcome;Outcome core;30-dnevno preživetje ali preživetje do odpusta;0;0;0;0;0;0;0;0;1;1
+Outcome;Outcome core;Nevrološki izid ob odpustu;0;1;0;0;1;0;0;0;0;1
+Outcome;Outcome supplemental;Status preživetja;0;1;0;0;1;1;0;0;0;1
+Outcome;Outcome supplemental;Transport v bolnišnico;0;1;0;0;1;0;0;0;0;1
+Outcome;Outcome supplemental;Zdravljenje prekinjeno;0;0;0;0;0;0;0;0;0;1
+Outcome;Outcome supplemental;Vzrok smrti;0;1;0;0;1;0;1;0;0;1
+Outcome;Outcome supplemental;Donacije organov;0;0;0;0;0;0;0;0;0;1
+Outcome;Outcome supplemental;Pacientovo poročilo o izidu;0;0;0;0;0;0;0;0;0;1
+Outcome;Outcome supplemental;Opredelitev kvalitete življenja;0;0;0;0;0;0;0;0;0;1
