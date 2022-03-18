@@ -546,8 +546,8 @@
             "values": {
                 "null": "Not recorded",
                 "-1": "Unknown",
-                "0": "not a donor"
-                "1": "donor"
+                "0": "Not a donor",
+                "1": "Donor"
             },
             "description": "Is this patient an organ donor",
             "core": false
