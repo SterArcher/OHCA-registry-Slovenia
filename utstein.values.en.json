@@ -90,6 +90,16 @@
             },
             "core": true
         },
+        "bystanderResponseTime": {
+            "title": "Time of beggining of CPR by bystanders",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "Not administered",
+                ">0": "value"
+            },
+            "core": true
+        },
         "bystanderAED": {
             "title": "Bystander AED use",
             "values": {
@@ -98,6 +108,16 @@
                 "0": "Not used",
                 "1": "AED used, shock not delivered",
                 "2": "AED used, shock delivered"
+            },
+            "core": true
+        },
+        "bystanderAEDTime": {
+            "title": "Time of first AED shock administered by bystanders",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "Not administered",
+                ">0": "value"
             },
             "core": true
         },
