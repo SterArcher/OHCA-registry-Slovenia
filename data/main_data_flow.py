@@ -1,7 +1,10 @@
 import plotly.graph_objects as go
+import plotly as plt
 import random
 
-# Imena
+# Uncomment the names you want the diagram to show
+
+# Names in english
 si = "Emergency call admission" #"sprejem intervencij"
 pni = "Emergency intervention report"  #"poročilo/protokol nujne intervencije"
 pnrv = "Emergency protocol of the out-of-hospital EMS" # "protokol nujnega reševalnega vozila"
@@ -16,6 +19,20 @@ api = "API"
 api_csv = "API/CSV"
 db = "Utstein database"
 
+# Names in Slovene
+# si = "Sprejem intervencij" #"sprejem intervencij"
+# pni = "Protokol nujne intervencije"  #"poročilo/protokol nujne intervencije"
+# pnrv = "Protokol nujnega reševalnega vozila" # "protokol nujnega reševalnega vozila"
+# ppo = "Protokol predbolnišničnega oživljanja" #"predbolnišnično oživljanje"
+# utst = "Dodatni protokol Utstein"
+# nijz = "NIJZ" #"NIJZ (v primeru smrti)"
+# hosp = "Bolnišnice" # Večinoma v obliki protokola triaže,statusa/anamneze/rezultatov diagnostike in odpustnice
+# disp = "Dispečerska služba zdravstva"
+# ppp = "Protokol prvih posredovalcev"
+# comp = "Ponudnik informacijske tehnologije" #"Computel"
+# api = "API"
+# api_csv = "API/CSV"
+# db = "Baza podatkov Utstein"
 
 
 def random_color_generator():
@@ -23,7 +40,6 @@ def random_color_generator():
     g = random.randint(0, 255)
     b = random.randint(0, 255)
     return [r, g, b]
-    #"rgba(" + str(r) + "," + str(g) + "," + str(b) + "," + str(opacity) + ")"
 
 colors, colors_conn = [], []
 for i in range(20):
@@ -70,5 +86,12 @@ fig = go.Figure(data = [go.Sankey(
             color = colors_conn))]) # 'rgb(220,220,220)'
 
 fig.update_layout(title_text="Representation of data flow for the Slovenian OHCA registry based on the Utstein protocol.", font_size=10)
-
+# fig.update_layout(title_text="Prikaz pretoka podatkov za Register slovenskih predbolnišničnih srčnih dogodkov v skladu s protokolom Utstein.", font_size=10)
 fig.show()
+# import plotly.io as pio
+# pio.write_image(fig, "data/images/data_flow.png", format="png")
+# fig.to_image(format="png", engine="kaleido")
+# fig.write_image("data/images/data_flow.png")
+#
+
+# fig.write_html("data/images/file.html")
