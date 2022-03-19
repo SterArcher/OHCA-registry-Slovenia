@@ -2,16 +2,16 @@ import plotly.graph_objects as go
 import random
 
 # Imena
-si = "sprejem intervencij"
-pni = "poročilo/protokol nujne intervencije"
-pnrv = "protokol nujnega reševalnega vozila"
-ppo = "predbolnišnično oživljanje"
+si = "Emergency call admission" #"sprejem intervencij"
+pni = "Emergency intervention report"  #"poročilo/protokol nujne intervencije"
+pnrv = "Emergency protocol of the out-of-hospital EMS" # "protokol nujnega reševalnega vozila"
+ppo = "Out-of-hospital CPR" #"predbolnišnično oživljanje"
 utst = "Supplementary Utstein protocol"
-nijz = "NIJZ (v primeru smrti)"
-hosp = "Hospitals" # LIFEPAK ?
+nijz = "National Institute of Public Health" #"NIJZ (v primeru smrti)"
+hosp = "Hospitals" # Večinoma v obliki protokola triaže,statusa/anamneze/rezultatov diagnostike in odpustnice
 disp = "Dispatch service"
 ppp = "First responders"
-comp = "Computel"
+comp = "IT system provider" #"Computel"
 api = "API"
 api_csv = "API/CSV"
 db = "Utstein database"
