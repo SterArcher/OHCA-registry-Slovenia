@@ -19,7 +19,8 @@ You can access the complete consensus article here: https://www.ahajournals.org/
 
 Data flow is for only in Slovenian for now.
 
-![data_flow](https://user-images.githubusercontent.com/29688990/159116699-f68a29a5-d8ce-4c8f-8366-760bf7ba7910.png)
+![data_flow_en](https://user-images.githubusercontent.com/29688990/159154352-cce8fc44-b93c-486a-b77f-d8ef929aee5b.png)
+
 
 
 ## Funding
