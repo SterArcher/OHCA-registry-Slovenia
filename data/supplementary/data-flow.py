@@ -1,11 +1,9 @@
-
+# THIS DIAGRAM WOULD REQUIRE SOME CHANGES IF WE DECIDE TO USE IT
 
 import plotly.graph_objects as go
 import csv
 import pandas as pd
 import random
-
-# ne se dotikat vrstnega reda stolpcev
 
 with open("data.csv", 'r',encoding='utf8') as csvfile:
     csvreader = csv.reader(csvfile)

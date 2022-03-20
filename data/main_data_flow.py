@@ -18,21 +18,24 @@ comp = "IT system provider" #"Computel"
 api = "API"
 api_csv = "API/CSV"
 db = "Utstein database"
+title_text = "Representation of data flow for the Slovenian OHCA registry based on the Utstein protocol."
+
 
 # Names in Slovene
-# si = "Sprejem intervencij" #"sprejem intervencij"
-# pni = "Protokol nujne intervencije"  #"poročilo/protokol nujne intervencije"
-# pnrv = "Protokol nujnega reševalnega vozila" # "protokol nujnega reševalnega vozila"
-# ppo = "Protokol predbolnišničnega oživljanja" #"predbolnišnično oživljanje"
-# utst = "Dodatni protokol Utstein"
-# nijz = "NIJZ" #"NIJZ (v primeru smrti)"
-# hosp = "Bolnišnice" # Večinoma v obliki protokola triaže,statusa/anamneze/rezultatov diagnostike in odpustnice
-# disp = "Dispečerska služba zdravstva"
-# ppp = "Protokol prvih posredovalcev"
-# comp = "Ponudnik informacijske tehnologije" #"Computel"
-# api = "API"
-# api_csv = "API/CSV"
-# db = "Baza podatkov Utstein"
+si = "Sprejem intervencij" #"sprejem intervencij"
+pni = "Protokol nujne intervencije"  #"poročilo/protokol nujne intervencije"
+pnrv = "Protokol nujnega reševalnega vozila" # "protokol nujnega reševalnega vozila"
+ppo = "Protokol predbolnišničnega oživljanja" #"predbolnišnično oživljanje"
+utst = "Dodatni protokol Utstein"
+nijz = "NIJZ" #"NIJZ (v primeru smrti)"
+hosp = "Bolnišnice" # Večinoma v obliki protokola triaže,statusa/anamneze/rezultatov diagnostike in odpustnice
+disp = "Dispečerska služba zdravstva"
+ppp = "Protokol prvih posredovalcev"
+comp = "Ponudnik informacijske tehnologije" #"Computel"
+api = "API"
+api_csv = "API/CSV"
+db = "Baza podatkov Utstein"
+title_text = "Prikaz pretoka podatkov za Register slovenskih predbolnišničnih srčnih dogodkov v skladu s protokolom Utstein."
 
 
 def random_color_generator():
@@ -73,7 +76,10 @@ for key in connections:
     targets.append(key[1])
     values.append(connections[key])
 
+
 fig = go.Figure(data = [go.Sankey(
+    valueformat = ".0f",
+    valuesuffix = "TWh",
     node = dict(pad = 15,
             thickness = 20,
             line = dict(color="black", width = 0.5),
@@ -85,13 +91,10 @@ fig = go.Figure(data = [go.Sankey(
             #label = 'label',
             color = colors_conn))]) # 'rgb(220,220,220)'
 
-fig.update_layout(title_text="Representation of data flow for the Slovenian OHCA registry based on the Utstein protocol.", font_size=10)
-# fig.update_layout(title_text="Prikaz pretoka podatkov za Register slovenskih predbolnišničnih srčnih dogodkov v skladu s protokolom Utstein.", font_size=10)
-fig.show()
-# import plotly.io as pio
-# pio.write_image(fig, "data/images/data_flow.png", format="png")
-# fig.to_image(format="png", engine="kaleido")
-# fig.write_image("data/images/data_flow.png")
-#
+fig.update_layout(title=dict(text=title_text, font=dict(size = 20, color = 'gray')),
+font=dict(size = 12, color = 'black'),
+paper_bgcolor="rgba(0,0,0,0)",
+plot_bgcolor="rgba(0,0,0,0)")
 
-# fig.write_html("data/images/file.html")
+fig.show()
+

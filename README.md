@@ -21,9 +21,6 @@ Data flow is for only in Slovenian for now.
 
 ![data_flow_en2](https://user-images.githubusercontent.com/42324122/159179750-65370784-fbf8-45b7-9002-d357336e8d22.png)
 
-![data_flow_en](https://user-images.githubusercontent.com/29688990/159154352-cce8fc44-b93c-486a-b77f-d8ef929aee5b.png)
-
-
 
 ## Funding
 This project is funded by University of Maribor Faculty of medicine.
