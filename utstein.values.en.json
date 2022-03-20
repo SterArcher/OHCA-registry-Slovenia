@@ -57,8 +57,8 @@
                 "-1": "Unknown",
                 "0": "None",
                 "1": "Bystander",
-                "2": "NMP",
-                "3": "Bystander & NMP"
+                "2": "EMS",
+                "3": "Bystander & EMS"
             },
             "core": true
         },
@@ -632,7 +632,7 @@
         },
         "firendlyName": {
             "title": "Friendly name",
-            "description": "Human readable name of locale"
+            "description": "Human readable name of system"
         },
         "population": {
             "title": "Population served",
@@ -661,7 +661,7 @@
         },
         "description": {
             "title": "System description",
-            "description": "JSON: Number and type of EMS tier; providers’ skill set; number of EMS calls, excluding interfacility transfers; population served based on census data; footprint served in square kilometers or square miles"
+            "description": "JSON: Number and type of EMS tier; providers’ skill set; number of EMS calls, excluding interfacility transfers; population served based on census data; footprint served in square kilometers"
         },
         "descriptionSupplemental": {
             "title": "System description (supplemental)"
