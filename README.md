@@ -14,7 +14,7 @@ This is an interdisciplinary student project. It is run by University of Maribor
 Out-of-hospital cardiac arrest (OHCA) describes the loss of mechanical cardiac function and the absence of systemic circulation. Time is crucial, with a lack of perfusion leading to continual cell death; with each second that passes the possibility of a good outcome decreases. Despite a long history of trying to improve how we manage OHCA, survival remains dismally low. Only over the past 5 years have clinicians begun to see meaningful improvements in prognosis and neurological outcomes. Globally, it is estimated that on average, less than 10% of all patients with OHCA will survive. 
 
 [Lancet T. Out-of-hospital cardiac arrest: a unique medical emergency. The Lancet. 2018 Mar 10;391(10124):911. 
-](https://doi.org/10.1016/S0140-6736(18)30552-X).
+](https://doi.org/10.1016/S0140-6736(18)30552-X)
 
 ## Utstein 2015 OHCA reporting template
 
