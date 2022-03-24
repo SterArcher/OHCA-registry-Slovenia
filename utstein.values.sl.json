@@ -17,6 +17,7 @@
         },
         "dispIdentifiedCA": {
             "title": "Dispečer je prepoznal prisotnost zastoja srca",
+            "source": "Dispečerska služba zdravstva",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -27,6 +28,7 @@
         },
         "dispProvidedCPRinst": {
             "title": "Dispečer je posredoval navodila za TPO",
+            "source": "Dispečerska služba zdravstva",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -37,11 +39,13 @@
         },
         "age": {
             "title": "Starost",
-            "description": "Starost pacienta ob dogodku",
+            "source": "Datum rojstva",
+            "description": "Starost pacienta ob dogodku - datum rojstva ali starost v letih",
             "core": true
         },
         "gender": {
             "title": "Spol",
+            "source": "Spol",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -52,6 +56,7 @@
         },
         "witnesses": {
             "title": "Priče zastoja",
+            "source": "Pred prihodom NMP (poročilo o nujnem reševlnem prevozu), Zastoj srca se je zgodil (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -64,6 +69,7 @@
         },
         "location": {
             "title": "Lokacija zastoja",
+            "source": "Lokacija dogodka (poročilo o nujnem reševalnem prevozu), Kraj dogodka (sprejem intervencij)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -81,6 +87,7 @@
         },
         "bystanderResponse": {
             "title": "Odziv očividca",
+            "source": "Opis dogodka pred prihodom NMP, Pred prihodom ekipe NMP (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -92,6 +99,7 @@
         },
         "bystanderResponseTime": {
             "title": "Začetek izvajanja TPO očividcev",
+            "source": "Čas ob začetku oživljanja (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -102,6 +110,7 @@
         },
         "bystanderAED": {
             "title": "Uporaba AED",
+            "source": "AED je / ni bil na voljo, Uspešnost AED pred prihodom ekipe NMP (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -113,6 +122,7 @@
         },
         "bystanderAEDTime": {
             "title": "Čas prvega AED šoka očividcev",
+            "source": "Prvi AED izvid (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -123,6 +133,7 @@
         },
         "deadOnArrival": {
             "title": "Mrtvogled",
+            "source": "Število mrtvih ob prihodu ekipe - oživljanje ni bilo indicirano (sprejem intervencij)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -133,6 +144,7 @@
         },
         "firstMonitoredRhy": {
             "title": "Prvi zaznan ritem",
+            "source": "Prvi EKG pri oživljanju, Prvi AED izvid (protokol predbolnišničnega življenja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -148,6 +160,7 @@
         },
         "pathogenesis": {
             "title": "Patogeneza",
+            "source": "Vzrok zastoja (protokol predbolnišničnega oživljanja), Zastrupitev, Prepovedane droge (protokol nujnega reševalnega vozila)",
             "values": {
                 "null": "Ni zapisa",
                 "1": "Zdravstvena težava",
@@ -162,6 +175,7 @@
         },
         "independentLiving": {
             "title": "Samostojno življenje",
+            "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -173,6 +187,7 @@
         },
         "comorbidities": {
             "title": "Pridružene bolezni",
+            "source": "Diagnoze (protokol nujne intervencije), bolnišnice",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -183,6 +198,7 @@
         },
         "vad": {
             "title": "VAD",
+            "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -193,6 +209,7 @@
         },
         "cardioverterDefib": {
             "title": "Kardioverter-defibrilator",
+            "source": "Zunanji srčni spodbujevalec (protokol nujne intervencije)", 
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -204,6 +221,7 @@
         },
         "stemiPresent": {
             "title": "Prisoten STEMI",
+            "source": "STEMI (protokol predbolnišničnega oživljanja), EKG izvid (protokol nujne intervencije)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -214,26 +232,29 @@
         },
         "responseTime": {
             "title": "Odzivni čas",
+            "source": "Čas klica, Čas prihoda do pacienta (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 ">0": "value"
             },
-            "description": "Odzivni čas v sekundah",
+            "description": "Odzivni čas v sekundah - od časa sprejema klica do prihoda do pacienta",
             "core": true
         },
         "defibTime": {
             "title": "Čas do defibrilacije",
+            "source": "Poročilo prvih posredovalcev, Lifepak",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 ">0": "value"
             },
-            "description": "Čas do defibrilacije v sekundah",
+            "description": "Čas do defibrilacije v sekundah - čas od sprejema klica do prvega šoka",
             "core": true
         },
         "ttm": {
             "title": "Terapevtska hipotermija",
+            "source": "Terapevtska hipotermija (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -247,6 +268,7 @@
         },
         "ttmTemp": {
             "title": "TTM Temperatura",
+            "source": "Terapevtska hipotermija (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -257,6 +279,7 @@
         },
         "drugs": {
             "title": "Aplicirana zdravila",
+            "source": "Zdravila - adrenalin, amiodaron, glukoza, razno (proočilo o nujnem reševalnem prevozu)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -270,6 +293,7 @@
         },
         "airwayControl": {
             "title": "Tip nadzora dihalne poti",
+            "source": "Posegi ekipe za prevoz pacienta (poročilo o nujnem reševalnem prevozu), Alternativna dihalna pot (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -284,6 +308,7 @@
         },
         "cprQuality": {
             "title": "Kvaliteta TPO",
+            "source": "Komentar o poteku oživljanja (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -294,6 +319,7 @@
         },
         "shocks": {
             "title": "Število elektrošokov",
+            "source": "Lifepak, Prvi posredovalci",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -303,11 +329,13 @@
         },
         "drugTimings": {
             "title": "Čas do aplikacije zdravil",
+            "source": "Zdravila - adrenalin, amiodaron, glukoza, razno (proočilo o nujnem reševalnem prevozu)",
             "description": "JSON, kot opisan",
             "core": false
         },
         "vascularAccess": {
             "title": "Vaskularna pot",
+            "source": "Venska pot, druge poti (protokol predbolnišničnega oživljanja), Oskrba (protokol nujne intervencije)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -321,6 +349,7 @@
         },
         "mechanicalCPR": {
             "title": "Mehanski stiski prnega koša",
+            "source": "Prvi posredovalci",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -333,6 +362,7 @@
         },
         "targetVent": {
             "title": "Ciljana okisgenacija/ventilacija",
+            "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -346,6 +376,7 @@
         },
         "reperfusionAttempt": {
             "title": "Poskus reperfuzije",
+            "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -359,6 +390,7 @@
         },
         "reperfusionTime": {
             "title": "Čas do poskusa reperfuzije",
+            "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -370,6 +402,7 @@
         },
         "ecls": {
             "title": "ECLS",
+            "source": "Bolnišnice",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -381,6 +414,7 @@
         },
         "iabp": {
             "title": "IABP",
+            "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -391,6 +425,7 @@
         },
         "ph": {
             "title": "pH krvi",
+            "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -400,6 +435,7 @@
         },
         "lactate": {
             "title": "Laktate",
+            "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -409,6 +445,7 @@
         },
         "glucose": {
             "title": "Glukoza",
+            "source": "zdravilo - odmerek, čas, pot (protokol nujnega reševalnega vozila)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -419,11 +456,13 @@
         },
         "neuroprognosticTests": {
             "title": "Število in vrsta nevroprognostičnih testov",
+            "source": "Bolnišnice",
             "description": "JSON, kot opisan",
             "core": false
         },
         "specialistHospital": {
             "title": "Tip bolnišnice",
+            "source": "Sprejemna bolnišnica, Sprejemna ambulanta (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -435,6 +474,7 @@
         },
         "hospitalVolume": {
             "title": "Obremenitev bolnišnice",
+            "source": "Bolnišnice",
             "values": {
                 ">=0": "value"
             },
@@ -443,6 +483,7 @@
         },
         "ecg": {
             "title": "EKG z 12 odvodi",
+            "source": "Prvi EKG pri oživljanju (protokol predbolnišničnega oživljanja), EKG frekvenca (protokol nujne intervencije, poročilo o nujnem reševalnem prevozu)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -453,12 +494,14 @@
         },
         "ecgBLOB": {
             "title": "EKG datoteka",
+            "source": "Dodan EKG zapis proočilu (protokol nujne intervencije, poročilo o nujnem reševalnem prevozu)",
             "values": "BLOB",
             "description": "EKG datoteka kot base64 kodirani podatki",
             "core": false
         },
         "targetBP": {
             "title": "Ciljano upravljanje krvnega pritiska",
+            "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -470,6 +513,7 @@
         },
         "survived": {
             "title": "Preživetje",
+            "source": "Datum odpusta / Datum smrti (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -480,6 +524,7 @@
         },
         "rosc": {
             "title": "ROSC",
+            "source": "Stanje po intervenciji (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -490,6 +535,7 @@
         },
         "roscTime": {
             "title": "Čas do ROSC",
+            "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -501,6 +547,7 @@
         },
         "30dSurvivalDischarge": {
             "title": "30-dnevno preživetje ali preživetje do odpusta",
+            "source": "Bolnišnice",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -511,6 +558,7 @@
         },
         "cpcDischarge": {
             "title": "Nevrološki izid ob odpustu (CPC)",
+            "source": "Vrednost CPC ob odpustu (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -520,6 +568,7 @@
         },
         "mrsDischarge": {
             "title": "Nevrološki izid ob odpustu (mRS)",
+            "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -529,16 +578,19 @@
         },
         "survivalStatus": {
             "title": "Status preživetja",
+            "source": "V bolnišnici, Sprejemna bolnišnica (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 "0": "Ne",
                 "1": "Da"
             },
+            "description": "Opisuje preživetje dogodka do sprejema v bolnišnico",
             "core": false
         },
         "transportToHospital": {
             "title": "Transport v bolnišnico",
+            "source": "Prevoz pacienta z ekipo NMP, prevoz pacientov z ekipo NMP (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -549,6 +601,7 @@
         },
         "treatmentWithdrawn": {
             "title": "Zdravljenje prekinjeno (vključno s časom)",
+            "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -559,11 +612,13 @@
         },
         "cod": {
             "title": "Vzrok smrti",
+            "source": "Bolezen ali stanje, ki je prispevalo k nastopu smrti (protokol predbolnišničnega oživljanja)",
             "description": "Vzrok smrti kot koda MKB-10-AM ver. 6",
             "core": false
         },
         "organDonation": {
             "title": "Donacija organov",
+            "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -575,11 +630,13 @@
         },
         "patientReportedOutcome": {
             "title": "Pacientovo poročilo o izidu",
+            "source": "/",
             "description": "Izidi, ki jih pacient opredeli kot pomembne",
             "core": false
         },
         "qualityOfLife": {
             "title": "Opredelitev kvalitete življenja (standardizirani vprašalniki, npr. EQ-5D, SF-12)",
+            "source": "/",
             "description": "JSON, kot opisan",
             "core": false
         }
