@@ -5,20 +5,21 @@ import random
 # Uncomment the names you want the diagram to show
 
 # Names in english
-si = "Emergency call admission" #"sprejem intervencij"
-pni = "Emergency intervention report"  #"poročilo/protokol nujne intervencije"
-pnrv = "Emergency protocol of the out-of-hospital EMS" # "protokol nujnega reševalnega vozila"
-ppo = "Out-of-hospital CPR" #"predbolnišnično oživljanje"
-utst = "Supplementary Utstein protocol"
-nijz = "National Institute of Public Health" #"NIJZ (v primeru smrti)"
-hosp = "Hospitals" # Večinoma v obliki protokola triaže,statusa/anamneze/rezultatov diagnostike in odpustnice
-disp = "Dispatch service"
-ppp = "First responders"
-comp = "IT system provider" #"Computel"
-api = "API"
-api_csv = "API/CSV"
-db = "Utstein database"
-title_text = "Representation of data flow for the Slovenian OHCA registry based on the Utstein protocol."
+# sta = "Statistical Office"
+# si = "Emergency call admission" #"sprejem intervencij"
+# pni = "Emergency intervention report"  #"poročilo/protokol nujne intervencije"
+# pnrv = "Emergency protocol of the out-of-hospital EMS" # "protokol nujnega reševalnega vozila"
+# ppo = "Out-of-hospital CPR" #"predbolnišnično oživljanje"
+# utst = "Supplementary Utstein protocol"
+# nijz = "National Institute of Public Health" #"NIJZ (v primeru smrti)"
+# hosp = "Hospitals" # Večinoma v obliki protokola triaže,statusa/anamneze/rezultatov diagnostike in odpustnice
+# disp = "Dispatch service"
+# ppp = "First responders"
+# comp = "IT system provider" #"Computel"
+# api = "API"
+# api_csv = "API/CSV"
+# db = "Utstein database"
+# title_text = "Representation of data flow for the Slovenian OHCA registry based on the Utstein protocol."
 
 
 # Names in Slovene
@@ -32,6 +33,7 @@ hosp = "Bolnišnice" # Večinoma v obliki protokola triaže,statusa/anamneze/rez
 disp = "Dispečerska služba zdravstva"
 ppp = "Protokol prvih posredovalcev"
 comp = "Ponudnik informacijske tehnologije" #"Computel"
+sta = "Statistični urad"
 api = "API"
 api_csv = "API/CSV"
 db = "Baza podatkov Utstein"
@@ -45,7 +47,7 @@ def random_color_generator():
     return [r, g, b]
 
 colors, colors_conn = [], []
-for i in range(20):
+for i in range(25):
     [r, g, b] = random_color_generator()
     colors.append("rgba(" + str(r) + "," + str(g) + "," + str(b) + "," + str(0.9) + ")")
     colors_conn.append("rgba(" + str(r) + "," + str(g) + "," + str(b) + "," + str(0.5) + ")")
@@ -58,6 +60,8 @@ for elt in elements:
     labels[elt] = counter
     counter += 1
 
+labels[sta] = counter
+
 protocols, rest = [si, pni, pnrv, ppo, utst], [nijz, hosp, disp, ppp]
 connections = dict()
 for protocol in protocols:
@@ -67,7 +71,7 @@ for elt in rest:
 connections[(labels[comp], labels[api])] = len(protocols)
 connections[(labels[api_csv], labels[db])] = len(rest)
 connections[(labels[api], labels[db])] = len(protocols)
-
+connections[(labels[sta], labels[db])] = 1
 
 label = list(labels.keys())
 sources, targets, values = [], [], []
