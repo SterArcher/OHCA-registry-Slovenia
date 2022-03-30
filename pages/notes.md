@@ -1,4 +1,0 @@
----
-layout: Post
-permalink: /notes
----
