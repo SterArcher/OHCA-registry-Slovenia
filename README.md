@@ -33,4 +33,6 @@ Data flow is for only in Slovenian for now.
 This project is funded by University of Maribor Faculty of medicine.
 
 ## Acknowledgements
-We would like to thank [System Software Laboratory](https://lspo.feri.um.si/index-en.php) for lending us their IT infrastructure. 
+We would like to thank:
+* [System Software Laboratory](https://lspo.feri.um.si/index-en.php) for lending us their IT infrastructure
+* [Štefan Baebler](https://github.com/stefanb) for giving us technical advice
