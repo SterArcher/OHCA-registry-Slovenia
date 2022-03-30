@@ -1,3 +1,7 @@
+layout: page
+title: "About"
+permalink: /about
+
 # OHCA registry Slovenia - pilot project
 
 
