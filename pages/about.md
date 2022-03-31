@@ -29,12 +29,21 @@ The Utstein Style is a set of guidelines for uniform reporting of cardiac arrest
 
 You can access the complete consensus article [here](https://www.ahajournals.org/doi/full/10.1161/CIR.0000000000000144).
 
-## Data sources
+## The team
 
-Data flow is for only in Slovenian for now.
+Mentors
+* Matej Strnad
+* Miha Brezovnik.
 
-![data_flow_en2](https://user-images.githubusercontent.com/42324122/159179750-65370784-fbf8-45b7-9002-d357336e8d22.png)
-
+Students:
+* Luka Petravić (please address all correspondence to this [email](mailto:luka.petravic@student.um.si))
+* Rok Miklič
+* Evgenija Burger
+* Eva Poljanšek
+* Urša Keše
+* Domen Kulovec
+* Gašper Tomič
+* Gašper Šircelj
 
 ## Funding
 This project is funded by University of Maribor Faculty of medicine.
