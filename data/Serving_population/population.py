@@ -70,7 +70,7 @@ for key in switch_labels:
   result[key] = values[counter]
   counter += 1
 
-df = pd.read_csv("data/population/preb.csv", sep=';',encoding='utf8')
+df = pd.read_csv("data/population/preb.csv", sep=',',encoding='utf8')
 df['index'] = df['obcina'].map(switch_labels)
 
 # we update the number of citizens with the values from the request
@@ -79,7 +79,7 @@ df['st_preb'] = df['obcina'].map(result)
 preb = df[["obcina", "enota_nmp", "povrsina", "st_preb"]]
 
 # we write this to csv and to xlsx
-preb.to_csv("data/population/preb.csv", index = False, sep=';', encoding='utf8')
+preb.to_csv("data/population/preb.csv", index = False, sep=',', encoding='utf8')
 preb.to_excel("data/population/preb.xlsx", index=False)
 
 zd = df[["obcina", "enota_nmp", "povrsina"]]
@@ -126,7 +126,5 @@ with open("data/population/enote_nmp.csv", 'w', encoding="utf-8") as csvfile:
 # convert to excel
 # pip install openpyxl
 df_new = pd.read_csv('data/population/enote_nmp.csv')
-GFG = pd.ExcelWriter('data/population/enote_nmp.xlsx')
-df_new.to_excel(GFG, index=False)
-GFG.save()
+df_new.to_excel('data/population/enote_nmp.xlsx', index=False)
     
