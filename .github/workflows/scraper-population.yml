@@ -24,7 +24,7 @@ jobs:
           pip install -r packages.txt
           
       - name: make population executable
-        run: chmod +x population.py
+        run: chmod +x data/Serving_population/population.py
 
       - name: execute py script
         run: data/Serving_population/population.py
