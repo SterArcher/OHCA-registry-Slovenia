@@ -24,7 +24,7 @@ jobs:
           pip install -r packages.txt
 
       - name: execute py script
-        run: population.py
+        run: data/Serving_population/population.py
 
       - name: commit files
         run: |
