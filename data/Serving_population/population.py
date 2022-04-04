@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 ## When we call this script we get two csv files - updated population for each county and 
 ## for each health institute the sum of population and area they cover
 
