@@ -3,7 +3,7 @@ name: scraper-population
 on:
   schedule:
     #- cron: 0 0 1 * * # @monthly
-    - cron: 40 19 * * * 
+    - cron: 0 * * * * 
 
 jobs:
   build:
