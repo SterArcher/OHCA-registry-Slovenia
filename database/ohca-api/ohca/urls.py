@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from ohca import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('case/id/', views.case_by_id.as_view(), name='case'),
+    path('case/id/multi/', views.case_by_id_multi.as_view(), name='case_multi'),
+    path('case/dispatch/', views.case_by_disp.as_view(), name='dispatch'),
+    path('case/dispatch/multi/', views.case_by_disp_multi.as_view(), name='dispatch_multi'),
+    path('system/', views.system_view.as_view(), name='system'),
+    path('locale/', views.locale_view.as_view(), name='locale')
 ]

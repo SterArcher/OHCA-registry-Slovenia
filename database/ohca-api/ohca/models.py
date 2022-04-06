@@ -14,6 +14,16 @@ class Locale(models.Model):
     description = models.JSONField(default = dict)
     descriptionSupplemental = models.TextField(null = True, blank = True)
     
+    def update(self, *args, **kwargs):
+        for name,values in kwargs.items():
+            if not(name == 'localID'):
+                try:
+                    setattr(self,name,values)
+                except KeyError:
+                    pass
+        self.save()
+        return True
+
     def __str__(self):
         return self.friendlyName
 
@@ -33,6 +43,16 @@ class System(models.Model):
     description = models.JSONField(default = dict)
     descriptionSupplemental = models.TextField(null = True, blank = True)
     
+    def update(self, *args, **kwargs):
+        for name,values in kwargs.items():
+            if not(name == 'systemID'):
+                try:
+                    setattr(self,name,values)
+                except KeyError:
+                    pass
+        self.save()
+        return True
+
     def __str__(self):
         return self.friendlyName
     
@@ -41,6 +61,7 @@ class System(models.Model):
 
 class CaseReport(models.Model):
     caseID = models.CharField(max_length = 32, primary_key = True)
+    dispatchID = models.CharField(max_length = 32, blank = True, null = True, unique = True)
     systemID = models.ForeignKey(System, on_delete = models.DO_NOTHING)
     localID = models.ForeignKey(Locale, on_delete = models.DO_NOTHING)
     dispIdentifiedCA = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
@@ -100,6 +121,16 @@ class CaseReport(models.Model):
     patientReportedOutcome = models.SmallIntegerField(null = True, blank = True)
     qualityOfLife = models.JSONField(default = dict)
     
+    def update(self, *args, **kwargs):
+        for name,values in kwargs.items():
+            if not(name == 'caseID'):
+                try:
+                    setattr(self,name,values)
+                except KeyError:
+                    pass
+        self.save()
+        return True
+
     def __str__(self):
         return self.caseID
     
