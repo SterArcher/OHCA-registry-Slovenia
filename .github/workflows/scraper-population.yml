@@ -1,8 +1,8 @@
 name: scraper-population
 
-on:
-  schedule:
-    - cron: 0 0 1 * * # @monthly
+on: [push, pull_request]
+  #schedule:
+    #- cron: 0 0 1 * * # @monthly
     #- cron: 0 * * * * 
 
 jobs:
@@ -21,8 +21,10 @@ jobs:
       - name: install python packages
         run: |
           python -m pip install --upgrade pip
-          python -m pip install --upgrade pip pandas
           pip install -r requirements.txt
+          python -m pip install --upgrade pip pandas
+          python -m pip install --upgrade pip openpyxl
+          
           
       - name: make population executable
         run: chmod +x data/Serving_population/population.py
