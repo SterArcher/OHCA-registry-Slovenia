@@ -209,7 +209,7 @@
         },
         "cardioverterDefib": {
             "title": "Kardioverter-defibrilator",
-            "source": "Zunanji srčni spodbujevalec (protokol nujne intervencije)", 
+            "source": "Zunanji srčni spodbujevalec (protokol nujne intervencije)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -545,7 +545,7 @@
             "description": "Čas do ROSC v sekundah",
             "core": true
         },
-        "30dSurvivalDischarge": {
+        "SurvivalDischarge30d": {
             "title": "30-dnevno preživetje ali preživetje do odpusta",
             "source": "Bolnišnice",
             "values": {

@@ -78,7 +78,7 @@
     "survived": 1,
     "rosc": 0,
     "roscTime": 0,
-    "30dSurvivalDischarge": 1,
+    "SurvivalDischarge30d": 1,
     "cpcDischarge": 1,
     "mrsDischarge": 1,
     "survivalStatus": -1,

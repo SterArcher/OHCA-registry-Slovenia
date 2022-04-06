@@ -498,7 +498,7 @@
             "description": "Time of ROSC in seconds",
             "core": true
         },
-        "30dSurvivalDischarge": {
+        "SurvivalDischarge30d": {
             "title": "30-d survival or survival to discharge",
             "values": {
                 "null": "Not recorded",
