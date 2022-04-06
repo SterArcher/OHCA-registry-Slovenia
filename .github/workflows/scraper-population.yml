@@ -1,9 +1,9 @@
 name: scraper-population
 
-on: [push, pull_request]
-  #schedule:
+on: #[push, pull_request]
+  schedule:
     #- cron: 0 0 1 * * # @monthly
-    #- cron: 0 * * * * 
+    - cron: 0 0 1 */3 * 
 
 jobs:
   build:
