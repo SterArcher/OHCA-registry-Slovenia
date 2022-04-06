@@ -25,7 +25,6 @@ jobs:
           python -m pip install --upgrade pip pandas
           python -m pip install --upgrade pip openpyxl
           
-          
       - name: make population executable
         run: chmod +x data/Serving_population/population.py
 
