@@ -74,6 +74,7 @@ Now we can finally run the server for the first time.
 
 ```bash
 pipenv shell # Enter the virtual environment
+./manage.py makemigrations
 ./manage.py migrate # Create the necessary db structures
 ./manage.py createsuperuser # Create a superuser for the admin console
 ./manage.py runserver # Actually run the server
