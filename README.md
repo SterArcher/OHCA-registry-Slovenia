@@ -1,3 +1,5 @@
+[![scraper-population](https://github.com/SterArcher/OHCA-registry-Slovenia/actions/workflows/scraper-population.yml/badge.svg)]
+
 # OHCA registry Slovenia - pilot project
 
 
