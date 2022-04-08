@@ -126,6 +126,9 @@ fn main() -> Result<(), io::Error> {
                     }
                     b_caseid = reqs_case.iter().all(|item| titles.keys().collect::<Vec<_>>().contains(&&item.to_string()));
                     b_dispid = reqs_disp.iter().all(|item| titles.keys().collect::<Vec<_>>().contains(&&item.to_string()));
+
+                    write!(writer, "{}\n", columns.join(","))?;
+
                     first_loop = false;
                     continue;
                 }
@@ -133,31 +136,42 @@ fn main() -> Result<(), io::Error> {
                 for title in columns {
                     match title {
                         "caseID" => {
-                            let name = data[titles["name"]];
-                            let surname = data[titles["surname"]];
-                            let timestamp = data[titles["timestamp"]];
-                            output.push(
-                                match b_caseid || name.len() == 0 || surname.len() == 0 || timestamp.len() == 0 {
-                                    false => calculate_caseid(name, surname, timestamp),
-                                    true => String::from("NULL")
-                                }
-                            );
+                            if !b_caseid {
+                                let name = data[titles["name"]];
+                                let surname = data[titles["surname"]];
+                                let timestamp = data[titles["timestamp"]];
+                                output.push(
+                                    match b_caseid || name.len() == 0 || surname.len() == 0 || timestamp.len() == 0 {
+                                        false => calculate_caseid(name, surname, timestamp),
+                                        true => String::from("NULL")
+                                    }
+                                );
+                            } else {
+                                output.push(String::from("NULL"));
+                            }
                         },
                         "dispatchID" => {
-                            let vehicle = data[titles["vehicle"]];
-                            let timestamp = data[titles["timestamp"]];
-                            output.push(
-                                match b_dispid || vehicle.len() == 0 || timestamp.len() == 0 {
-                                    false => calculate_dispatchid(vehicle, timestamp),
-                                    true => String::from("NULL")
-                                }
-                            );
+                            if !b_dispid {
+                                let vehicle = data[titles["vehicle"]];
+                                let timestamp = data[titles["timestamp"]];
+                                output.push(
+                                    match vehicle.len() == 0 || timestamp.len() == 0 {
+                                        false => calculate_dispatchid(vehicle, timestamp),
+                                        true => String::from("NULL")
+                                    }
+                                );
+                            } else {
+                                output.push(String::from("NULL"));
+                            }
                         },
                         title => {
                             output.push(
-                                match data[titles[title]] {
-                                    "" => String::from("NULL"),
-                                    value => String::from(value)
+                                match titles.get(title) {
+                                    Some(key) => match data[key.to_owned()] {
+                                            "" => String::from("NULL"),
+                                            value => String::from(value)
+                                        },
+                                    None => String::from("NULL")
                                 }
                             )
                         }
