@@ -145,12 +145,12 @@ fn main() -> Result<(), io::Error> {
                 for title in columns {
                     match title {
                         "caseID" => {
-                            if !b_caseid {
+                            if b_caseid {
                                 let name = data[titles["name"]];
                                 let surname = data[titles["surname"]];
                                 let timestamp = data[titles["timestamp"]];
                                 output.push(
-                                    match b_caseid || name.len() == 0 || surname.len() == 0 || timestamp.len() == 0 {
+                                    match name.len() == 0 || surname.len() == 0 || timestamp.len() == 0 {
                                         false => calculate_caseid(name, surname, timestamp),
                                         true => String::from("NULL")
                                     }
@@ -160,8 +160,8 @@ fn main() -> Result<(), io::Error> {
                             }
                         },
                         "dispatchID" => {
-                            if !b_dispid {
-                                let vehicle = data[titles["vehicle"]];
+                            if b_dispid {
+                                let vehicle = data[titles["vehicleID"]];
                                 let timestamp = data[titles["timestamp"]];
                                 output.push(
                                     match vehicle.len() == 0 || timestamp.len() == 0 {
