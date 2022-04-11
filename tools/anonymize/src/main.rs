@@ -67,6 +67,14 @@ fn main() -> Result<(), io::Error> {
                 .required(true)
                 .takes_value(true)
         )
+        .arg(
+            Arg::new("delimiter")
+                .help("Specifies delimiter.")
+                .short('d')
+                .long("delimiter")
+                .default_value(",")
+                .takes_value(true)
+        )
         .get_matches();
 
     let reqs_case = ["name", "surname", "timestamp"];
@@ -97,6 +105,7 @@ fn main() -> Result<(), io::Error> {
         "patientReportedOutcome", "qualityOfLife"
     ];
 
+    let delimiter = matches.value_of("delimiter").unwrap();
     let input = match matches.value_of("INPUT").unwrap() {
         "-" => {Input::Stdin(io::stdin())},
         filename => {Input::File(fs::File::open(Path::new(filename)).expect("No such file!"))}
@@ -115,7 +124,7 @@ fn main() -> Result<(), io::Error> {
         match read_line_lossy(&mut reader) {
             Ok(line) => {
                 // Main program
-                let data: Vec<&str> = line.split(',').collect();
+                let data: Vec<&str> = line.split(delimiter).collect();
                 let mut output: Vec<String> = Vec::new();
 
                 // Only run this on the first loop
@@ -127,7 +136,7 @@ fn main() -> Result<(), io::Error> {
                     b_caseid = reqs_case.iter().all(|item| titles.keys().collect::<Vec<_>>().contains(&&item.to_string()));
                     b_dispid = reqs_disp.iter().all(|item| titles.keys().collect::<Vec<_>>().contains(&&item.to_string()));
 
-                    write!(writer, "{}\n", columns.join(","))?;
+                    write!(writer, "{}\n", columns.join(delimiter))?;
 
                     first_loop = false;
                     continue;
@@ -178,7 +187,7 @@ fn main() -> Result<(), io::Error> {
                     } 
                 }
 
-                write!(writer, "{}\n", output.join(","))?;
+                write!(writer, "{}\n", output.join(delimiter))?;
             },
             Err(e) => {
                 if &e == "Reader empty" {
