@@ -6,6 +6,7 @@ use std::{
     collections::HashMap
 };
 use sha2::{Sha256, Digest};
+use unicode_bom::Bom;
 
 enum Input {
     File(fs::File),
@@ -127,11 +128,17 @@ fn main() -> Result<(), io::Error> {
                 let data: Vec<&str> = line.split(delimiter).collect();
                 let mut output: Vec<String> = Vec::new();
 
+                // Check for BOM
+                let bom = Bom::from(data[0].as_bytes());
+
                 // Only run this on the first loop
                 // Get the column titles
                 if first_loop {
                     for i in 0..data.len() {
-                        titles.insert(String::from(data[i]), i);
+                        match i {
+                            0 => {titles.insert(String::from(&data[i][bom.len()..]), i);},
+                            i => {titles.insert(String::from(data[i]), i);}
+                        }
                     }
                     b_caseid = reqs_case.iter().all(|item| titles.keys().collect::<Vec<_>>().contains(&&item.to_string()));
                     b_dispid = reqs_disp.iter().all(|item| titles.keys().collect::<Vec<_>>().contains(&&item.to_string()));

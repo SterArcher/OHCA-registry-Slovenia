@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 clap = {version = "*", features = ["wrap_help"]}
 sha2 = {version = "*"}
+unicode-bom = "1.1.0"
