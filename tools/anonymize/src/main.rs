@@ -74,6 +74,7 @@ fn main() -> Result<(), io::Error> {
                 .short('d')
                 .long("delimiter")
                 .default_value(",")
+                .use_value_delimiter(false)
                 .takes_value(true)
         )
         .get_matches();
