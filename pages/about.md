@@ -44,6 +44,7 @@ Students:
 * Domen Kulovec
 * Gašper Tomič
 * Gašper Šircelj
+* test
 
 ## Funding
 This project is funded by University of Maribor Faculty of medicine.
