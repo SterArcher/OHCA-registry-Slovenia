@@ -32,9 +32,7 @@
 <head>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="Digital Garden" property="og:site_name" />
-    <meta
-        content="A Jekyll theme for Obsidian users to build digital garden"
-        property="og:description">
+    <meta content="A Jekyll theme for Obsidian users to build digital garden" property="og:description">
     <meta content="{{ site.url }}/about/" property="article:author">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,6 +62,25 @@
     <![endif]-->
     <!--<link href="/assets/css/prism.css" rel="stylesheet" />-->
     <link rel="alternate" type="application/rss+xml" href="{{ site.url }}/feed.xml">
+
+    <style>
+        .stuffContainer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+    <script>
+        function parse_date(p1) {
+        //  document.write((p1.split(" ")[0]).split("-")[0]);
+         document.write((p1.split(" ")[0]).split("-")[2] + 
+         "." + 
+         (p1.split(" ")[0]).split("-")[1] + 
+         "." + 
+         (p1.split(" ")[0]).split("-")[0])
+        }
+    </script>
 </head>
 
 <body>
@@ -73,102 +90,112 @@
             <!--- CASE 1 : Homepage-->
 
             {%- if page.permalink == "/" -%}
-                    {%- if site.preferences.homepage.enabled -%}
-                            <!--- Show Homepage -->
-                            {%- include Homepage.html -%}
-                            <script src="/assets/js/modeswitcher.js"></script>
-                    {%- else -%}
-                            <!--- Show Feed Part -->
-                    <div class="column is-half">
-                            {%- include FeedContent.html -%}
-                            {%- include Feed.html -%}
-                            {%- include Footer.html -%}             
-                </div>
-                    {%- endif -%}
+            {%- if site.preferences.homepage.enabled -%}
+            <!--- Show Homepage -->
+            {%- include Homepage.html -%}
+            <script src="/assets/js/modeswitcher.js"></script>
+            {%- else -%}
+            <!--- Show Feed Part -->
+            <div class="column is-half">
+                {%- include FeedContent.html -%}
+                {%- include Feed.html -%}
+                {%- include Footer.html -%}
+            </div>
+            {%- endif -%}
             {%- endif -%}
 
             <!---CASE 2 : Notes & Blog Page-->
 
-            {%- if page.content-type == "notes" 
-            or page.content-type == "post"  -%}
-                <div class="column is-three-fifths">
-                    <main>
-                        <div class="note-page-section">
-                            <div class="buttons for-back-home">
-                                {%- if site.preferences.homepage.enabled -%}
-                                <a class="button is-text button__page-back" onclick="window.history.back();">
+            {%- if page.content-type == "notes"
+            or page.content-type == "post" -%}
+            <div class="column is-three-fifths">
+                <main>
+                    <div class="note-page-section">
+                        <div class="buttons for-back-home">
+                            {%- if site.preferences.homepage.enabled -%}
+                            <a class="button is-text button__page-back" onclick="window.history.back();">
                                 {%- else -%}
                                 <a class="button is-text button__page-back" onclick="window.location.assign('/');">
-                                {%- endif -%}
+                                    {%- endif -%}
                                     <span class="icon is-small">
                                         <svg width="12" height="20" viewBox="0 0 12 20" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M11.0309 0.468998C11.1007 0.538667 11.1561 0.62143 11.1939 0.712548C11.2318 0.803665 11.2512 0.901347 11.2512 0.999998C11.2512 1.09865 11.2318 1.19633 11.1939 1.28745C11.1561 1.37857 11.1007 1.46133 11.0309 1.531L2.56038 10L11.0309 18.469C11.1717 18.6098 11.2508 18.8008 11.2508 19C11.2508 19.1992 11.1717 19.3902 11.0309 19.531C10.89 19.6718 10.699 19.7509 10.4999 19.7509C10.3007 19.7509 10.1097 19.6718 9.96887 19.531L0.968875 10.531C0.899031 10.4613 0.843616 10.3786 0.805806 10.2874C0.767997 10.1963 0.748535 10.0986 0.748535 10C0.748535 9.90135 0.767997 9.80367 0.805806 9.71255C0.843616 9.62143 0.899031 9.53867 0.968875 9.469L9.96887 0.468998C10.0385 0.399153 10.1213 0.343739 10.2124 0.305929C10.3035 0.26812 10.4012 0.248657 10.4999 0.248657C10.5985 0.248657 10.6962 0.26812 10.7873 0.305929C10.8784 0.343739 10.9612 0.399153 11.0309 0.468998Z"
-                                        fill="var(--text-main)" />
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M11.0309 0.468998C11.1007 0.538667 11.1561 0.62143 11.1939 0.712548C11.2318 0.803665 11.2512 0.901347 11.2512 0.999998C11.2512 1.09865 11.2318 1.19633 11.1939 1.28745C11.1561 1.37857 11.1007 1.46133 11.0309 1.531L2.56038 10L11.0309 18.469C11.1717 18.6098 11.2508 18.8008 11.2508 19C11.2508 19.1992 11.1717 19.3902 11.0309 19.531C10.89 19.6718 10.699 19.7509 10.4999 19.7509C10.3007 19.7509 10.1097 19.6718 9.96887 19.531L0.968875 10.531C0.899031 10.4613 0.843616 10.3786 0.805806 10.2874C0.767997 10.1963 0.748535 10.0986 0.748535 10C0.748535 9.90135 0.767997 9.80367 0.805806 9.71255C0.843616 9.62143 0.899031 9.53867 0.968875 9.469L9.96887 0.468998C10.0385 0.399153 10.1213 0.343739 10.2124 0.305929C10.3035 0.26812 10.4012 0.248657 10.4999 0.248657C10.5985 0.248657 10.6962 0.26812 10.7873 0.305929C10.8784 0.343739 10.9612 0.399153 11.0309 0.468998Z"
+                                                fill="var(--text-main)" />
                                         </svg>
                                     </span>
                                 </a>
-                            </div>
-                        <h1>{{page.title}}</h1>
+                        </div>
+                        <!-- <h1>{{page.title}}</h1> -->
+                        <div class="stuffContainer">
+                            <h1>{{ page.title }}</h1>
+                            <h6 text-align="right;"><script>parse_date("{{page.Featuresdate}}");</script></h6>
+                        </div>
                         {%- include Content.html -%}
                         {%- include Backlinks.html -%}
-                        </div>
-                        {%- include Footer.html -%}
-                    </main>
-                </div>
+                    </div>
+                    {%- include Footer.html -%}
+                </main>
+            </div>
 
             {%- endif -%}
 
             <!--- CASE 3 : Static Page -->
 
             {%- if page.content-type == "eg" -%}
-                <div class="column is-half">
-                    <main>
-                        <h1>{{page.title}}</h1>
-                        {%- include Content.html -%}
-                        {%- include Footer.html -%}
+            <div class="column is-half">
+                <main>
+                    <h1>{{page.title}}</h1>
+                    {%- include Content.html -%}
+                    {%- include Footer.html -%}
 
-                    </main>
-                </div>
+                </main>
+            </div>
             {%- endif -%}
 
-            <!--- CASE 4 :  Blog Listing page -->   
+            <!--- CASE 4 :  Blog Listing page -->
 
             {%- if page.permalink == "/posts" -%}
-                <div class="column is-half">
-                    <h1>{{page.title}}</h1>
-                    <div class="block">
-                        {% for item in site.posts %}
-                            <div class="block note-cards">
-                                <div class="box-feed" data-url="{{site.url}}{{item.url}}">
-                                    <a href="{{item.url}}" style="text-decoration: none;">
-                                        <h4>{{ item.title }}</h4>
-                                        <div class="content">
-                                            <p style="margin: 0px;">
-                                            {{ item.content | strip_html | strip | remove: "[[" | remove: "]]" | escape | truncate: 260 }}
-                                            </p>
-                                        </div>
-                                    </a>
+            <div class="column is-half">
+                <h1>{{page.title}}</h1>
+                <div class="block">
+                    {% for item in site.posts %}
+                    <div class="block note-cards">
+                        <div class="box-feed" data-url="{{site.url}}{{item.url}}">
+                            <a href="{{item.url}}" style="text-decoration: none;">
+                                <!-- <p style="font-weight: bold;">{{ item.title }}</p> -->
+                                <div class="stuffContainer">
+                                    <h4>{{ item.title }}</h4>
+                                    <h6 text-align="right;"><script>parse_date("{{item.Featuresdate}}");</script></h6>
                                 </div>
-                            </div>
-                        {%- endfor -%}
+                                <div class="content">
+                                    <p style="margin: 0px;">
+                                        {{ item.content | strip_html | strip | remove: "[[" | remove: "]]" | escape |
+                                        truncate: 260 }}
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                    {%- include Footer.html -%} 
+                    {%- endfor -%}
                 </div>
+                {%- include Footer.html -%}
+            </div>
             {%- endif -%}
 
-            <!--- CASE 5 :  Notes Listing page -->   
+            <!--- CASE 5 :  Notes Listing page -->
 
             {%- if page.permalink == "/notes" -%}
-                <div class="column is-half">
-                    {%- include FeedContent.html -%}
-                    {%- include Feed.html -%}
-                    {%- include Footer.html -%}             
-                </div>
+            <div class="column is-half">
+                {%- include FeedContent.html -%}
+                {%- include Feed.html -%}
+                {%- include Footer.html -%}
+            </div>
             {%- endif -%}
 
         </div>
-    </section>     
+    </section>
 </body>
+
 </html>
