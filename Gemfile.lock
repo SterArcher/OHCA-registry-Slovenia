@@ -46,10 +46,7 @@ GEM
       jekyll
     jekyll-watch (2.2.1)
       listen (~> 3.0)
-<<<<<<< HEAD
-=======
     jekyll_social_icons (0.1.0)
->>>>>>> 991a796 (added github social button)
     katex (0.8.0)
       execjs (~> 2.7)
     kramdown (2.3.1)
