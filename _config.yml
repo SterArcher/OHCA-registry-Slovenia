@@ -35,7 +35,7 @@ copyright:
   msg: Ekipa SiOHCA # This is a mandatory attribute for copyright to be displayed ; If deleting this, edit at footer layout.
 
 socials:
-   github: https://github.com/SterArcher/OHCA-registry-Slovenia
+  github: https://github.com/SterArcher/OHCA-registry-Slovenia
 
 #####################################################################
 # Settings related to your preferences go here, such as the
