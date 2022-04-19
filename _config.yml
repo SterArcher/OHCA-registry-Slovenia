@@ -130,6 +130,12 @@ defaults:
       layout: Post
       content-type: notes
 
+<<<<<<< HEAD
+=======
+gems:
+  - jekyll_social_icons
+
+>>>>>>> 991a796 (added github social button)
 
 # Exclude from processing.
 # The following items will not be processed, by default.
