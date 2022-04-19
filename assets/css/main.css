@@ -258,7 +258,7 @@ a {
   a strong {
     color: currentColor; }
   a:hover {
-    color: var(--text-main); }
+    color: var(--link); }
 
 code {
   background-color: var(--bg-sub);
@@ -277,6 +277,7 @@ hr {
 img {
   height: auto;
   max-width: 100%; }
+  
 
 input[type="checkbox"],
 input[type="radio"] {
