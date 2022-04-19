@@ -258,6 +258,10 @@ a {
   a strong {
     color: currentColor; }
   a:hover {
+<<<<<<< HEAD
+=======
+    color: var(--text-main); }
+>>>>>>> a34aec2b1ae7408aa0cb96353aec4d50424ca4e1
     color: var(--link); }
 
 code {
