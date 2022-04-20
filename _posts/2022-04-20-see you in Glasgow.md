@@ -1,6 +1,6 @@
 ---
 title: See you in Glasgow
-Featuresdate: 2022-03-30 07:43:32 -0000
+Featuresdate: 2022-04-20 15:43:12 -0000
 categories: Glasgow; EMS; congress
 ---
 
