@@ -5,6 +5,7 @@ layout: Stylesheet
 @import "/assets/css/highlight.css";
 /* Containers: Body, Container, Box, Main, Header, Content */ 
 
+
 html, html[data-theme="light"] {
     --bg-main: #FFFFFF;
     --bg-sub: #FAFAFC;
@@ -13,6 +14,7 @@ html, html[data-theme="light"] {
     --text-sub: #5D5D67;
     --link: #2380ED;
     --border: #E5E5E5;
+    --related-bg: #e7e5e5;
 }
 
 html[data-theme="dark"] {
@@ -23,6 +25,7 @@ html[data-theme="dark"] {
     --text-sub: #FFFFFF;
     --link: #6D9EFF;
     --border: #353535;
+    --related-bg: #3a3838;
 }
 
 
@@ -34,6 +37,8 @@ html[data-theme="dark"] {
         --text-sub: #FFFFFF;
         --link: #6D9EFF;
         --border: #353535;
+        --related-bg: #3130308f;
+        --related-hover: #3a39398f;
     }
 
     html[data-theme="light"] {
@@ -43,6 +48,8 @@ html[data-theme="dark"] {
         --text-sub: #5D5D67;
         --link: #2380ED;
         --border: #E5E5E5;
+        --related-bg: #eeeaea8a;
+        --related-hover: #eeeaeaf3;
   } 
 }
 
@@ -1181,11 +1188,14 @@ label.srs-toggle {
     width: 100%;
     min-height: 100px;
     border-radius: 10px;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    background-color: var(--related-bg);
 }
 
 .related h4 {
     color: var(--text-sub);
-    padding-left: 10px
+    padding-left: 35px
 }
 
 .related-wrapper {
@@ -1193,19 +1203,23 @@ label.srs-toggle {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 10px;
+    border-color:#5D5D67 ;
+    padding: 10px;
+    ##fghjlijč 
 }
 
 .related-group {
-    width: 95% !important;
+    width: 80% !important;
     height: 100%;
     border-radius: 8px;
     cursor: pointer;
-    background-color: var(--bg-sub);
     padding: 16px;
 }
 
+
 .related-group:hover {
-        box-shadow: 0px 12px 32px rgba(27, 25, 36, 0.12);
+        
+        background-color: var(--related-hover);
 }
 
 .related-group a {
