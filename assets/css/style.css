@@ -5,7 +5,6 @@ layout: Stylesheet
 @import "/assets/css/highlight.css";
 /* Containers: Body, Container, Box, Main, Header, Content */ 
 
-
 html, html[data-theme="light"] {
     --bg-main: #FFFFFF;
     --bg-sub: #FAFAFC;
@@ -14,7 +13,7 @@ html, html[data-theme="light"] {
     --text-sub: #5D5D67;
     --link: #2380ED;
     --border: #E5E5E5;
-    --related-bg: #e7e5e5;
+    --related-bg: #eeeaea8a;
 }
 
 html[data-theme="dark"] {
@@ -25,7 +24,7 @@ html[data-theme="dark"] {
     --text-sub: #FFFFFF;
     --link: #6D9EFF;
     --border: #353535;
-    --related-bg: #3a3838;
+    --related-bg: #3130308f;
 }
 
 
@@ -1203,9 +1202,7 @@ label.srs-toggle {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 10px;
-    border-color:#5D5D67 ;
     padding: 10px;
-    ##fghjlijč 
 }
 
 .related-group {
@@ -1216,10 +1213,8 @@ label.srs-toggle {
     padding: 16px;
 }
 
-
 .related-group:hover {
-        
-        background-color: var(--related-hover);
+    background-color: var(--related-hover);
 }
 
 .related-group a {
@@ -1231,7 +1226,6 @@ label.srs-toggle {
     padding-left: 10px;
     padding-right: 10px;
 }
-
 
 .related-excerpt {
     color: var(--text-main) !important;
