@@ -8,6 +8,7 @@ on:
       - 'Pipfile'
       - 'Pipfile.lock'
       - 'Dockerfile'
+  workflow_dispatch:
 
 jobs:
   docker:
