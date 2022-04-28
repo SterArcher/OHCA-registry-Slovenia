@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  web:
+    image: gtomsic/si-ohca-base
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             gunicorn --workers ${WORKERS:-3} --bind unix:ohca.sock ohca.wsgi"
+    volumes:
+      # Uncomment next line when using mysql on localhost
+      # - /run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock
+      - .:/opt/app
+    env_file:
+      - .env
+    environment:
+      - DATABASE=${DATABASE}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASS=${DATABASE_PASS}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
