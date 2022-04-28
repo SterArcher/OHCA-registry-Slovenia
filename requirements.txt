@@ -1,6 +1,0 @@
-# list of python packages used in population.py
-
-pandas==1.4.1
-requests==2.27.1
-openpyxl==3.0.9
-

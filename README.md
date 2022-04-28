@@ -1,40 +1,128 @@
-![scraper-population](https://github.com/SterArcher/OHCA-registry-Slovenia/actions/workflows/scraper-population.yml/badge.svg)
+# API Server
 
-# OHCA registry Slovenia - pilot project
+## Prerequisites
 
+Before deploying the server be sure to install the following packages:
 
-## About
-This is an interdisciplinary student project. It is run by University of Maribor Faculty of medicine. Our goal is to develop an open-source software to help track and analyse OHCA.
+### Ubuntu/Debian:
 
-> ⚙️ In depth documentation can be found on our **[WIKI](https://github.com/SterArcher/OHCA-registry-Slovenia/wiki#what-is-this-for)**. ⚙️
+- unixodbc-dev
+- python3-dev
+- default-libmysqlclient-dev
+- build-essential
 
+If using a different distro, install the appropriate equivalent
 
+### Python packages:
 
-> 🚧 Our webpage [siohca.um.si](https://siohca.um.si) is currently under development. 🚧
+- pipenv
 
-## OHCA
-Out-of-hospital cardiac arrest (OHCA) describes the loss of mechanical cardiac function and the absence of systemic circulation. Time is crucial, with a lack of perfusion leading to continual cell death; with each second that passes the possibility of a good outcome decreases. Despite a long history of trying to improve how we manage OHCA, survival remains dismally low. Only over the past 5 years have clinicians begun to see meaningful improvements in prognosis and neurological outcomes. Globally, it is estimated that on average, less than 10% of all patients with OHCA will survive. 
+## Installation
 
-[Lancet T. Out-of-hospital cardiac arrest: a unique medical emergency. The Lancet. 2018 Mar 10;391(10124):911. 
-](https://doi.org/10.1016/S0140-6736(18)30552-X)
+### Prelogue
 
-## Utstein 2015 OHCA reporting template
+If you plan to use the OHCA API server with nginx, it is higly recommended that it be installed in `/var/www/...` with `www-data:www-data` as the owner. 
 
-The Utstein Style is a set of guidelines for uniform reporting of cardiac arrest. The Utstein Style was first proposed for emergency medical services in 1991. The name derives from a 1990 conference of the European Society of Cardiology, the European Academy of Anesthesiology, the European Society for Intensive Care Medicine, and related national societies, held at the Utstein Abbey on the island of Mosterøy, Norway.
+### Development
 
-You can access the complete consensus article [here](https://www.ahajournals.org/doi/full/10.1161/CIR.0000000000000144).
+First clone the repo and cd into the API's directory (use `api-stable` for production o `api-dev` for development)
 
-## Data sources
+```bash
+git clone --single-branch --branch api-stable https://github.com/SterArcher/OHCA-registry-Slovenia.git
+cd OHCA-registry-Slovenia
+```
 
-Data flow is for only in Slovenian for now.
+Next we'll install a virtual environment for Python
 
-![data_flow_en](https://user-images.githubusercontent.com/42324122/160936152-6cb3873f-d992-4c0f-8fb2-0b7e58ae3ae3.png)
+```bash
+mkdir .venv
+pipenv install
+```
+This will download and install all the needed Python packages and install them in the virtual environment so as not to mess with your system Python installation
 
+Next we need to set the appropriate environment variables in the `.env` file
 
-## Funding
-This project is funded by University of Maribor Faculty of medicine.
+```bash
+echo "ALLOWED_HOSTS= 
+DATABASE=
+DATABASE_NAME=
+DATABASE_USER=
+DATABASE_PASS=
+DATABASE_HOST=
+DATABASE_PORT=" > .env
+```
 
-## Acknowledgements
-We would like to thank:
-* [System Software Laboratory](https://lspo.feri.um.si/index-en.php) for lending us their IT infrastructure
-* [Štefan Baebler](https://github.com/stefanb) for giving us technical advice
+- **ALLOWED_HOSTS** should contain a comma separated list of hosts on which the API will be available. To allow any connection a wildcard (`*`) can be specified. Defaults to `*`.
+- **DATABASE** specifies the type of database. Supported types are:
+    - MySQL (`msql`)
+    - MariaDB (`mariadb`)
+    - Microsoft SQL Server (`mssql`)
+    - PostgreSQL (`postresql`)
+- **DATABASE_NAME** specifies the database name.
+- **DATABASE_USER** specifies the database username.
+- **DATABASE_PASS** specifies the password for DATABASE_USER
+- **DATABASE_HOST** specifies the database address. Defaults to `localhost`.
+- **DATABASE_PORT** specifies the port at which the database is reachable. Defaults to default of specified DATABASE.
+
+Before running the server for the first time we have to add a SECRET_KEY for encryption
+
+```bash
+echo "SECRET_KEY=$(openssl rand -base64 48)" >> ohca/settings.py
+```
+
+Now we can finally run the server for the first time.
+
+```bash
+pipenv shell # Enter the virtual environment
+./manage.py makemigrations
+./manage.py migrate # Create the necessary db structures
+./manage.py createsuperuser # Create a superuser for the admin console
+./manage.py runserver # Actually run the server
+```
+
+The server should now be available at http://127.0.0.1:8000. The server should only be used for development purposes. 
+
+### Production
+
+To run the API in a production environment you should se Gunicorn or another WSGI in conjunction with Nginx (or similar). First stop the server instance started above, then let's start a Gunicorn instance.
+
+```bash
+gunicorn --workers 3 --bind unix:ohca.sock -m 007 ohca.wsgi
+```
+
+The server is now available at the unix socket `ohca.sock` (`http://unix:/path/to/ohca.sock`). To allow access to the server we need to set up Nginx as a reverse proxy to the socket. To do this we can use the provided helper script `generate.py`
+
+```bash
+./generate.py nginx > ohca.conf
+```
+
+The script will output an appropriate Nginx config file, which can then be installed to the sites-enabled directory, usually `/etc/nginx/sites-enabled`. After that restart nginx and you're ready to go.
+
+### Systemd service
+
+In a production setting it's advised to run the server as a daemon or service. The `generate.py` script provides an easy service generator.
+
+To generate a service file with www-data as the service user and group (recommended) run.
+
+```bash
+./generate.py systemd www-data www-data > ohca-api.service
+```
+
+Before starting the service make sure to set the correct permissions of the current directory
+
+```bash
+chown www-data:www-data -R ./
+```
+
+All that's left is to install the service to the appropiate directory and start it.
+
+```bash
+sudo cp ohca-api.service /etc/systemd/system
+sudo systemctl start ohca-api
+```
+
+To run the service at start up run
+
+```bash
+sudo systemctl enable ohca-api
+```
