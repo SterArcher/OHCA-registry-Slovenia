@@ -27,3 +27,5 @@ RUN mkdir -p /opt/app/.venv
 
 COPY --from=python-deps /.venv /.venv
 ENV PATH="/.venv/bin:$PATH"
+
+WORKDIR /opt/app

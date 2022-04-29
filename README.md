@@ -49,7 +49,8 @@ DATABASE_NAME=
 DATABASE_USER=
 DATABASE_PASS=
 DATABASE_HOST=
-DATABASE_PORT=" > .env
+DATABASE_PORT=
+MYSQL_SOCKET=" > .env
 ```
 
 - **ALLOWED_HOSTS** should contain a comma separated list of hosts on which the API will be available. To allow any connection a wildcard (`*`) can be specified. Defaults to `*`.
@@ -63,6 +64,7 @@ DATABASE_PORT=" > .env
 - **DATABASE_PASS** specifies the password for DATABASE_USER
 - **DATABASE_HOST** specifies the database address. Defaults to `localhost`.
 - **DATABASE_PORT** specifies the port at which the database is reachable. Defaults to default of specified DATABASE.
+- **MYSQL_SOCKET** must specify absolute path of MySQL .sock file when connecting to localhost from docker, should be left blank otherwise. The socket file is usually located at `/run/mysqld/mysqld.sock`.
 
 Before running the server for the first time we have to add a SECRET_KEY for encryption
 

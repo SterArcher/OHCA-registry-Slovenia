@@ -3,13 +3,13 @@ version: "3"
 services:
   web:
     image: gtomsic/si-ohca-base
+    working_dir: /opt/app
     command: >
       sh -c "python manage.py makemigrations &&
              python manage.py migrate &&
              gunicorn --workers ${WORKERS:-3} --bind unix:ohca.sock ohca.wsgi"
     volumes:
-      # Uncomment next line when using mysql on localhost
-      # - /run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock
+      - ${MYSQL_SOCKET:-/dev/null}:/run/mysqld/mysqld.sock
       - .:/opt/app
     env_file:
       - .env
