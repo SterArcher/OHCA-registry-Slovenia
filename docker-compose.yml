@@ -3,6 +3,7 @@ version: "3"
 services:
   web:
     image: gtomsic/si-ohca-base
+    working_dir: /opt/app
     command: >
       sh -c "python manage.py makemigrations &&
              python manage.py migrate &&
