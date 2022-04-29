@@ -147,7 +147,7 @@ class CaseReport(models.Model):
     hospitalArrival6Time = models.IntegerField(null = True, blank = True)
     hospArri = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(4)])
     dischDay = models.SmallIntegerField(null = True, blank = True)
-    timeTCPR = NULL
+    timeTCPR = models.IntegerField(null = True, blank = True)
 
     def update(self, *args, **kwargs):
         for name,values in kwargs.items():
