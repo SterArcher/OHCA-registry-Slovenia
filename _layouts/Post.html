@@ -180,6 +180,7 @@
                     </div>
                     {%- endfor -%}
                 </div>
+                {%- include Related.html -%}
                 {%- include Footer.html -%}
             </div>
             {%- endif -%}
@@ -190,6 +191,15 @@
             <div class="column is-half">
                 {%- include FeedContent.html -%}
                 {%- include Feed.html -%}
+                {%- include Footer.html -%}
+            </div>
+            {%- endif -%}
+
+            {%- if page.permalink == "/tagss" -%}
+            <div class="column is-half">
+                {%- include FeedContent.html -%}
+                {%- include Feed.html -%}
+                {%- include tags.html -%}
                 {%- include Footer.html -%}
             </div>
             {%- endif -%}
