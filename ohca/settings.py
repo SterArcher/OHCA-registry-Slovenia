@@ -21,6 +21,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = list(map(str.strip, os.getenv('ALLOWED_HOSTS', '*').split(',')))
 
+SECRET_KEY = os.getenv('SECRET_KEY')
+
 DATABASES = {
     'default': {
         'ENGINE': engine[os.getenv('DATABASE')],
