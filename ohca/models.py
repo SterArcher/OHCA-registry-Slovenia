@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -120,7 +121,34 @@ class CaseReport(models.Model):
     organDonation = models.IntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     patientReportedOutcome = models.SmallIntegerField(null = True, blank = True)
     qualityOfLife = models.JSONField(default = dict)
-    
+    reaLand = models.SmallIntegerField(null = True, blank = True)
+    reaRegion = models.SmallIntegerField(null = True, blank = True)
+    reaConf = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
+    cprEms = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
+    cPREMS3Time = models.IntegerField(null = True, blank = True)
+    noCPR = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(0), MaxValueValidator(6)])
+    patID = NULL
+    reaYr = models.SmallIntegerField(null = True, blank = True)
+    reaMo = models.SmallIntegerField(null = True, blank = True)
+    reaDay = models.SmallIntegerField(null = True, blank = True)
+    reaTime = models.IntegerField(null = True, blank = True)
+    reaCause = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(5)])
+    timeTCPR = models.IntegerField(null = True, blank = True)
+    gbystnader = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
+    ageBystander = models.SmallIntegerField(null = True, blank = True)
+    cPRbystander3Time = models.IntegerField(null = True, blank = True)
+    helperCPR = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
+    helperWho = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(1), MaxValueValidator(5)])
+    cPRhelper3Time = models.IntegerField(null = True, blank = True)
+    defiOrig = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
+    timeROSC = models.IntegerField(null = True, blank = True)
+    endCPR4Time = models.IntegerField(null = True, blank = True)
+    leftScene5Time = models.IntegerField(null = True, blank = True)
+    hospitalArrival6Time = models.IntegerField(null = True, blank = True)
+    hospArri = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(5)])
+    dischDay = models.SmallIntegerField(null = True, blank = True)
+    timeTCPR = NULL
+
     def update(self, *args, **kwargs):
         for name,values in kwargs.items():
             if not(name == 'caseID'):
