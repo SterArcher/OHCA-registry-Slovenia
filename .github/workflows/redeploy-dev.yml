@@ -23,4 +23,4 @@ jobs:
       uses: distributhor/workflow-webhook@v2
       env:
         webhook_url: ${{ secrets.DEPLOY_WEBHOOK_URL }}/redeploy-dev
-        webhook_secret: ${{ secrets.DEPLOY_KEY }}
+        webhook_secret: "${{ secrets.DEPLOY_KEY }}"
