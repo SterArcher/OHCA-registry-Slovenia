@@ -19,6 +19,8 @@ from ohca import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('summary/download/', views.download),
+    path('summary/', views.http_response),
     path('case/id/', views.case_by_id, name='case'),
     path('case/id/multi/', views.case_by_id_multi, name='case_multi'),
     path('case/dispatch/', views.case_by_disp, name='dispatch'),

@@ -31,6 +31,9 @@ DATABASES = {
         'PASSWORD': os.getenv('DATABASE_PASS'),
         'HOST': os.getenv('DATABASE_HOST', 'localhost'),
         'PORT': int(os.getenv('DATABASE_PORT', db_port[os.getenv('DATABASE')])),
+        'OPTIONS':{
+            "init_command":"SET foreign_key_checks = 0;", # TODO
+            }
     }
 }
 

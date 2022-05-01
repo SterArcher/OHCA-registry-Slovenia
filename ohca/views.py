@@ -54,3 +54,29 @@ def locale_view(request):
             return Response({"message": "Locale definition saved successfully"})
         else:
             return Response({"message": "Error saving locale definition"})
+
+from ohca.dataSummary import summary_table
+import csv
+from django.http import HttpResponse
+
+def download(request):
+    "Takes the dictionary of elements and their counts and writes a csv"
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+
+    header = ["Element", "Count"]
+    rows = []
+    for key in summary_table:
+        row = []
+        row.append(key)
+        row.append(summary_table[key])
+        rows.append(row)
+
+    writer.writerow(header)
+    writer.writerows(rows)
+
+    response['Content-Disposition'] = 'attachment; filename="summary_table.csv"'
+    return response
+
+def http_response(request):
+    return HttpResponse('<h1>Download summary data table</h1><a href="download/">right here</a>')
