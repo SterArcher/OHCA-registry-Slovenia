@@ -65,7 +65,7 @@ preferences:
   backlinks:
     enabled: true
   related:
-    enabled: false # This enables the posts that are related to each other by tags
+    enabled: true # This enables the posts that are related to each other by tags
   wrapping:
     enabled: true
   contextmenu:
