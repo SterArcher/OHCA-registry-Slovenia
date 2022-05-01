@@ -12,7 +12,7 @@ wheel = "*"
 gunicorn = "*"
 mssql-django = "*"
 mysqlclient = "*"
-csv="*"
+csv = "*"
 
 [requires]
 python_version = "3.8"
