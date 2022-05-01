@@ -2965,6 +2965,9 @@ a.navbar-item,
     .column.is-three-fifths, .column.is-three-fifths-tablet {
       flex: none;
       width: 60%; }
+    .column.related {
+      flex: none;
+      width: 95%; }
     .column.is-four-fifths, .column.is-four-fifths-tablet {
       flex: none;
       width: 80%; }
@@ -3874,7 +3877,7 @@ a.navbar-item,
   border-radius: 8px;
   position: relative;
   padding: 0.75rem;
-  margin: 0 -0.75rem;
+  /* margin: 0 -0.75rem; */
 }
 
 .section.is-note .box {
