@@ -2447,7 +2447,7 @@ body.has-navbar-fixed-bottom {
 .navbar-item,
 .navbar-link {
   color: var(--text-main);
-  display: block;
+  display: block; 
   line-height: 1.5;
   padding: 0.5rem 0.75rem;
   position: relative; }
