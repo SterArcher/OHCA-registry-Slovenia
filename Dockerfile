@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install unixodbc-dev default-libmysqlclient-dev bu
 # Install python dependencies in /opt/app/.venv
 COPY Pipfile .
 COPY Pipfile.lock .
+RUN pipenv lock
 RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
 
 ################
