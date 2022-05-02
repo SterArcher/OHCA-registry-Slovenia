@@ -78,5 +78,11 @@ def download(request):
     response['Content-Disposition'] = 'attachment; filename="summary_table.csv"'
     return response
 
-def http_response(request):
-    return HttpResponse('<h1>Download summary data table</h1><a href="download/">right here</a>')
+# from django.shortcuts import render
+# def http_response(request):
+#     return HttpResponse('<h1>Download summary data table</h1><a href="download/">right here</a>')
+  
+from django.views.generic import TemplateView
+
+class index(TemplateView):
+    template_name = "sum.html"  

@@ -17,10 +17,13 @@ from django.contrib import admin
 from django.urls import path
 from ohca import views
 
+from ohca.views import index
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('summary/download/', views.download),
-    path('summary/', views.http_response),
+    path('download/', views.download),
+    path('summary/', index.as_view()),
+    # path('summary2/', views.http_response),
     path('case/id/', views.case_by_id, name='case'),
     path('case/id/multi/', views.case_by_id_multi, name='case_multi'),
     path('case/dispatch/', views.case_by_disp, name='dispatch'),
