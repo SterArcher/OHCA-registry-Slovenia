@@ -18,7 +18,7 @@ Our new logo:
 
 
 <div style="text-align:center;">
-    <img src="assets/img/graphics/social-media-preview-background.jpg" alt="New social media preview" width="738">
+    <img src="assets/img/graphics/social-media-preview-background.jpg" alt="New social media preview" width="766" height="383">
 </div>
 
 
