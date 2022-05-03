@@ -18,7 +18,6 @@ Our new logo:
 
 
 <div style="text-align:center;">
-![](https://github.com/SterArcher/OHCA-registry-Slovenia/blob/gh-pages/assets/img/graphics/social-media-preview-background.jpg)
     <img src="https://siohca.um.si//assets/img/graphics/social-media-preview-background.jpg" alt="New social media preview" width="766" height="383">
 </div>
 
