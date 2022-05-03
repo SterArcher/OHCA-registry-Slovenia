@@ -1,0 +1,13 @@
+<div class="related" >
+    <h4 class="block-title">Recent Posts</h4>
+    <div class="related-wrapper">
+    {%- for post in site.posts limit:2 -%}
+        <div class="related-group">
+            <a href="{{post.url}}">
+                <p class="related-title">{{ post.title }}</p>
+                <p class="related-excerpt">{{ post.content | markdownify | strip_html | truncate: 100 }}</p>
+            </a>
+        </div>
+        {%- endfor -%}
+    </div>
+</div>
