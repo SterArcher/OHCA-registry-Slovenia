@@ -5,7 +5,7 @@ categories: GRA; meeting; networking
 tags: GRA meeting
 ---
 ### The meeting
-Rok and Luka were honoured to be invited to the [Global Resuscitation Alliance meeting](https://www.globalresuscitationalliance.org). The event took place on a Tuesday, March 3rd in Glasgow. 
+Rok and Luka were honoured to be invited to the [Global Resuscitation Alliance meeting](https://www.globalresuscitationalliance.org). The event took place on a Tuesday, May 3rd in Glasgow. 
 
 <div style="text-align:center;">
   <img src="https://siohca.um.si/assets/img/Glasgow 2022/SCC.jpg" lt="NSCC - where the congress is taking place" width="766" height="383">
