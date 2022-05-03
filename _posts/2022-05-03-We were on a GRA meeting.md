@@ -1,6 +1,5 @@
 ---
-title: We were on GRA meeting 🗣 
-(day 1 of the Glasgow visit)󠁣󠁴󠁿
+title: We were on GRA meeting 🗣 (day 1)󠁣󠁴󠁿
 Featuresdate: 2022-05-03 18:14:12 -0000
 categories: GRA; meeting; networking
 tags: GRA meeting
