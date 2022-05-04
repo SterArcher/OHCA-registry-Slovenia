@@ -15,6 +15,10 @@ The GRA covered different topics on how to improve different aspects of cardiac 
 
 > It was really amazing to meet the key members of the GRA and show our open-source cardiac registry software. I am humbled by the people who I got to sit with and listen to their expertise. I would also like to thank everyone for being kind to both of us newcomers.  
 >   ~ Luka Petravić
+
+![Picture with Sattha Riyapan](https://siohca.um.si/assets/img/Glasgow 2022/Sattha Riyapan.jpg)
+
+We were also very happy to get to know Sattha Riyapan from Bagkok, Thailand. 
   
 We hope that we will be able to build on these relationships throught the week and bring new knowledge and connections back to Maribor.
 
