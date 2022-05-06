@@ -19,7 +19,7 @@ It was quite unimaginable for us that we would ever be travelling internationall
 
 They have introduced us to Freddy Lippert.
 
-Freddy took us in and introduced us, not only to his team, but the international network of different experts. Without him, we would never come to Glasgow, we would not show our idea, get feedback, be inspired and the project would never evolve, as it did now. Words cannot express how thankful we are for his kidness and openness.
+Freddy took us in and introduced us, not only to his team, but the international network of different experts. Without him, we would have never come to Glasgow, we would not have shown our idea, got feedback, be inspired and the project would have never evolved, as it did now. Words cannot express how thankful we are for his kidness and openness.
 
 ![Freddy](https://siohca.um.si/assets/img/Glasgow 2022/Freddy.JPG)
 
