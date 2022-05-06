@@ -623,12 +623,12 @@
             "values": {
                 "null": "Not recorded",
                 "-1": "Unknown",
-                "0": "died earlier",
+                "0": "Died earlier",
                 "1": "DNAR",
-                "2": "wish family",
-                "3": "wish doctor",
-                "4": "succesful ICD shock",
-                "5": "signs of life"
+                "2": "Wish family",
+                "3": "Wish doctor",
+                "4": "Succesful ICD shock",
+                "5": "Signs of life"
             },
             "core": false
         },
@@ -661,11 +661,11 @@
             "values": {
                 "null": "Not recorded",
                 "-1": "Unknown (presumed cardiac)",
-                "0": "cardiac",
-                "1": "trauma",
-                "2": "submersion",
-                "3": "respiratory",
-                "4": "other non-cardiac"
+                "0": "Cardiac",
+                "1": "Trauma",
+                "2": "Submersion",
+                "3": "Respiratory",
+                "4": "Other non-cardiac"
             },
             "core": false
         },
@@ -679,8 +679,8 @@
             "values": {
                 "null": "Not recorded",
                 "-1": "Unknown",
-                "0": "male",
-                "1": "female"
+                "0": "Male",
+                "1": "Female"
             },
             "core": false
         },
@@ -699,19 +699,19 @@
             "values": {
                 "null": "Not recorded",
                 "-1": "Unknown",
-                "0": "yes",
-                "1": "no"
+                "0": "Yes",
+                "1": "No"
             },
             "core": false
         },
         "helperWho": {
             "title": "If person sent to help, who?",
             "values": {
-                "1": "person alerted by dispatch",
-                "2": "person with BLS training alerted by dispatch",
-                "3": "firefighter alterted by dispatch",
-                "4": "off-duty healthcare professionals alerted by dispatch",
-                "5": "others alterted by dispatch"
+                "1": "Person alerted by dispatch",
+                "2": "Person with BLS training alerted by dispatch",
+                "3": "Firefighter alterted by dispatch",
+                "4": "Off-duty healthcare professionals alerted by dispatch",
+                "5": "Others alterted by dispatch"
             },
             "core": false
         },
@@ -755,11 +755,11 @@
             "values": {
                 "null": "Not recorded",
                 "-1": "Unknown",
-                "0": "dead",
-                "1": "alive",
-                "2": "no hospital transport",
-                "3": "transfer with ongoing CPR",
-                "4": "transfer with ROSC"
+                "0": "Dead",
+                "1": "Alive",
+                "2": "No hospital transport",
+                "3": "Transfer with ongoing CPR",
+                "4": "Transfer with ROSC"
             },
             "core": false
         },
