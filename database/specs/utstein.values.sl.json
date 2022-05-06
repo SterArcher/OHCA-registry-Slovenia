@@ -639,6 +639,191 @@
             "source": "/",
             "description": "JSON, kot opisan",
             "core": false
+        },
+        "reaLand": {
+            "title": "Država srčnega zastoja",
+            "description": "Država srčnega zastoja v tekst formi", 
+            "core": false
+        },
+        "reaRegion": {
+            "title": "Regija srčnega zastoja",
+            "description": "Regija srčnega zastoja v tekst formi", 
+            "core": false
+        },
+        "reaConf": {
+            "title": "Srčni zastoj potrjen",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "Da",
+                "1": "Ne"
+            },
+            "core": false
+        },
+        "cprEms": {
+            "title": "Poskus oživljanja",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "Da",
+                "1": "Ne"
+            },
+            "core": false
+        },
+        "cPREMS3Time": {
+            "title": "Kdaj so začeli oživljati NMP",
+            "description": "Kdaj so začeli oživljati NMP v hh:mm:ss formi", 
+            "core": false
+        },
+        "noCPR": {
+            "title": "NMP ni oživljal",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "Umrli predhodno",
+                "1": "Dokument o izraženi volji proti oživljanju",
+                "2": "Želja družine",
+                "3": "Želja zdravnika",
+                "4": "Uspešni ICD šok",
+                "5": "Znaki življenja"
+            },
+            "core": false
+        },
+        "patID": {
+            "title": "treba še dodati",
+            "core": false
+        },
+        "reaYr": {
+            "title": "Leto srčnega zastoja",
+            "description": "Leto srčnega zastoja v YYYY formi", 
+            "core": false
+        },
+        "reaMo": {
+            "title": "Mesec srčnega zastoja",
+            "description": "Mesec srčnega zastoja v MM formi", 
+            "core": false
+        },
+        "reaDay": {
+            "title": "Dan srčnega zastoja",
+            "description": "Dan srčnega zastoja v DD formi", 
+            "core": false
+        },
+        "reaTime": {
+            "title": "Čas srčnega zastoja",
+            "description": "Čas srčnega zastoja v hh:mm:ss formi", 
+            "core": false
+        },
+        "reaCause": {
+            "title": "Vzrok srčnega zastoja",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano (predviden mrtev)",
+                "0": "Srčni",
+                "1": "Travma",
+                "2": "Potopitev",
+                "3": "Respiratorni",
+                "4": "Ne-srčni"
+            },
+            "core": false
+        },
+        "timeTCPR": {
+            "title": "Čas začetka CPR",
+            "description": "Čas začetka CPR v hh:mm:ss formi", 
+            "core": false
+        },
+        "gbystnader": {
+            "title": "Spol očividca",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "Moški",
+                "1": "Ženska"
+            },
+            "core": false
+        },
+        "ageBystander": {
+            "title": "Starost očividca",
+            "description": "Starost očividca v XXX formi", 
+            "core": false
+        },
+        "cPRbystander3Time": {
+            "title": "Čas začetka CPR očividca",
+            "description": "Čas začetka CPR očividca v hh:mm:ss formi", 
+            "core": false
+        },
+        "helperCPR": {
+            "title": "Oseba poslana, da pomaga s CPR",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "Da",
+                "1": "Ne"
+            },
+            "core": false
+        },
+        "helperWho": {
+            "title": "Kdo je bil poslan, da pomaga?",
+            "values": {
+                "1": "Oseba, ki jo je opozoril dispatch",
+                "2": "Oseba z BLS, ki jo je opozoril dispatch",
+                "3": "Prvi posredovalec",
+                "4": "Zdravstveno osebje izven časa službe, ki ga je poslal dispatch",
+                "5": "Ostali, ki jih je poslal dispatch"
+            },
+            "core": false
+        },
+        "cPRhelper3Time": {
+            "title": "Čas začetka PCR osebe, ki je poslana da pomaga",
+            "description": "Čas začetka PCR osebe, ki je poslana da pomaga v hh:mm:ss formi", 
+            "core": false
+        },
+        "defiOrig": {
+            "title": "Prvi šok je dostavil AED ali NMP",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "AED",
+                "1": "EMS"
+            },
+            "core": false
+        },
+        "timeROSC": {
+            "title": "Čas prvega ROSC",
+            "description": "Čas prvega ROSC v hh:mm:ss formi", 
+            "core": false
+        },
+        "endCPR4Time": {
+            "title": "Čas konca CPR",
+            "description": "Čas konca CPR v hh:mm:ss formi", 
+            "core": false
+        },
+        "leftScene5Time": {
+            "title": "Čas zapusitve dogodka",
+            "description": "Čas zapusitve dogodka v hh:mm:ss formi", 
+            "core": false
+        },
+        "hospitalArrival6Time": {
+            "title": "Čas prihoda v bolnišnico",
+            "description": "Čas prihoda v bolnišnico v hh:mm:ss form", 
+            "core": false
+        },
+        "hospArri": {
+            "title": "Status ob prihodu v bolnišnico",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "Mrtev",
+                "1": "Živ",
+                "2": "Brez prevoza do bolnišnice",
+                "3": "Prevoz z CPR",
+                "4": "Prevoz z ROSC"
+            },
+            "core": false
+        },
+        "dischDay": {
+            "title": "Dan odpustitve iz bolnice",
+            "description": "Dan odpustitve iz bolnice v DD formi", 
+            "core": false
         }
     },
     "locales": {
