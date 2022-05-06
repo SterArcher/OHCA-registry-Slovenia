@@ -93,5 +93,31 @@
             "name": "EQ-5D",
             "score": 0.9
         }]
-    }
+    },
+    "reaLand": "Slovenija",
+    "reaRegion": "Savinjska",
+    "reaConf": 1,
+    "cprEms": 1,
+    "cPREMS3Time": "14:18:23",
+    "noCPR": 0,
+    "patID": null,
+    "reaYr": 2022,
+    "reaMo": 2, 
+    "reaDay": 10,
+    "reaTime": "13:48:12",
+    "reaCause": 4,
+    "timeTCPR": "14:18:23",
+    "gbystnader": 1,
+    "ageBystander": 45,
+    "cPRbystander3Time": "14:01:49",
+    "helperCPR": 1,
+    "helperWho": 2,
+    "cPRhelper3Time": "13:59:19",
+    "defiOrig": 1,
+    "timeROSC": "13:59:19",
+    "endCPR4Time": "13:59:19",
+    "leftScene5Time": "14:27:56",
+    "hospitalArrival6Time": "14:43:01",
+    "hospArri": 2,
+    "dischDay": 12
 }
