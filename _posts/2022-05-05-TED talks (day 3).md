@@ -17,7 +17,7 @@ We attended a lecture on European Cardiac Arrest Registry given by Brian McNally
 ### Meeting the CARES team
 Today we had opportunity to talk with Kimberly Vellano from the [CARES registry, USA](https://mycares.net). We were very happy to get some time to demo our project to the people that are real legends of the field and are setting an example of how OHCA registries should work and what can be achieved with the data gathered.
 
-[Picture with Kimberly](https://siohca.um.si/assets/img/Glasgow 2022/CARES.JPG)
+![Picture with Kimberly](https://siohca.um.si/assets/img/Glasgow 2022/CARES.JPG)
 
 We were also very fortunate to have a quick chat with Bryan McNally, who is the executive director of CARES.
 
