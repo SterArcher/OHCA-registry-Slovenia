@@ -581,6 +581,192 @@
             "title": "Quality-of-life measurements (standardized questionnaires, eg, EQ-5D, SF-12)",
             "description": "JSON as described",
             "core": false
+        },
+        "reaLand": {
+            "title": "Country of cardiac arrest",
+            "description": "Country of cardiac arrest in text form", 
+            "core": false
+        },
+        "reaRegion": {
+            "title": "Region of cardiac arrest",
+            "description": "Region of cardiac arrest in text form", 
+            "core": false
+        },
+        "reaConf": {
+            "title": "Cardiac arrest confirmed",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "Yes",
+                "1": "No"
+            },
+            "core": false
+        },
+        "cprEms": {
+            "title": "CPR by EMS",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "Yes",
+                "1": "No"
+            },
+            "description": "Any CPR by EMS", 
+            "core": false
+        },
+        "cPREMS3Time": {
+            "title": "Time CPR by EMS",
+            "description": "Time of CPR started by EMS in hh:mm:ss form", 
+            "core": false
+        },
+        "noCPR": {
+            "title": "CPR not attempted by EMS",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "died earlier",
+                "1": "DNAR",
+                "2": "wish family",
+                "3": "wish doctor",
+                "4": "succesful ICD shock",
+                "5": "signs of life"
+            },
+            "core": false
+        },
+        "patID": {
+            "title": "needs to be added",
+            "core": false
+        },
+        "reaYr": {
+            "title": "Year of cardiac arrest",
+            "description": "Year of cardiac arrest in YYYY form", 
+            "core": false
+        },
+        "reaMo": {
+            "title": "Month of cardiac arrest",
+            "description": "Month of cardiac arrest in MM form", 
+            "core": false
+        },
+        "reaDay": {
+            "title": "Day of cardiac arrest",
+            "description": "Day of cardiac arrest in DD form", 
+            "core": false
+        },
+        "reaTime": {
+            "title": "Time of cardiac arrest",
+            "description": "Time of cardiac arrest in hh:mm:ss form", 
+            "core": false
+        },
+        "reaCause": {
+            "title": "Aetiology of cardiac arrest",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown (presumed cardiac)",
+                "0": "cardiac",
+                "1": "trauma",
+                "2": "submersion",
+                "3": "respiratory",
+                "4": "other non-cardiac"
+            },
+            "core": false
+        },
+        "timeTCPR": {
+            "title": "Time started TCPR",
+            "description": "Time that the dispatch center started TCPR. Whether CPR was done by bystander og person sent to help is not considered here. In hh:mm:ss form", 
+            "core": false
+        },
+        "gbystnader": {
+            "title": "Gender of bystander",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "male",
+                "1": "female"
+            },
+            "core": false
+        },
+        "ageBystander": {
+            "title": "Age of bystander",
+            "description": "Age of bystander in XXX form", 
+            "core": false
+        },
+        "cPRbystander3Time": {
+            "title": "Time CPR started by bystander",
+            "description": "Time CPR started by bystander in hh:mm:ss form", 
+            "core": false
+        },
+        "helperCPR": {
+            "title": "Person sent to help CPR",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "yes",
+                "1": "no"
+            },
+            "core": false
+        },
+        "helperWho": {
+            "title": "If person sent to help, who?",
+            "values": {
+                "1": "person alerted by dispatch",
+                "2": "person with BLS training alerted by dispatch",
+                "3": "firefighter alterted by dispatch",
+                "4": "off-duty healthcare professionals alerted by dispatch",
+                "5": "others alterted by dispatch"
+            },
+            "core": false
+        },
+        "cPRhelper3Time": {
+            "title": "Time CPR started by person sent to help",
+            "description": "Time CPR started by person sent to help in hh:mm:ss form", 
+            "core": false
+        },
+        "defiOrig": {
+            "title": "First shock from AED or EMS",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "AED",
+                "1": "EMS"
+            },
+            "core": false
+        },
+        "timeROSC": {
+            "title": "Time of first ROSC",
+            "description": "Time of first ROSC in hh:mm:ss form", 
+            "core": false
+        },
+        "endCPR4Time": {
+            "title": "Time CPR ended",
+            "description": "Time CPR ended in hh:mm:ss form", 
+            "core": false
+        },
+        "leftScene5Time": {
+            "title": "Time left scene",
+            "description": "Time left scene in hh:mm:ss form", 
+            "core": false
+        },
+        "hospitalArrival6Time": {
+            "title": "Time hospital arrival",
+            "description": "Time hospital arrival in hh:mm:ss form", 
+            "core": false
+        },
+        "hospArri": {
+            "title": "Status of arrival at hosp",
+            "values": {
+                "null": "Not recorded",
+                "-1": "Unknown",
+                "0": "dead",
+                "1": "alive",
+                "2": "no hospital transport",
+                "3": "transfer with ongoing CPR",
+                "4": "transfer with ROSC"
+            },
+            "core": false
+        },
+        "dischDay": {
+            "title": "Date of hospital discharge (Day)",
+            "description": "Date of hospital discharge (Day) in DD form", 
+            "core": false
         }
     },
     "locales": {
