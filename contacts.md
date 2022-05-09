@@ -10,11 +10,11 @@ Luka Petravić
     <i class="fa fa-fw fa-envelope" style="font-size:130%;"></i>
 </a>
 
-Address: Taborska ulica 8, 2000 Maribor
+Address: Taborska ulica 8, 2000 Maribor, Slovenia
 
 Rok Miklič
 <a href="mailto:rok.miklic@student.um.si" target="_blank">
     <i class="fa fa-fw fa-envelope" style="font-size:130%;"></i>
 </a>
 
-Address: Taborska ulica 8, 2000 Maribor
+Address: Taborska ulica 8, 2000 Maribor, Slovenia
