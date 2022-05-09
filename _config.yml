@@ -37,6 +37,19 @@ copyright:
 socials:
   github: https://github.com/SterArcher/OHCA-registry-Slovenia
 
+# SEO tag
+title: SiOHCA
+tagline: Project to set up OHCA registry in Slovenia
+url: https://siohca.um.si
+logo: assets/img/siohca_logo.svg
+social:
+  name: SiOHCA
+  links:
+    - https://github.com/SterArcher/OHCA-registry-Slovenia
+image: 
+  path: assets/img/graphics/social-media-preview-background.jpg
+  alt: Social Media Preview Background
+  
 #####################################################################
 # Settings related to your preferences go here, such as the
 # search results, wiki-style-links, sidenotes, marginnotes, 
@@ -91,6 +104,7 @@ plugins:
   - jekyll-feed 
   - jekyll-sitemap 
   - jekyll-tidy
+  - jekyll-seo-tag
 
 ## Enable _notes Collection 
 collections:
