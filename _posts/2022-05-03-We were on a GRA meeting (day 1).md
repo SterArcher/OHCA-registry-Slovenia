@@ -29,7 +29,7 @@ Later in the evening we attended a very memorable dinner, that took place at the
 
 We met a lot of very interesting people and learned useful new information. It was the greatest honour to talk with [Douglas Anthony Chamberlain](https://en.wikipedia.org/wiki/Douglas_Chamberlain). He is the person who began with paramedic service in Europe, devloped the basic 10 rules of an normal ECG, was one of the first authors to describe beta blockers, he determined that atropine could cause the vagal blockage, he was first to use AEDs in Europe and so much more. You could read more about his achievements in the [ERC document](https://cms.erc.edu/sites/5714e77d5e615861f00f7d18/content_entry574dadbd5e6158358f5cf96b/574dae635e6158358f5cfa93/files/Douglas_Chamberlain.pdf?1489672640).
 
-![Picture with Douglas Chamberlain](https://siohca.um.si/assets/img/Glasgow 2022/Douglas Chamberlain.JPG)
+![Picture with Douglas Chamberlain](https://siohca.um.si/assets/img/Glasgow 2022/Douglas Chamberlain.jpg)
 On the picture is the eldest and two youngest participants of the congress. *Rok (left), Douglas (middle), Luka (right)*
 
 >The dinner was a wonderful surprise. I was inspired by all the people I met and exchanged thoughts with and humbled by the magnificence of the Royal College. The musical performance was a great addition to the incredibly rich and flavoursome dishes.
