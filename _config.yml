@@ -29,7 +29,7 @@ url: "https://siohca.um.si/" # the base hostname & protocol for your site, e.g. 
 #######################################################################
 
 heading: SiOHCA Homepage # Change this
-description: Project to set up OHCA registry in Slovenia
+description: Open-source project to create OHCA registry for Slovenia, that can be also used elsewhere.
 copyright:  
   year: 2022
   msg: Ekipa SiOHCA # This is a mandatory attribute for copyright to be displayed ; If deleting this, edit at footer layout.
@@ -42,7 +42,7 @@ title: SiOHCA
 tagline: Project to set up OHCA registry in Slovenia
 url: https://siohca.um.si
 logo: https://siohca.um.si/assets/img/siohca_logo.svg
-image: https://siohca.um.si/assets/img/graphics/social-media-preview-background.jpg
+image: https://siohca.um.si/assets/img/graphics/social-media-preview-background-small.jpg
 social:
   name: SiOHCA
   links:
