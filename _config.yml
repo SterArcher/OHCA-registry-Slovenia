@@ -41,14 +41,12 @@ socials:
 title: SiOHCA
 tagline: Project to set up OHCA registry in Slovenia
 url: https://siohca.um.si
-logo: assets/img/siohca_logo.svg
+logo: https://siohca.um.si/assets/img/siohca_logo.svg
+image: https://siohca.um.si/assets/img/graphics/social-media-preview-background.jpg
 social:
   name: SiOHCA
   links:
     - https://github.com/SterArcher/OHCA-registry-Slovenia
-image: 
-  path: assets/img/graphics/social-media-preview-background.jpg
-  alt: Social Media Preview Background
 
 #####################################################################
 # Settings related to your preferences go here, such as the
