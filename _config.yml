@@ -49,7 +49,7 @@ social:
 image: 
   path: assets/img/graphics/social-media-preview-background.jpg
   alt: Social Media Preview Background
-  
+
 #####################################################################
 # Settings related to your preferences go here, such as the
 # search results, wiki-style-links, sidenotes, marginnotes, 
@@ -147,6 +147,7 @@ defaults:
 
 gems:
   - jekyll_social_icons
+  - jekyll-seo-tag
 
 
 
