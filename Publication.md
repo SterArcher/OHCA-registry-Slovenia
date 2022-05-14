@@ -7,8 +7,35 @@ content-type: eg
 
 
 ### Publications 
-1. 26/04/2022 - 1 article under review
-
+<ol>
+{% for item in site.data.publications %}
+    {% if item.link == "/" %}
+        <li>
+            {{ item.date }} - {{ item.name }}
+        </li>
+    {% else %}
+        <li>
+            <a href="{{ item.link }}">
+            {{ item.date }} - {{ item.name }}
+            </a>
+        </li>
+    {% endif %}
+{% endfor %}
+</ol>
 
 ### Press clipping
-1. [13/5/2022 SiOHCA na konferenci EMS 2022](https://www.um.si/objava/siohca-na-konferenci-ems-2022/)
+<ol>
+{% for item in site.data.press %}
+    {% if item.link == "/" %}
+        <li>
+            {{ item.date }} - {{ item.name }}
+        </li>
+    {% else %}
+        <li>
+            <a href="{{ item.link }}">
+            {{ item.date }} - {{ item.name }}
+            </a>
+        </li>
+    {% endif %}
+{% endfor %}
+</ol>
