@@ -6,7 +6,7 @@ tags: Portorož; SZUM; congress
 ---
 We are delighted to announce that our team member Urša Keše will be heading to the sea side of Slovenia to present a small part of the work we have already done and where we are going. 
 
-The symposia is organised by Slovenian college of Emergency medicine and will be taking place between the 18th and 22nd of June in Grand Hotel Bernardin, Portorož.
+The symposia is organised by Slovenian college of Emergency medicine and will be taking place between the 16th and 18th of June in Grand Hotel Bernardin, Portorož.
 
 ![Bernardin convention centre](https://siohca.um.si/assets/img/SZUM Portorož 2022/CONVENTION CENTER.jpeg)
 
