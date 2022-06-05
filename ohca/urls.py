@@ -29,5 +29,11 @@ urlpatterns = [
     path('case/dispatch/', views.case_by_disp, name='dispatch'),
     path('case/dispatch/multi/', views.case_by_disp_multi, name='dispatch_multi'),
     path('system/', views.system_view, name='system'),
-    path('locale/', views.locale_view, name='locale')
+    path('locale/', views.locale_view, name='locale'),
+    # path('autoform/', views.index22),
+    # path('', index.as_view())
+    path("", views.new_index, name="index"),
+    path("formpage", views.form_name_view, name="form_name"),
+    path("secondformpage", views.second_form_name_view, name="second_form_name"),
+    path("thirdformpage", views.third_form_name_view, name="third_form_name")
 ]
