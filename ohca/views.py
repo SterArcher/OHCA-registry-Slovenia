@@ -208,12 +208,12 @@ def third_form_name_view(request):
             # # print(first_name, "".join([word[0] for word in first_name]))
             # # print(first_name)#
             # # print(last_name)#
-            date = str(form.cleaned_data['Date'])
-            date_birth = str(form.cleaned_data["Date_birth"])
+            # date = str(form.cleaned_data['Date'])
+            # date_birth = str(form.cleaned_data["Date_birth"])
             # print((date, date_birth))
             # # print(str(date).split("-"))#
-            id = generate_id("".join(first_name), "".join(last_name), date, date_birth)
-            print(id)
+            # id = generate_id("".join(first_name), "".join(last_name), date, date_birth)
+            # print(id)
             # print(id.digest())
             cases = CaseReport.objects.all()
             existing_ids = []
@@ -227,4 +227,4 @@ def third_form_name_view(request):
             # return index(request) # to mi neke errorje vrača, not sure why 
         else:
             print("form invalid")
-    return render(request, "ohca/form_page.html", {"form":form})
+    return render(request, "ohca/third_form_page.html", {"form":form})
