@@ -1,17 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
+{% load crispy_forms_tags %}
 <html>
     <head>
-        <style>
-         
-            .vertical-center {
-              margin: 0;
-              position: absolute;
-              top: 50%;
-              -ms-transform: translateY(-10%);
-              transform: translateY(-10%);
-            }
-            </style>
+        
+
          <meta charset="utf-8">
          <title>FORMS</title>
     
@@ -47,46 +40,29 @@
                      <a class="nav-link" href="thirdformpage">Združeno</a>
                    </li>
       
-                   <!-- <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                     <div class="dropdown-menu">
-                       <a class="dropdown-item" href="#">Action</a>
-                       <a class="dropdown-item" href="#">Another action</a>
-                       <a class="dropdown-item" href="#">Something else here</a>
-                       <div class="dropdown-divider"></div>
-                       <a class="dropdown-item" href="#">Separated link</a>
-                     </div>
-                   </li> -->
                  </ul>
-                 <!-- <form class="d-flex">
- 
-                   <input class="form-control me-sm-2" type="text" placeholder="Search">
-                   <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                 </form> -->
+
                </div>
              </div>
            </nav>
          
  
          <div class="container">
-             <div class="vertical-center">
+             <!-- <div class="vertical-center"> -->
              <form method="POST">
                  
-                 <h1>Fill out the form</h1>
-                 <fieldset>
-                     <div class="form-group">
-                 <p>Ime pacienta: {{ form.Patient_name}}</p>
-                 <p>Priimek pacienta: {{form.Patient_surname}}</p>
-                 <p>Datum rojstva: {{form.Date_birth}}</p>
-                 <p>Datum srčnega zastoja: {{form.Date}}</p>
-                 <!-- <p>Gender: {{form.gender}}</p> -->
-                 <!-- {{form.as_p}} -->
- 
- 
+                 <h1>Izpolnite podatke o dogodku</h1>
+
+                 
                  {% csrf_token %}
+                 <p>{{ form.Patient_name|as_crispy_field}}</p>
+                 <p>{{form.Patient_surname|as_crispy_field}}</p>
+                 <p>{{form.Date_birth|as_crispy_field}}</p>
+                 <p>{{form.Date|as_crispy_field}}</p>
                  {% for field in form %}
                      {% if field.name != "Patient_name" and field.name != "Patient_surname" and field.name != "Date" and field.name != "Date_birth" %}
-                         <p>{{ field.label }}{{ field }}</p>
+                         <!-- <p>{{ field.label}}{{ field|as_crispy_field }}</p> -->
+                         <p>{{ field|as_crispy_field }}</p>
                      {% endif %}
                  {% endfor %}
 
@@ -95,7 +71,7 @@
         </div>
         </fieldset>
         </form>
-        </div>
+        <!-- </div> -->
         </div>
 
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
