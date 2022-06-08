@@ -61,8 +61,9 @@ class System(models.Model):
         db_table = 'systems'
 
 class CaseReport(models.Model):
-    caseID = models.CharField(max_length = 64, primary_key = True) # max_length = 32,  # TODO
-    dispatchID = models.CharField(max_length = 32, blank = True, null = True, unique = True)
+    caseID = models.CharField(max_length = 300, primary_key = True) # max_length = 32,  # TODO
+    # TODO
+    # dispatchID = models.CharField(max_length = 32, blank = True, null = True, unique = True)
     systemID = models.ForeignKey(System, on_delete = models.DO_NOTHING)
     localID = models.ForeignKey(Locale, on_delete = models.DO_NOTHING)
     dispIdentifiedCA = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
@@ -72,11 +73,11 @@ class CaseReport(models.Model):
     witnesses = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(3)])
     location  = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(8)])
     bystanderResponse = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
-    bystanderResponseTime = models.BigIntegerField(null = True, blank = True, validators=[MinValueValidator(-1)])
+    bystanderResponseTime = models.BigIntegerField(null = True, blank = True, validators=[MaxValueValidator(-1)])
     bystanderAED = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
-    bystanderAEDTime = models.BigIntegerField(null = True, blank = True, validators=[MinValueValidator(-1)])
+    bystanderAEDTime = models.BigIntegerField(null = True, blank = True, validators=[MaxValueValidator(-1)])
     deadOnArrival = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
-    firstMonitoredRhy = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(7)])
+    firstMonitoredRhy = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     pathogenesis = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(1), MaxValueValidator(6)])
     independentLiving = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     comorbidities = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
@@ -91,7 +92,7 @@ class CaseReport(models.Model):
     airwayControl = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(15)])
     cprQuality = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     shocks = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1)])
-    drugTimings = models.JSONField(null = True, blank = True, default = dict)
+    drugTimings = models.JSONField(default = dict)
     vascularAccess = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(4)])
     mechanicalCPR = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(3)])
     targetVent = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(3)])
@@ -102,7 +103,7 @@ class CaseReport(models.Model):
     ph = models.DecimalField(max_digits = 5, decimal_places = 3, null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(14)])
     lactate = models.DecimalField(max_digits = 10, decimal_places = 5, null = True, blank = True, validators=[MinValueValidator(-1)])
     glucose = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
-    neuroprognosticTests = models.JSONField(null = True, blank = True, default = dict)
+    neuroprognosticTests = models.JSONField(default = dict)
     specialistHospital  = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     hospitalVolume = models.IntegerField(null = True, blank = True, validators=[MinValueValidator(-1)])
     ecg = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
@@ -120,7 +121,7 @@ class CaseReport(models.Model):
     cod = models.CharField(max_length = 6, null = True, blank = True)
     organDonation = models.IntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     patientReportedOutcome = models.SmallIntegerField(null = True, blank = True)
-    qualityOfLife = models.JSONField(null = True, blank = True, default = dict)
+    qualityOfLife = models.JSONField(default = dict)
     reaLand = models.SmallIntegerField(null = True, blank = True)
     reaRegion = models.SmallIntegerField(null = True, blank = True)
     reaConf = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
