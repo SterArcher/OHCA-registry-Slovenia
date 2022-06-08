@@ -98,42 +98,36 @@ def new_index(request):
     return render(request, "ohca/index.html")
 
 def form_name_view(request):
-    # form = forms.MyNewFrom()
     form = MyNewFrom() 
     if request.method == "POST":
         form = MyNewFrom(request.POST)
-        # print(form) 
         if form.is_valid():
-            #
+            
             print("VALIDATION SUCCESS")
-            #
+            
             first_name = (form.cleaned_data['Patient_name']).strip().split(" ")
             last_name = (form.cleaned_data['Patient_surname']).strip().split(" ")
-            obcina = form.cleaned_data["localID"] # TODO da ti bo prov delal
-            print(obcina) # iz forme dobimo ime obcine
-            print(ems[str(obcina)]) # tole bi moral bit ZD, ki pokriva to obcino
+            print(first_name)
+            print(last_name)
+            # obcina = form.cleaned_data["localID"] 
+            # print(obcina) 
+            # print(ems[str(obcina)]) # tole bi moral bit ZD, ki pokriva to obcino
 
             # poiščem id tega zdravstvenega doma v Sytems
 
-            zdID = System.objects.all().filter(friendlyName__exact=ems[str(obcina)])[0].systemID
-            print(zdID)
-            # obcinaID = Locale.objects.all().filter(friendlyName__exact=str(ems[str(zdID)]))[0].localID
-            # print(obcinaID)
-            # print(ems[zd])
-            # print(first_name, "".join([word[0] for word in first_name]))
-            # print(first_name)#
-            # print(last_name)#
+            # zdID = System.objects.all().filter(friendlyName__exact=ems[str(obcina)])[0].systemID
+            # print(zdID)
+
             date = str(form.cleaned_data['Date'])
             print(date)
             date_birth = str(form.cleaned_data["Date_birth"])
-            print((date, date_birth))
-            # print(str(date).split("-"))#
+            print(date_birth)
+            print(str(date))#.split("-"))# TODO
             id = generate_id("".join(first_name), "".join(last_name), date, date_birth)
-            form.instance.caseID = id #"".join([word[0] for word in first_name])
-            form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
-
+            form.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
+            
             # to save into database:
-            # form.save(commit=True)
+            form.save()
             # return index(request) # to mi neke errorje vrača, not sure why 
         else:
             print("form invalid")
@@ -152,14 +146,14 @@ def second_form_name_view(request):
             #
             first_name = (form.cleaned_data['Patient_name']).strip().split(" ")
             last_name = (form.cleaned_data['Patient_surname']).strip().split(" ")
-            obcina = form.cleaned_data["localID"] # TODO da ti bo prov delal
-            print(obcina) # iz forme dobimo ime obcine
-            print(ems[str(obcina)]) # tole bi moral bit ZD, ki pokriva to obcino
+            # obcina = form.cleaned_data["localID"] # TODO da ti bo prov delal
+            # print(obcina) # iz forme dobimo ime obcine
+            # print(ems[str(obcina)]) # tole bi moral bit ZD, ki pokriva to obcino
 
-            # poiščem id tega zdravstvenega doma v Sytems
+            # # poiščem id tega zdravstvenega doma v Sytems
 
-            zdID = System.objects.all().filter(friendlyName__exact=ems[str(obcina)])[0].systemID
-            print(zdID)
+            # zdID = System.objects.all().filter(friendlyName__exact=ems[str(obcina)])[0].systemID
+            # print(zdID)
             # obcinaID = Locale.objects.all().filter(friendlyName__exact=str(ems[str(zdID)]))[0].localID
             # print(obcinaID)
             # print(ems[zd])
@@ -171,7 +165,14 @@ def second_form_name_view(request):
             print((date, date_birth))
             # print(str(date).split("-"))#
             id = generate_id("".join(first_name), "".join(last_name), date, date_birth)
-            form.instance.caseID = id #"".join([word[0] for word in first_name])
+            CaseReport.objects.update_or_create(
+                caseID=id, 
+                defaults=dict([(field, form.cleaned_data[field]) for field in form2[1:]])
+                # {
+                #     "ecls" : form.cleaned_data["ecls"] # zgeneriraj
+                # }
+            ) # update, create
+            form.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
             # form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
 
             # to save into database:
@@ -194,36 +195,26 @@ def third_form_name_view(request):
             #
             first_name = (form.cleaned_data['Patient_name']).strip().split(" ")
             last_name = (form.cleaned_data['Patient_surname']).strip().split(" ")
-            # obcina = form.cleaned_data["localID"] # TODO da ti bo prov delal
-            # print(obcina) # iz forme dobimo ime obcine
-            # print(ems[str(obcina)]) # tole bi moral bit ZD, ki pokriva to obcino
+            print(first_name) # ['ime']
+            print(last_name)
 
-            # # poiščem id tega zdravstvenega doma v Sytems
-
-            # zdID = System.objects.all().filter(friendlyName__exact=ems[str(obcina)])[0].systemID
-            # print(zdID)
-            # # obcinaID = Locale.objects.all().filter(friendlyName__exact=str(ems[str(zdID)]))[0].localID
-            # # print(obcinaID)
-            # # print(ems[zd])
-            # # print(first_name, "".join([word[0] for word in first_name]))
-            # # print(first_name)#
-            # # print(last_name)#
-            # date = str(form.cleaned_data['Date'])
-            # date_birth = str(form.cleaned_data["Date_birth"])
-            # print((date, date_birth))
-            # # print(str(date).split("-"))#
-            # id = generate_id("".join(first_name), "".join(last_name), date, date_birth)
-            # print(id)
+            date = str(form.cleaned_data['Date'])
+            date_birth = str(form.cleaned_data["Date_birth"])
+            print((date, date_birth))
+            # # print(str(date).split("-")) #
+            id = generate_id(first_name, last_name, date, date_birth)
+            print(id)
+            print(len(id))
             # print(id.digest())
             cases = CaseReport.objects.all()
             existing_ids = []
             for case in cases:
                 existing_ids.append(case.caseID)
-            form.instance.caseID = random.choice([i for i in range(100000, 10000000) if i not in existing_ids]) #id 
+            form.instance.caseID = id #[0:32] #random.choice([i for i in range(100000, 10000000) if i not in existing_ids]) #id 
             # form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
 
             # # to save into database:
-            form.save(commit=True)
+            # form.save(commit=True)
             # return index(request) # to mi neke errorje vrača, not sure why 
         else:
             print("form invalid")
