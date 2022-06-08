@@ -12,6 +12,7 @@ wheel = "*"
 gunicorn = "*"
 mssql-django = "*"
 mysqlclient = "*"
+django-crispy-forms = "*"
 
 [requires]
 python_version = "3.8"
