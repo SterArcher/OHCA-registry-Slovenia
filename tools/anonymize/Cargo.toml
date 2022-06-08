@@ -10,3 +10,4 @@ edition = "2018"
 clap = {version = "*", features = ["wrap_help"]}
 sha2 = {version = "*"}
 unicode-bom = "1.1.0"
+chrono = {version = "*"}

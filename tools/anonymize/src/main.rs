@@ -7,6 +7,7 @@ use std::{
 };
 use sha2::{Sha256, Digest};
 use unicode_bom::Bom;
+use chrono::{NaiveDateTime, Datelike};
 
 enum Input {
     File(fs::File),
@@ -20,6 +21,18 @@ impl Read for Input {
             Input::Stdin(ref mut stdin) => stdin.read(buf),
         }
     }
+}
+
+fn unix_to_date_string(unix_timestamp: i64) -> String {
+    let output;
+    let time = NaiveDateTime::from_timestamp(unix_timestamp, 0);
+    output = format!(
+            "{:02}{:02}{:04}",
+            time.day(),
+            time.month(),
+            time.year()
+        ).to_string();
+    return output;
 }
 
 fn read_line_lossy<R: BufRead>(reader: &mut R) -> Result<String, String> {
@@ -45,20 +58,20 @@ fn hash(input: impl AsRef<[u8]>) -> String {
     return format!("{:X}", hasher.finalize());
 }
 
-fn calculate_caseid(name: &str, surname: &str, timestamp: &str) -> String{
-    let input = String::from(&name[0..0]) + timestamp + &surname[0..0];
+fn calculate_caseid(name: &str, surname: &str, timestamp: &str, birthday: &str) -> String{
+    let input = String::from(&name[..]) + &unix_to_date_string(timestamp.parse::<i64>().unwrap()) + &surname[..] + &unix_to_date_string(birthday.parse::<i64>().unwrap());
     return hash(input);
 }
 
 fn calculate_dispatchid(vehicle: &str, timestamp: &str) -> String {
-    let input = String::from(vehicle) + timestamp;
+    let input = String::from(vehicle) + &unix_to_date_string(timestamp.parse::<i64>().unwrap());
     return hash(input);
 }
 
 fn main() -> Result<(), io::Error> {
     // Collect help information and arguments
     let matches = Command::new("anonymize")
-        .version("0.1.0")
+        .version("0.1.1")
         .author("G. Tomšič (SiOHCA Team)")
         .about("Anonymize CSV data for posting to OHCA API Server.\nOutputs data to stdout.")
         .arg(
@@ -79,7 +92,7 @@ fn main() -> Result<(), io::Error> {
         )
         .get_matches();
 
-    let reqs_case = ["name", "surname", "timestamp"];
+    let reqs_case = ["name", "surname", "timestamp", "birthday"];
     let reqs_disp = ["vehicleID", "timestamp"];
 
     let columns = [
@@ -157,9 +170,10 @@ fn main() -> Result<(), io::Error> {
                                 let name = data[titles["name"]];
                                 let surname = data[titles["surname"]];
                                 let timestamp = data[titles["timestamp"]];
+                                let birthday = data[titles["birthday"]];
                                 output.push(
                                     match name.len() == 0 || surname.len() == 0 || timestamp.len() == 0 {
-                                        false => calculate_caseid(name, surname, timestamp),
+                                        false => calculate_caseid(name, surname, timestamp, birthday),
                                         true => String::from("NULL")
                                     }
                                 );
