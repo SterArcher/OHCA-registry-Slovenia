@@ -4,7 +4,7 @@
 <html>
     <head>
         
-
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
          <meta charset="utf-8">
          <title>FORMS</title>
     
@@ -16,15 +16,13 @@
          <script src="{% static 'js/bootstrap.min.js' %}"></script> 
     
      </head>
-     <body>
- 
-         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-             <div class="container-fluid">
+     <body style="background: rgb(115,157,195); background: linear-gradient(110deg, rgba(115,157,195,1) 0%, rgba(40,77,143,1) 15%, rgba(15,43,143,1) 31%, rgba(75,44,120,0.9009978991596639) 46%, rgba(110,22,124,1) 66%, rgba(37,47,124,1) 81%, rgba(78,127,186,1) 100%);">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="padding: 20px; font-family:Helvetica;">
+            <div class="container-fluid">
                <a class="navbar-brand" href="#">Forms</a>
                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                  <span class="navbar-toggler-icon"></span>
                </button>
-           
                <div class="collapse navbar-collapse" id="navbarColor01">
                  <ul class="navbar-nav me-auto">
                    <li class="nav-item">
@@ -39,21 +37,16 @@
                    <li class="nav-item">
                      <a class="nav-link" href="thirdformpage">Združeno</a>
                    </li>
-      
                  </ul>
-
                </div>
              </div>
            </nav>
          
  
-         <div class="container">
+           <div class="container" style="font-family: Al Tarikh; width: 50%; padding-top: 40px; padding: 50px; margin-top: 20px; margin-bottom: 50px; border-radius: 25px; background-color:white; box-shadow: 0 0 10px 1px rgba(61, 60, 134, 0.637);" >
              <!-- <div class="vertical-center"> -->
              <form method="POST">
-                 
-                 <h1>Izpolnite podatke o dogodku</h1>
-
-                 
+                 <h2 style="font-weight: bold;">Izpolnite podatke o dogodku</h1>
                  {% csrf_token %}
                  <p>{{ form.Patient_name|as_crispy_field}}</p>
                  <p>{{form.Patient_surname|as_crispy_field}}</p>
