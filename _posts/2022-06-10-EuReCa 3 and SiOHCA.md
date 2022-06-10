@@ -41,7 +41,7 @@ Other important outcomes from the Slovenian data can be seen in the table bellow
 | Only patients that received CPR                 |       11.4       |
 | Witnessed OHCA + bystander CPR + VF first rhythm |        32        |
 
-**Bystander CPR was 48.3 % (for all of the patients that the OHCA was recognised by bystanders).
+**Bystander CPR was 48.3 %** (for all of the patients that the OHCA was recognised by bystanders).
 
 > We would like to thank Andrej Markota for sharing this data with our project.
 
