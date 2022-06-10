@@ -23,7 +23,7 @@ Read about the studies published by clicking on the sources bellow.
 ## How did Slovenia perform the last time around?
 EuReCa 2 was prospective observational study that took place around Europe (28 countries) for three months between October and December 2017. Some of the countries have aggregated data for the whole country, and some only for smaller parts - one of those was also Slovenia, which covered roughly 1,2 millions of its' population (at that time the population of Slovenia was 2,1 millions) which is roughly 57 %.
 
-> EMSs that contributed data were Koper, Izola, Piran, Portorož, Kranj, Ljubljana, Litija, Celje, Slo. Bistrica, Maribor, Lenart, Koroška, Ptuj, Murske Sobota and Šmarje pri Jelšah
+> EMSs that contributed data were ZD Koper, ZD Izola, ZD Kranj, RP UKCL, ZD Litija, ZD Celje, ZD Slovenska Bistrica, ZD Maribor, ZD Lenart, Zdravstveno reševalni center Koroške, ZD Ptuj, ZD Murska Sobota, ZD Šmarje pri Jelšah.
 
 During the study there were **261** calls with a suspicion on OHCA, **258** of which were actually confirmed OHCA. They performed CPR on **176** patients, others were dead on arrival. **ROSC** was achieved with **66** patients.
 
