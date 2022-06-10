@@ -25,6 +25,8 @@ EuReCa 2 was prospective observational study that took place around Europe (28 
 
 > EMSs that contributed data were Koper, Izola, Piran, Portorož, Kranj, Ljubljana, Litija, Celje, Slo. Bistrica, Maribor, Lenart, Koroška, Ptuj, Murske Sobota and Šmarje pri Jelšah.
 
+![EuReCa2 coverage in Slovenia](https://siohca.um.si/assets/img/eureca2_coverage.png)
+
 During the study there were **261** calls with a suspicion on OHCA, **258** of which were actually confirmed OHCA. They performed CPR on **176** patients, others were dead on arrival. **ROSC** was achieved with **66** patients.
 
 The aim of the study was to measure 30-day survival of the patients and survival to discharge. This was achieved by **20** patients.
