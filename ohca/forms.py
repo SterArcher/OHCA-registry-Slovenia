@@ -123,7 +123,7 @@ class MySecondNewFrom(forms.ModelForm):
 
 	Patient_name = forms.CharField(label="Ime pacienta")
 	Patient_surname = forms.CharField(label="Priimek pacienta")
-	Date = forms.DateField(label='Date of cardiac arrest', widget=forms.SelectDateWidget(years=[x for x in range(2020,2025)]))
+	Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(years=[x for x in range(2020,2025)]))
 	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)]))
 
 	class Meta: 
