@@ -44,6 +44,7 @@ Other important outcomes from the Slovenian data can be seen in the table bellow
 **Bystander CPR was 48.3 % (for all of the patients that the OHCA was recognised by bystanders).
 
 > We would like to thank Andrej Markota for sharing this data with our project.
+
 ## New subpage announcement
 We will be rolling out a subpage dedicated to everything related to EuReCa 3 study soon. There you will be able to find details of how we envision the data aggregation and how medical professionals can take part. We will also update you on the status of our system and maintain up to date instructions of how to use SiOHCA.
 
