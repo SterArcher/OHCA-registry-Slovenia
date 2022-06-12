@@ -4,6 +4,9 @@ Featuresdate: 2022-06-10 10:14:12 -0000
 categories: EuReCa; Study; pan-european; EU-28; SloRS; results
 tags: EuReCa; Study; pan-european; EU-28; SloRS; results
 ---
+
+![very nice header SiOHCA x EuReCa THREE](https://siohca.um.si/assets/img/SiOHCAxEuReCa3_collab_header.jpg)
+
 Our mentor **Matej Strnad** was selected to lead **EuReCa 3** study for Slovenia by [Slovenian Resuscitation council (SloRS)](http://slors.szum.si). With the EuReCa 2 lead by **Andrej Markota**.
 
 We are thankful for all the work that was already done and hope to help digitalise the process of data gathering. We would also like to see this as the first step in setting up a working 24/7 cardiac registry in Slovenia, that would allow us to finally catch up with other countries around the world.
