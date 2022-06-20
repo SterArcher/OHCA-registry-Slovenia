@@ -112,7 +112,7 @@ class MyNewFrom(forms.ModelForm):
 	class Meta: 
 		model = CaseReport
 		fields = tuple(form1)		
-		exclude = ("caseID",) 
+		exclude = ("caseID", "reaLand",) 
 
 		widgets = w
 		labels = titles
@@ -130,7 +130,7 @@ class MySecondNewFrom(forms.ModelForm):
 		model = CaseReport
 
 		fields = tuple(form2)		
-		exclude = ("caseID",) # "systemID", "localID") 
+		exclude = ("caseID", "reaLand",) # "systemID", "localID") 
 
 		widgets = w
 		labels = titles
@@ -151,7 +151,7 @@ class MyThirdNewFrom(forms.ModelForm):
 		model = CaseReport
 
 		fields = "__all__" 		
-		exclude = ("caseID",) 
+		exclude = ("caseID", "reaLand",) 
 
 		widgets = w
 		labels = titles
