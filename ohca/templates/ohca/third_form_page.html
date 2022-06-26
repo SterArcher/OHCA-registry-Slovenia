@@ -35,6 +35,8 @@
          <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> -->
           <!-- <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}"> -->
          <script src="{% static 'js/bootstrap.min.js' %}"></script> 
+
+         <title>SiOHCA vpisovanje podatkov</title>
     
 </head>
 <body style="background: rgb(115,157,195); background: linear-gradient(110deg, rgba(115,157,195,1) 0%, rgba(40,77,143,1) 15%, rgba(15,43,143,1) 31%, rgba(75,44,120,0.9009978991596639) 46%, rgba(110,22,124,1) 66%, rgba(37,47,124,1) 81%, rgba(78,127,186,1) 100%);">
@@ -68,11 +70,56 @@
                 <h2 style="font-weight: 500;">Izpolnite podatke o dogodku</h2>
 
                 {% csrf_token %}
-                <p>{{ form.Patient_name|as_crispy_field}}</p>
-                <p>{{form.Patient_surname|as_crispy_field}}</p>
-                <p>{{form.Date_birth|as_crispy_field}}</p>
-                <p>{{form.Date|as_crispy_field}}</p>
-                {% for field in form %}
+
+                <p> </p>
+                <p> </p>
+                  Vpišite 12-mestno številko intervencije
+                  <p> </p>
+                  <p> </p>
+                  <div class="form-row">
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i1|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i2|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i3|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i4|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i5|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i6|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i7|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i8|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i9|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i10|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i11|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i12|as_crispy_field }}
+                    </div>
+                  </div>
+
+                <p>{{ form1.Patient_name|as_crispy_field}}</p>
+                <p>{{form1.Patient_surname|as_crispy_field}}</p>
+                <p>{{form1.Date_birth|as_crispy_field}}</p>
+                <p>{{form1.Date|as_crispy_field}}</p>
+                {% for field in form1 %}
                     {% if field.name != "Patient_name" and field.name != "Patient_surname" and field.name != "Date" and field.name != "Date_birth" %}
                         <!-- <p>{{ field.label}}{{ field|as_crispy_field }}</p> -->
                         <p>{{ field|as_crispy_field }}</p>
