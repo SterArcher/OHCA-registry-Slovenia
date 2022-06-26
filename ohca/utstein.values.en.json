@@ -1,0 +1,913 @@
+{
+    "cases": {
+        "caseID": {
+            "title": "UUID primera",
+            "description": "Unikaten ID primera",
+            "core": true
+        },
+        "systemID": {
+            "title": "UUID sistema",
+            "description": "Unikaten ID sistema, v katerem je bil primer oskrbovan",
+            "core": true
+        },
+        "localID": {
+            "title": "UUID območja",
+            "description": "Unikaten ID območja, kjer je bil primer oskrbovan",
+            "core": true
+        },
+        "dispIdentifiedCA": {
+            "title": "Dispečer je prepoznal prisotnost zastoja srca",
+            "source": "Dispečerska služba zdravstva",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": true
+        },
+        "dispProvidedCPRinst": {
+            "title": "Dispečer je posredoval navodila za TPO",
+            "source": "Dispečerska služba zdravstva",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": true
+        },
+        "age": {
+            "title": "Starost",
+            "source": "Datum rojstva",
+            "description": "Starost pacienta ob dogodku - datum rojstva ali starost v letih",
+            "core": true
+        },
+        "gender": {
+            "title": "Spol",
+            "source": "Spol",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Moški",
+                "1": "Ženska"
+            },
+            "core": true
+        },
+        "witnesses": {
+            "title": "Priče zastoja",
+            "source": "Pred prihodom NMP (poročilo o nujnem reševlnem prevozu), Zastoj srca se je zgodil (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Brez",
+                "1": "Očividci",
+                "2": "Ekipa NMP",
+                "3": "Očividci & NMP"
+            },
+            "core": true
+        },
+        "location": {
+            "title": "Lokacija zastoja",
+            "source": "Lokacija dogodka (poročilo o nujnem reševalnem prevozu), Kraj dogodka (sprejem intervencij)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "1": "Dom/prebivališče",
+                "2": "Delovno mesto",
+                "3": "Športni/rekreacijski dogodek",
+                "4": "Ulica/avtocesta",
+                "5": "Javna zgradba",
+                "6": "Varovano stanovanje/dom za ostarele",
+                "7": "Učna ustanova",
+                "8": "Drugo"
+            },
+            "description": "Lokacija pacienta ob incidentu",
+            "core": true
+        },
+        "bystanderResponse": {
+            "title": "Odziv očividca",
+            "source": "Opis dogodka pred prihodom NMP, Pred prihodom ekipe NMP (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Očividec ni izvajal TPO",
+                "1": "Izveden TPO (Samo stiski prsnega koša)",
+                "2": "Izveden TPO (Stiski in umetno dihanje)"
+            },
+            "core": true
+        },
+        "bystanderResponseTime": {
+            "title": "Začetek izvajanja TPO očividcev",
+            "source": "Čas ob začetku oživljanja (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Očividec ni izvajal TPO",
+                ">0": "value"
+            },
+            "core": true
+        },
+        "bystanderAED": {
+            "title": "Uporaba AED",
+            "source": "AED je / ni bil na voljo, Uspešnost AED pred prihodom ekipe NMP (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ni bil uporabljen",
+                "1": "AED uporabljen, elektrošok ni izveden",
+                "2": "AED uporabljen, elektrošok izveden"
+            },
+            "core": true
+        },
+        "bystanderAEDTime": {
+            "title": "Čas prvega AED šoka očividcev",
+            "source": "Prvi AED izvid (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Elektrošok ni bil izveden",
+                ">0": "value"
+            },
+            "core": true
+        },
+        "deadOnArrival": {
+            "title": "Mrtvogled",
+            "source": "Število mrtvih ob prihodu ekipe - oživljanje ni bilo indicirano (sprejem intervencij)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": true
+        },
+        "firstMonitoredRhy": {
+            "title": "Prvi zaznan ritem",
+            "source": "Prvi EKG pri oživljanju, Prvi AED izvid (protokol predbolnišničnega življenja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "1": "VT",
+                "2": "VT brez pulza",
+                "3": "PEA",
+                "4": "Asistola",
+                "5": "Bradikardia",
+                "6": "AED šok ni smiseln",
+                "7": "AED šok smiseln"
+            },
+            "core": true
+        },
+        "pathogenesis": {
+            "title": "Patogeneza",
+            "source": "Vzrok zastoja (protokol predbolnišničnega oživljanja), Zastrupitev, Prepovedane droge (protokol nujnega reševalnega vozila)",
+            "values": {
+                "null": "Ni zapisa",
+                "1": "Zdravstvena težava",
+                "2": "Travma",
+                "3": "Predoziranje z drogami",
+                "4": "Utopitev",
+                "5": "Elektrošok",
+                "6": "Zadušitev"
+            },
+            "description": "Opomomba: neznani razlogi naj bodo opredeljeni kot zdravstvena težava.",
+            "core": true
+        },
+        "independentLiving": {
+            "title": "Samostojno življenje",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "description": "Ali pacient živi sam",
+            "core": false
+        },
+        "comorbidities": {
+            "title": "Pridružene bolezni",
+            "source": "Diagnoze (protokol nujne intervencije), bolnišnice",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false
+        },
+        "vad": {
+            "title": "VAD",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false
+        },
+        "cardioverterDefib": {
+            "title": "Kardioverter-defibrilator",
+            "source": "Zunanji srčni spodbujevalec (protokol nujne intervencije)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Interni",
+                "2": "Eksterni"
+            },
+            "core": false
+        },
+        "stemiPresent": {
+            "title": "Prisoten STEMI",
+            "source": "STEMI (protokol predbolnišničnega oživljanja), EKG izvid (protokol nujne intervencije)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false
+        },
+        "responseTime": {
+            "title": "Odzivni čas",
+            "source": "Čas klica, Čas prihoda do pacienta (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                ">0": "value"
+            },
+            "description": "Odzivni čas v sekundah - od časa sprejema klica do prihoda do pacienta",
+            "core": true
+        },
+        "defibTime": {
+            "title": "Čas do defibrilacije",
+            "source": "Poročilo prvih posredovalcev, Lifepak",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                ">0": "value"
+            },
+            "description": "Čas do defibrilacije v sekundah - čas od sprejema klica do prvega šoka",
+            "core": true
+        },
+        "ttm": {
+            "title": "Terapevtska hipotermija",
+            "source": "Terapevtska hipotermija (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "1": "Med zastojem",
+                "2": "Po-ROSC predbolnišnično",
+                "3": "Po-ROSC bolnišnično",
+                "4": "Terapevtska hipotermija indicirana, neizvedena",
+                "5": "Terapevtska hipotermija ni indicirana"
+            },
+            "core": true
+        },
+        "ttmTemp": {
+            "title": "TTM Temperatura",
+            "source": "Terapevtska hipotermija (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                ">0": "value"
+            },
+            "description": "Ciljna temperatura, če TTM izveden (v Kelvinih)",
+            "core": false
+        },
+        "drugs": {
+            "title": "Aplicirana zdravila",
+            "source": "Zdravila - adrenalin, amiodaron, glukoza, razno (proočilo o nujnem reševalnem prevozu)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Brez",
+                "1": "Adrenaline",
+                "2": "Amiodarone",
+                "4": "Vasopressin"
+            },
+            "description": "Set vseh uporabljenih zdravil, dovoljena izbira večih (kot vsota ID-jev vrednosti)",
+            "core": true
+        },
+        "airwayControl": {
+            "title": "Tip nadzora dihalne poti",
+            "source": "Posegi ekipe za prevoz pacienta (poročilo o nujnem reševalnem prevozu), Alternativna dihalna pot (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Brez used",
+                "1": "Orofaringealna dihalna pot",
+                "2": "Supraglotična dihalna pot",
+                "4": "Endotrahealni tubus",
+                "8": "Kirurška dihalna pot"
+            },
+            "description": "Set vseh uporabljenih tipov nadzora dihalne poti, dovoljena izbira večih (kot vsota ID-jev vrednosti)",
+            "core": false
+        },
+        "cprQuality": {
+            "title": "Kvaliteta TPO",
+            "source": "Komentar o poteku oživljanja (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false
+        },
+        "shocks": {
+            "title": "Število elektrošokov",
+            "source": "Lifepak, Prvi posredovalci",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                ">=0": "value"
+            },
+            "core": false
+        },
+        "drugTimings": {
+            "title": "Čas do aplikacije zdravil",
+            "source": "Zdravila - adrenalin, amiodaron, glukoza, razno (proočilo o nujnem reševalnem prevozu)",
+            "description": "JSON, kot opisan",
+            "core": false
+        },
+        "vascularAccess": {
+            "title": "Vaskularna pot",
+            "source": "Venska pot, druge poti (protokol predbolnišničnega oživljanja), Oskrba (protokol nujne intervencije)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Brez",
+                "1": "Centralna venska",
+                "2": "Periferna IV",
+                "3": "IO",
+                "4": "Endotrahealna"
+            },
+            "core": false
+        },
+        "mechanicalCPR": {
+            "title": "Mehanski stiski prnega koša",
+            "source": "Prvi posredovalci",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Brez",
+                "1": "Naprava za mehanske kompresije prnega koša (Lucas)",
+                "2": "Trak za razporeditev sile",
+                "3": "Druga mehanska naprava"
+            },
+            "core": false
+        },
+        "targetVent": {
+            "title": "Ciljana okisgenacija/ventilacija",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Brez",
+                "1": "Samo O2",
+                "2": "Samo CO2",
+                "3": "O2 & CO2"
+            },
+            "description": "Če je ta spremenljivka uporabljena, vključi podrobnosti o specifičnih ciljih v opisu sistema",
+            "core": false
+        },
+        "reperfusionAttempt": {
+            "title": "Poskus reperfuzije",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Brez",
+                "1": "Samo angiografija",
+                "2": "PCI",
+                "4": "Tromboliza"
+            },
+            "description": "Set vseh poskusov reperfuzije, dovoljena izbira večih (kot vsota ID-jev vrednosti)",
+            "core": true
+        },
+        "reperfusionTime": {
+            "title": "Čas do poskusa reperfuzije",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "1": "Med zastojem",
+                "2": "Znotraj 24 h od ROSC",
+                "3": "Po 24 h, a pred odpustom"
+            },
+            "core": true
+        },
+        "ecls": {
+            "title": "ECLS",
+            "source": "Bolnišnice",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Brez",
+                "1": "Pred ROSC",
+                "2": "Po ROSC"
+            },
+            "core": false
+        },
+        "iabp": {
+            "title": "IABP",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false
+        },
+        "ph": {
+            "title": "pH krvi",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0-14": "value"
+            },
+            "core": false
+        },
+        "lactate": {
+            "title": "Laktate",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                ">=0": "value"
+            },
+            "core": false
+        },
+        "glucose": {
+            "title": "Glukoza",
+            "source": "zdravilo - odmerek, čas, pot (protokol nujnega reševalnega vozila)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false
+        },
+        "neuroprognosticTests": {
+            "title": "Število in vrsta nevroprognostičnih testov",
+            "source": "Bolnišnice",
+            "description": "JSON, kot opisan",
+            "core": false
+        },
+        "specialistHospital": {
+            "title": "Tip bolnišnice",
+            "source": "Sprejemna bolnišnica, Sprejemna ambulanta (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false,
+            "description": "Ali je bolnišnica specialistični center"
+        },
+        "hospitalVolume": {
+            "title": "Obremenitev bolnišnice",
+            "source": "Bolnišnice",
+            "values": {
+                ">=0": "value"
+            },
+            "description": "Število letnih primerov",
+            "core": false
+        },
+        "ecg": {
+            "title": "EKG z 12 odvodi",
+            "source": "Prvi EKG pri oživljanju (protokol predbolnišničnega oživljanja), EKG frekvenca (protokol nujne intervencije, poročilo o nujnem reševalnem prevozu)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false
+        },
+        "ecgBLOB": {
+            "title": "EKG datoteka",
+            "source": "Dodan EKG zapis proočilu (protokol nujne intervencije, poročilo o nujnem reševalnem prevozu)",
+            "values": "BLOB",
+            "description": "EKG datoteka kot base64 kodirani podatki",
+            "core": false
+        },
+        "targetBP": {
+            "title": "Ciljano upravljanje krvnega pritiska",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ni opredeljenega cilja",
+                ">0": "value"
+            },
+            "description": "Ciljni MAP v mmHg",
+            "core": false
+        },
+        "survived": {
+            "title": "Preživetje",
+            "source": "Datum odpusta / Datum smrti (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": true
+        },
+        "rosc": {
+            "title": "ROSC",
+            "source": "Stanje po intervenciji (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": true
+        },
+        "roscTime": {
+            "title": "Čas do ROSC",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "No ROSC",
+                ">0": "value"
+            },
+            "description": "Čas do ROSC v sekundah",
+            "core": true
+        },
+        "SurvivalDischarge30d": {
+            "title": "30-dnevno preživetje ali preživetje do odpusta",
+            "source": "Bolnišnice",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": true
+        },
+        "cpcDischarge": {
+            "title": "Nevrološki izid ob odpustu (CPC)",
+            "source": "Vrednost CPC ob odpustu (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "1-5": "value"
+            },
+            "core": true
+        },
+        "mrsDischarge": {
+            "title": "Nevrološki izid ob odpustu (mRS)",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0-6": "value"
+            },
+            "core": true
+        },
+        "survivalStatus": {
+            "title": "Status preživetja",
+            "source": "V bolnišnici, Sprejemna bolnišnica (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "description": "Opisuje preživetje dogodka do sprejema v bolnišnico",
+            "core": false
+        },
+        "transportToHospital": {
+            "title": "Transport v bolnišnico",
+            "source": "Prevoz pacienta z ekipo NMP, prevoz pacientov z ekipo NMP (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false
+        },
+        "treatmentWithdrawn": {
+            "title": "Zdravljenje prekinjeno (vključno s časom)",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                ">0": "value"
+            },
+            "description": "Ure do prekinitve zdravljenja, dnevi naj se pretvorijo v ure (zaokroženo navzgor)",
+            "core": false
+        },
+        "cod": {
+            "title": "Vzrok smrti",
+            "source": "Bolezen ali stanje, ki je prispevalo k nastopu smrti (protokol predbolnišničnega oživljanja)",
+            "description": "Vzrok smrti kot koda MKB-10-AM ver. 6",
+            "core": false
+        },
+        "organDonation": {
+            "title": "Donacija organov",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ni donor",
+                "1": "Donor"
+            },
+            "description": "Je pacient donor organov",
+            "core": false
+        },
+        "patientReportedOutcome": {
+            "title": "Pacientovo poročilo o izidu",
+            "source": "/",
+            "description": "Izidi, ki jih pacient opredeli kot pomembne",
+            "core": false
+        },
+        "qualityOfLife": {
+            "title": "Opredelitev kvalitete življenja (standardizirani vprašalniki, npr. EQ-5D, SF-12)",
+            "source": "/",
+            "description": "JSON, kot opisan",
+            "core": false
+        },
+        "reaLand": {
+            "title": "Država srčnega zastoja",
+            "description": "Država srčnega zastoja v tekst formi", 
+            "core": false
+        },
+        "reaRegion": {
+            "title": "Regija srčnega zastoja",
+            "description": "Regija srčnega zastoja v tekst formi", 
+            "core": false
+        },
+        "reaConf": {
+            "title": "Srčni zastoj potrjen",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "Da",
+                "1": "Ne"
+            },
+            "core": false
+        },
+        "cprEms": {
+            "title": "Poskus oživljanja",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "Da",
+                "1": "Ne"
+            },
+            "core": false
+        },
+        "cPREMS3Time": {
+            "title": "Kdaj so začeli oživljati NMP",
+            "description": "Kdaj so začeli oživljati NMP v hh:mm:ss formi", 
+            "core": false
+        },
+        "noCPR": {
+            "title": "NMP ni oživljal",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "Umrli predhodno",
+                "1": "Dokument o izraženi volji proti oživljanju",
+                "2": "Želja družine",
+                "3": "Želja zdravnika",
+                "4": "Uspešni ICD šok",
+                "5": "Znaki življenja"
+            },
+            "core": false
+        },
+        "patID": {
+            "title": "treba še dodati",
+            "core": false
+        },
+        "reaYr": {
+            "title": "Leto srčnega zastoja",
+            "description": "Leto srčnega zastoja v YYYY formi", 
+            "core": false
+        },
+        "reaMo": {
+            "title": "Mesec srčnega zastoja",
+            "description": "Mesec srčnega zastoja v MM formi", 
+            "core": false
+        },
+        "reaDay": {
+            "title": "Dan srčnega zastoja",
+            "description": "Dan srčnega zastoja v DD formi", 
+            "core": false
+        },
+        "reaTime": {
+            "title": "Čas srčnega zastoja",
+            "description": "Čas srčnega zastoja v hh:mm:ss formi", 
+            "core": false
+        },
+        "reaCause": {
+            "title": "Vzrok srčnega zastoja",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano (predviden mrtev)",
+                "0": "Srčni",
+                "1": "Travma",
+                "2": "Potopitev",
+                "3": "Respiratorni",
+                "4": "Ne-srčni"
+            },
+            "core": false
+        },
+        "timeTCPR": {
+            "title": "Čas začetka CPR",
+            "description": "Čas začetka CPR v hh:mm:ss formi", 
+            "core": false
+        },
+        "gbystnader": {
+            "title": "Spol očividca",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "Moški",
+                "1": "Ženska"
+            },
+            "core": false
+        },
+        "ageBystander": {
+            "title": "Starost očividca",
+            "description": "Starost očividca v XXX formi", 
+            "core": false
+        },
+        "cPRbystander3Time": {
+            "title": "Čas začetka CPR očividca",
+            "description": "Čas začetka CPR očividca v hh:mm:ss formi", 
+            "core": false
+        },
+        "helperCPR": {
+            "title": "Oseba poslana, da pomaga s CPR",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "Da",
+                "1": "Ne"
+            },
+            "core": false
+        },
+        "helperWho": {
+            "title": "Kdo je bil poslan, da pomaga?",
+            "values": {
+                "1": "Oseba, ki jo je opozoril dispatch",
+                "2": "Oseba z BLS, ki jo je opozoril dispatch",
+                "3": "Prvi posredovalec",
+                "4": "Zdravstveno osebje izven časa službe, ki ga je poslal dispatch",
+                "5": "Ostali, ki jih je poslal dispatch"
+            },
+            "core": false
+        },
+        "cPRhelper3Time": {
+            "title": "Čas začetka PCR osebe, ki je poslana da pomaga",
+            "description": "Čas začetka PCR osebe, ki je poslana da pomaga v hh:mm:ss formi", 
+            "core": false
+        },
+        "defiOrig": {
+            "title": "Prvi šok je dostavil AED ali NMP",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "AED",
+                "1": "EMS"
+            },
+            "core": false
+        },
+        "timeROSC": {
+            "title": "Čas prvega ROSC",
+            "description": "Čas prvega ROSC v hh:mm:ss formi", 
+            "core": false
+        },
+        "endCPR4Time": {
+            "title": "Čas konca CPR",
+            "description": "Čas konca CPR v hh:mm:ss formi", 
+            "core": false
+        },
+        "leftScene5Time": {
+            "title": "Čas zapusitve dogodka",
+            "description": "Čas zapusitve dogodka v hh:mm:ss formi", 
+            "core": false
+        },
+        "hospitalArrival6Time": {
+            "title": "Čas prihoda v bolnišnico",
+            "description": "Čas prihoda v bolnišnico v hh:mm:ss form", 
+            "core": false
+        },
+        "hospArri": {
+            "title": "Status ob prihodu v bolnišnico",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "Mrtev",
+                "1": "Živ",
+                "2": "Brez prevoza do bolnišnice",
+                "3": "Prevoz z CPR",
+                "4": "Prevoz z ROSC"
+            },
+            "core": false
+        },
+        "dischDay": {
+            "title": "Dan odpustitve iz bolnice",
+            "description": "Dan odpustitve iz bolnice v DD formi", 
+            "core": false
+        }
+    },
+    "locales": {
+        "localID": {
+            "title": "UUID območja",
+            "description": "Unikaten ID območja, kjer je bil primer oskrbovan"
+        },
+        "firendlyName": {
+            "title": "Ime območja",
+            "description": "Človeško berljivo ime območja"
+        },
+        "population": {
+            "title": "Oskrbovana populacija",
+            "description": "Population of the area that the EMS serves"
+        },
+        "attendedCAs": {
+            "title": "Število srčnih zastojev"
+        },
+        "attemptedResusc": {
+            "title": "Število primerov s poskusom oživljanja"
+        },
+        "casesDNR": {
+            "title": "Podpisan DNR",
+            "description": "Število primerov brez poskusa oživljanja, imeli podpisan DNR"
+        },
+        "casesFutile": {
+            "title": "Oživljanje nesmiselno",
+            "description": "Število primerov brez poskusa oživljanja, oživljanje bi bilo nesmiselno"
+        },
+        "casesCirculation": {
+            "title": "Zanki cirkulacije",
+            "description": "Število primerov brez poskusa oživljanja, imeli znake cirkulacije"
+        },
+        "casesNeznano": {
+            "title": "Brez poskusa oživljanja, razlog neznan"
+        },
+        "description": {
+            "title": "Opis sistema",
+            "description": "JSON: Število in vrsta NMP; področje znanja izvajalcev; brez medbolnišničnih transportov; oskrbovana populacija glede na regijo; velikost oskrbovane regije v km2"
+        },
+        "descriptionSupplemental": {
+            "title": "Opis sistema (dodatno)"
+        }
+    },
+    "systems": {
+        "systemID": {
+            "title": "UUID sistema",
+            "description": "Unikaten ID sistema, kjer je bil primer oskrbovan"
+        },
+        "firendlyName": {
+            "title": "Ime sistema",
+            "description": "Človeško berljivo ime sistema"
+        },
+        "population": {
+            "title": "Oskrbovana populacija",
+            "description": "Population of the area that the EMS serves"
+        },
+        "attendedCAs": {
+            "title": "Število srčnih zastojev"
+        },
+        "attemptedResusc": {
+            "title": "Število primerov s poskusom oživljanja"
+        },
+        "casesDNR": {
+            "title": "Podpisan DNR",
+            "description": "Število primerov brez poskusa oživljanja, imeli podpisan DNR"
+        },
+        "casesFutile": {
+            "title": "Oživljanje nesmiselno",
+            "description": "Število primerov brez poskusa oživljanja, oživljanje bi bilo nesmiselno"
+        },
+        "casesCirculation": {
+            "title": "Zanki cirkulacije",
+            "description": "Število primerov brez poskusa oživljanja, imeli znake cirkulacije"
+        },
+        "casesUnknown": {
+            "title": "Brez poskusa oživljanja, razlog neznan"
+        },
+        "description": {
+            "title": "Opis sistema",
+            "description": "JSON: Število in vrsta NMP; področje znanja izvajalcev; brez medbolnišničnih transportov; oskrbovana populacija glede na regijo; velikost oskrbovane regije v km2"
+        },
+        "descriptionSupplemental": {
+            "title": "Opis sistema (dodatno)"
+        }
+    }
+}
