@@ -94,85 +94,133 @@ from . import forms
 from ohca.forms import *
 from ohca.models import CaseReport, System, Locale
 
+def calculate_age(birth, cardiac_arrest):
+    """Calculates age from date of birth.
+    Returns the age on the day of the event (so 55 years and 360 days is 55 years)"""
+
+    # datum dobiš v obliki: 2020-01-01
+    birth = birth.split("-") # [year, month, day]
+    ca = cardiac_arrest.split("-")
+
+    years = int(ca[0]) - int(birth[0])
+
+    if int(ca[1]) == int(birth[1]): # ih it's the same month
+        if int(ca[2]) < int(birth[2]):
+            years -= 1
+
+    elif int(ca[1]) < int(birth[1]):
+        years -= 1
+ 
+    return years
+
+def calculate_time(time1, time2):
+    """Takes two timestaps in the form "HH:MM:SS" and calculates how many second passed.
+    It's assumed time1 happened before time2
+    """
+
+    time1 = time1.split(":")
+    time2 = time2.split(":")
+
+    seconds1 = time1[0] * 60 * 60 + time1[1] * 60 + time1[2] # convert time to seconds
+    seconds2 = time2[0] * 60 * 60 + time2[1] * 60 + time2[2]
+
+    diff = seconds2 - seconds1
+
+    # what if time1 happens before midnight and time2 happens after midnight?
+    # in that case seconds1 > seconds2
+
+    # TODO : preveri če je ok ko boš zbrana
+    if seconds1 >= seconds2:
+        midnight = 24 * 3600
+        diff = (midnight - seconds1) + seconds2
+
+    # what if one of them is midnight 00:00:00 ???
+
+    return diff
+
+
 def new_index(request):
     return render(request, "ohca/index.html")
 
 def form_name_view(request):
-    form = MyNewFrom() 
+    form1 = MyNewFrom() 
+    form2 = InterventionForm()
     if request.method == "POST":
-        form = MyNewFrom(request.POST)
-        if form.is_valid():
+
+        form1 = MyNewFrom(request.POST)
+        form2 = InterventionForm(request.POST)
+
+        if form1.is_valid() and form2.is_valid(): 
             
             print("VALIDATION SUCCESS")
+
+            # i1 = form2.cleaned_data["i1"]
+            # i2 = form2.cleaned_data["i2"]
+            # i3 = form2.cleaned_data["i3"]
+            # i4 = form2.cleaned_data["i4"]
+
+            # print((i1, i2, i3, i4))
             
-            first_name = (form.cleaned_data['Patient_name']).strip().split(" ")
-            last_name = (form.cleaned_data['Patient_surname']).strip().split(" ")
-            print(first_name)
-            print(last_name)
-            # obcina = form.cleaned_data["localID"] 
-            # print(obcina) 
-            # print(ems[str(obcina)]) # tole bi moral bit ZD, ki pokriva to obcino
+            first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
+            last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
 
-            # poiščem id tega zdravstvenega doma v Sytems
+            temp = request.POST['bystanderResponseTime']
+            print(temp)
+            print(str(form1.cleaned_data["bystanderResponseTime"]))
 
-            # zdID = System.objects.all().filter(friendlyName__exact=ems[str(obcina)])[0].systemID
-            # print(zdID)
+            date = str(form1.cleaned_data['Date'])
+            date_birth = str(form1.cleaned_data["Date_birth"])
+            # print((date, date_birth))
 
-            date = str(form.cleaned_data['Date'])
-            print(date)
-            date_birth = str(form.cleaned_data["Date_birth"])
-            print(date_birth)
-            print(str(date))#.split("-"))# TODO
+
             id = generate_id("".join(first_name), "".join(last_name), date, date_birth)
-            form.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
-            
+            form1.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
+            form1.instance.age = calculate_age(date_birth, date)
+
+            # form1.instance.intervention = tiste cifre
+
             # to save into database:
-            form.save()
+            form1.save()
             # return index(request) # to mi neke errorje vrača, not sure why 
         else:
             print("form invalid")
-    return render(request, "ohca/form_page.html", {"form":form})
+    else:
+        form1 = MyNewFrom() 
+        form2 = InterventionForm()
+    return render(request, "ohca/form_page.html", {"form1":form1, "form2":form2})
 
 
 def second_form_name_view(request):
-    # form = forms.MyNewFrom()
-    form = MySecondNewFrom() 
+    form1 = MySecondNewFrom() 
+    form2 = InterventionForm()
     if request.method == "POST":
-        form = MySecondNewFrom(request.POST)
-        # print(form) 
-        if form.is_valid():
-            #
+
+        form1 = MySecondNewFrom(request.POST)
+        form2 = InterventionForm(request.POST)
+
+        if form1.is_valid() and form2.is_valid(): 
+            
             print("VALIDATION SUCCESS")
-            #
-            first_name = (form.cleaned_data['Patient_name']).strip().split(" ")
-            last_name = (form.cleaned_data['Patient_surname']).strip().split(" ")
-            # obcina = form.cleaned_data["localID"] # TODO da ti bo prov delal
-            # print(obcina) # iz forme dobimo ime obcine
-            # print(ems[str(obcina)]) # tole bi moral bit ZD, ki pokriva to obcino
 
-            # # poiščem id tega zdravstvenega doma v Sytems
+            first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
+            last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
 
-            # zdID = System.objects.all().filter(friendlyName__exact=ems[str(obcina)])[0].systemID
-            # print(zdID)
-            # obcinaID = Locale.objects.all().filter(friendlyName__exact=str(ems[str(zdID)]))[0].localID
-            # print(obcinaID)
-            # print(ems[zd])
-            # print(first_name, "".join([word[0] for word in first_name]))
-            # print(first_name)#
-            # print(last_name)#
-            date = str(form.cleaned_data['Date'])
-            date_birth = str(form.cleaned_data["Date_birth"])
+            date = str(form1.cleaned_data['Date'])
+            date_birth = str(form1.cleaned_data["Date_birth"])
+
             print((date, date_birth))
-            # print(str(date).split("-"))#
+
+            # form.instance.age = calculate_age(date_birth, date) # age bo že od prej
+
             id = generate_id("".join(first_name), "".join(last_name), date, date_birth)
             CaseReport.objects.update_or_create(
                 caseID=id, 
-                defaults=dict([(field, form.cleaned_data[field]) for field in form2[1:]])
+                defaults=dict([(field, form1.cleaned_data[field]) for field in form2[1:]])
                 # {
                 #     "ecls" : form.cleaned_data["ecls"] # zgeneriraj
                 # }
             ) # update, create
-            form.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
+            form1.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
             # form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
 
             # to save into database:
@@ -180,28 +228,32 @@ def second_form_name_view(request):
             # return index(request) # to mi neke errorje vrača, not sure why 
         else:
             print("form invalid")
-    return render(request, "ohca/second_form_page.html", {"form":form})
+    return render(request, "ohca/second_form_page.html", {"form1":form1, "form2":form2})
 
-####
+
 def third_form_name_view(request):
-    # form = forms.MyNewFrom()
-    form = MyThirdNewFrom() 
-    if request.method == "POST":
-        form = MyThirdNewFrom(request.POST)
-        # print(form) 
-        if form.is_valid():
-            #
-            print("VALIDATION SUCCESS")
-            #
-            first_name = (form.cleaned_data['Patient_name']).strip().split(" ")
-            last_name = (form.cleaned_data['Patient_surname']).strip().split(" ")
-            print(first_name) # ['ime']
-            print(last_name)
 
-            date = str(form.cleaned_data['Date'])
-            date_birth = str(form.cleaned_data["Date_birth"])
+    form1 = MyThirdNewFrom() 
+    form2 = InterventionForm()
+    if request.method == "POST":
+
+        form1 = MyThirdNewFrom(request.POST)
+        form2 = InterventionForm(request.POST)
+
+        if form1.is_valid() and form2.is_valid(): 
+
+            print("VALIDATION SUCCESS")
+            
+            first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
+            last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
+
+            date = str(form1.cleaned_data['Date'])
+            date_birth = str(form1.cleaned_data["Date_birth"])
+
             print((date, date_birth))
-            # # print(str(date).split("-")) #
+            print(calculate_age(date_birth, date))
+            form1.instance.age = calculate_age(date_birth, date)
+            
             id = generate_id(first_name, last_name, date, date_birth)
             print(id)
             print(len(id))
@@ -210,12 +262,12 @@ def third_form_name_view(request):
             existing_ids = []
             for case in cases:
                 existing_ids.append(case.caseID)
-            form.instance.caseID = id #[0:32] #random.choice([i for i in range(100000, 10000000) if i not in existing_ids]) #id 
+            form1.instance.caseID = id #[0:32] #random.choice([i for i in range(100000, 10000000) if i not in existing_ids]) #id 
             # form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
 
             # # to save into database:
-            # form.save(commit=True)
+            form1.save(commit=True) #
             # return index(request) # to mi neke errorje vrača, not sure why 
         else:
             print("form invalid")
-    return render(request, "ohca/third_form_page.html", {"form":form})
+    return render(request, "ohca/third_form_page.html", {"form1":form1, "form2":form2})

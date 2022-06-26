@@ -1,8 +1,13 @@
+from turtle import width
 from django import forms
 from django.core import validators
+from matplotlib import widgets
 from .models import *
 from django.utils.translation import gettext_lazy as _
 import hashlib
+from django.forms import HiddenInput, IntegerField, MultiWidget, NumberInput, TextInput
+from .widget import *
+
 
 #========================================== USEFUL DATA =================================================================================
 
@@ -22,13 +27,13 @@ descriptions = {'caseID': 'Unikaten ID primera', 'systemID': 'Unikaten ID sistem
 'Kdaj so začeli oživljati NMP v hh:mm:ss formi', 'reaYr': 'Leto srčnega zastoja v YYYY formi', 'reaMo': 'Mesec srčnega zastoja v MM formi', 'reaDay': 'Dan srčnega zastoja v DD formi', 'reaTime': 'Čas srčnega zastoja v hh:mm:ss formi', 'timeTCPR': 'Čas začetka CPR v hh:mm:ss formi', 'ageBystander': 'Starost očividca v XXX formi', 'cPRbystander3Time': 'Čas začetka CPR očividca v hh:mm:ss formi', 'cPRhelper3Time': 'Čas začetka PCR osebe, ki je poslana da pomaga v hh:mm:ss formi', 'timeROSC': 'Čas prvega ROSC v hh:mm:ss formi', 'endCPR4Time': 'Čas konca CPR v hh:mm:ss formi', 'leftScene5Time': 'Čas zapusitve dogodka v hh:mm:ss formi', 'hospitalArrival6Time': 'Čas prihoda v bolnišnico v hh:mm:ss form', 'dischDay': 'Dan odpustitve iz bolnice v DD formi'}
 
 
-# v form se vpise samo ZD, obcina se doloci samodejno glede na ta slovar ki je bil narejen po https://github.com/SterArcher/OHCA-registry-Slovenia/blob/main/data/population/preb.csv 
-ems = {'Ajdovščina': 'ZD Ajdovščina', 'Ankaran': 'ZD Koper', 'Apače': 'ZD Gornja Radgona', 'Beltinci': 'ZD Murska Sobota', 'Benedikt': 'ZD Lenart', 'Bistrica ob Sotli': 'ZD Šmarje pri Jelšah', 'Bled': 'ZD Bled', 'Bloke': 'ZD Cerknica', 'Bohinj': 'ZD Bled', 'Borovnica': 'RP UKCL', 'Bovec': 'ZD Tolmin', 
-'Braslovče': 'ZD Žalec', 'Brda': 'ZD Nova Gorica', 'Brežice': 'ZD Brežice', 'Brezovica': 'RP UKCL', 'Cankova': 'ZD Murska Sobota', 'Celje': 'ZD Celje', 'Cerklje na Gorenjskem': 'ZD Kranj', 'Cerknica': 'ZD Cerknica', 'Cerkno': 'ZD Idrija', 'Cerkvenjak': 'ZD Lenart', 'Cirkulane': 'ZD Ptuj', 'Črenšovci': 'ZD Lendava', 'Črna na Koroškem': 'Zdravstveno reševalni center Koroške', 'Črnomelj': 'ZD Črnomelj', 'Destrnik': 'ZD Ptuj', 'Divača': 'ZD Sežana', 'Dobje': 
-'ZD Šentjur', 'Dobrepolje': 'RP UKCL', 'Dobrna': 'ZD Celje', 'Dobrova - Polhov Gradec': 'RP UKCL', 'Dobrovnik': 'ZD Lendava', 'Dol pri Ljubljani': 'RP UKCL', 'Dolenjske Toplice': 'ZD Novo mesto', 'Domžale': 'ZD Domžale', 'Dornava': 'ZD Ptuj', 'Dravograd': 'Zdravstveno reševalni center Koroške', 'Duplek': 'ZD Maribor', 'Gorenja vas - Poljane': 'ZD Škofja Loka', 'Gorišnica': 'ZD Ptuj', 'Gorje': 'ZD Bled', 'Gornja Radgona': 'ZD Gornja Radgona', 'Gornji Grad': 'ZSDZ NAZARJE', 'Gornji Petrovci': 'ZD Murska Sobota', 'Grad': 'ZD Murska Sobota', 'Grosuplje': 'RP UKCL', 'Hajdina': 'ZD Ptuj', 'Hoče - Slivnica': 'ZD Maribor', 'Hodoš': 'ZD Murska Sobota', 'Horjul': 'RP UKCL', 'Hrastnik': 'ZD Hrastnik', 'Hrpelje - Kozina': 'ZD Sežana', 'Idrija': 'ZD Idrija', 'Ig': 'RP UKCL', 'Ilirska Bistrica': 'ZD Ilirska Bistrica', 'Ivančna Gorica': 'RP UKCL', 'Izola': 'ZD Izola', 'Jesenice': 'ZD Jesenice', 'Jezersko': 'ZD Kranj', 'Juršinci': 'ZD Ptuj', 'Kamnik': 'ZD Kamnik', 'Kanal': 'ZD Nova Gorica', 'Kidričevo': 'ZD Ptuj', 'Kobarid': 'ZD Tolmin', 'Kobilje': 'ZD Lendava', 'Kočevje': 'ZD Kočevje', 'Komen': 'ZD Sežana', 'Komenda': 'ZD Kamnik', 'Koper': 'ZD Koper', 'Kostanjevica na Krki': 'ZD Krško', 
-'Kostel': 'ZD Kočevje', 'Kozje': 'ZD Šmarje pri Jelšah', 'Kranj': 'ZD Kranj', 'Kranjska Gora': 'ZD Jesenice', 'Križevci': 'ZD Ljutomer', 'Krško': 'ZD Krško', 'Kungota': 'ZD Maribor', 'Kuzma': 'ZD Murska Sobota', 'Laško': 'ZD Laško', 'Lenart': 'ZD Lenart', 'Lendava': 'ZD Lendava', 'Litija': 'ZD Litija', 'Ljubljana': 'RP UKCL', 'Ljubno': 'ZSDZ NAZARJE', 'Ljutomer': 'ZD Ljutomer', 'Log - Dragomer': 'RP UKCL', 'Logatec': 'ZD Logatec', 'Loška dolina': 'ZD Cerknica', 'Loški Potok': 'ZD Ribnica', 'Lovrenc na Pohorju': 'ZD Maribor', 'Luče': 'ZSDZ NAZARJE', 'Lukovica': 'ZD Domžale', 'Majšperk': 'ZD Ptuj', 'Makole': 'ZD Slovenska Bistrica', 'Maribor': 'ZD Maribor', 'Markovci': 'ZD Ptuj', 'Medvode': 'RP UKCL', 'Mengeš': 'ZD Domžale', 'Metlika': 'ZD Metlika', 
-'Mežica': 'Zdravstveno reševalni center Koroške', 'Miklavž na Dravskem polju': 'ZD Maribor', 'Miren - Kostanjevica': 'ZD Nova Gorica', 'Mirna': 'ZD Trebnje', 'Mirna Peč': 'ZD Novo mesto', 'Mislinja': 'Zdravstveno reševalni center Koroške', 'Mokronog - Trebelno': 'ZD Trebnje', 'Moravče': 'ZD Domžale', 'Moravske Toplice': 'ZD Murska Sobota', 'Mozirje': 'ZSDZ NAZARJE', 'Murska Sobota': 'ZD Murska Sobota', 'Muta': 'Zdravstveno reševalni center Koroške', 'Naklo': 'ZD Kranj', 'Nazarje': 'ZSDZ NAZARJE', 'Nova Gorica': 'ZD Nova Gorica', 'Novo mesto': 'ZD Novo mesto', 'Odranci': 'ZD Lendava', 'Oplotnica': 'ZD Slovenska Bistrica', 'Ormož': 'ZD Ormož', 'Osilnica': 'ZD Kočevje', 'Pesnica': 'ZD Maribor', 'Piran': 'ZD Koper', 'Pivka': 'ZD Postojna', 'Podčetrtek': 'ZD Šmarje pri Jelšah', 'Podlehnik': 'ZD Ptuj', 'Podvelka': 'Zdravstveno reševalni center Koroške', 'Poljčane': 'ZD Slovenska Bistrica', 'Polzela': 'ZD Žalec', 'Postojna': 'ZD Postojna', 'Prebold': 'ZD Žalec', 'Preddvor': 'ZD Kranj', 'Prevalje': 'Zdravstveno reševalni center Koroške', 'Ptuj': 'ZD Ptuj', 'Puconci': 'ZD Murska Sobota', 'Rače - Fram': 'ZD Maribor', 'Radeče': 'ZD Radeče', 'Radenci': 'ZD Gornja Radgona', 'Radlje ob Dravi': 'Zdravstveno reševalni center Koroške', 'Radovljica': 'ZD Bled', 'Ravne na Koroškem': 'Zdravstveno reševalni center Koroške', 'Razkrižje': 'ZD Ljutomer', 'Rečica ob Savinji': 'ZSDZ NAZARJE', 'Renče - Vogrsko': 'ZD Nova Gorica', 'Ribnica': 'ZD Ribnica', 'Ribnica na Pohorju': 'Zdravstveno reševalni center Koroške', 'Rogaška Slatina': 'ZD Šmarje pri Jelšah', 'Rogašovci': 'ZD Murska Sobota', 'Rogatec': 'ZD Šmarje pri Jelšah', 'Ruše': 'ZD Maribor', 'Šalovci': 'ZD Murska Sobota', 'Selnica ob Dravi': 'ZD Maribor', 'Semič': 'ZD Črnomelj', 'Šempeter - Vrtojba': 'ZD Nova Gorica', 'Šenčur': 'ZD Kranj', 'Šentilj': 'ZD Maribor', 'Šentjernej': 'ZD Novo mesto', 'Šentjur': 'ZD Šentjur', 'Šentrupert': 'ZD Trebnje', 'Sevnica': 'ZD Sevnica', 'Sežana': 'ZD Sežana', 'Škocjan': 'ZD Novo mesto', 'Škofja Loka': 'ZD Škofja Loka', 'Škofljica': 'RP UKCL', 'Slovenj Gradec': 'Zdravstveno reševalni center Koroške', 'Slovenska Bistrica': 'ZD Slovenska Bistrica', 'Slovenske Konjice': 'ZD Slovenske Konjice', 'Šmarje pri Jelšah': 'ZD Šmarje pri Jelšah', 'Šmarješke Toplice': 'ZD Novo mesto', 'Šmartno ob Paki': 'ZD Velenje', 'Šmartno pri Litiji': 'ZD Litija', 'Sodražica': 'ZD Ribnica', 'Solčava': 'ZSDZ NAZARJE', 'Šoštanj': 'ZD Velenje', 'Središče ob Dravi': 
-'ZD Ormož', 'Starše': 'ZD Maribor', 'Štore': 'ZD Celje', 'Straža': 'ZD Novo mesto', 'Sveta Ana': 'ZD Lenart', 'Sveta Trojica v Slov. goricah': 'ZD Lenart', 'Sveti Andraž v Slov. goricah': '(prazno)', 'Sveti Jurij ob Ščavnici': 'ZD Gornja Radgona', 'Sveti Jurij v Slov. goricah': 'ZD Lenart', 'Sveti Tomaž': 'ZD Ormož', 'Tabor': 'ZD Žalec', 'Tišina': 'ZD Murska Sobota', 'Tolmin': 'ZD Tolmin', 'Trbovlje': 'ZD Trbovlje', 'Trebnje': 'ZD Trebnje', 'Trnovska vas': 'ZD Ptuj', 'Tržič': 'OZG Gorenjske', 'Trzin': 'ZD Domžale', 'Turnišče': 'ZD Lendava', 'Velenje': 'ZD Velenje', 'Velika Polana': 'ZD Lendava', 'Velike Lašče': 'RP UKCL', 'Veržej': 'ZD Ljutomer', 'Videm': 'ZD Ptuj', 'Vipava': 'ZD Ajdovščina', 'Vitanje': 'ZD Slovenske Konjice', 'Vodice': 'RP UKCL', 'Vojnik': 'ZD Celje', 'Vransko': 'ZD Žalec', 'Vrhnika': 'RP UKCL', 'Vuzenica': 'Zdravstveno reševalni center Koroške', 'Zagorje ob Savi': 'ZD Zagorje', 'Žalec': 'ZD Žalec', 'Zavrč': 'ZD Ptuj', 'Železniki': 'ZD Škofja Loka', 'Žetale': 'ZD Ptuj', 'Žiri': 'ZD Škofja Loka', 'Žirovnica': 'ZD Jesenice', 'Zreče': 'ZD Slovenske Konjice', 'Žužemberk': 'ZD Novo mesto'}
+# # v form se vpise samo ZD, obcina se doloci samodejno glede na ta slovar ki je bil narejen po https://github.com/SterArcher/OHCA-registry-Slovenia/blob/main/data/population/preb.csv 
+# ems = {'Ajdovščina': 'ZD Ajdovščina', 'Ankaran': 'ZD Koper', 'Apače': 'ZD Gornja Radgona', 'Beltinci': 'ZD Murska Sobota', 'Benedikt': 'ZD Lenart', 'Bistrica ob Sotli': 'ZD Šmarje pri Jelšah', 'Bled': 'ZD Bled', 'Bloke': 'ZD Cerknica', 'Bohinj': 'ZD Bled', 'Borovnica': 'RP UKCL', 'Bovec': 'ZD Tolmin', 
+# 'Braslovče': 'ZD Žalec', 'Brda': 'ZD Nova Gorica', 'Brežice': 'ZD Brežice', 'Brezovica': 'RP UKCL', 'Cankova': 'ZD Murska Sobota', 'Celje': 'ZD Celje', 'Cerklje na Gorenjskem': 'ZD Kranj', 'Cerknica': 'ZD Cerknica', 'Cerkno': 'ZD Idrija', 'Cerkvenjak': 'ZD Lenart', 'Cirkulane': 'ZD Ptuj', 'Črenšovci': 'ZD Lendava', 'Črna na Koroškem': 'Zdravstveno reševalni center Koroške', 'Črnomelj': 'ZD Črnomelj', 'Destrnik': 'ZD Ptuj', 'Divača': 'ZD Sežana', 'Dobje': 
+# 'ZD Šentjur', 'Dobrepolje': 'RP UKCL', 'Dobrna': 'ZD Celje', 'Dobrova - Polhov Gradec': 'RP UKCL', 'Dobrovnik': 'ZD Lendava', 'Dol pri Ljubljani': 'RP UKCL', 'Dolenjske Toplice': 'ZD Novo mesto', 'Domžale': 'ZD Domžale', 'Dornava': 'ZD Ptuj', 'Dravograd': 'Zdravstveno reševalni center Koroške', 'Duplek': 'ZD Maribor', 'Gorenja vas - Poljane': 'ZD Škofja Loka', 'Gorišnica': 'ZD Ptuj', 'Gorje': 'ZD Bled', 'Gornja Radgona': 'ZD Gornja Radgona', 'Gornji Grad': 'ZSDZ NAZARJE', 'Gornji Petrovci': 'ZD Murska Sobota', 'Grad': 'ZD Murska Sobota', 'Grosuplje': 'RP UKCL', 'Hajdina': 'ZD Ptuj', 'Hoče - Slivnica': 'ZD Maribor', 'Hodoš': 'ZD Murska Sobota', 'Horjul': 'RP UKCL', 'Hrastnik': 'ZD Hrastnik', 'Hrpelje - Kozina': 'ZD Sežana', 'Idrija': 'ZD Idrija', 'Ig': 'RP UKCL', 'Ilirska Bistrica': 'ZD Ilirska Bistrica', 'Ivančna Gorica': 'RP UKCL', 'Izola': 'ZD Izola', 'Jesenice': 'ZD Jesenice', 'Jezersko': 'ZD Kranj', 'Juršinci': 'ZD Ptuj', 'Kamnik': 'ZD Kamnik', 'Kanal': 'ZD Nova Gorica', 'Kidričevo': 'ZD Ptuj', 'Kobarid': 'ZD Tolmin', 'Kobilje': 'ZD Lendava', 'Kočevje': 'ZD Kočevje', 'Komen': 'ZD Sežana', 'Komenda': 'ZD Kamnik', 'Koper': 'ZD Koper', 'Kostanjevica na Krki': 'ZD Krško', 
+# 'Kostel': 'ZD Kočevje', 'Kozje': 'ZD Šmarje pri Jelšah', 'Kranj': 'ZD Kranj', 'Kranjska Gora': 'ZD Jesenice', 'Križevci': 'ZD Ljutomer', 'Krško': 'ZD Krško', 'Kungota': 'ZD Maribor', 'Kuzma': 'ZD Murska Sobota', 'Laško': 'ZD Laško', 'Lenart': 'ZD Lenart', 'Lendava': 'ZD Lendava', 'Litija': 'ZD Litija', 'Ljubljana': 'RP UKCL', 'Ljubno': 'ZSDZ NAZARJE', 'Ljutomer': 'ZD Ljutomer', 'Log - Dragomer': 'RP UKCL', 'Logatec': 'ZD Logatec', 'Loška dolina': 'ZD Cerknica', 'Loški Potok': 'ZD Ribnica', 'Lovrenc na Pohorju': 'ZD Maribor', 'Luče': 'ZSDZ NAZARJE', 'Lukovica': 'ZD Domžale', 'Majšperk': 'ZD Ptuj', 'Makole': 'ZD Slovenska Bistrica', 'Maribor': 'ZD Maribor', 'Markovci': 'ZD Ptuj', 'Medvode': 'RP UKCL', 'Mengeš': 'ZD Domžale', 'Metlika': 'ZD Metlika', 
+# 'Mežica': 'Zdravstveno reševalni center Koroške', 'Miklavž na Dravskem polju': 'ZD Maribor', 'Miren - Kostanjevica': 'ZD Nova Gorica', 'Mirna': 'ZD Trebnje', 'Mirna Peč': 'ZD Novo mesto', 'Mislinja': 'Zdravstveno reševalni center Koroške', 'Mokronog - Trebelno': 'ZD Trebnje', 'Moravče': 'ZD Domžale', 'Moravske Toplice': 'ZD Murska Sobota', 'Mozirje': 'ZSDZ NAZARJE', 'Murska Sobota': 'ZD Murska Sobota', 'Muta': 'Zdravstveno reševalni center Koroške', 'Naklo': 'ZD Kranj', 'Nazarje': 'ZSDZ NAZARJE', 'Nova Gorica': 'ZD Nova Gorica', 'Novo mesto': 'ZD Novo mesto', 'Odranci': 'ZD Lendava', 'Oplotnica': 'ZD Slovenska Bistrica', 'Ormož': 'ZD Ormož', 'Osilnica': 'ZD Kočevje', 'Pesnica': 'ZD Maribor', 'Piran': 'ZD Koper', 'Pivka': 'ZD Postojna', 'Podčetrtek': 'ZD Šmarje pri Jelšah', 'Podlehnik': 'ZD Ptuj', 'Podvelka': 'Zdravstveno reševalni center Koroške', 'Poljčane': 'ZD Slovenska Bistrica', 'Polzela': 'ZD Žalec', 'Postojna': 'ZD Postojna', 'Prebold': 'ZD Žalec', 'Preddvor': 'ZD Kranj', 'Prevalje': 'Zdravstveno reševalni center Koroške', 'Ptuj': 'ZD Ptuj', 'Puconci': 'ZD Murska Sobota', 'Rače - Fram': 'ZD Maribor', 'Radeče': 'ZD Radeče', 'Radenci': 'ZD Gornja Radgona', 'Radlje ob Dravi': 'Zdravstveno reševalni center Koroške', 'Radovljica': 'ZD Bled', 'Ravne na Koroškem': 'Zdravstveno reševalni center Koroške', 'Razkrižje': 'ZD Ljutomer', 'Rečica ob Savinji': 'ZSDZ NAZARJE', 'Renče - Vogrsko': 'ZD Nova Gorica', 'Ribnica': 'ZD Ribnica', 'Ribnica na Pohorju': 'Zdravstveno reševalni center Koroške', 'Rogaška Slatina': 'ZD Šmarje pri Jelšah', 'Rogašovci': 'ZD Murska Sobota', 'Rogatec': 'ZD Šmarje pri Jelšah', 'Ruše': 'ZD Maribor', 'Šalovci': 'ZD Murska Sobota', 'Selnica ob Dravi': 'ZD Maribor', 'Semič': 'ZD Črnomelj', 'Šempeter - Vrtojba': 'ZD Nova Gorica', 'Šenčur': 'ZD Kranj', 'Šentilj': 'ZD Maribor', 'Šentjernej': 'ZD Novo mesto', 'Šentjur': 'ZD Šentjur', 'Šentrupert': 'ZD Trebnje', 'Sevnica': 'ZD Sevnica', 'Sežana': 'ZD Sežana', 'Škocjan': 'ZD Novo mesto', 'Škofja Loka': 'ZD Škofja Loka', 'Škofljica': 'RP UKCL', 'Slovenj Gradec': 'Zdravstveno reševalni center Koroške', 'Slovenska Bistrica': 'ZD Slovenska Bistrica', 'Slovenske Konjice': 'ZD Slovenske Konjice', 'Šmarje pri Jelšah': 'ZD Šmarje pri Jelšah', 'Šmarješke Toplice': 'ZD Novo mesto', 'Šmartno ob Paki': 'ZD Velenje', 'Šmartno pri Litiji': 'ZD Litija', 'Sodražica': 'ZD Ribnica', 'Solčava': 'ZSDZ NAZARJE', 'Šoštanj': 'ZD Velenje', 'Središče ob Dravi': 
+# 'ZD Ormož', 'Starše': 'ZD Maribor', 'Štore': 'ZD Celje', 'Straža': 'ZD Novo mesto', 'Sveta Ana': 'ZD Lenart', 'Sveta Trojica v Slov. goricah': 'ZD Lenart', 'Sveti Andraž v Slov. goricah': '(prazno)', 'Sveti Jurij ob Ščavnici': 'ZD Gornja Radgona', 'Sveti Jurij v Slov. goricah': 'ZD Lenart', 'Sveti Tomaž': 'ZD Ormož', 'Tabor': 'ZD Žalec', 'Tišina': 'ZD Murska Sobota', 'Tolmin': 'ZD Tolmin', 'Trbovlje': 'ZD Trbovlje', 'Trebnje': 'ZD Trebnje', 'Trnovska vas': 'ZD Ptuj', 'Tržič': 'OZG Gorenjske', 'Trzin': 'ZD Domžale', 'Turnišče': 'ZD Lendava', 'Velenje': 'ZD Velenje', 'Velika Polana': 'ZD Lendava', 'Velike Lašče': 'RP UKCL', 'Veržej': 'ZD Ljutomer', 'Videm': 'ZD Ptuj', 'Vipava': 'ZD Ajdovščina', 'Vitanje': 'ZD Slovenske Konjice', 'Vodice': 'RP UKCL', 'Vojnik': 'ZD Celje', 'Vransko': 'ZD Žalec', 'Vrhnika': 'RP UKCL', 'Vuzenica': 'Zdravstveno reševalni center Koroške', 'Zagorje ob Savi': 'ZD Zagorje', 'Žalec': 'ZD Žalec', 'Zavrč': 'ZD Ptuj', 'Železniki': 'ZD Škofja Loka', 'Žetale': 'ZD Ptuj', 'Žiri': 'ZD Škofja Loka', 'Žirovnica': 'ZD Jesenice', 'Zreče': 'ZD Slovenske Konjice', 'Žužemberk': 'ZD Novo mesto'}
 
 # first form with data immediately after CA
 form1 = ['caseID', 'systemID', 'localID', 'dispIdentifiedCA', 'dispProvidedCPRinst', 'age', 'gender', 'witnesses', 'location', 
@@ -79,15 +84,33 @@ def create_widgets(values):
 		# w[element] = "radio"
 	return w 
 
+def create_time_widgets(values):
+	w = dict()
+	for elt in values:
+		w[elt] = forms.TimeField(widget=TimePickerInput)
+	return w
+
 w = create_widgets(values) #
 w["ecgBLOB"] = forms.FileInput(attrs={"class" : "form-control", "type" : "file"})
+
+# values2 = ["bystanderResponseTime", "bystanderAEDTime", "responseTime", "defibTime", "roscTime"]
+# values2 = ["bystanderAEDTime"]
+# ww = create_time_widgets(values2)
+# for elt in ww:
+# 	w[elt] = ww[elt]
+# w = dict()
+TIME_FORMAT = 'H:i:s'
+w["bystanderAEDTime"] = TimePickerInput(format=TIME_FORMAT)
+# w["roscTime"] = forms.DateField(widget=forms.DateInput(attrs={'class':'timepicker'}))
+# w[""]
+
 # w["Patient_name"] = forms.TextInput(attrs={"class" : "form-control", "style" : "max-width: 300px;"})
 # w["drugTimings"] = forms.Textarea(attrs={"class" : "form-control", "style" : "max-width: 500px;"})
 
 # dodatni helper texti
 hilfe = {
-            'bystanderResponseTime': 'Tukaj zaenkrat utipkaj -1 ali manj, da bo delalo, bomo zrihtali :)',
-			'bystanderAEDTime' : 'tukaj tudi -1 ali manj plis',
+            # 'bystanderResponseTime': 'Tukaj zaenkrat utipkaj -1 ali manj, da bo delalo, bomo zrihtali :)',
+			# 'bystanderAEDTime' : 'tukaj tudi -1 ali manj plis',
 			'firstMonitoredRhy' : 'tukej si lahko zaenkrat zbereš samo enega od prvih dveh',
 			# 'specialistHospital' : 'Tukaj nas zanima ali je bolnišnica specialistični center',
 		}
@@ -98,22 +121,80 @@ for elt in hilfe:
 	else:
 		descriptions[elt] = hilfe[elt]
 
-
+MONTHS = {
+    1:_('januar'), 2:_('februar'), 3:_('marec'), 4:_('april'),
+    5:_('maj'), 6:_('junij'), 7:_('julij'), 8:_('avgust'),
+    9:_('september'), 10:_('oktober'), 11:_('novebmer'), 12:_('december')
+}
 
 # ========================================== FORMS ================================================================================
+
+from django import forms
+
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Fieldset, Submit, Row, Column
+
+
+class InterventionForm(forms.Form):
+	"""Form for 12 separate fields for the intervention number"""
+
+	i1 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	i2 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	i3 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	i4 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	i5 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	i6 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	i7 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	i8 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	i9 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	i10 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	i11 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	i12 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+
+	# https://simpleisbetterthancomplex.com/tutorial/2018/11/28/advanced-form-rendering-with-django-crispy-forms.html
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		fields = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',]
+
+		for f in fields:
+			self.fields[f].label = False
+
+
+	# 	self.helper = FormHelper(self)
+	# 	self.helper.layout = Layout(
+	# 		Row(
+	# 			Column('i1', css_class='form-group col-md-1 mb-0'),
+	# 			Column('i2', css_class='form-group col-md-1 mb-0'),
+	# 			Column('i3', css_class='form-group col-md-1 mb-0'),
+	# 			Column('i4', css_class='form-group col-md-1 mb-0'),
+	# 			Column('i5', css_class='form-group col-md-1 mb-0'),
+	# 			Column('i6', css_class='form-group col-md-1 mb-0'),
+	# 			Column('i7', css_class='form-group col-md-1 mb-0'),
+	# 			Column('i8', css_class='form-group col-md-1 mb-0'),
+	# 			Column('i9', css_class='form-group col-md-1 mb-0'),
+	# 			Column('i10', css_class='form-group col-md-1 mb-0'),
+	# 			Column('i11', css_class='form-group col-md-1 mb-0'),
+	# 			Column('i12', css_class='form-group col-md-1 mb-0'),
+	# 			css_class='form-row'
+	# 		),
+	# 		Submit("submit", "submit!")
+	# 	)
+	
 
 class MyNewFrom(forms.ModelForm):
 	
 	Patient_name = forms.CharField(label="Ime pacienta")
 	Patient_surname = forms.CharField(label="Priimek pacienta")
-	Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(years=[x for x in range(2020,2025)]))
-	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)]))
+	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
+	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput)
+	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
+	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 
-	class Meta: 
+	class Meta: 	
 		model = CaseReport
 		fields = tuple(form1)		
-		exclude = ("caseID", "reaLand",) 
-
+		exclude = ("caseID", "reaLand", "age",) 
 		widgets = w
 		labels = titles
 		help_texts = descriptions
@@ -123,15 +204,15 @@ class MySecondNewFrom(forms.ModelForm):
 
 	Patient_name = forms.CharField(label="Ime pacienta")
 	Patient_surname = forms.CharField(label="Priimek pacienta")
-	Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(years=[x for x in range(2020,2025)]))
-	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)]))
+	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
+	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput)
+	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
+	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 
 	class Meta: 
 		model = CaseReport
-
 		fields = tuple(form2)		
-		exclude = ("caseID", "reaLand",) # "systemID", "localID") 
-
+		exclude = ("caseID", "reaLand", "age",) 
 		widgets = w
 		labels = titles
 		help_texts = descriptions
@@ -143,16 +224,15 @@ class MyThirdNewFrom(forms.ModelForm):
 
 	Patient_name = forms.CharField(label="Ime pacienta")
 	Patient_surname = forms.CharField(label="Priimek pacienta")
-	Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(years=[x for x in range(2020,2025)]))
-	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)]))
-
+	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
+	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput)
+	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
+	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 
 	class Meta: 
 		model = CaseReport
-
-		fields = "__all__" 		
-		exclude = ("caseID", "reaLand",) 
-
+		fields = "__all__"		
+		exclude = ("caseID", "reaLand", "age",) 
 		widgets = w
 		labels = titles
 		help_texts = descriptions
