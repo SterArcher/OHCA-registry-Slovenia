@@ -1,11 +1,10 @@
-from turtle import width
 from django import forms
 from django.core import validators
-from matplotlib import widgets
+# from matplotlib import widgets
 from .models import *
 from django.utils.translation import gettext_lazy as _
 import hashlib
-from django.forms import HiddenInput, IntegerField, MultiWidget, NumberInput, TextInput
+# from django.forms import HiddenInput, IntegerField, MultiWidget, NumberInput, TextInput
 from .widget import *
 
 
