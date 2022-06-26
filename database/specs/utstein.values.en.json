@@ -253,7 +253,7 @@
                 "-1": "Unknown",
                 ">0": "value"
             },
-            "description": "If TTM was used, what was the target temperature (in Kelvin)",
+            "description": "If TTM was used, what was the target temperature (°C)",
             "core": false
         },
         "drugs": {

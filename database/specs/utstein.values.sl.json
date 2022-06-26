@@ -275,7 +275,7 @@
                 "-1": "Neznano",
                 ">0": "value"
             },
-            "description": "Ciljna temperatura, če TTM izveden (v Kelvinih)",
+            "description": "Ciljna temperatura, če TTM izveden (°C)",
             "core": false
         },
         "drugs": {
