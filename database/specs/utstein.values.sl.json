@@ -63,7 +63,8 @@
                 "0": "Brez",
                 "1": "Očividci",
                 "2": "Ekipa NMP",
-                "3": "Očividci & NMP"
+                "3": "Očividci & NMP",
+                "4": "Oseba, ki je bila poslana na kraj srčnega zastoja, da nudi pomoč/oživljanje"
             },
             "core": true
         },

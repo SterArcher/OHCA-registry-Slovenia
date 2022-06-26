@@ -58,7 +58,8 @@
                 "0": "None",
                 "1": "Bystander",
                 "2": "EMS",
-                "3": "Bystander & EMS"
+                "3": "Bystander & EMS",
+                "4": "Person sent to help, who was alerted to the scene by the dispatch centre via SMS, app or telephone/radio."
             },
             "core": true
         },
