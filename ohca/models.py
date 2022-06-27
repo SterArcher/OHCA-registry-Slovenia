@@ -63,9 +63,9 @@ class System(models.Model):
         db_table = 'systems'
 
 class CaseReport(models.Model):
-    caseID = models.CharField(max_length = 64, primary_key = True) 
-    # TODO
-    # dispatchID = models.CharField(max_length = 32, blank = True, null = True, unique = True)
+    numID = models.BigAutoField(primary_key=True)
+    caseID = models.CharField(max_length = 64, blank = True, null = True, db_index = True) 
+    dispatchID = models.CharField(max_length = 64, blank = True, null = True, db_index = True)
     systemID = models.ForeignKey(System, on_delete = models.DO_NOTHING)
     localID = models.ForeignKey(Locale, on_delete = models.DO_NOTHING)
     dispIdentifiedCA = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
@@ -143,7 +143,7 @@ class CaseReport(models.Model):
     timeTCPR = models.IntegerField(null = True, blank = True)
     gbystnader = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     ageBystander = models.SmallIntegerField(null = True, blank = True)
-    #estimatedAgeBystander = models.BooleanField(null=True, blank=True)
+    estimatedAgeBystander = models.BooleanField(null=True, blank=True)
     cPRbystander3Time = models.IntegerField(null = True, blank = True)
     helperCPR = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     helperWho = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(1), MaxValueValidator(5)])
