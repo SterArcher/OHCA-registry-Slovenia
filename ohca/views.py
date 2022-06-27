@@ -179,9 +179,19 @@ def form_name_view(request):
 
             # form1.instance.intervention = tiste cifre
 
+            ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
+            sum = 0
+            for elt in form1.cleaned_data['All_drugs']:
+                options = {'Neznano': -1, 'Brez': 0, 'Adrenaline': 1,'Amiodarone': 2, 'Vasopressin': 4}
+                sum += int(options[elt])
+            form1.instance.drugs = sum
+           
+
             # to save into database:
             form1.save()
             # return index(request) # to mi neke errorje vrača, not sure why 
+
+            
         else:
             print("form invalid")
     else:
@@ -264,6 +274,13 @@ def third_form_name_view(request):
                 existing_ids.append(case.caseID)
             form1.instance.caseID = id #[0:32] #random.choice([i for i in range(100000, 10000000) if i not in existing_ids]) #id 
             # form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
+
+            ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
+            sum = 0
+            for elt in form1.cleaned_data['All_drugs']:
+                options = {'Neznano': -1, 'Brez': 0, 'Adrenaline': 1,'Amiodarone': 2, 'Vasopressin': 4}
+                sum += int(options[elt])
+            form1.instance.drugs = sum
 
             # # to save into database:
             form1.save(commit=True) #

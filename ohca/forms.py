@@ -190,6 +190,8 @@ class MyNewFrom(forms.ModelForm):
 	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 
+	All_drugs = forms.MultipleChoiceField(label="Aplicirana zdravila",widget=forms.CheckboxSelectMultiple,choices=values['drugs'])
+
 	class Meta: 	
 		model = CaseReport
 		fields = tuple(form1)		
@@ -227,6 +229,8 @@ class MyThirdNewFrom(forms.ModelForm):
 	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput)
 	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
+
+	All_drugs = forms.MultipleChoiceField(label="Aplicirana zdravila",widget=forms.CheckboxSelectMultiple,choices=values['drugs'])
 
 	class Meta: 
 		model = CaseReport
