@@ -197,7 +197,7 @@ class MyNewFrom(forms.ModelForm):
 	Patient_name = forms.CharField(label="Ime pacienta")
 	Patient_surname = forms.CharField(label="Priimek pacienta")
 	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
-	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput(options={"format": "yyyy-mm-dd", "autoclose": True}))
+	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput())
 	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 
@@ -217,7 +217,7 @@ class MySecondNewFrom(forms.ModelForm):
 	Patient_name = forms.CharField(label="Ime pacienta")
 	Patient_surname = forms.CharField(label="Priimek pacienta")
 	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
-	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput(options={"format": "yyyy-mm-dd", "autoclose": True}))
+	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput())
 	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 
@@ -237,7 +237,7 @@ class MyThirdNewFrom(forms.ModelForm):
 	Patient_name = forms.CharField(label="Ime pacienta")
 	Patient_surname = forms.CharField(label="Priimek pacienta")
 	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
-	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput(options={"format": "yyyy-mm-dd", "autoclose": True}))
+	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput())
 	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 
