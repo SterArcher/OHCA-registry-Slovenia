@@ -186,6 +186,7 @@ def form_name_view(request):
                 sum += int(options[elt])
             form1.instance.drugs = sum
            
+            form1.instance.reaLand = 1
 
             # to save into database:
             form1.save()
@@ -281,7 +282,7 @@ def third_form_name_view(request):
                 options = {'Neznano': -1, 'Brez': 0, 'Adrenaline': 1,'Amiodarone': 2, 'Vasopressin': 4}
                 sum += int(options[elt])
             form1.instance.drugs = sum
-
+            form1.instance.reaLand = 1
             # # to save into database:
             form1.save(commit=True) #
             # return index(request) # to mi neke errorje vrača, not sure why 
