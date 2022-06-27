@@ -173,11 +173,13 @@ def form_name_view(request):
             # print((date, date_birth))
 
 
-            id = generate_id("".join(first_name), "".join(last_name), date, date_birth)
+            id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
             form1.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
             form1.instance.age = calculate_age(date_birth, date)
 
             # form1.instance.intervention = tiste cifre
+            ca_date = form1.cleaned_data["Date"]
+            form1.instance.dispatchID = generate_dispatch_id(form1.cleaned_data['interventionID'], ca_date)
 
             ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
             sum = 0
@@ -223,7 +225,7 @@ def second_form_name_view(request):
 
             # form.instance.age = calculate_age(date_birth, date) # age bo že od prej
 
-            id = generate_id("".join(first_name), "".join(last_name), date, date_birth)
+            id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
             CaseReport.objects.update_or_create(
                 caseID=id, 
                 defaults=dict([(field, form1.cleaned_data[field]) for field in form2[1:]])
@@ -233,6 +235,8 @@ def second_form_name_view(request):
             ) # update, create
             form1.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
             # form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
+            ca_date = form1.cleaned_data["Date"]
+            form1.instance.dispatchID = generate_dispatch_id(form1.cleaned_data['interventionID'], ca_date)
 
             # to save into database:
             # form.save(commit=True)
@@ -265,7 +269,7 @@ def third_form_name_view(request):
             print(calculate_age(date_birth, date))
             form1.instance.age = calculate_age(date_birth, date)
             
-            id = generate_id(first_name, last_name, date, date_birth)
+            id = generate_case_id(first_name, last_name, date, date_birth)
             print(id)
             print(len(id))
             # print(id.digest())
@@ -275,6 +279,8 @@ def third_form_name_view(request):
                 existing_ids.append(case.caseID)
             form1.instance.caseID = id #[0:32] #random.choice([i for i in range(100000, 10000000) if i not in existing_ids]) #id 
             # form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
+            ca_date = form1.cleaned_data["Date"]
+            form1.instance.dispatchID = generate_dispatch_id(form1.cleaned_data['interventionID'], ca_date)
 
             ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
             sum = 0

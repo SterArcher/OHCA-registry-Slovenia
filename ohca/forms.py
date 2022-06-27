@@ -51,7 +51,7 @@ form2 = ['caseID', 'systemID', 'localID', 'ecls', 'iabp', 'ph', 'lactate', 'gluc
 #======================================== USEFUL FUNCTIONS ==================================================================================
 
 
-def generate_id(first_name, last_name, cardiac_arrest_date, birth_date):
+def generate_case_id(first_name: str, last_name: str, cardiac_arrest_date: str, birth_date: str):
 	"""Takes the name, surname and dates in format recieved from input from form: 2020-02-03 (year, month, day) and generates ID"""
 
 	# poskrbi za primer več imen in poenoti velike začetnice
@@ -74,6 +74,13 @@ def generate_id(first_name, last_name, cardiac_arrest_date, birth_date):
 	print(code)
 	hashed = hashlib.sha256(code.encode("utf-8")).hexdigest() #hexdigest
 	return hashed
+
+def generate_dispatch_id(intervention_num: str, cardiac_arrest_date: str):
+	cardiac_arrest_date = cardiac_arrest_date.split("-")
+	ca_date = cardiac_arrest_date[2] + cardiac_arrest_date[1] + cardiac_arrest_date[0]
+	
+	code = intervention_num + ca_date
+	return hashlib.sha256(code.encode("utf-8")).hexdigest()
 
 
 def create_widgets(values): 
@@ -195,7 +202,7 @@ class MyNewFrom(forms.ModelForm):
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 
 	All_drugs = forms.MultipleChoiceField(label="Aplicirana zdravila",widget=forms.CheckboxSelectMultiple,choices=values['drugs'])
-	Estimated_bystander_age = forms.ChoiceField(label="Ali je starost očividca ocenjena?", widget=forms.Select)
+	Estimated_bystander_age = forms.ChoiceField(label="Ali je starost očividca ocenjena?", widget=forms.CheckboxInput)
 	class Meta: 	
 		model = CaseReport
 		fields = tuple(form1)		
@@ -235,7 +242,7 @@ class MyThirdNewFrom(forms.ModelForm):
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 
 	All_drugs = forms.MultipleChoiceField(label="Aplicirana zdravila",widget=forms.CheckboxSelectMultiple,choices=values['drugs'])
-	Estimated_bystander_age = forms.ChoiceField(label="Ali je starost očividca ocenjena?", widget=forms.Select)
+	Estimated_bystander_age = forms.ChoiceField(label="Ali je starost očividca ocenjena?", widget=forms.CheckboxInput)
 	class Meta: 
 		model = CaseReport
 		fields = "__all__"		
