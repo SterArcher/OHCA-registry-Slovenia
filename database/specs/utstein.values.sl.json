@@ -316,6 +316,7 @@
                 "0": "Ne",
                 "1": "Da"
             },
+            "description":"Ali se je med oživljanjem uporabljala kakršna koli naprava za nadzor kvalitete izvedbe oživljanaj?",
             "core": false
         },
         "shocks": {

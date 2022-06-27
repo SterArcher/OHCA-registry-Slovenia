@@ -291,6 +291,7 @@
                 "0": "False",
                 "1": "True"
             },
+            "description": "Comment on resuscitation procedure",
             "core": false
         },
         "shocks": {
