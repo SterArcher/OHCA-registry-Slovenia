@@ -132,29 +132,33 @@ from django import forms
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit, Row, Column
+import fields
 
 
 class InterventionForm(forms.Form):
 	"""Form for 12 separate fields for the intervention number"""
 
-	i1 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
-	i2 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
-	i3 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
-	i4 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
-	i5 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
-	i6 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
-	i7 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
-	i8 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
-	i9 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
-	i10 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
-	i11 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
-	i12 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	#i1 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	#i2 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	#i3 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	#i4 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	#i5 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	#i6 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	#i7 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	#i8 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	#i9 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	#i10 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	#i11 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+	#i12 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}))
+
+	interventionID = fields.InterventionField()
 
 	# https://simpleisbetterthancomplex.com/tutorial/2018/11/28/advanced-form-rendering-with-django-crispy-forms.html
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		fields = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',]
+		#fields = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',]
+		fields = ["interventionID"]
 
 		for f in fields:
 			self.fields[f].label = False
@@ -186,7 +190,7 @@ class MyNewFrom(forms.ModelForm):
 	Patient_name = forms.CharField(label="Ime pacienta")
 	Patient_surname = forms.CharField(label="Priimek pacienta")
 	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
-	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput)
+	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput(options={"format": "yyyy-mm-dd", "autoclose": True}))
 	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 
@@ -206,7 +210,7 @@ class MySecondNewFrom(forms.ModelForm):
 	Patient_name = forms.CharField(label="Ime pacienta")
 	Patient_surname = forms.CharField(label="Priimek pacienta")
 	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
-	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput)
+	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput(options={"format": "yyyy-mm-dd", "autoclose": True}))
 	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 
@@ -226,7 +230,7 @@ class MyThirdNewFrom(forms.ModelForm):
 	Patient_name = forms.CharField(label="Ime pacienta")
 	Patient_surname = forms.CharField(label="Priimek pacienta")
 	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
-	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput)
+	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput(options={"format": "yyyy-mm-dd", "autoclose": True}))
 	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 
