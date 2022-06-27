@@ -139,7 +139,7 @@ from django import forms
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit, Row, Column
-import fields
+from ohca import fields
 
 
 class InterventionForm(forms.Form):
