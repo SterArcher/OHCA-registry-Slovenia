@@ -28,7 +28,7 @@ Data flow is for only in Slovenian for now.
 
 
 ## Funding
-This project is funded by University of Maribor Faculty of medicine.
+This project was funded by University of Maribor Faculty of medicine for 4 months (1st of March to 30th of June).
 
 ## Collaborations
 We would like to thank [Emergency Healthcare Dispatch service centre in Maribor](https://www.dsz.si/index.php/sl/) and [company Computel](http://www.computel.si/eng/index.htm) for helping us with our project.
