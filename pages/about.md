@@ -46,7 +46,9 @@ Students:
 * Gašper Šircelj
 
 ## Funding
-This project is funded by University of Maribor Faculty of medicine.
+The project is currently run on volunteer base. 
+
+This project was funded by University of Maribor Faculty of medicine for 4 months between 1st of March and 30th of June 2022.
 
 ## Acknowledgements
 We would like to thank:
