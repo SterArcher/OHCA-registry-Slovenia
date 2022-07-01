@@ -105,7 +105,7 @@ class CaseReport(models.Model):
     reperfusionTime = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1)])
     ecls = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
     iabp = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
-    ph = models.DecimalField(max_digits = 5, decimal_places = 3, null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(14)])
+    ph = models.DecimalField(max_digits = 5, decimal_places = 2, null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(14)], help_text = "Zaokrožite na dve decimalki.")
     lactate = models.DecimalField(max_digits = 10, decimal_places = 5, null = True, blank = True, validators=[MinValueValidator(-1)])
     glucose = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     neuroprognosticTests = models.JSONField(null = True, blank = True, default = dict)
