@@ -446,7 +446,7 @@
             "core": false
         },
         "glucose": {
-            "title": "Glukoza",
+            "title": "Je bila po ROSC glukoza titrirana do določene vrednosti?",
             "source": "zdravilo - odmerek, čas, pot (protokol nujnega reševalnega vozila)",
             "values": {
                 "null": "Ni zapisa",
