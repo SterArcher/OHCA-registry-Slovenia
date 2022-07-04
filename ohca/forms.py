@@ -221,7 +221,7 @@ class MySecondNewFrom(forms.ModelForm):
 	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput())
 	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
-	Date_of_hospital_discharge = forms.DateField(label='Dan odpusta iz bolnice', widget=DatePickerInput, required=False)
+	Date_of_hospital_discharge = forms.DateField(label='Datum odpusta iz bolnišnice', widget=DatePickerInput, required=False)
 	class Meta: 
 		model = CaseReport
 		fields = tuple(form2)		
@@ -241,6 +241,7 @@ class MyThirdNewFrom(forms.ModelForm):
 	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput())
 	Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
+	Date_of_hospital_discharge = forms.DateField(label='Datum odpusta iz bolnišnice', widget=DatePickerInput, required=False)
 
 	All_drugs = forms.MultipleChoiceField(label="Aplicirana zdravila",widget=forms.CheckboxSelectMultiple,choices=values['drugs'])
 	Estimated_bystander_age = forms.ChoiceField(label="Ali je starost očividca ocenjena?", widget=forms.CheckboxInput)
