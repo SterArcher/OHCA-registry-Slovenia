@@ -143,7 +143,7 @@ class CaseReport(models.Model):
     timeTCPR = models.IntegerField(null = True, blank = True)
     gbystnader = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     ageBystander = models.SmallIntegerField(null = True, blank = True)
-    estimatedAgeBystander = models.BooleanField(null=True, blank=True)
+    estimatedAgeBystander = models.SmallIntegerField(null=True, blank=True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     cPRbystander3Time = models.IntegerField(null = True, blank = True)
     helperCPR = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     helperWho = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(1), MaxValueValidator(5)])
