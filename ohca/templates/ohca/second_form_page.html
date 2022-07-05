@@ -70,17 +70,63 @@
              <form method="POST">
                  <h2 style="font-weight: 500;">Izpolnite podatke o dogodku</h1>
                  {% csrf_token %}
+
+
+                 <p> </p>
+                <p> </p>
+                  Vpišite 12-mestno številko intervencije
+                  <p> </p>
+                  <p> </p>
+                  <div class="form-row">
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i1|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i2|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i3|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i4|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i5|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i6|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i7|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i8|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i9|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i10|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i11|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-1 mb-0">
+                      {{ form2.i12|as_crispy_field }}
+                    </div>
+                  </div>
                  <p>{{ form1.Patient_name|as_crispy_field}}</p>
                  <p>{{form1.Patient_surname|as_crispy_field}}</p>
                  <p>{{form1.Date_birth|as_crispy_field}}</p>
                  <p>{{form1.Date|as_crispy_field}}</p>
+                 
                  {% for field in form1 %}
                      {% if field.name != "Patient_name" and field.name != "Patient_surname" and field.name != "Date" and field.name != "Date_birth" and field.name != "Date_of_hospital_discharge" and field.label != 'Dan odpusta iz bolnice'%}
                          <!-- <p>{{ field.label}}{{ field|as_crispy_field }}</p> -->
                          <p>{{ field|as_crispy_field }}</p>
                      {% endif %}
                  {% endfor %}
-                 <p>{{form1.Date_of_hospital_discharge|as_crispy_field}}</p>
+                 
 
                 
             <input type="submit" class="btn btn-primary" value="Submit">
