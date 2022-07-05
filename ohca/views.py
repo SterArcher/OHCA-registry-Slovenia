@@ -1,3 +1,4 @@
+from sys import prefix
 from rest_framework.response import Response
 from .functions import *
 import random
@@ -147,10 +148,17 @@ def form_name_view(request):
     form2 = InterventionForm()
     if request.method == "POST":
 
-        form1 = MyNewFrom(request.POST)
         form2 = InterventionForm(request.POST)
+        print(form2.is_valid())
 
-        if form1.is_valid() and form2.is_valid(): 
+        form1 = MyNewFrom(request.POST)
+        print(form1.is_valid())
+        print(form1.errors)
+        
+        form2 = InterventionForm(request.POST)
+        print(form2.is_valid())
+
+        if form2.is_valid() and form1.is_valid(): 
             
             print("VALIDATION SUCCESS")
 
@@ -160,11 +168,18 @@ def form_name_view(request):
             # i4 = form2.cleaned_data["i4"]
 
             # print((i1, i2, i3, i4))
+            f = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',] #
+            intID = '' #
+            for field in f:
+                intID += str(form2.cleaned_data[field])
+
+            print(intID)
             
             first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
             last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
 
-            temp = request.POST['bystanderResponseTime']
+            # temp = request.POST['bystanderResponseTime']
+            temp = form1.cleaned_data['bystanderResponseTime']
             print(temp)
             print(str(form1.cleaned_data["bystanderResponseTime"]))
 
@@ -177,15 +192,20 @@ def form_name_view(request):
             form1.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
             form1.instance.age = calculate_age(date_birth, date)
 
-            # form1.instance.intervention = tiste cifre
+            # form1.instance.interventionID = intID
             ca_date = form1.cleaned_data["Date"]
-            form1.instance.dispatchID = generate_dispatch_id(form1.cleaned_data['interventionID'], ca_date)
+            print(str(ca_date))
+            # form1.instance.dispatchID = generate_dispatch_id(form1.cleaned_data['interventionID'], ca_date)
+            form1.instance.dispatchID = generate_dispatch_id(str(intID), str(ca_date))
 
             ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
             sum = 0
+            print(form1.cleaned_data['All_drugs'])
             for elt in form1.cleaned_data['All_drugs']:
-                options = {'Neznano': -1, 'Brez': 0, 'Adrenaline': 1,'Amiodarone': 2, 'Vasopressin': 4}
+                # TODO ne dela prav,  
+                options = {'1': -1, '2': 0, '3': 1,'4': 2, '5': 4}
                 sum += int(options[elt])
+                print(sum)
             form1.instance.drugs = str(sum)
            
             form1.instance.reaLand = "1"
@@ -209,6 +229,8 @@ def second_form_name_view(request):
     if request.method == "POST":
 
         form1 = MySecondNewFrom(request.POST)
+        print(form1.errors)
+        
         form2 = InterventionForm(request.POST)
 
         if form1.is_valid() and form2.is_valid(): 
@@ -228,21 +250,31 @@ def second_form_name_view(request):
             id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
             CaseReport.objects.update_or_create(
                 caseID=id, 
-                defaults=dict([(field, form1.cleaned_data[field]) for field in form2[1:]])
+                defaults=dict([(field, form1.cleaned_data[field]) for field in second_form[1:]])
                 # {
                 #     "ecls" : form.cleaned_data["ecls"] # zgeneriraj
                 # }
             ) # update, create
+            
             form1.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
             # form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
-            ca_date = form1.cleaned_data["Date"]
-            form1.instance.dispatchID = generate_dispatch_id(form1.cleaned_data['interventionID'], ca_date)
 
+            f = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',] #
+            intID = '' #
+            for field in f:
+                intID += str(form2.cleaned_data[field])
+
+            print(intID)
+            ca_date = form1.cleaned_data["Date"]
+            form1.instance.dispatchID = generate_dispatch_id(str(intID), str(ca_date))
             # to save into database:
             # form.save(commit=True)
             # return index(request) # to mi neke errorje vrača, not sure why 
         else:
             print("form invalid")
+    else:
+        form1 = MySecondNewFrom() 
+        form2 = InterventionForm()
     return render(request, "ohca/second_form_page.html", {"form1":form1, "form2":form2})
 
 
@@ -279,8 +311,16 @@ def third_form_name_view(request):
                 existing_ids.append(case.caseID)
             form1.instance.caseID = id #[0:32] #random.choice([i for i in range(100000, 10000000) if i not in existing_ids]) #id 
             # form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
+
+            f = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',] #
+            intID = '' #
+            for field in f:
+                intID += str(form2.cleaned_data[field])
+
+            print(intID)
+
             ca_date = form1.cleaned_data["Date"]
-            form1.instance.dispatchID = generate_dispatch_id(form1.cleaned_data['interventionID'], ca_date)
+            form1.instance.dispatchID = generate_dispatch_id(str(intID), str(ca_date))
 
             ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
             sum = 0
@@ -294,4 +334,7 @@ def third_form_name_view(request):
             # return index(request) # to mi neke errorje vrača, not sure why 
         else:
             print("form invalid")
+    else:
+        form1 = MyThirdNewFrom() 
+        form2 = InterventionForm()
     return render(request, "ohca/third_form_page.html", {"form1":form1, "form2":form2})
