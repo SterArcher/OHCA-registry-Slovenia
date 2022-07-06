@@ -33,6 +33,11 @@ This project was funded by University of Maribor Faculty of medicine for 4 month
 ## Collaborations
 We would like to thank [Emergency Healthcare Dispatch service centre in Maribor](https://www.dsz.si/index.php/sl/) and [company Computel](http://www.computel.si/eng/index.htm) for helping us with our project.
 
+## Licensing
+
+This project is licensed under the [AGPL v3 license](https://github.com/SterArcher/OHCA-registry-Slovenia/blob/main/LICENSE).
+The source code up to and including [commit 9471cd](https://github.com/SterArcher/OHCA-registry-Slovenia/blob/9471cd49398c1dfd91430379ba7b4b47f438cf5c) is licensed under the [MIT license](https://github.com/SterArcher/OHCA-registry-Slovenia/blob/main/licenses/Base_MIT).
+
 ## Acknowledgements
 We would like to thank:
 * [System Software Laboratory](https://lspo.feri.um.si/index-en.php) for lending us their IT infrastructure
