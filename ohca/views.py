@@ -202,11 +202,11 @@ def form_name_view(request):
             sum = 0
             print(form1.cleaned_data['All_drugs'])
             for elt in form1.cleaned_data['All_drugs']:
-                # TODO ne dela prav,  
-                options = {'1': -1, '2': 0, '3': 1,'4': 2, '5': 4}
-                sum += int(options[elt])
+                
+                # options = {'1': -1, '2': 0, '3': 1,'4': 2, '5': 4}
+                sum += int(elt)
                 print(sum)
-            form1.instance.drugs = str(sum)
+            form1.instance.drugs = sum
            
             form1.instance.reaLand = "1"
 
@@ -324,10 +324,13 @@ def third_form_name_view(request):
 
             ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
             sum = 0
+            print(form1.cleaned_data['All_drugs'])
             for elt in form1.cleaned_data['All_drugs']:
-                options = {'Neznano': -1, 'Brez': 0, 'Adrenaline': 1,'Amiodarone': 2, 'Vasopressin': 4}
-                sum += int(options[elt])
-            form1.instance.drugs = str(sum)
+                 
+                # options = {'1': -1, '2': 0, '3': 1,'4': 2, '5': 4}
+                sum += int(elt)
+                print(sum)
+            form1.instance.drugs = sum
             form1.instance.reaLand = "1"
             # # to save into database:
             form1.save(commit=True) #
