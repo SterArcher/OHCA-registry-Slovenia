@@ -6,13 +6,13 @@
             "core": true
         },
         "systemID": {
-            "title": "UUID sistema",
-            "description": "Unikaten ID sistema, v katerem je bil primer oskrbovan",
+            "title": "Regija srčnega zastoja",
+            "description": "Navedi enoto NMP",
             "core": true
         },
         "localID": {
-            "title": "UUID območja",
-            "description": "Unikaten ID območja, kjer je bil primer oskrbovan",
+            "title": "Občina",
+            "description": "Občina, kjer je pacient doživel srčni zastoj",
             "core": true
         },
         "dispIdentifiedCA": {
@@ -27,7 +27,7 @@
             "core": true
         },
         "dispProvidedCPRinst": {
-            "title": "Dispečer je posredoval navodila za TPO",
+            "title": "Ali je dispečer/NMP dal navodila po telefonu za oživljanje",
             "source": "Dispečerska služba zdravstva",
             "values": {
                 "null": "Ni zapisa",
@@ -55,30 +55,32 @@
             "core": true
         },
         "witnesses": {
-            "title": "Priče zastoja",
+            "title": "Ali se je srčni zastoj zgodil vpričo očividcev",
             "source": "Pred prihodom NMP (poročilo o nujnem reševlnem prevozu), Zastoj srca se je zgodil (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
-                "-1": "Neznano",
-                "0": "Brez",
-                "1": "Očividci",
-                "2": "Ekipa NMP",
-                "3": "Očividci & NMP"
+                "-1": "Neznano/ni zabeleženo - ni navedeno",
+                "0": "NE, brez prič",
+                "1": "DA, v prisotnosti očividca",
+                "2": "DA, v prisotnosti ekipe NMP",
+                "3": "DA, v prisotnosti očividca in ekipe NMP",
+                "4": "Oseba, ki je bila poslana na kraj srčnega zastoja, da nudi pomoč/oživljanje"
             },
+            "description" : "Definicija osebe, ki je bila poslana, da bi nudila pomoč/oživljanje: oseba, ki jo je alarmiral in na kraj dogodka poslal DCZ/NMP preko SMS aplikacije, app, telefona/radijske postaje, itd... Srčni zastoj vpričo očividcev je definiran, kadar očividci vidijo srčni zastoj (npr. da se je nekdo zgrudil) ali da slišijo, da se je nekdo zgrudil (oz doživel srčni zastoj) ali zasledijo na monitorju srčni zastoj.",
             "core": true
         },
         "location": {
-            "title": "Lokacija zastoja",
+            "title": "Lokacija zastoja - Utstein 2015",
             "source": "Lokacija dogodka (poročilo o nujnem reševalnem prevozu), Kraj dogodka (sprejem intervencij)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
-                "1": "Dom/prebivališče",
-                "2": "Delovno mesto",
-                "3": "Športni/rekreacijski dogodek",
+                "1": "Dom/prebivališče (stalno ali začasno)",
+                "2": "Industrija/delovno mesto/pisarna",
+                "3": "Športni/rekreacijski dogodek oz. infrasturktura (dvorana, telovadnica, stadion,..)",
                 "4": "Ulica/avtocesta",
-                "5": "Javna zgradba",
-                "6": "Varovano stanovanje/dom za ostarele",
+                "5": "Javna ustanove/zgradba",
+                "6": "Varovano stanovanje/dom za ostarele (ustanove za dolgotrajno oskrbo)",
                 "7": "Učna ustanova",
                 "8": "Drugo"
             },
@@ -92,8 +94,8 @@
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 "0": "Očividec ni izvajal TPO",
-                "1": "Izveden TPO (Samo stiski prsnega koša)",
-                "2": "Izveden TPO (Stiski in umetno dihanje)"
+                "1": "Očividec izvajal TPO (podrobneje: samo stisi prsnega koša, stisi prsnega koša in umetno predihavanje)",
+                "2": "Očividec izvajal TPO (podrobneje: samo stisi prsnega koša, stisi prsnega koša in umetno predihavanje)"
             },
             "core": true
         },
@@ -109,14 +111,14 @@
             "core": true
         },
         "bystanderAED": {
-            "title": "Uporaba AED",
+            "title": "Uporaba AED s strani očividca",
             "source": "AED je / ni bil na voljo, Uspešnost AED pred prihodom ekipe NMP (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 "0": "Ni bil uporabljen",
-                "1": "AED uporabljen, elektrošok ni izveden",
-                "2": "AED uporabljen, elektrošok izveden"
+                "1": "AED uporabljen, defibrilacija ni izvedena",
+                "2": "AED uporabljen, defibrilacija izvedena"
             },
             "core": true
         },
@@ -143,7 +145,7 @@
             "core": true
         },
         "firstMonitoredRhy": {
-            "title": "Prvi zaznan ritem",
+            "title": "Začetni (prvi) ritem - Utstein 2015",
             "source": "Prvi EKG pri oživljanju, Prvi AED izvid (protokol predbolnišničnega življenja)",
             "values": {
                 "null": "Ni zapisa",
@@ -153,8 +155,8 @@
                 "3": "PEA",
                 "4": "Asistola",
                 "5": "Bradikardia",
-                "6": "AED šok ni smiseln",
-                "7": "AED šok smiseln"
+                "6": "AED - defibrilacija ni potrebna",
+                "7": "AED - defibrilacija je potrebna"
             },
             "core": true
         },
@@ -315,6 +317,7 @@
                 "0": "Ne",
                 "1": "Da"
             },
+            "description" : "Ali se je med oživljanjem uporabljala kakršna koli naprava za nadzor kvalitete izvedbe oživljanaj?", 
             "core": false
         },
         "shocks": {
@@ -434,17 +437,18 @@
             "core": false
         },
         "lactate": {
-            "title": "Laktate",
+            "title": "Laktat",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 ">=0": "value"
             },
+            "description" : "mmol/L",
             "core": false
         },
         "glucose": {
-            "title": "Glukoza",
+            "title": "Je bila po ROSC glukoza titrirana do določene vrednosti?",
             "source": "zdravilo - odmerek, čas, pot (protokol nujnega reševalnega vozila)",
             "values": {
                 "null": "Ni zapisa",
@@ -461,7 +465,7 @@
             "core": false
         },
         "specialistHospital": {
-            "title": "Tip bolnišnice",
+            "title": "Ali je bolnišnica specialistični center",
             "source": "Sprejemna bolnišnica, Sprejemna ambulanta (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
@@ -564,6 +568,7 @@
                 "-1": "Neznano",
                 "1-5": "value"
             },
+            "description" : "Vpišite vrednost 1 do 5",
             "core": true
         },
         "mrsDischarge": {
@@ -574,6 +579,7 @@
                 "-1": "Neznano",
                 "0-6": "value"
             },
+            "description" : "Vpišite vrednost 1 do 6",
             "core": true
         },
         "survivalStatus": {
@@ -676,17 +682,18 @@
             "core": false
         },
         "noCPR": {
-            "title": "NMP ni oživljal",
+            "title": "Vzrok, zakaj NMP ne izvaja oživljanja - EuReCa 3",
             "values": {
                 "null": "Ni zabeleženo",
                 "-1": "Neznano",
-                "0": "Umrli predhodno",
+                "0": "Umrl prej/pred prihodom NMP",
                 "1": "Dokument o izraženi volji proti oživljanju",
-                "2": "Želja družine",
-                "3": "Želja zdravnika",
-                "4": "Uspešni ICD šok",
-                "5": "Znaki življenja"
+                "2": "Želja družinskih članov, da bolnika ne oživljajo",
+                "3": "Želja/odločitev zdravnika",
+                "4": "Uspešna defibrilacija ICD (implantiran kardioverter/defibrlator)",
+                "5": "Znaki življenja ob prihodu NMP"
             },
+            "description" : "Vzrok zakaj NMP ne izvaja oživljanja. V primeru, da je pri spremenljivki Ali je NMP izvajal oživljanje označeno z DA, potem tukaj pustimo prazno.",
             "core": false
         },
         "patID": {
@@ -709,7 +716,7 @@
             "core": false
         },
         "reaTime": {
-            "title": "Čas srčnega zastoja",
+            "title": "Čas srčnega zastoja - EuReCa 3",
             "description": "Čas srčnega zastoja v hh:mm:ss formi", 
             "core": false
         },
@@ -717,13 +724,14 @@
             "title": "Vzrok srčnega zastoja",
             "values": {
                 "null": "Ni zabeleženo",
-                "-1": "Neznano (predviden mrtev)",
+                "-1": "Neznano (najverjetneje srčni)",
                 "0": "Srčni",
-                "1": "Travma",
-                "2": "Potopitev",
+                "1": "Poškodba",
+                "2": "Utopitev",
                 "3": "Respiratorni",
-                "4": "Ne-srčni"
+                "4": "Ostali - ne-srčni"
             },
+            "description" : "Vzrok za srčni zastoj se predvideva, da je srčni; razen če je znano oz. zelo verjetno, da je povzročen zaradi poškodbe, utopitve, prekomernega odmerka drog, zadušitve, izkravitve, ali katerega koli drugega ne-srčnega vzroka potrjenega s strani NMP.",
             "core": false
         },
         "timeTCPR": {
@@ -752,39 +760,41 @@
             "core": false
         },
         "helperCPR": {
-            "title": "Oseba poslana, da pomaga s CPR",
+            "title": "Ali je DCZ/NMP poslal osebo (ki bi lahko nudila pomoč/oživljanje) na kraj srčnega zastoja",
             "values": {
                 "null": "Ni zabeleženo",
                 "-1": "Neznano",
                 "0": "Da",
                 "1": "Ne"
             },
+            "description" : "Katerakoli oseba, ki so jo poslali na kraj dogodka, da bi nudila pomoč oz. izvajala oživljanje, in je bila aktivirana s strani DCZ/NMP preko SMS, app, telefon/radijske postaje.",
             "core": false
         },
         "helperWho": {
-            "title": "Kdo je bil poslan, da pomaga?",
+            "title": "Katero osebo je DCZ/NMP poslal (ki bi lahko nudila pomoč/oživljanje) na kraj srčnega zastoja - EuReCa 3",
             "values": {
-                "1": "Oseba, ki jo je opozoril dispatch",
-                "2": "Oseba z BLS, ki jo je opozoril dispatch",
-                "3": "Prvi posredovalec",
-                "4": "Zdravstveno osebje izven časa službe, ki ga je poslal dispatch",
-                "5": "Ostali, ki jih je poslal dispatch"
+                "1": "Osebo, ki jo je na kraj zastoja poslal dispečer (to je katerakoli oseba, za katero ne vemo ali ima opravljen BLS tečaj ali izpolnjuje katerega izmed spodnjih pogojev)",
+                "2": "Osebo, ki ima opravljen BLS tečaj, in jo je na kraj zastoja poslal dispečer",
+                "3": "Gasilec (prvi posredovalec), ki ga je na kraj zastoja poslal dispečer",
+                "4": "Zdravstveni delavec, ki trenutno ni v službi, in ga je na kraj zastoja poslal dispečer",
+                "5": "Ostali, ki jih je na kraj zastoja poslal dispečer (ostale skupine, ki niso navedene zgoraj)"
             },
             "core": false
         },
         "cPRhelper3Time": {
-            "title": "Čas začetka PCR osebe, ki je poslana da pomaga",
-            "description": "Čas začetka PCR osebe, ki je poslana da pomaga v hh:mm:ss formi", 
+            "title": "Čas, ko je pričela oseba, ki jo je DCZ/NMP poslal na kraj zastoja (ki bi lahko nudila pomoč/oživljanje), z oživljanjem (TPO) - EuReCa 3",
+            "description": "Čas začetka CPR osebe, ki je poslana da pomaga v hh:mm:ss formi", 
             "core": false
         },
         "defiOrig": {
-            "title": "Prvi šok je dostavil AED ali NMP",
+            "title": "Kdo je izvedel prvo defibrilacijo? - EuReCa 3",
             "values": {
                 "null": "Ni zabeleženo",
                 "-1": "Neznano",
                 "0": "AED",
                 "1": "EMS"
             },
+            "description" : "Pustite prazno, če ni šoka. AED - v ta odgovor so vključeni vsi, ki so uporabili AED, razen osebja NMP, ki je takrat v službi - npr. za očividce ali prve posredovalce, ki uporabljajo AED se označi odgovor; če je član prvih posredovalcev tudi član NMP in ob aktivaciji takrat ni v službi NMP oz. ni del redne aktivirane ekipe NMP ter uporabi AED ob oživljanju, se označi ta odgovor).",
             "core": false
         },
         "timeROSC": {
@@ -798,8 +808,8 @@
             "core": false
         },
         "leftScene5Time": {
-            "title": "Čas zapusitve dogodka",
-            "description": "Čas zapusitve dogodka v hh:mm:ss formi", 
+            "title": "Čas odhoda iz kraja dogodka/zastoja",
+            "description": "Čas odhoda iz kraja dogodka/zastoja v obliki hh:mm:ss", 
             "core": false
         },
         "hospitalArrival6Time": {
@@ -821,7 +831,7 @@
             "core": false
         },
         "dischDay": {
-            "title": "Dan odpustitve iz bolnice",
+            "title": "Dan odpusta iz bolnice",
             "description": "Dan odpustitve iz bolnice v DD formi", 
             "core": false
         }
