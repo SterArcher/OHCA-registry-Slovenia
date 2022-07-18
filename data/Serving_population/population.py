@@ -118,6 +118,8 @@ for i in range(len(zd)):
 enote_nmp = dict()
 for i in range(len(zd)):
   nmp = zd.loc[i][1]
+  if nmp[-1] == " ":
+    nmp = nmp[:-1]
   if nmp not in enote_nmp:
     enote_nmp[nmp] = [zd.loc[i][0]] # save the name of the municipality
   else:
@@ -138,7 +140,7 @@ for enota in enote_nmp:
 
 final = []
 for enota in enote_nmp:
-  d = {"zd": enota, "st": nmp_st[enota], "povrsina": round(nmp_povrsina[enota])}
+  d = {"zd": enota, "st": nmp_st[enota], "povrsina": round(nmp_povrsina[enota], 3)}
   final.append(d)
 
 fields = ['zd', 'st', 'povrsina'] 
