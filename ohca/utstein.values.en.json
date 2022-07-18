@@ -6,17 +6,17 @@
             "core": true
         },
         "systemID": {
-            "title": "Regija srčnega zastoja",
-            "description": "Navedi enoto NMP",
+            "title": "Enota NMP",
+            "description": "Navedi enoto NMP, ki je bila aktivirana",
             "core": true
         },
         "localID": {
             "title": "Občina",
-            "description": "Občina, kjer je pacient doživel srčni zastoj",
+            "description": "Občina, v kateri je pacient doživel srčni zastoj",
             "core": true
         },
         "dispIdentifiedCA": {
-            "title": "Dispečer je prepoznal prisotnost zastoja srca",
+            "title": "Dispečer je prepoznal prisotnost srčnega zastoja",
             "source": "Dispečerska služba zdravstva",
             "values": {
                 "null": "Ni zapisa",
@@ -154,7 +154,7 @@
                 "2": "VT brez pulza",
                 "3": "PEA",
                 "4": "Asistola",
-                "5": "Bradikardia",
+                "5": "Bradikardija",
                 "6": "AED - defibrilacija ni potrebna",
                 "7": "AED - defibrilacija je potrebna"
             },
@@ -172,7 +172,7 @@
                 "5": "Elektrošok",
                 "6": "Zadušitev"
             },
-            "description": "Opomomba: neznani razlogi naj bodo opredeljeni kot zdravstvena težava.",
+            "description": "Opomba: neznani razlogi naj bodo opredeljeni kot zdravstvena težava.",
             "core": true
         },
         "independentLiving": {
@@ -184,7 +184,7 @@
                 "0": "Ne",
                 "1": "Da"
             },
-            "description": "Ali pacient živi sam",
+            "description": "Ali je pacient pred zastojem bil sposoben samostojnega življenja",
             "core": false
         },
         "comorbidities": {
@@ -199,7 +199,7 @@
             "core": false
         },
         "vad": {
-            "title": "VAD",
+            "title": "Ali ima pacient mehansko cirkulatorno podporo srcu (ang. VAD, ventricular assist device)?",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
@@ -210,7 +210,7 @@
             "core": false
         },
         "cardioverterDefib": {
-            "title": "Kardioverter-defibrilator",
+            "title": "Ali ima pacient vsajen kardioverter-defibrilator?",
             "source": "Zunanji srčni spodbujevalec (protokol nujne intervencije)",
             "values": {
                 "null": "Ni zapisa",
@@ -222,7 +222,7 @@
             "core": false
         },
         "stemiPresent": {
-            "title": "Prisoten STEMI",
+            "title": "Prisoten STEMI?",
             "source": "STEMI (protokol predbolnišničnega oživljanja), EKG izvid (protokol nujne intervencije)",
             "values": {
                 "null": "Ni zapisa",
@@ -255,7 +255,7 @@
             "core": true
         },
         "ttm": {
-            "title": "Terapevtska hipotermija",
+            "title": "Uporaba terapevtske hipotermije (TTM, Targeted temperature management)",
             "source": "Terapevtska hipotermija (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
@@ -269,14 +269,14 @@
             "core": true
         },
         "ttmTemp": {
-            "title": "TTM Temperatura",
+            "title": "Ciljanja temperatura terapevtske hipotermije (TTM, Targeted temperature management)",
             "source": "Terapevtska hipotermija (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 ">0": "value"
             },
-            "description": "Ciljna temperatura, če TTM izveden (v Kelvinih)",
+            "description": "Ciljna temperatura, če TTM izveden (v stopinjah celzija)",
             "core": false
         },
         "drugs": {
@@ -299,7 +299,7 @@
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
-                "0": "Brez used",
+                "0": "Brez",
                 "1": "Orofaringealna dihalna pot",
                 "2": "Supraglotična dihalna pot",
                 "4": "Endotrahealni tubus",
@@ -309,7 +309,7 @@
             "core": false
         },
         "cprQuality": {
-            "title": "Kvaliteta TPO",
+            "title": "Ali se je med oživljanjem uporabljala kakršna koli naprava za nadzor kvalitete izvedbe oživljanaj?",
             "source": "Komentar o poteku oživljanja (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
@@ -317,7 +317,6 @@
                 "0": "Ne",
                 "1": "Da"
             },
-            "description" : "Ali se je med oživljanjem uporabljala kakršna koli naprava za nadzor kvalitete izvedbe oživljanaj?", 
             "core": false
         },
         "shocks": {
@@ -343,7 +342,7 @@
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 "0": "Brez",
-                "1": "Centralna venska",
+                "1": "Centralna IV",
                 "2": "Periferna IV",
                 "3": "IO",
                 "4": "Endotrahealna"
@@ -357,7 +356,7 @@
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 "0": "Brez",
-                "1": "Naprava za mehanske kompresije prnega koša (Lucas)",
+                "1": "Naprava za mehanske kompresije prnega koša (npr. Lucas®)",
                 "2": "Trak za razporeditev sile",
                 "3": "Druga mehanska naprava"
             },
@@ -385,7 +384,7 @@
                 "-1": "Neznano",
                 "0": "Brez",
                 "1": "Samo angiografija",
-                "2": "PCI",
+                "2": "Perkutana koronarna intervencija (PCI)",
                 "4": "Tromboliza"
             },
             "description": "Set vseh poskusov reperfuzije, dovoljena izbira večih (kot vsota ID-jev vrednosti)",
@@ -404,7 +403,7 @@
             "core": true
         },
         "ecls": {
-            "title": "ECLS",
+            "title": "Uporaba ECMO (extracorporal membrane oxidation)?",
             "source": "Bolnišnice",
             "values": {
                 "null": "Ni zapisa",
@@ -416,7 +415,7 @@
             "core": false
         },
         "iabp": {
-            "title": "IABP",
+            "title": "Intra-aortna balonska črpalka (IAP)?",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
@@ -504,7 +503,7 @@
             "core": false
         },
         "targetBP": {
-            "title": "Ciljano upravljanje krvnega pritiska",
+            "title": "Ciljano upravljanje srednjega krvnega tlaka (MAP)",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
@@ -561,29 +560,29 @@
             "core": true
         },
         "cpcDischarge": {
-            "title": "Nevrološki izid ob odpustu (CPC)",
+            "title": "Nevrološki izid ob odpustu (CPC, Cerebral performance category score)",
             "source": "Vrednost CPC ob odpustu (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 "1-5": "value"
             },
-            "description" : "Vpišite vrednost 1 do 5",
+            "description" : "Vpišite vrednost 1 do 5 (vir: https://www.researchgate.net/figure/Cerebral-performance-categories-CPC-scores_fig2_343846048)",
             "core": true
         },
         "mrsDischarge": {
-            "title": "Nevrološki izid ob odpustu (mRS)",
+            "title": "Nevrološki izid ob odpustu (mRS, modified Rankin Score)",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 "0-6": "value"
             },
-            "description" : "Vpišite vrednost 1 do 6",
+            "description" : "Vpišite vrednost 1 do 6: 0 - No symptoms. 1 - No significant disability. Able to carry out all usual activities, despite some symptoms. 2 - Slight disability. Able to look after own affairs without assistance, but unable to carry out all previous activities. 3 - Moderate disability. Requires some help, but able to walk unassisted. 4 - Moderately severe disability. Unable to attend to own bodily needs without assistance, and unable to walk unassisted. 5 - Severe disability. Requires constant nursing care and attention, bedridden, incontinent. 6 - Dead.",
             "core": true
         },
         "survivalStatus": {
-            "title": "Status preživetja",
+            "title": "Preživel do bolnišnice?",
             "source": "V bolnišnici, Sprejemna bolnišnica (protokol predbolnišničnega oživljanja)",
             "values": {
                 "null": "Ni zapisa",
@@ -606,7 +605,7 @@
             "core": false
         },
         "treatmentWithdrawn": {
-            "title": "Zdravljenje prekinjeno (vključno s časom)",
+            "title": "Kdaj je bilo zdravljenje prekinjeno?",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
@@ -677,7 +676,7 @@
             "core": false
         },
         "cPREMS3Time": {
-            "title": "Kdaj so začeli oživljati NMP",
+            "title": "Kdaj je ekipa NMP začela oživljati",
             "description": "Kdaj so začeli oživljati NMP v hh:mm:ss formi", 
             "core": false
         },
@@ -735,8 +734,8 @@
             "core": false
         },
         "timeTCPR": {
-            "title": "Čas začetka CPR",
-            "description": "Čas začetka CPR v hh:mm:ss formi", 
+            "title": "Čas začetka TPO",
+            "description": "Čas začetka TPO v hh:mm:ss formi", 
             "core": false
         },
         "gbystnader": {
@@ -755,8 +754,8 @@
             "core": false
         },
         "cPRbystander3Time": {
-            "title": "Čas začetka CPR očividca",
-            "description": "Čas začetka CPR očividca v hh:mm:ss formi", 
+            "title": "Čas začetka TPO očividca",
+            "description": "Čas začetka TPO očividca v hh:mm:ss formi", 
             "core": false
         },
         "helperCPR": {
@@ -783,7 +782,7 @@
         },
         "cPRhelper3Time": {
             "title": "Čas, ko je pričela oseba, ki jo je DCZ/NMP poslal na kraj zastoja (ki bi lahko nudila pomoč/oživljanje), z oživljanjem (TPO) - EuReCa 3",
-            "description": "Čas začetka CPR osebe, ki je poslana da pomaga v hh:mm:ss formi", 
+            "description": "Čas začetka TPO osebe, ki je poslana da pomaga v hh:mm:ss formi", 
             "core": false
         },
         "defiOrig": {
@@ -803,8 +802,8 @@
             "core": false
         },
         "endCPR4Time": {
-            "title": "Čas konca CPR",
-            "description": "Čas konca CPR v hh:mm:ss formi", 
+            "title": "Čas konca TPO",
+            "description": "Čas konca TPO v hh:mm:ss formi", 
             "core": false
         },
         "leftScene5Time": {
@@ -825,7 +824,7 @@
                 "0": "Mrtev",
                 "1": "Živ",
                 "2": "Brez prevoza do bolnišnice",
-                "3": "Prevoz z CPR",
+                "3": "Prevoz z TPO",
                 "4": "Prevoz z ROSC"
             },
             "core": false
