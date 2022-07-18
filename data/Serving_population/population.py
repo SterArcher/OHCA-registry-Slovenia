@@ -143,6 +143,8 @@ for enota in enote_nmp:
   d = {"zd": enota, "st": nmp_st[enota], "povrsina": round(nmp_povrsina[enota], 3)}
   final.append(d)
 
+final = sorted(final, key=lambda k: k["zd"])
+
 fields = ['zd', 'st', 'povrsina'] 
     
 # writing to csv file 
