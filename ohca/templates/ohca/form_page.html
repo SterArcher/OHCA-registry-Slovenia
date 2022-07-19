@@ -125,11 +125,12 @@
                 <p>{{form1.Date_birth|as_crispy_field}}</p>
                 <p>{{form1.gender|as_crispy_field}}</p>
                 <p>{{form1.Date|as_crispy_field}}</p>
+                <p>{{form1.Time|as_crispy_field}}</p>
                 
                 
                 <!-- <input type="time" step="1"> -->
 
-                {% with '"i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID"' as list %}
+                {% with '"i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
                 {% for field in form1 %}
                     {% if field.name != "Patient_name" and field.name != "Patient_surname" and field.name != "Date" and field.name != "Date_birth" and field.name not in list %}
                         <!-- <p>{{ field.label}}{{ field|as_crispy_field }}</p> -->
