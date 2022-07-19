@@ -2,7 +2,7 @@
 
 from django import forms
 
-TIME_FORMAT = '%I:%M %p'
+# TIME_FORMAT = '%I:%M %p'
 
 class DatePickerInput(forms.DateInput):
     input_type = 'date'

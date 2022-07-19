@@ -2,6 +2,8 @@ from sys import prefix
 from rest_framework.response import Response
 from .functions import *
 import random
+from datetime import date
+import datetime
 
 def case_by_id(request):
     if validate_post(request):
@@ -114,31 +116,61 @@ def calculate_age(birth, cardiac_arrest):
  
     return years
 
-def calculate_time(time1, time2):
+def calculate_time(date1, time1, date2, time2):
     """Takes two timestaps in the form "HH:MM:SS" and calculates how many second passed.
     It's assumed time1 happened before time2
     """
+    date1 = date1.split("-")
+    date2 = date2.split("-")
 
     time1 = time1.split(":")
     time2 = time2.split(":")
 
-    seconds1 = time1[0] * 60 * 60 + time1[1] * 60 + time1[2] # convert time to seconds
-    seconds2 = time2[0] * 60 * 60 + time2[1] * 60 + time2[2]
+    datetime1 = datetime.datetime(int(date1[0]), int(date1[1]), int(date1[2]), int(time1[0]), int(time1[1]), int(time1[2]))
+    datetime2 = datetime.datetime(int(date2[0]), int(date2[1]), int(date2[2]), int(time2[0]), int(time2[1]), int(time2[2]))
 
-    diff = seconds2 - seconds1
+    duration = datetime2 - datetime1
+    duration_seconds = duration.total_seconds()
 
-    # what if time1 happens before midnight and time2 happens after midnight?
-    # in that case seconds1 > seconds2
+    return duration_seconds
 
-    # TODO : preveri če je ok ko boš zbrana
-    if seconds1 >= seconds2:
-        midnight = 24 * 3600
-        diff = (midnight - seconds1) + seconds2
+    # seconds1 = time1[0] * 60 * 60 + time1[1] * 60 + time1[2] # convert time to seconds
+    # seconds2 = time2[0] * 60 * 60 + time2[1] * 60 + time2[2]
 
-    # what if one of them is midnight 00:00:00 ???
+    # diff = seconds2 - seconds1
 
-    return diff
+    # # what if time1 happens before midnight and time2 happens after midnight?
+    # # in that case seconds1 > seconds2
 
+    # # razen če je razlika več kot 24 ur TODO
+
+    # # TODO : preveri če je ok ko boš zbrana
+    # if seconds1 >= seconds2:
+    #     midnight = 24 * 3600
+    #     diff = (midnight - seconds1) + seconds2
+
+    # # what if one of them is midnight 00:00:00 ???
+
+    # return diff
+
+def day_difference(date1, date2):
+    """Calculates number of days between two days (for discharge day).
+    Assumes date2 (day of discarge) happened after date1 (day of CA).
+    Dates are in form: 2020-02-03 (year, month, day)"""
+
+    date1 = date1.split("-")
+    date2 = date2.split("-")
+
+    d1 = date(int(date1[0]), int(date1[1]), int(date1[2]))
+    d2 = date(int(date2[0]), int(date2[1]), int(date2[2]))
+
+    diff = d2 - d1 
+
+    return int(diff.days)
+
+
+
+# ================== FORMS ==========================================================
 
 def new_index(request):
     return render(request, "ohca/index.html")
@@ -185,8 +217,7 @@ def form_name_view(request):
 
             date = str(form1.cleaned_data['Date'])
             date_birth = str(form1.cleaned_data["Date_birth"])
-            # print((date, date_birth))
-
+            
 
             id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
             form1.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
@@ -208,10 +239,17 @@ def form_name_view(request):
                 print(sum)
             form1.instance.drugs = sum
            
+            # form1.instance.reaLand = "Slovenia"
+            # form1.instance.reaRegion = str(form1.cleaned_data["localID"])
             form1.instance.reaLand = "1"
+            
+            CaseReport.objects.update_or_create(
+                caseID=id, 
+                defaults=dict([(field, form1.cleaned_data[field]) for field in first_form[1:]] + [('dispatchID', generate_dispatch_id(str(intID), str(ca_date)))])
+            ) # update, create
 
             # to save into database:
-            form1.save()
+            # form1.save()
             # return index(request) # to mi neke errorje vrača, not sure why 
 
             
@@ -242,6 +280,14 @@ def second_form_name_view(request):
 
             date = str(form1.cleaned_data['Date'])
             date_birth = str(form1.cleaned_data["Date_birth"])
+            disch_date = str(form1.cleaned_data["Date_of_hospital_discharge"])
+            # print((date, date_birth))
+
+            print(date, disch_date)
+            print(date and disch_date)
+            if not (date and disch_date):
+                print(day_difference(date, disch_date))
+                form1.instance.dischDay = day_difference(date, disch_date)
 
             print((date, date_birth))
 
@@ -285,6 +331,7 @@ def third_form_name_view(request):
     if request.method == "POST":
 
         form1 = MyThirdNewFrom(request.POST)
+        print(form1.errors)
         form2 = InterventionForm(request.POST)
 
         if form1.is_valid() and form2.is_valid(): 
@@ -296,8 +343,15 @@ def third_form_name_view(request):
 
             date = str(form1.cleaned_data['Date'])
             date_birth = str(form1.cleaned_data["Date_birth"])
+            time = str(form1.cleaned_data["Time"])
 
-            print((date, date_birth))
+            disch_date = str(form1.cleaned_data["Date_of_hospital_discharge"])
+            # print((date, date_birth))
+
+            print(day_difference(date, disch_date))
+            form1.instance.dischDay = day_difference(date, disch_date)
+
+            print((date, date_birth, time, disch_date))
             print(calculate_age(date_birth, date))
             form1.instance.age = calculate_age(date_birth, date)
             
@@ -329,9 +383,14 @@ def third_form_name_view(request):
                  
                 # options = {'1': -1, '2': 0, '3': 1,'4': 2, '5': 4}
                 sum += int(elt)
-                print(sum)
+                print(sum) #
             form1.instance.drugs = sum
-            form1.instance.reaLand = "1"
+            
+            
+            form1.instance.reaLand = "Slovenia"
+            form1.instance.reaRegion = str(form1.cleaned_data["localID"])
+
+
             # # to save into database:
             form1.save(commit=True) #
             # return index(request) # to mi neke errorje vrača, not sure why 

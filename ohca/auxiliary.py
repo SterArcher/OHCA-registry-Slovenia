@@ -5,7 +5,7 @@ def read_values():
 
     """Reads values from the json file and remembers titles, values, descriptions"""
     
-    file = open('OHCA-registry-Slovenia/ohca/utstein.values.en.json', encoding="utf-8")
+    file = open('ohca/utstein.values.en.json', encoding="utf-8")
     data = json.load(file)
     values = dict()
     titles = dict()
@@ -36,4 +36,4 @@ def read_values():
   
     # file.close()
 
-(values, titles, desc, names) = read_values()
+(values, titles, descriptions, names) = read_values()
