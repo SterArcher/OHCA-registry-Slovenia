@@ -102,13 +102,13 @@ class CaseReport(models.Model):
     cardioverterDefib = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
     stemiPresent = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
 
-    # # vse čase sem spremenila v TimeField, ker Utstein hoče hh:mm:ss format
-    # # responseTime = models.BigIntegerField(null = True, blank = True)
-    responseTime = models.TimeField(null = True, blank = True)
+    
+    responseTime = models.BigIntegerField(null = True, blank = True)
+    # # responseTime = models.TimeField(null = True, blank = True)
     # responseTimestamp = models.TimeField(null = True, blank = True)
 
-    # # defibTime = models.BigIntegerField(null = True, blank = True, validators=[MinValueValidator(-1)])
-    defibTime = models.TimeField(null = True, blank = True)
+    defibTime = models.BigIntegerField(null = True, blank = True, validators=[MinValueValidator(-1)])
+    # # defibTime = models.TimeField(null = True, blank = True)
     # defibTimestamp = models.TimeField(null = True, blank = True)
     # firstDefibWho = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(5)]) 
 
@@ -126,8 +126,8 @@ class CaseReport(models.Model):
     mechanicalCPR = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(3)])
     targetVent = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(3)])
     reperfusionAttempt = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(8)])
-    # # reperfusionTime = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1)])
-    reperfusionTime = models.TimeField(null = True, blank = True)
+    reperfusionTime = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1)])
+    # # reperfusionTime = models.TimeField(null = True, blank = True)
     # reperfusionTimestamp = models.TimeField(null = True, blank = True)
 
     ecls = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
