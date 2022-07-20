@@ -224,3 +224,21 @@ class CaseReport(models.Model):
     
     class Meta:
         db_table = 'cases'
+
+class ICD(models.Model):
+    code = models.CharField(primary_key=True, max_length=6)
+    chapter = models.SmallIntegerField()
+    category = models.CharField(max_length=3)
+    subcategory4 = models.CharField(null = True, blank = True)
+    subcategory5 = models.CharField(null = True, blank = True)
+    rank1 = models.CharField(max_length=6)
+    rank2 = models.CharField(max_length=6, null = True, blank = True)
+    rank3 = models.CharField(max_length=6, null = True, blank = True)
+    level = models.SmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    slovenian = models.TextField()
+    english = models.TextField()
+    valid = models.BooleanField()
+    group = models.SmallIntegerField()
+
+    class Meta:
+        db_table = 'icd-10-am'
