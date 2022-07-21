@@ -7,6 +7,8 @@
         @import url('https://rsms.me/inter/inter.css');
       </style>
 
+      <link href="/static/css/intervention_id.css" rel="stylesheet">
+
       <!-- favicon for all browsers -->
       <link rel="shortcut icon" href="/static/admin/img/favicon/favicon.ico">
       <link rel="icon" sizes="16x16 32x32 64x64" href="/static/admin/img/favicon.ico">
@@ -117,10 +119,10 @@
                     </div>
                   </div>
 
-
+                  <script src="/static/js/intervention_id.js"></script>
 
                 <!-- <p>{{ formset|crispy }}</p> -->
-                <p>{{ form1.Patient_name|as_crispy_field}}</p>
+                <p>{{form1.Patient_name|as_crispy_field}}</p>
                 <p>{{form1.Patient_surname|as_crispy_field}}</p>
                 <p>{{form1.Date_birth|as_crispy_field}}</p>
                 <p>{{form1.gender|as_crispy_field}}</p>
@@ -130,9 +132,9 @@
                 
                 <!-- <input type="time" step="1"> -->
 
-                {% with '"i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
+                {% with '"Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
                 {% for field in form1 %}
-                    {% if field.name != "Patient_name" and field.name != "Patient_surname" and field.name != "Date" and field.name != "Date_birth" and field.name not in list %}
+                    {% if field.name not in list %}
                         <!-- <p>{{ field.label}}{{ field|as_crispy_field }}</p> -->
                         <p>{{ field|as_crispy_field }}</p>
                         {% if field.name == "bystanderAEDTime" %}

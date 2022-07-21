@@ -1,0 +1,14 @@
+[id^=id_i].numberinput {
+    text-align: center;
+    caret-color: transparent;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}

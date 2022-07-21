@@ -6,6 +6,8 @@
       <style>
         @import url('https://rsms.me/inter/inter.css');
       </style>
+
+      <link href="/static/css/intervention_id.css" rel="stylesheet">
     
     <!-- favicon for all browsers -->
     <link rel="shortcut icon" href="/static/admin/img/favicon/favicon.ico">
@@ -115,6 +117,9 @@
                       {{ form2.i12|as_crispy_field }}
                     </div>
                   </div>
+
+                  <script src="/static/js/intervention_id.js"></script>
+
                  <p>{{ form1.Patient_name|as_crispy_field}}</p>
                  <p>{{form1.Patient_surname|as_crispy_field}}</p>
                  <p>{{form1.Date_birth|as_crispy_field}}</p>
