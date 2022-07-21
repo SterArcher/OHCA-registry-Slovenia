@@ -1,3 +1,4 @@
+from secrets import choice
 from django import forms
 from django.core import validators
 # from matplotlib import widgets
@@ -71,6 +72,8 @@ def create_widgets(values):
 		w[element] = forms.RadioSelect(choices=values[element])#, attrs={"class" : "with-gap", "type" : "radio"}) #attrs={'class': "form-check-input", "type" : "radio"})
 		# w[element] = "radio"
 	return w 
+
+values["estimatedAgeBystander"] = [("", 'Neznano'), (True, 'Da'), (False, 'Ne')]
 
 # def create_time_widgets(values):
 # 	w = dict()

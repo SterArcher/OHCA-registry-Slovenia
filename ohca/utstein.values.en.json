@@ -753,6 +753,16 @@
             "description": "Starost očividca v XXX formi", 
             "core": false
         },
+        "estimatedAgeBystander": {
+            "title": "Ali je starost očividca ocenjena",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano",
+                "0": "Da",
+                "1": "Ne"
+            },
+            "core": false
+        },
         "cPRbystander3Time": {
             "title": "Čas začetka TPO očividca",
             "description": "Čas začetka TPO očividca v hh:mm:ss formi", 
