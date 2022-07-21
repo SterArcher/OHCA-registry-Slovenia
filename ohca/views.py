@@ -421,7 +421,7 @@ def third_form_name_view(request):
             # print([field for field in all_form])
             CaseReport.objects.update_or_create(
                 caseID=id, 
-                defaults=dict([(field, form1.cleaned_data[field]) for field in all_form[1:]] + [('bystanderResponseTime', time.strftime('%H:%M:%S', time.gmtime(t1)))]) 
+                defaults=dict([(field, form1.cleaned_data[field]) for field in all_form[1:]]) # + [('bystanderResponseTime', time.strftime('%H:%M:%S', time.gmtime(t1)))]) 
                 
                 #+ [('dispatchID', generate_dispatch_id(str(intID), str(ca_date)))])
             )
