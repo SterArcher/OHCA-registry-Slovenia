@@ -417,7 +417,7 @@ def third_form_name_view(request):
                 if bystanderAEDTimestamp != "None":
                     form1.instance.bystanderAEDTime = calculate_time(date, callTime, date, bystanderAEDTimestamp)
 
-            print(time.strftime('%H:%M:%S', time.gmtime(t1)))
+            #print(time.strftime('%H:%M:%S', time.gmtime(t1)))
             # print([field for field in all_form])
             CaseReport.objects.update_or_create(
                 caseID=id, 
