@@ -1,5 +1,6 @@
 import random, string
 from .models import System, Locale, CaseReport
+from django.db.models import Q 
 import hashlib
 
 # IN SHELL (for each model):
@@ -11,7 +12,7 @@ import hashlib
 municipalities = {'Ajdovščina': '19727', 'Ankaran/Ancarano': '3282', 'Bled': '8250', 'Bloke': '1610', 'Bohinj': '5676', 'Borovnica': '4629', 'Bovec': '3178', 'Brda': '5632', 'Brezovica': '12823', 'Cerklje na Gorenjskem': '7901', 'Cerknica': '11718', 'Cerkno': '4546', 'Črnomelj': '14279', 'Divača': '4371', 'Dobrepolje': '3871', 'Dobrova - Polhov Gradec': '7844', 'Dol pri Ljubljani': '6348', 'Dolenjske Toplice': '3589', 'Domžale': '36905', 'Gorenja vas - Poljane': '7672', 'Gorje': 
 '2779', 'Grosuplje': '21333', 'Horjul': '3006', 'Hrpelje - Kozina': '4970', 'Idrija': '11729', 'Ig': '7695', 'Ilirska Bistrica': '13399', 'Ivančna Gorica': 
 '17599', 'Izola/Isola': '16647', 'Jesenice': '21758', 'Jezersko': '667', 'Kamnik': '29793', 'Kanal': '5245', 'Kobarid': '4044', 'Kočevje': '15623', 'Komen': '3634', 'Komenda': '6482', 'Koper/Capodistria': '53462', 'Kostel': '678', 'Kranj': '56639', 'Kranjska Gora': '7689', 'Litija': '15720', 'Ljubljana': '293218', 'Log - Dragomer': '3681', 'Logatec': '14699', 'Loška dolina': '3624', 'Loški Potok': '1807', 'Lukovica': '5978', 'Medvode': '16792', 'Mengeš': '8487', 'Metlika': '8452', 'Miren - Kostanjevica': '5072', 'Mirna': '2694', 'Mirna Peč': '3077', 'Mokronog - Trebelno': '3164', 'Moravče': '5522', 'Naklo': '5380', 'Nova Gorica': '31824', 'Novo mesto': '37615', 'Osilnica': '321', 'Piran/Pirano': '18432', 'Pivka': '6230', 'Postojna': '16753', 'Preddvor': '3811', 'Radovljica': '19325', 'Renče - Vogrsko': '4377', 'Ribnica': '9684', 'Semič': '3864', 'Sežana': '13842', 'Sodražica': '2269', 'Straža': '3881', 'Šempeter - Vrtojba': '6164', 'Šenčur': '8893', 'Šentjernej': '7247', 'Šentrupert': '2935', 'Škocjan': '3419', 'Škofja Loka': '23622', 'Škofljica': '11666', 'Šmarješke Toplice': '3522', 'Šmartno pri Litiji': '5700', 'Tolmin': '10953', 'Trebnje': '13413', 'Trzin': '3900', 'Tržič': '15011', 'Velike Lašče': '4584', 'Vipava': '5822', 
-'Vodice': '4974', 'Vrhnika': '17684', 'Železniki': '6685', 'Žiri': '4990', 'Žirovnica': '4479', 'Žužemberk': '4719', 'Apače': '3556', 'Beltinci': '8104', 'Benedikt': '2684', 'Bistrica ob Sotli': '1361', 'Braslovče': '5681', 'Brežice': '24370', 'Cankova': '1740', 'Celje': '48679', 'Cerkvenjak': '2179', 'Cirkulane': '2363', 'Črenšovci': '3982', 'Črna na Koroškem': '3201', 'Destrnik': '2632', 'Dobje': '942', 'Dobrna': '2277', 'Dobrovnik/Dobronak': '1263', 'Dornava': 
+'Vodice': '4974', 'Vrhnika': '17684', 'Želzniki': '6685', 'Žiri': '4990', 'Žirovnica': '4479', 'Žužemberk': '4719', 'Apače': '3556', 'Beltinci': '8104', 'Benedikt': '2684', 'Bistrica ob Sotli': '1361', 'Braslovče': '5681', 'Brežice': '24370', 'Cankova': '1740', 'Celje': '48679', 'Cerkvenjak': '2179', 'Cirkulane': '2363', 'Črenšovci': '3982', 'Črna na Koroškem': '3201', 'Destrnik': '2632', 'Dobje': '942', 'Dobrna': '2277', 'Dobrovnik/Dobronak': '1263', 'Dornava': 
 '2880', 'Dravograd': '8882', 'Duplek': '7015', 'Gorišnica': '4180', 'Gornja Radgona': '8476', 'Gornji Grad': '2552', 'Gornji Petrovci': '2010', 'Grad': '2063', 'Hajdina': '3873', 'Hoče - Slivnica': '11723', 'Hodoš/Hodos': '362', 'Hrastnik': '8963', 'Juršinci': '2501', 'Kidričevo': '6547', 'Kobilje': '532', 'Kostanjevica na Krki': '2453', 'Kozje': '3029', 'Križevci': '3536', 'Krško': '25833', 'Kungota': '4916', 'Kuzma': '1654', 'Laško': '12976', 'Lenart': '8561', 'Lendava/Lendva': '10312', 'Ljubno': '2542', 'Ljutomer': '11140', 'Lovrenc na Pohorju': '2958', 'Luče': '1455', 'Majšperk': '4026', 'Makole': '2048', 'Maribor': '113004', 'Markovci': '4022', 'Mežica': '3567', 'Miklavž na Dravskem polju': '7045', 'Mislinja': '4532', 'Moravske Toplice': '5990', 'Mozirje': '4401', 
 'Murska Sobota': '18543', 'Muta': '3402', 'Nazarje': '2682', 'Odranci': '1595', 'Oplotnica': '4131', 'Ormož': '11890', 'Pesnica': '7576', 'Podčetrtek': '3657', 'Podlehnik': '1844', 'Podvelka': '2337', 'Poljčane': '4493', 'Polzela': '6386', 'Prebold': '5302', 'Prevalje': '6732', 'Ptuj': '23509', 'Puconci': '5871', 'Rače - Fram': '7749', 'Radeče': '4146', 'Radenci': '5056', 'Radlje ob Dravi': '6181', 'Ravne na Koroškem': '11228', 'Razkrižje': '1237', 'Rečica ob Savinji': '2324', 'Ribnica na Pohorju': '1141', 'Rogaška Slatina': '11438', 'Rogašovci': '3125', 'Rogatec': '3055', 'Ruše': '7091', 'Selnica ob Dravi': '4513', 
 'Sevnica': '17661', 'Slovenj Gradec': '16716', 'Slovenska Bistrica': '26042', 'Slovenske Konjice': '15221', 'Solčava': '524', 'Središče ob Dravi': '1904', 'Starše': '4077', 'Sveta Ana': '2326', 'Sveta Trojica v Slov. goricah': '2194', 'Sveti Andraž v Slov. goricah': '1201', 'Sveti Jurij ob Ščavnici': '2855', 'Sveti Jurij v Slov. goricah': '2118', 'Sveti Tomaž': '2015', 'Šalovci': '1372', 'Šentilj': '8367', 'Šentjur': '19378', 'Šmarje pri Jelšah': '10361', 'Šmartno ob Paki': '3324', 'Šoštanj': '8822', 'Štore': '4396', 'Tabor': '1693', 'Tišina': '3941', 'Trbovlje': '15893', 'Trnovska vas': '1385', 'Turnišče': '3153', 'Velenje': '33548', 'Velika Polana': '1387', 'Veržej': '1371', 'Videm': '5601', 'Vitanje': '2266', 'Vojnik': '9063', 'Vransko': '2672', 'Vuzenica': '2652', 'Zagorje ob Savi': '16307', 'Zavrč': '1506', 'Zreče': '6576', 'Žalec': '21477', 'Žetale': '1309'}
@@ -190,7 +191,7 @@ cases = CaseReport.objects.all()
 
 existing_ids = []
 for case in cases:
-    existing_ids.append(int(case.caseID))
+    existing_ids.append(case.caseID)
 
 systems = System.objects.all()
 locales = Locale.objects.all()
@@ -198,3 +199,127 @@ locales = Locale.objects.all()
 # (case_entries, case_ids) = generate_new_case_entry(150, existing_ids, systems, locales)  
 
 
+# =========================== REAL SYSTEMS =================================================
+
+possible_systems = []
+for key in ems_units:
+    possible_systems.append((key, ems_units[key]))
+
+def generate_empty_systems(existing_ids, possible_systems):
+    entries = []
+    taken_ids = existing_ids
+    while len(possible_systems) > 0:
+        id = random.choice([i for i in range(1, 1000) if i not in taken_ids])
+        name = random.choice(possible_systems)
+        new_entry = System(systemID=id,
+            friendlyName=name[0], #"".join(random.choice(string.ascii_letters) for _ in range(5)), # friendly indeed
+            population=int(name[1]),
+            attendedCAs=0,
+            attemptedResusc=0,
+            casesDNR=0,
+            casesFutile=0,
+            casesCirculation=0,
+            casesUnknown=0,
+            description="description of the system",
+            descriptionSupplemental="supplemental description") 
+
+        taken_ids.append(int(id))   
+        entries.append(new_entry)
+        possible_systems.remove(name)
+
+    return (entries, taken_ids)
+
+
+
+def update_system():
+
+    # for i in range(n):
+    systems = System.objects.all()
+    all_cases = CaseReport.objects.all()
+    for entry in systems:
+
+        system_cases = all_cases.filter(systemID__exact=entry.systemID)
+
+        System.objects.update_or_create(
+            systemID=entry.systemID,
+            defaults=dict([
+                ("attendedCAs", system_cases.count()),
+                ("attemptedResusc", system_cases.filter(bystanderResponse__exact=1).count()),
+                ("casesDNR", system_cases.filter(treatmentWithdrawn__exact=1).count()),
+                ("casesFutile", system_cases.filter(deadOnArrival__exact=1).count()),
+                ("casesCirculation", system_cases.count()),
+                ("casesUnknown", system_cases.count()),
+            ])
+        )
+
+
+
+systems = System.objects.all()
+
+existing_ids = []
+for system in systems:
+    existing_ids.append(int(system.systemID))
+
+(system_entries, system_ids) = generate_empty_systems(existing_ids, possible_systems)  
+
+
+# =========================== REAL LOCALE =================================================
+
+possible_locales = []
+for key in municipalities:
+    possible_locales.append((key, municipalities[key]))
+
+def generate_empty_locales(existing_ids, possible_systems):
+    entries = []
+    taken_ids = existing_ids
+    while len(possible_systems) > 0:
+        id = random.choice([i for i in range(1, 1000) if i not in taken_ids])
+        name = random.choice(possible_systems)
+        new_entry = System(systemID=id,
+            friendlyName=name[0], #"".join(random.choice(string.ascii_letters) for _ in range(5)), # friendly indeed
+            population=int(name[1]),
+            attendedCAs=0,
+            attemptedResusc=0,
+            casesDNR=0,
+            casesFutile=0,
+            casesCirculation=0,
+            casesUnknown=0,
+            description="description of the system",
+            descriptionSupplemental="supplemental description") 
+
+        taken_ids.append(int(id))   
+        entries.append(new_entry)
+        possible_systems.remove(name)
+
+    return (entries, taken_ids)
+
+
+
+def update_locale():
+
+    # for i in range(n):
+    systems = Locale.objects.all()
+    all_cases = CaseReport.objects.all()
+    for entry in systems:
+
+        locale_cases = all_cases.filter(systemID__exact=entry.localID)
+
+        Locale.objects.update_or_create(
+            systemID=entry.localID,
+            defaults=dict([
+                ("attendedCAs", locale_cases.count()),
+                ("attemptedResusc", locale_cases.filter(bystanderResponse__exact=1).count()),
+                ("casesDNR", locale_cases.filter(treatmentWithdrawn__exact=1).count()),
+                ("casesFutile", locale_cases.filter(deadOnArrival__exact=1).count()),
+                ("casesCirculation", locale_cases.count()),
+                ("casesUnknown", locale_cases.count()),
+            ])
+        )
+
+locales = Locale.objects.all()
+
+existing_ids = []
+for system in locales:
+    existing_ids.append(int(system.localID))
+
+(local_entries, local_ids) = generate_empty_systems(existing_ids, possible_locales)
