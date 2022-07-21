@@ -15,21 +15,21 @@ from .auxiliary import values, titles, descriptions
 
 
 # first form with data immediately after CA
-first_form = ['caseID', 'systemID', 'localID', 'dispatchID', 'dispIdentifiedCA', 'dispProvidedCPRinst', 'gender', 'witnesses', 'location', 
-'bystanderResponse', 'bystanderResponseTime', 'bystanderAED', 'bystanderAEDTime', 'deadOnArrival', 'firstMonitoredRhy', 'pathogenesis', 
+first_form = ['caseID', 'systemID', 'localID', 'callTimestamp', 'dispIdentifiedCA', 'dispProvidedCPRinst', 'gender', 'witnesses', 'location', 
+'bystanderResponse', 'bystanderResponseTimestamp', 'bystanderAED', 'bystanderAEDTimestamp', 'deadOnArrival', 'firstMonitoredRhy', 'pathogenesis', 
 'independentLiving', 'comorbidities', 'vad', 'cardioverterDefib', 'stemiPresent', 'responseTime', 'defibTime', 'ttm', 'ttmTemp',  
 'airwayControl', 'cprQuality', 'shocks', 'drugTimings', 'vascularAccess', 'mechanicalCPR', 'targetVent', 'reperfusionAttempt', 
 'reperfusionTime', 'rosc', 'roscTime', 'transportToHospital', 
 'reaRegion', 'reaConf', 'cprEms', 'cPREMS3Time', 'noCPR', 'reaTime', 'reaCause', 'timeTCPR', 'gbystnader', 'ageBystander', 
 'estimatedAgeBystander','cPRbystander3Time', 'helperCPR', 'helperWho', 'cPRhelper3Time', 'defiOrig', 'timeROSC', 'endCPR4Time', 
-'leftScene5Time', 'hospitalArrival6Time', 'hospArri', ]
+'leftScene5Time', 'hospitalArrival6Time', 'hospArri', "mainInterventionID", "interventionID", ]
 
 # secodn form with data in the hospital 
-second_form = ['caseID', 'systemID', 'localID', 'ecls', 'iabp', 'ph', 'lactate', 'glucose', 'neuroprognosticTests', 'specialistHospital', 'hospitalVolume', 'ecg', 
+second_form = ['systemID', 'localID', 'ecls', 'iabp', 'ph', 'lactate', 'glucose', 'neuroprognosticTests', 'specialistHospital', 'hospitalVolume', 'ecg', 
 'ecgBLOB', 'targetBP', 'survived', 'SurvivalDischarge30d', 'cpcDischarge', 'mrsDischarge', 'survivalStatus', 'treatmentWithdrawn', 
-'cod', 'organDonation', 'patientReportedOutcome', 'qualityOfLife'] #, 'dischDay']
+'cod', 'organDonation', 'patientReportedOutcome', 'qualityOfLife'] + ["interventionID", "mainInterventionID"] #, 'dischDay']
 
-
+all_form = first_form + second_form + ["interventionID", "mainInterventionID"]
 
 #======================================== USEFUL FUNCTIONS ==================================================================================
 

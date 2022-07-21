@@ -26,8 +26,9 @@ def read_values():
             if len(set(value_dict).intersection(set(exceptions))) == 0:
                 for val in value_dict:
                     # print(val)
-                    if val != "null":
+                    if val != "null" and val != "hh:mm:ss":
                         value_list.append((int(val), value_dict[val])) 
+                    # elif val == "hh:mm:ss":
         if len(value_list) > 0:
             values[element] = value_list
     # print(names)

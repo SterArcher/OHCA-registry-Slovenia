@@ -4,6 +4,7 @@ from .functions import *
 import random
 from datetime import date
 import datetime
+import time
 
 def case_by_id(request):
     if validate_post(request):
@@ -132,7 +133,7 @@ def calculate_time(date1, time1, date2, time2):
     duration = datetime2 - datetime1
     duration_seconds = duration.total_seconds()
 
-    return duration_seconds
+    return int(duration_seconds)
 
     # seconds1 = time1[0] * 60 * 60 + time1[1] * 60 + time1[2] # convert time to seconds
     # seconds2 = time2[0] * 60 * 60 + time2[1] * 60 + time2[2]
@@ -239,10 +240,21 @@ def form_name_view(request):
                 print(sum)
             form1.instance.drugs = sum
            
-            # form1.instance.reaLand = "Slovenia"
-            # form1.instance.reaRegion = str(form1.cleaned_data["localID"])
-            form1.instance.reaLand = "1"
-            
+            form1.instance.reaLand = "Slovenia"
+            form1.instance.reaRegion = str(form1.cleaned_data["localID"])
+            # form1.instance.reaLand = "1"
+
+            callTime = form1.cleaned_data["callTimestamp"]
+            bystanderResponseTimestamp = form1.cleaned_data["bystanderResponseTimestamp"]
+            bystanderAEDTimestamp = form1.cleaned_data["bystanderAEDTimestamp"]
+
+            if callTime:
+                if bystanderResponseTimestamp:
+                    form1.instance.bystanderResponseTime = calculate_time(date, callTime, date, bystanderResponseTimestamp)
+                if bystanderAEDTimestamp:
+                    form1.instance.bystanderAEDTime = calculate_time(date, callTime, date, bystanderAEDTimestamp)
+
+
             CaseReport.objects.update_or_create(
                 caseID=id, 
                 defaults=dict([(field, form1.cleaned_data[field]) for field in first_form[1:]] + [('dispatchID', generate_dispatch_id(str(intID), str(ca_date)))])
@@ -343,15 +355,16 @@ def third_form_name_view(request):
 
             date = str(form1.cleaned_data['Date'])
             date_birth = str(form1.cleaned_data["Date_birth"])
-            time = str(form1.cleaned_data["Time"])
+            catime = str(form1.cleaned_data["Time"])
 
             disch_date = str(form1.cleaned_data["Date_of_hospital_discharge"])
             # print((date, date_birth))
 
-            print(day_difference(date, disch_date))
-            form1.instance.dischDay = day_difference(date, disch_date)
+            if not (date and disch_date):
+                print(day_difference(date, disch_date))
+                form1.instance.dischDay = day_difference(date, disch_date)
 
-            print((date, date_birth, time, disch_date))
+            print((date, date_birth, catime, disch_date))
             print(calculate_age(date_birth, date))
             form1.instance.age = calculate_age(date_birth, date)
             
@@ -390,9 +403,31 @@ def third_form_name_view(request):
             form1.instance.reaLand = "Slovenia"
             form1.instance.reaRegion = str(form1.cleaned_data["localID"])
 
+            callTime = str(form1.cleaned_data["callTimestamp"])
+            bystanderResponseTimestamp = str(form1.cleaned_data["bystanderResponseTimestamp"])
+            bystanderAEDTimestamp = str(form1.cleaned_data["bystanderAEDTimestamp"])
+
+            print(bystanderResponseTimestamp)
+            print(bystanderAEDTimestamp)
+
+            if callTime:
+                if bystanderResponseTimestamp != "None":
+                    print(calculate_time(date, callTime, date, bystanderResponseTimestamp))
+                    t1 = calculate_time(date, callTime, date, bystanderResponseTimestamp)
+                if bystanderAEDTimestamp != "None":
+                    form1.instance.bystanderAEDTime = calculate_time(date, callTime, date, bystanderAEDTimestamp)
+
+            print(time.strftime('%H:%M:%S', time.gmtime(t1)))
+            # print([field for field in all_form])
+            CaseReport.objects.update_or_create(
+                caseID=id, 
+                defaults=dict([(field, form1.cleaned_data[field]) for field in all_form[1:]] + [('bystanderResponseTime', time.strftime('%H:%M:%S', time.gmtime(t1)))]) 
+                
+                #+ [('dispatchID', generate_dispatch_id(str(intID), str(ca_date)))])
+            )
 
             # # to save into database:
-            form1.save(commit=True) #
+            # form1.save(commit=True) #
             # return index(request) # to mi neke errorje vrača, not sure why 
         else:
             print("form invalid")
