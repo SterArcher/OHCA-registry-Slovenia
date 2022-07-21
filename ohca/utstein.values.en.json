@@ -37,6 +37,13 @@
             },
             "core": true
         },
+        "callTimestamp" : {
+            "title" : "Čas sprejetja klica",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "Čas"
+            }
+        },
         "age": {
             "title": "Starost",
             "source": "Datum rojstva",
@@ -87,6 +94,22 @@
             "description": "Lokacija pacienta ob incidentu",
             "core": true
         },
+        "CAtimestamp" : {
+            "title" : "Čas srčnega zastoja",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "description" : "Vpišite tudi v primeru, ko je čas le ocenjen"
+        },
+        "estimatedCAtimestamp" : {
+            "title" : "Ali je čas srčnega zastoja le ocenjen?",
+            "values" : {
+                "null" : "Neznano",
+                "0" : "Ne, čas je točen",
+                "1" : "Da, točen čas ni znan"
+            }
+        },
         "bystanderResponse": {
             "title": "Odziv očividca",
             "source": "Opis dogodka pred prihodom NMP, Pred prihodom ekipe NMP (protokol predbolnišničnega oživljanja)",
@@ -109,6 +132,13 @@
                 ">0": "value"
             },
             "core": true
+        },
+        "bystanderResponseTimestamp" : {
+            "title" : "Čas ob začetku izvajanja TPO očividcev",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            }
         },
         "bystanderAED": {
             "title": "Uporaba AED s strani očividca",
@@ -133,6 +163,13 @@
             },
             "core": true
         },
+        "bystanderAEDtimestamp" : {
+            "title" : "Čas ob prvem AED šoku očividca",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            }
+        },
         "deadOnArrival": {
             "title": "Mrtvogled",
             "source": "Število mrtvih ob prihodu ekipe - oživljanje ni bilo indicirano (sprejem intervencij)",
@@ -143,6 +180,15 @@
                 "1": "Da"
             },
             "core": true
+        },
+        "diedOnField" : {
+            "title" : "Ali je bolnik umrl na terenu?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano",
+                "0" : "Ne", 
+                "1" : "Da"
+            }
         },
         "firstMonitoredRhy": {
             "title": "Začetni (prvi) ritem - Utstein 2015",
@@ -243,6 +289,13 @@
             "description": "Odzivni čas v sekundah - od časa sprejema klica do prihoda do pacienta",
             "core": true
         },
+        "responseTimestamp" : {
+            "title" : "Čas ob prihodu ekipe NMP do pacienta",
+            "values" : {
+                "null" :"Ni zapisa",
+                "hh:mm:ss" : "čas"
+            }
+        },
         "defibTime": {
             "title": "Čas do defibrilacije",
             "source": "Poročilo prvih posredovalcev, Lifepak",
@@ -253,6 +306,24 @@
             },
             "description": "Čas do defibrilacije v sekundah - čas od sprejema klica do prvega šoka",
             "core": true
+        },
+        "defibTimestamp" : {
+            "title" : "Čas ob prvi defibrilaciji",
+            "values" : {
+                "null" :"Ni zapisa",
+                "hh:mm:ss" : "Čas"
+            }
+        },
+        "firstDefibWho" : {
+            "title" : "Kdo je izvedel prvo defibrilacijo?",
+            "values" : {
+                "null" :"Ni zapisa",
+                "-1" : "Neznano",
+                "0" : "Defibrilacija ni bila izvedena",
+                "1" : "Očividec",
+                "2" : "Ekipa NMP",
+                "3" : "Prvi posredovalci"
+            }
         },
         "ttm": {
             "title": "Uporaba terapevtske hipotermije (TTM, Targeted temperature management)",
@@ -335,6 +406,13 @@
             "description": "JSON, kot opisan",
             "core": false
         },
+        "drugTimingsTimestamp" : {
+            "title" : "Čas ob prvi aplikaciji zdravil",
+            "values" : {
+                "null" :"Ni zapisa",
+                "hh:mm:ss" : "čas"
+            }
+        },
         "vascularAccess": {
             "title": "Vaskularna pot",
             "source": "Venska pot, druge poti (protokol predbolnišničnega oživljanja), Oskrba (protokol nujne intervencije)",
@@ -401,6 +479,13 @@
                 "3": "Po 24 h, a pred odpustom"
             },
             "core": true
+        },
+        "reperfusionTimestamp" : {
+            "title" : "Čas ob poskusu reperfuzije",
+            "values" : {
+                "null" :"Ni zapisa",
+                "hh:mm:ss" : "čas"
+            }
         },
         "ecls": {
             "title": "Uporaba ECMO (extracorporal membrane oxidation)?",
@@ -475,6 +560,9 @@
             "core": false,
             "description": "Ali je bolnišnica specialistični center"
         },
+        "hospitalName" : {
+            "title" : "Ime bolnišnice"
+        },
         "hospitalVolume": {
             "title": "Obremenitev bolnišnice",
             "source": "Bolnišnice",
@@ -548,6 +636,31 @@
             "description": "Čas do ROSC v sekundah",
             "core": true
         },
+        "roscTimestamp" : {
+            "title" : "Čas ob ROSC",
+            "values" : {
+                "null" : "Neznano",
+                "hh:mm:ss" : "čas"
+            }
+        },
+        "survivalDischarge" : {
+            "title" : "Ali je bolnik preživel do odpusta iz bolnišnice?",
+            "values" : {
+                "null" :"Ni zapisa",
+                "-1" : "Neznano",
+                "0" : "Ne", 
+                "1" : "Da"
+            }
+        },
+        "survival30d" : {
+            "title" : "Ali je bolnik preživel 30 dni po dogodku?",
+            "values" : {
+                "null" :"Ni zapisa",
+                "-1" : "Neznano",
+                "0" : "Ne", 
+                "1" : "Da"
+            }
+        },
         "SurvivalDischarge30d": {
             "title": "30-dnevno preživetje ali preživetje do odpusta",
             "source": "Bolnišnice",
@@ -615,6 +728,13 @@
             "description": "Ure do prekinitve zdravljenja, dnevi naj se pretvorijo v ure (zaokroženo navzgor)",
             "core": false
         },
+        "treatmentWithdrawnTimestamp" : {
+            "title" : "Čas, ko je bilo zdravljenje prekinjeno",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            }
+        },
         "cod": {
             "title": "Vzrok smrti",
             "source": "Bolezen ali stanje, ki je prispevalo k nastopu smrti (protokol predbolnišničnega oživljanja)",
@@ -680,6 +800,15 @@
             "description": "Kdaj so začeli oživljati NMP v hh:mm:ss formi", 
             "core": false
         },
+        "cPREMS3Timestamp": {
+            "title": "Kdaj je ekipa NMP začela oživljati",
+            "values" : {
+                "null" :"Ni zapisa",
+                "hh:mm:ss" : "Čas"
+            },
+            "description": "Kdaj so začeli oživljati NMP v hh:mm:ss formi", 
+            "core": false
+        },
         "noCPR": {
             "title": "Vzrok, zakaj NMP ne izvaja oživljanja - EuReCa 3",
             "values": {
@@ -719,6 +848,15 @@
             "description": "Čas srčnega zastoja v hh:mm:ss formi", 
             "core": false
         },
+        "reaTimestamp": {
+            "title": "Čas srčnega zastoja - EuReCa 3",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "description": "Čas srčnega zastoja v hh:mm:ss formi", 
+            "core": false
+        },
         "reaCause": {
             "title": "Vzrok srčnega zastoja",
             "values": {
@@ -735,6 +873,15 @@
         },
         "timeTCPR": {
             "title": "Čas začetka TPO",
+            "description": "Čas začetka TPO v hh:mm:ss formi", 
+            "core": false
+        },
+        "timestampTCPR": {
+            "title": "Čas začetka TPO",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
             "description": "Čas začetka TPO v hh:mm:ss formi", 
             "core": false
         },
@@ -768,6 +915,15 @@
             "description": "Čas začetka TPO očividca v hh:mm:ss formi", 
             "core": false
         },
+        "cPRbystander3Timestamp": {
+            "title": "Čas začetka TPO očividca",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "description": "Čas začetka TPO očividca v hh:mm:ss formi", 
+            "core": false
+        },
         "helperCPR": {
             "title": "Ali je DCZ/NMP poslal osebo (ki bi lahko nudila pomoč/oživljanje) na kraj srčnega zastoja",
             "values": {
@@ -795,6 +951,15 @@
             "description": "Čas začetka TPO osebe, ki je poslana da pomaga v hh:mm:ss formi", 
             "core": false
         },
+        "cPRhelper3Timestamp": {
+            "title": "Čas, ko je pričela oseba, ki jo je DCZ/NMP poslal na kraj zastoja (ki bi lahko nudila pomoč/oživljanje), z oživljanjem (TPO) - EuReCa 3",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "description": "Čas začetka TPO osebe, ki je poslana da pomaga v hh:mm:ss formi", 
+            "core": false
+        },
         "defiOrig": {
             "title": "Kdo je izvedel prvo defibrilacijo? - EuReCa 3",
             "values": {
@@ -811,18 +976,55 @@
             "description": "Čas prvega ROSC v hh:mm:ss formi", 
             "core": false
         },
+        "timestampROSC": {
+            "title": "Čas prvega ROSC",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "description": "Čas prvega ROSC v hh:mm:ss formi", 
+            "core": false
+        },
         "endCPR4Time": {
             "title": "Čas konca TPO",
             "description": "Čas konca TPO v hh:mm:ss formi", 
             "core": false
         },
+        "endCPR4Timestamp": {
+            "title": "Čas konca TPO",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "description": "Čas konca TPO v hh:mm:ss formi", 
+            "core": false
+        },
         "leftScene5Time": {
             "title": "Čas odhoda iz kraja dogodka/zastoja",
+            
+            "description": "Čas odhoda iz kraja dogodka/zastoja v obliki hh:mm:ss", 
+            "core": false
+        },
+        "leftScene5Timestamp": {
+            "title": "Čas odhoda iz kraja dogodka/zastoja",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
             "description": "Čas odhoda iz kraja dogodka/zastoja v obliki hh:mm:ss", 
             "core": false
         },
         "hospitalArrival6Time": {
             "title": "Čas prihoda v bolnišnico",
+            "description": "Čas prihoda v bolnišnico v hh:mm:ss form", 
+            "core": false
+        },
+        "hospitalArrival6Timestamp": {
+            "title": "Čas prihoda v bolnišnico",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
             "description": "Čas prihoda v bolnišnico v hh:mm:ss form", 
             "core": false
         },
@@ -842,6 +1044,16 @@
         "dischDay": {
             "title": "Dan odpusta iz bolnice",
             "description": "Dan odpustitve iz bolnice v DD formi", 
+            "core": false
+        },
+        "dischMonth": {
+            "title": "Mesec odpusta iz bolnice",
+            "description": "Mesec odpustitve iz bolnice v DD formi", 
+            "core": false
+        },
+        "dischYear": {
+            "title": "Leto odpusta iz bolnice",
+            "description": "Leto odpustitve iz bolnice v DD formi", 
             "core": false
         }
     },
