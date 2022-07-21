@@ -2,6 +2,7 @@
 
 .migrations/
 .venv
+ohca/migrations/
 
 ### OSX ###
 .DS_Store
