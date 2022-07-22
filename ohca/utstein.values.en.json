@@ -49,7 +49,7 @@
             "source": "Datum rojstva",
             "description": "Starost pacienta ob dogodku - datum rojstva ali starost v letih",
             "from": "EuReCa3 & Utstein 2015",
-            "form": "day1"
+            "form": "day1",
             "core": true
         },
         "gender": {
@@ -187,6 +187,8 @@
         },
         "diedOnField" : {
             "title" : "Ali je bolnik umrl na terenu?",
+            "from": "EuReCa3",
+            "form": "day1",
             "values" : {
                 "null" : "Ni zapisa",
                 "-1" : "Neznano",
@@ -620,6 +622,8 @@
         "rosc": {
             "title": "ROSC",
             "source": "Stanje po intervenciji (protokol predbolnišničnega oživljanja)",
+            "from": "EuReCa3",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -642,6 +646,8 @@
         },
         "roscTimestamp" : {
             "title" : "Čas ob ROSC",
+            "from": "EuReCa3",
+            "form": "day1",
             "values" : {
                 "null" : "Neznano",
                 "hh:mm:ss" : "čas"
@@ -658,6 +664,8 @@
         },
         "survival30d" : {
             "title" : "Ali je bolnik preživel 30 dni po dogodku?",
+            "from": "EuReCa3",
+            "form": "day30",
             "values" : {
                 "null" :"Ni zapisa",
                 "-1" : "Neznano",
@@ -791,6 +799,9 @@
         },
         "cprEms": {
             "title": "Poskus oživljanja",
+            "description": "ali je NMP izvajal oživljanje?",
+            "from": "EuReCa3",
+            "form": "day1",
             "values": {
                 "null": "Ni zabeleženo",
                 "-1": "Neznano",
@@ -826,11 +837,13 @@
                 "5": "Znaki življenja ob prihodu NMP"
             },
             "description" : "Vzrok zakaj NMP ne izvaja oživljanja. V primeru, da je pri spremenljivki Ali je NMP izvajal oživljanje označeno z DA, potem tukaj pustimo prazno.",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "patID": {
             "title": "treba še dodati",
-            "core": false
+            "core": false,
             "from": "EuReCa3",
             "form": "1d"
         },
@@ -883,11 +896,15 @@
                 "4": "Ostali - ne-srčni"
             },
             "description" : "Vzrok za srčni zastoj se predvideva, da je srčni; razen če je znano oz. zelo verjetno, da je povzročen zaradi poškodbe, utopitve, prekomernega odmerka drog, zadušitve, izkravitve, ali katerega koli drugega ne-srčnega vzroka potrjenega s strani NMP.",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "timeTCPR": {
             "title": "Čas začetka TPO",
             "description": "Čas začetka TPO v hh:mm:ss formi",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "timestampTCPR": {
@@ -901,6 +918,8 @@
         },
         "gbystnader": {
             "title": "Spol očividca",
+            "from": "EuReCa3",
+            "form": "day1",
             "values": {
                 "null": "Ni zabeleženo",
                 "-1": "Neznano",
@@ -912,10 +931,14 @@
         "ageBystander": {
             "title": "Starost očividca",
             "description": "Starost očividca v XXX formi",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "estimatedAgeBystander": {
             "title": "Ali je starost očividca ocenjena",
+            "from": "EuReCa3",
+            "form": "day1",
             "values": {
                 "null": "Ni zabeleženo",
                 "-1": "Neznano",
@@ -924,12 +947,14 @@
             },
             "core": false
         },
-        "cPRbystander3Time": {
+        "CPRbystander3Time": {
             "title": "Čas začetka TPO očividca",
             "description": "Čas začetka TPO očividca v hh:mm:ss formi",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
-        "cPRbystander3Timestamp": {
+        "CPRbystander3Timestamp": {
             "title": "Čas začetka TPO očividca",
             "values" : {
                 "null" : "Ni zapisa",
@@ -947,10 +972,14 @@
                 "1": "Ne"
             },
             "description" : "Katerakoli oseba, ki so jo poslali na kraj dogodka, da bi nudila pomoč oz. izvajala oživljanje, in je bila aktivirana s strani DCZ/NMP preko SMS, app, telefon/radijske postaje.",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "helperWho": {
             "title": "Katero osebo je DCZ/NMP poslal (ki bi lahko nudila pomoč/oživljanje) na kraj srčnega zastoja - EuReCa 3",
+            "from": "EuReCa3",
+            "form": "day1",
             "values": {
                 "1": "Osebo, ki jo je na kraj zastoja poslal dispečer (to je katerakoli oseba, za katero ne vemo ali ima opravljen BLS tečaj ali izpolnjuje katerega izmed spodnjih pogojev)",
                 "2": "Osebo, ki ima opravljen BLS tečaj, in jo je na kraj zastoja poslal dispečer",
@@ -963,6 +992,8 @@
         "cPRhelper3Time": {
             "title": "Čas, ko je pričela oseba, ki jo je DCZ/NMP poslal na kraj zastoja (ki bi lahko nudila pomoč/oživljanje), z oživljanjem (TPO) - EuReCa 3",
             "description": "Čas začetka TPO osebe, ki je poslana da pomaga v hh:mm:ss formi",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "cPRhelper3Timestamp": {
@@ -983,6 +1014,8 @@
                 "1": "EMS"
             },
             "description" : "Pustite prazno, če ni šoka. AED - v ta odgovor so vključeni vsi, ki so uporabili AED, razen osebja NMP, ki je takrat v službi - npr. za očividce ali prve posredovalce, ki uporabljajo AED se označi odgovor; če je član prvih posredovalcev tudi član NMP in ob aktivaciji takrat ni v službi NMP oz. ni del redne aktivirane ekipe NMP ter uporabi AED ob oživljanju, se označi ta odgovor).",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "timeROSC": {
@@ -1006,6 +1039,8 @@
         },
         "endCPR4Timestamp": {
             "title": "Čas konca TPO",
+            "from": "EuReCa3",
+            "form": "day1",
             "values" : {
                 "null" : "Ni zapisa",
                 "hh:mm:ss" : "čas"
@@ -1017,10 +1052,14 @@
             "title": "Čas odhoda iz kraja dogodka/zastoja",
 
             "description": "Čas odhoda iz kraja dogodka/zastoja v obliki hh:mm:ss",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "leftScene5Timestamp": {
             "title": "Čas odhoda iz kraja dogodka/zastoja",
+            "from": "EuReCa3",
+            "form": "day1",
             "values" : {
                 "null" : "Ni zapisa",
                 "hh:mm:ss" : "čas"
@@ -1031,6 +1070,8 @@
         "hospitalArrival6Time": {
             "title": "Čas prihoda v bolnišnico",
             "description": "Čas prihoda v bolnišnico v hh:mm:ss form",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "hospitalArrival6Timestamp": {
@@ -1044,6 +1085,8 @@
         },
         "hospArri": {
             "title": "Status ob prihodu v bolnišnico",
+            "from": "EuReCa3",
+            "form": "day1",
             "values": {
                 "null": "Ni zabeleženo",
                 "-1": "Neznano",
@@ -1058,16 +1101,22 @@
         "dischDay": {
             "title": "Dan odpusta iz bolnice",
             "description": "Dan odpustitve iz bolnice v DD formi",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "dischMonth": {
             "title": "Mesec odpusta iz bolnice",
-            "description": "Mesec odpustitve iz bolnice v DD formi",
+            "description": "Mesec odpustitve iz bolnice v MM formi",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "dischYear": {
             "title": "Leto odpusta iz bolnice",
-            "description": "Leto odpustitve iz bolnice v DD formi",
+            "description": "Leto odpustitve iz bolnice v YYYY formi",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         }
     },
