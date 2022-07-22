@@ -4,7 +4,6 @@
             "title": "UUID primera",
             "description": "Unikaten ID primera",
             "core": true
-            "test": test
         },
         "systemID": {
             "title": "Enota NMP",
@@ -187,7 +186,7 @@
             "values" : {
                 "null" : "Ni zapisa",
                 "-1" : "Neznano",
-                "0" : "Ne", 
+                "0" : "Ne",
                 "1" : "Da"
             }
         },
@@ -649,7 +648,7 @@
             "values" : {
                 "null" :"Ni zapisa",
                 "-1" : "Neznano",
-                "0" : "Ne", 
+                "0" : "Ne",
                 "1" : "Da"
             }
         },
@@ -658,7 +657,7 @@
             "values" : {
                 "null" :"Ni zapisa",
                 "-1" : "Neznano",
-                "0" : "Ne", 
+                "0" : "Ne",
                 "1" : "Da"
             }
         },
@@ -768,12 +767,12 @@
         },
         "reaLand": {
             "title": "Država srčnega zastoja",
-            "description": "Država srčnega zastoja v tekst formi", 
+            "description": "Država srčnega zastoja v tekst formi",
             "core": false
         },
         "reaRegion": {
             "title": "Regija srčnega zastoja",
-            "description": "Regija srčnega zastoja v tekst formi", 
+            "description": "Regija srčnega zastoja v tekst formi",
             "core": false
         },
         "reaConf": {
@@ -798,7 +797,7 @@
         },
         "cPREMS3Time": {
             "title": "Kdaj je ekipa NMP začela oživljati",
-            "description": "Kdaj so začeli oživljati NMP v hh:mm:ss formi", 
+            "description": "Kdaj so začeli oživljati NMP v hh:mm:ss formi",
             "core": false
         },
         "cPREMS3Timestamp": {
@@ -807,7 +806,7 @@
                 "null" :"Ni zapisa",
                 "hh:mm:ss" : "Čas"
             },
-            "description": "Kdaj so začeli oživljati NMP v hh:mm:ss formi", 
+            "description": "Kdaj so začeli oživljati NMP v hh:mm:ss formi",
             "core": false
         },
         "noCPR": {
@@ -831,22 +830,22 @@
         },
         "reaYr": {
             "title": "Leto srčnega zastoja",
-            "description": "Leto srčnega zastoja v YYYY formi", 
+            "description": "Leto srčnega zastoja v YYYY formi",
             "core": false
         },
         "reaMo": {
             "title": "Mesec srčnega zastoja",
-            "description": "Mesec srčnega zastoja v MM formi", 
+            "description": "Mesec srčnega zastoja v MM formi",
             "core": false
         },
         "reaDay": {
             "title": "Dan srčnega zastoja",
-            "description": "Dan srčnega zastoja v DD formi", 
+            "description": "Dan srčnega zastoja v DD formi",
             "core": false
         },
         "reaTime": {
             "title": "Čas srčnega zastoja - EuReCa 3",
-            "description": "Čas srčnega zastoja v hh:mm:ss formi", 
+            "description": "Čas srčnega zastoja v hh:mm:ss formi",
             "core": false
         },
         "reaTimestamp": {
@@ -855,7 +854,7 @@
                 "null" : "Ni zapisa",
                 "hh:mm:ss" : "čas"
             },
-            "description": "Čas srčnega zastoja v hh:mm:ss formi", 
+            "description": "Čas srčnega zastoja v hh:mm:ss formi",
             "core": false
         },
         "reaCause": {
@@ -874,7 +873,7 @@
         },
         "timeTCPR": {
             "title": "Čas začetka TPO",
-            "description": "Čas začetka TPO v hh:mm:ss formi", 
+            "description": "Čas začetka TPO v hh:mm:ss formi",
             "core": false
         },
         "timestampTCPR": {
@@ -883,7 +882,7 @@
                 "null" : "Ni zapisa",
                 "hh:mm:ss" : "čas"
             },
-            "description": "Čas začetka TPO v hh:mm:ss formi", 
+            "description": "Čas začetka TPO v hh:mm:ss formi",
             "core": false
         },
         "gbystnader": {
@@ -898,7 +897,7 @@
         },
         "ageBystander": {
             "title": "Starost očividca",
-            "description": "Starost očividca v XXX formi", 
+            "description": "Starost očividca v XXX formi",
             "core": false
         },
         "estimatedAgeBystander": {
@@ -913,7 +912,7 @@
         },
         "cPRbystander3Time": {
             "title": "Čas začetka TPO očividca",
-            "description": "Čas začetka TPO očividca v hh:mm:ss formi", 
+            "description": "Čas začetka TPO očividca v hh:mm:ss formi",
             "core": false
         },
         "cPRbystander3Timestamp": {
@@ -922,7 +921,7 @@
                 "null" : "Ni zapisa",
                 "hh:mm:ss" : "čas"
             },
-            "description": "Čas začetka TPO očividca v hh:mm:ss formi", 
+            "description": "Čas začetka TPO očividca v hh:mm:ss formi",
             "core": false
         },
         "helperCPR": {
@@ -949,7 +948,7 @@
         },
         "cPRhelper3Time": {
             "title": "Čas, ko je pričela oseba, ki jo je DCZ/NMP poslal na kraj zastoja (ki bi lahko nudila pomoč/oživljanje), z oživljanjem (TPO) - EuReCa 3",
-            "description": "Čas začetka TPO osebe, ki je poslana da pomaga v hh:mm:ss formi", 
+            "description": "Čas začetka TPO osebe, ki je poslana da pomaga v hh:mm:ss formi",
             "core": false
         },
         "cPRhelper3Timestamp": {
@@ -958,7 +957,7 @@
                 "null" : "Ni zapisa",
                 "hh:mm:ss" : "čas"
             },
-            "description": "Čas začetka TPO osebe, ki je poslana da pomaga v hh:mm:ss formi", 
+            "description": "Čas začetka TPO osebe, ki je poslana da pomaga v hh:mm:ss formi",
             "core": false
         },
         "defiOrig": {
@@ -974,7 +973,7 @@
         },
         "timeROSC": {
             "title": "Čas prvega ROSC",
-            "description": "Čas prvega ROSC v hh:mm:ss formi", 
+            "description": "Čas prvega ROSC v hh:mm:ss formi",
             "core": false
         },
         "timestampROSC": {
@@ -983,12 +982,12 @@
                 "null" : "Ni zapisa",
                 "hh:mm:ss" : "čas"
             },
-            "description": "Čas prvega ROSC v hh:mm:ss formi", 
+            "description": "Čas prvega ROSC v hh:mm:ss formi",
             "core": false
         },
         "endCPR4Time": {
             "title": "Čas konca TPO",
-            "description": "Čas konca TPO v hh:mm:ss formi", 
+            "description": "Čas konca TPO v hh:mm:ss formi",
             "core": false
         },
         "endCPR4Timestamp": {
@@ -997,13 +996,13 @@
                 "null" : "Ni zapisa",
                 "hh:mm:ss" : "čas"
             },
-            "description": "Čas konca TPO v hh:mm:ss formi", 
+            "description": "Čas konca TPO v hh:mm:ss formi",
             "core": false
         },
         "leftScene5Time": {
             "title": "Čas odhoda iz kraja dogodka/zastoja",
-            
-            "description": "Čas odhoda iz kraja dogodka/zastoja v obliki hh:mm:ss", 
+
+            "description": "Čas odhoda iz kraja dogodka/zastoja v obliki hh:mm:ss",
             "core": false
         },
         "leftScene5Timestamp": {
@@ -1012,12 +1011,12 @@
                 "null" : "Ni zapisa",
                 "hh:mm:ss" : "čas"
             },
-            "description": "Čas odhoda iz kraja dogodka/zastoja v obliki hh:mm:ss", 
+            "description": "Čas odhoda iz kraja dogodka/zastoja v obliki hh:mm:ss",
             "core": false
         },
         "hospitalArrival6Time": {
             "title": "Čas prihoda v bolnišnico",
-            "description": "Čas prihoda v bolnišnico v hh:mm:ss form", 
+            "description": "Čas prihoda v bolnišnico v hh:mm:ss form",
             "core": false
         },
         "hospitalArrival6Timestamp": {
@@ -1026,7 +1025,7 @@
                 "null" : "Ni zapisa",
                 "hh:mm:ss" : "čas"
             },
-            "description": "Čas prihoda v bolnišnico v hh:mm:ss form", 
+            "description": "Čas prihoda v bolnišnico v hh:mm:ss form",
             "core": false
         },
         "hospArri": {
@@ -1044,17 +1043,17 @@
         },
         "dischDay": {
             "title": "Dan odpusta iz bolnice",
-            "description": "Dan odpustitve iz bolnice v DD formi", 
+            "description": "Dan odpustitve iz bolnice v DD formi",
             "core": false
         },
         "dischMonth": {
             "title": "Mesec odpusta iz bolnice",
-            "description": "Mesec odpustitve iz bolnice v DD formi", 
+            "description": "Mesec odpustitve iz bolnice v DD formi",
             "core": false
         },
         "dischYear": {
             "title": "Leto odpusta iz bolnice",
-            "description": "Leto odpustitve iz bolnice v DD formi", 
+            "description": "Leto odpustitve iz bolnice v DD formi",
             "core": false
         }
     },
