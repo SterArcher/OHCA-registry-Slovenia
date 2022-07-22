@@ -3,6 +3,16 @@
     caret-color: transparent;
 }
 
+.correct {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.incorrect {
+    border-color: #cc1c1c;
+    box-shadow: 0 0 0 0.2rem #cc1c1c40;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
