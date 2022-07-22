@@ -48,13 +48,13 @@
             "title": "Starost",
             "source": "Datum rojstva",
             "description": "Starost pacienta ob dogodku - datum rojstva ali starost v letih",
-            "from": "EuReCa3 & Utstein 2015",
+            "from": "EuReCa3 & Utstein2015",
             "form": "day1",
             "core": true
         },
         "gender": {
             "title": "Spol",
-            "from": "EuReCa3 & Utstein 2015",
+            "from": "EuReCa3 & Utstein2015",
             "form": "day1",
             "source": "Spol",
             "values": {
@@ -78,10 +78,12 @@
                 "4": "Oseba, ki je bila poslana na kraj srčnega zastoja, da nudi pomoč/oživljanje"
             },
             "description" : "Definicija osebe, ki je bila poslana, da bi nudila pomoč/oživljanje: oseba, ki jo je alarmiral in na kraj dogodka poslal DCZ/NMP preko SMS aplikacije, app, telefona/radijske postaje, itd... Srčni zastoj vpričo očividcev je definiran, kadar očividci vidijo srčni zastoj (npr. da se je nekdo zgrudil) ali da slišijo, da se je nekdo zgrudil (oz doživel srčni zastoj) ali zasledijo na monitorju srčni zastoj.",
+            "from": "Utstein2015",
+            "form": "day1",
             "core": true
         },
         "location": {
-            "title": "Lokacija zastoja - Utstein 2015",
+            "title": "Lokacija zastoja - Utstein2015",
             "source": "Lokacija dogodka (poročilo o nujnem reševalnem prevozu), Kraj dogodka (sprejem intervencij)",
             "values": {
                 "null": "Ni zapisa",
@@ -96,6 +98,8 @@
                 "8": "Drugo"
             },
             "description": "Lokacija pacienta ob incidentu",
+            "from": "Utstein2015",
+            "form": "day1",
             "core": true
         },
         "CAtimestamp" : {
@@ -117,6 +121,8 @@
         "bystanderResponse": {
             "title": "Odziv očividca",
             "source": "Opis dogodka pred prihodom NMP, Pred prihodom ekipe NMP (protokol predbolnišničnega oživljanja)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -147,6 +153,8 @@
         "bystanderAED": {
             "title": "Uporaba AED s strani očividca",
             "source": "AED je / ni bil na voljo, Uspešnost AED pred prihodom ekipe NMP (protokol predbolnišničnega oživljanja)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -197,8 +205,10 @@
             }
         },
         "firstMonitoredRhy": {
-            "title": "Začetni (prvi) ritem - Utstein 2015",
+            "title": "Začetni (prvi) ritem - Utstein2015",
             "source": "Prvi EKG pri oživljanju, Prvi AED izvid (protokol predbolnišničnega življenja)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -215,6 +225,8 @@
         "pathogenesis": {
             "title": "Patogeneza",
             "source": "Vzrok zastoja (protokol predbolnišničnega oživljanja), Zastrupitev, Prepovedane droge (protokol nujnega reševalnega vozila)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "1": "Zdravstvena težava",
@@ -230,6 +242,8 @@
         "independentLiving": {
             "title": "Samostojno življenje",
             "source": "/",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -242,6 +256,8 @@
         "comorbidities": {
             "title": "Pridružene bolezni",
             "source": "Diagnoze (protokol nujne intervencije), bolnišnice",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -253,6 +269,8 @@
         "vad": {
             "title": "Ali ima pacient mehansko cirkulatorno podporo srcu (ang. VAD, ventricular assist device)?",
             "source": "/",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -264,6 +282,8 @@
         "cardioverterDefib": {
             "title": "Ali ima pacient vsajen kardioverter-defibrilator?",
             "source": "Zunanji srčni spodbujevalec (protokol nujne intervencije)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -276,6 +296,8 @@
         "stemiPresent": {
             "title": "Prisoten STEMI?",
             "source": "STEMI (protokol predbolnišničnega oživljanja), EKG izvid (protokol nujne intervencije)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -293,6 +315,8 @@
                 ">0": "value"
             },
             "description": "Odzivni čas v sekundah - od časa sprejema klica do prihoda do pacienta",
+            "from": "Utstein2015",
+            "form": "day1",
             "core": true
         },
         "responseTimestamp" : {
@@ -311,6 +335,8 @@
                 ">0": "value"
             },
             "description": "Čas do defibrilacije v sekundah - čas od sprejema klica do prvega šoka",
+            "from": "Utstein2015",
+            "form": "day1",
             "core": true
         },
         "defibTimestamp" : {
@@ -334,6 +360,8 @@
         "ttm": {
             "title": "Uporaba terapevtske hipotermije (TTM, Targeted temperature management)",
             "source": "Terapevtska hipotermija (protokol predbolnišničnega oživljanja)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -348,6 +376,8 @@
         "ttmTemp": {
             "title": "Ciljanja temperatura terapevtske hipotermije (TTM, Targeted temperature management)",
             "source": "Terapevtska hipotermija (protokol predbolnišničnega oživljanja)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -359,6 +389,8 @@
         "drugs": {
             "title": "Aplicirana zdravila",
             "source": "Zdravila - adrenalin, amiodaron, glukoza, razno (proočilo o nujnem reševalnem prevozu)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -373,6 +405,8 @@
         "airwayControl": {
             "title": "Tip nadzora dihalne poti",
             "source": "Posegi ekipe za prevoz pacienta (poročilo o nujnem reševalnem prevozu), Alternativna dihalna pot (protokol predbolnišničnega oživljanja)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -388,6 +422,8 @@
         "cprQuality": {
             "title": "Ali se je med oživljanjem uporabljala kakršna koli naprava za nadzor kvalitete izvedbe oživljanaj?",
             "source": "Komentar o poteku oživljanja (protokol predbolnišničnega oživljanja)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -398,6 +434,8 @@
         },
         "shocks": {
             "title": "Število elektrošokov",
+            "from": "Utstein2015",
+            "form": "day1",
             "source": "Lifepak, Prvi posredovalci",
             "values": {
                 "null": "Ni zapisa",
@@ -422,6 +460,8 @@
         "vascularAccess": {
             "title": "Vaskularna pot",
             "source": "Venska pot, druge poti (protokol predbolnišničnega oživljanja), Oskrba (protokol nujne intervencije)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -436,6 +476,8 @@
         "mechanicalCPR": {
             "title": "Mehanski stiski prnega koša",
             "source": "Prvi posredovalci",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -448,6 +490,8 @@
         },
         "targetVent": {
             "title": "Ciljana okisgenacija/ventilacija",
+            "from": "Utstein2015",
+            "form": "day1",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
@@ -462,6 +506,8 @@
         },
         "reperfusionAttempt": {
             "title": "Poskus reperfuzije",
+            "from": "Utstein2015",
+            "form": "day1",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
@@ -496,6 +542,8 @@
         "ecls": {
             "title": "Uporaba ECMO (extracorporal membrane oxidation)?",
             "source": "Bolnišnice",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -507,6 +555,8 @@
         },
         "iabp": {
             "title": "Intra-aortna balonska črpalka (IAP)?",
+            "from": "Utstein2015",
+            "form": "day1",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
@@ -518,6 +568,8 @@
         },
         "ph": {
             "title": "pH krvi",
+            "from": "Utstein2015",
+            "form": "day1",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
@@ -529,6 +581,8 @@
         "lactate": {
             "title": "Laktat",
             "source": "/",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -540,6 +594,8 @@
         "glucose": {
             "title": "Je bila po ROSC glukoza titrirana do določene vrednosti?",
             "source": "zdravilo - odmerek, čas, pot (protokol nujnega reševalnega vozila)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -550,6 +606,8 @@
         },
         "neuroprognosticTests": {
             "title": "Število in vrsta nevroprognostičnih testov",
+            "from": "Utstein2015",
+            "form": "day1",
             "source": "Bolnišnice",
             "description": "JSON, kot opisan",
             "core": false
@@ -576,11 +634,14 @@
                 ">=0": "value"
             },
             "description": "Število letnih primerov",
+            "from": "Utstein2015",
             "core": false
         },
         "ecg": {
             "title": "EKG z 12 odvodi",
             "source": "Prvi EKG pri oživljanju (protokol predbolnišničnega oživljanja), EKG frekvenca (protokol nujne intervencije, poročilo o nujnem reševalnem prevozu)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -599,6 +660,8 @@
         "targetBP": {
             "title": "Ciljano upravljanje srednjega krvnega tlaka (MAP)",
             "source": "/",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -611,6 +674,8 @@
         "survived": {
             "title": "Preživetje",
             "source": "Datum odpusta / Datum smrti (protokol predbolnišničnega oživljanja)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -622,7 +687,7 @@
         "rosc": {
             "title": "ROSC",
             "source": "Stanje po intervenciji (protokol predbolnišničnega oživljanja)",
-            "from": "EuReCa3",
+            "from": "EuReCa3 & Utstein2015",
             "form": "day1",
             "values": {
                 "null": "Ni zapisa",
@@ -676,6 +741,8 @@
         "SurvivalDischarge30d": {
             "title": "30-dnevno preživetje ali preživetje do odpusta",
             "source": "Bolnišnice",
+            "from": "Utstein2015",
+            "form": "day30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -693,6 +760,8 @@
                 "1-5": "value"
             },
             "description" : "Vpišite vrednost 1 do 5 (vir: https://www.researchgate.net/figure/Cerebral-performance-categories-CPC-scores_fig2_343846048)",
+            "from": "Utstein2015",
+            "form": "day30",
             "core": true
         },
         "mrsDischarge": {
@@ -721,6 +790,8 @@
         "transportToHospital": {
             "title": "Transport v bolnišnico",
             "source": "Prevoz pacienta z ekipo NMP, prevoz pacientov z ekipo NMP (protokol predbolnišničnega oživljanja)",
+            "from": "Utstein2015",
+            "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -738,10 +809,14 @@
                 ">0": "value"
             },
             "description": "Ure do prekinitve zdravljenja, dnevi naj se pretvorijo v ure (zaokroženo navzgor)",
+            "from": "Utstein2015",
+            "form": "day1",
             "core": false
         },
         "treatmentWithdrawnTimestamp" : {
             "title" : "Čas, ko je bilo zdravljenje prekinjeno",
+            "from": "Utstein2015",
+            "form": "day1",
             "values" : {
                 "null" : "Ni zapisa",
                 "hh:mm:ss" : "čas"
@@ -750,11 +825,15 @@
         "cod": {
             "title": "Vzrok smrti",
             "source": "Bolezen ali stanje, ki je prispevalo k nastopu smrti (protokol predbolnišničnega oživljanja)",
+            "from": "Utstein2015",
+            "form": "day30",
             "description": "Vzrok smrti kot koda MKB-10-AM ver. 6",
             "core": false
         },
         "organDonation": {
             "title": "Donacija organov",
+            "from": "Utstein2015",
+            "form": "day30",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
@@ -769,10 +848,14 @@
             "title": "Pacientovo poročilo o izidu",
             "source": "/",
             "description": "Izidi, ki jih pacient opredeli kot pomembne",
+            "from": "Utstein2015",
+            "form": "day30",
             "core": false
         },
         "qualityOfLife": {
             "title": "Opredelitev kvalitete življenja (standardizirani vprašalniki, npr. EQ-5D, SF-12)",
+            "from": "Utstein2015",
+            "form": "day30",
             "source": "/",
             "description": "JSON, kot opisan",
             "core": false
