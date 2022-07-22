@@ -4,6 +4,7 @@
             "title": "UUID primera",
             "description": "Unikaten ID primera",
             "core": true
+            "test": test
         },
         "systemID": {
             "title": "Enota NMP",
