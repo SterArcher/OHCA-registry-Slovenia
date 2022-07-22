@@ -606,7 +606,7 @@
         "neuroprognosticTests": {
             "title": "Število in vrsta nevroprognostičnih testov",
             "from": "Utstein2015",
-            "form": "day1",
+            "form": "day30",
             "source": "Bolnišnice",
             "description": "JSON, kot opisan",
             "core": false
@@ -674,7 +674,7 @@
             "title": "Preživetje",
             "source": "Datum odpusta / Datum smrti (protokol predbolnišničnega oživljanja)",
             "from": "Utstein2015",
-            "form": "day1",
+            "form": "day30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
@@ -809,13 +809,13 @@
             },
             "description": "Ure do prekinitve zdravljenja, dnevi naj se pretvorijo v ure (zaokroženo navzgor)",
             "from": "Utstein2015",
-            "form": "day1",
+            "form": "day30",
             "core": false
         },
         "treatmentWithdrawnTimestamp" : {
             "title" : "Čas, ko je bilo zdravljenje prekinjeno",
             "from": "Utstein2015",
-            "form": "day1",
+            "form": "day30",
             "values" : {
                 "null" : "Ni zapisa",
                 "hh:mm:ss" : "čas"
@@ -1183,21 +1183,21 @@
             "title": "Dan odpusta iz bolnice",
             "description": "Dan odpusta iz bolnice v DD formi",
             "from": "EuReCa3",
-            "form": "day1",
+            "form": "day30",
             "core": false
         },
         "dischMonth": {
             "title": "Mesec odpusta iz bolnice",
             "description": "Mesec odpusta iz bolnice v MM formi",
             "from": "EuReCa3",
-            "form": "day1",
+            "form": "day30",
             "core": false
         },
         "dischYear": {
             "title": "Leto odpusta iz bolnice",
             "description": "Leto odpusta iz bolnice v YYYY formi",
             "from": "EuReCa3",
-            "form": "day1",
+            "form": "day30",
             "core": false
         }
     },
