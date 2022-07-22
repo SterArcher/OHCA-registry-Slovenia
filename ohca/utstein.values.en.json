@@ -74,8 +74,7 @@
                 "0": "NE, brez prič",
                 "1": "DA, v prisotnosti očividca",
                 "2": "DA, v prisotnosti ekipe NMP",
-                "3": "DA, v prisotnosti očividca in ekipe NMP",
-                "4": "Oseba, ki je bila poslana na kraj srčnega zastoja, da nudi pomoč/oživljanje"
+                "3": "Oseba, ki je bila poslana na kraj srčnega zastoja, da nudi pomoč/oživljanje"
             },
             "description" : "Definicija osebe, ki je bila poslana, da bi nudila pomoč/oživljanje: oseba, ki jo je alarmiral in na kraj dogodka poslal DCZ/NMP preko SMS aplikacije, app, telefona/radijske postaje, itd... Srčni zastoj vpričo očividcev je definiran, kadar očividci vidijo srčni zastoj (npr. da se je nekdo zgrudil) ali da slišijo, da se je nekdo zgrudil (oz doživel srčni zastoj) ali zasledijo na monitorju srčni zastoj.",
             "from": "Utstein2015",
@@ -90,7 +89,7 @@
                 "-1": "Neznano",
                 "1": "Dom/prebivališče (stalno ali začasno)",
                 "2": "Industrija/delovno mesto/pisarna",
-                "3": "Športni/rekreacijski dogodek oz. infrasturktura (dvorana, telovadnica, stadion,..)",
+                "3": "rekreacija/šport",
                 "4": "Ulica/avtocesta",
                 "5": "Javna ustanove/zgradba",
                 "6": "Varovano stanovanje/dom za ostarele (ustanove za dolgotrajno oskrbo)",
@@ -212,28 +211,28 @@
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
-                "1": "VT",
+                "1": "VF",
                 "2": "VT brez pulza",
                 "3": "PEA",
-                "4": "Asistola",
+                "4": "Asistolija",
                 "5": "Bradikardija",
-                "6": "AED - defibrilacija ni potrebna",
-                "7": "AED - defibrilacija je potrebna"
+                "6": "defibrilacija ni potrebna",
+                "7": "defibrilacija je potrebna"
             },
             "core": true
         },
         "pathogenesis": {
-            "title": "Patogeneza",
+            "title": "Vzrok srčnega zastoja",
             "source": "Vzrok zastoja (protokol predbolnišničnega oživljanja), Zastrupitev, Prepovedane droge (protokol nujnega reševalnega vozila)",
             "from": "Utstein2015",
             "form": "day1",
             "values": {
                 "null": "Ni zapisa",
-                "1": "Zdravstvena težava",
-                "2": "Travma",
+                "1": "Internistični",
+                "2": "Travmatski",
                 "3": "Predoziranje z drogami",
                 "4": "Utopitev",
-                "5": "Elektrošok",
+                "5": "Poškodba z električnim tokom",
                 "6": "Zadušitev"
             },
             "description": "Opomba: neznani razlogi naj bodo opredeljeni kot zdravstvena težava.",
@@ -387,7 +386,7 @@
             "core": false
         },
         "drugs": {
-            "title": "Aplicirana zdravila",
+            "title": "Zdravila uporabljena med oživljanjem",
             "source": "Zdravila - adrenalin, amiodaron, glukoza, razno (proočilo o nujnem reševalnem prevozu)",
             "from": "Utstein2015",
             "form": "day1",
@@ -395,15 +394,15 @@
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 "0": "Brez",
-                "1": "Adrenaline",
-                "2": "Amiodarone",
-                "4": "Vasopressin"
+                "1": "Adrenalin",
+                "2": "Amjodaron",
+                "4": "Vazopresin"
             },
             "description": "Set vseh uporabljenih zdravil, dovoljena izbira večih (kot vsota ID-jev vrednosti)",
             "core": true
         },
         "airwayControl": {
-            "title": "Tip nadzora dihalne poti",
+            "title": "Tip oskrbe dihalne poti",
             "source": "Posegi ekipe za prevoz pacienta (poročilo o nujnem reševalnem prevozu), Alternativna dihalna pot (protokol predbolnišničnega oživljanja)",
             "from": "Utstein2015",
             "form": "day1",
@@ -433,7 +432,7 @@
             "core": false
         },
         "shocks": {
-            "title": "Število elektrošokov",
+            "title": "Število defibrilacij",
             "from": "Utstein2015",
             "form": "day1",
             "source": "Lifepak, Prvi posredovalci",
@@ -458,7 +457,7 @@
             }
         },
         "vascularAccess": {
-            "title": "Vaskularna pot",
+            "title": "Žilni pristopi",
             "source": "Venska pot, druge poti (protokol predbolnišničnega oživljanja), Oskrba (protokol nujne intervencije)",
             "from": "Utstein2015",
             "form": "day1",
@@ -466,15 +465,15 @@
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 "0": "Brez",
-                "1": "Centralna IV",
+                "1": "Centralna venska pot",
                 "2": "Periferna IV",
-                "3": "IO",
+                "3": "intraosalna (IO)",
                 "4": "Endotrahealna"
             },
             "core": false
         },
         "mechanicalCPR": {
-            "title": "Mehanski stiski prnega koša",
+            "title": "Mehanski stiski prsnega koša",
             "source": "Prvi posredovalci",
             "from": "Utstein2015",
             "form": "day1",
@@ -482,7 +481,7 @@
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 "0": "Brez",
-                "1": "Naprava za mehanske kompresije prnega koša (npr. Lucas®)",
+                "1": "Naprava za mehanske kompresije prsnega koša (npr. Lucas®)",
                 "2": "Trak za razporeditev sile",
                 "3": "Druga mehanska naprava"
             },
@@ -505,7 +504,7 @@
             "core": false
         },
         "reperfusionAttempt": {
-            "title": "Poskus reperfuzije",
+            "title": "Koronarna reperfuzija",
             "from": "Utstein2015",
             "form": "day1",
             "source": "/",
@@ -881,8 +880,7 @@
             "core": false
         },
         "cprEms": {
-            "title": "Poskus oživljanja",
-            "description": "ali je NMP izvajal oživljanje?",
+            "title": "Ali je NMP izvajal oživljanje?",
             "from": "EuReCa3",
             "form": "day1",
             "values": {
@@ -1094,7 +1092,7 @@
                 "null": "Ni zabeleženo",
                 "-1": "Neznano",
                 "0": "AED",
-                "1": "EMS"
+                "1": "NMP"
             },
             "description" : "Pustite prazno, če ni šoka. AED - v ta odgovor so vključeni vsi, ki so uporabili AED, razen osebja NMP, ki je takrat v službi - npr. za očividce ali prve posredovalce, ki uporabljajo AED se označi odgovor; če je član prvih posredovalcev tudi član NMP in ob aktivaciji takrat ni v službi NMP oz. ni del redne aktivirane ekipe NMP ter uporabi AED ob oživljanju, se označi ta odgovor).",
             "from": "EuReCa3",
@@ -1183,21 +1181,21 @@
         },
         "dischDay": {
             "title": "Dan odpusta iz bolnice",
-            "description": "Dan odpustitve iz bolnice v DD formi",
+            "description": "Dan odpusta iz bolnice v DD formi",
             "from": "EuReCa3",
             "form": "day1",
             "core": false
         },
         "dischMonth": {
             "title": "Mesec odpusta iz bolnice",
-            "description": "Mesec odpustitve iz bolnice v MM formi",
+            "description": "Mesec odpusta iz bolnice v MM formi",
             "from": "EuReCa3",
             "form": "day1",
             "core": false
         },
         "dischYear": {
             "title": "Leto odpusta iz bolnice",
-            "description": "Leto odpustitve iz bolnice v YYYY formi",
+            "description": "Leto odpusta iz bolnice v YYYY formi",
             "from": "EuReCa3",
             "form": "day1",
             "core": false
