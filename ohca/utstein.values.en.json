@@ -48,10 +48,14 @@
             "title": "Starost",
             "source": "Datum rojstva",
             "description": "Starost pacienta ob dogodku - datum rojstva ali starost v letih",
+            "from": "EuReCa3 & Utstein 2015",
+            "form": "day1"
             "core": true
         },
         "gender": {
             "title": "Spol",
+            "from": "EuReCa3 & Utstein 2015",
+            "form": "day1",
             "source": "Spol",
             "values": {
                 "null": "Ni zapisa",
@@ -827,25 +831,35 @@
         "patID": {
             "title": "treba še dodati",
             "core": false
+            "from": "EuReCa3",
+            "form": "1d"
         },
         "reaYr": {
             "title": "Leto srčnega zastoja",
             "description": "Leto srčnega zastoja v YYYY formi",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "reaMo": {
             "title": "Mesec srčnega zastoja",
             "description": "Mesec srčnega zastoja v MM formi",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "reaDay": {
             "title": "Dan srčnega zastoja",
             "description": "Dan srčnega zastoja v DD formi",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "reaTime": {
             "title": "Čas srčnega zastoja - EuReCa 3",
             "description": "Čas srčnega zastoja v hh:mm:ss formi",
+            "from": "EuReCa3",
+            "form": "day1",
             "core": false
         },
         "reaTimestamp": {
