@@ -1070,6 +1070,17 @@
             },
             "core": false
         },
+        "persCPRstart" : {
+            "title" : "Kdo je pričel z oživljanjem?",
+            "values" : {
+                "null" :"Ni zabeleženo",
+                "-1" :"Neznano",
+                "0" : "Oživljanje ni bilo izvedeno",
+                "1" : "Očividec",
+                "2" : "Oseba, ki so jo poslali na kraj dogodka, da bi nudila pomoč/oživljanje",
+                "3" : "NMP"
+            }
+        },
         "cPRhelper3Time": {
             "title": "Čas, ko je pričela oseba, ki jo je DCZ/NMP poslal na kraj zastoja (ki bi lahko nudila pomoč/oživljanje), z oživljanjem (TPO) - EuReCa 3",
             "description": "Čas začetka TPO osebe, ki je poslana da pomaga v hh:mm:ss formi",

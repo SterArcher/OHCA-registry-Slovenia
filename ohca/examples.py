@@ -3,6 +3,9 @@ from .models import System, Locale, CaseReport
 from django.db.models import Q 
 import hashlib
 
+# to update Locale and Systems tables with accurate data from CaseReport table call:
+# update_locale() and update_system()
+
 # IN SHELL (for each model):
 # for entry in new_system_entries:
 #   entry.save()
@@ -305,7 +308,7 @@ def update_locale():
         locale_cases = all_cases.filter(systemID__exact=entry.localID)
 
         Locale.objects.update_or_create(
-            systemID=entry.localID,
+            localID=entry.localID,
             defaults=dict([
                 ("attendedCAs", locale_cases.count()),
                 ("attemptedResusc", locale_cases.filter(bystanderResponse__exact=1).count()),
@@ -322,4 +325,7 @@ existing_ids = []
 for system in locales:
     existing_ids.append(int(system.localID))
 
-(local_entries, local_ids) = generate_empty_systems(existing_ids, possible_locales)
+(local_entries, local_ids) = generate_empty_locales(existing_ids, possible_locales)
+
+# to update Locale and Systems tables with accurate data from CaseReport table call:
+# update_locale() and update_system()
