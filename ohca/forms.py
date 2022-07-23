@@ -1,4 +1,4 @@
-from secrets import choice
+from time import time
 from django import forms
 from django.core import validators
 # from matplotlib import widgets
@@ -11,8 +11,10 @@ from .widget import *
 
 #========================================== USEFUL DATA =================================================================================
 
-from .auxiliary import values, titles, descriptions
+from .auxiliary import values, titles, descriptions, first_form, second_form, timestamps, utstein, eureca, utstein_and_eureca
 
+
+# bom zakomentirala to spodaj ko bom testirala
 
 # first form with data immediately after CA
 first_form = ['caseID', 'systemID', 'localID', 'callTimestamp', 'dispIdentifiedCA', 'dispProvidedCPRinst', 'gender', 'witnesses', 'location', 
@@ -85,8 +87,6 @@ w = create_widgets(values) #
 w["ecgBLOB"] = forms.FileInput(attrs={"class" : "form-control", "type" : "file"})
 
 
-TIME_FORMAT = 'H:i:s'
-w["bystanderAEDTime"] = TimePickerInput(format=TIME_FORMAT)
 
 # ========================================== FORMS ================================================================================
 
@@ -154,7 +154,7 @@ class MyNewFrom(forms.ModelForm):
 	Patient_surname = forms.CharField(label="Priimek pacienta")
 	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
 	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput())
-	Time = forms.TimeField(label="Čas srčnega zastoja", widget=TimePickerInput())
+	Time = forms.TimeField(label="Čas srčnega zastoja", widget=TimeWidgetSeconds)
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput())
 
@@ -200,7 +200,7 @@ class MyThirdNewFrom(forms.ModelForm):
 	Patient_surname = forms.CharField(label="Priimek pacienta")
 	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
 	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput())
-	Time = forms.TimeField(label="Čas srčnega zastoja", widget=TimePickerInput())
+	Time = forms.TimeField(label="Čas srčnega zastoja", widget=TimeWidgetSeconds)
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 	
