@@ -35,5 +35,7 @@ urlpatterns = [
     path("", views.new_index, name="index"),
     path("formpage", views.form_name_view, name="form_name"),
     path("secondformpage", views.second_form_name_view, name="second_form_name"),
-    path("thirdformpage", views.third_form_name_view, name="third_form_name")
+    path("thirdformpage", views.third_form_name_view, name="third_form_name"),
+    path("secondfirstformpage", views.second_first_form_name_view, name="second_first_formpage"),
+    path("secondthirdformpage", views.second_third_form_name_view, name="second_third_form_name")
 ]

@@ -5,15 +5,14 @@ from django.core import validators
 from .models import *
 from django.utils.translation import gettext_lazy as _
 import hashlib
-# from django.forms import HiddenInput, IntegerField, MultiWidget, NumberInput, TextInput
-from .widget import *
+from .fields import *
 
 
 #========================================== USEFUL DATA =================================================================================
 
 from .auxiliary import values, titles, descriptions, first_form, second_form, timestamps, utstein, eureca, utstein_and_eureca
 
-
+#
 # bom zakomentirala to spodaj ko bom testirala
 
 # first form with data immediately after CA
@@ -69,11 +68,13 @@ def generate_dispatch_id(intervention_num: str, cardiac_arrest_date: str):
 
 
 def create_widgets(values): 
-	w = dict()
+	w, w_times = dict(), dict()
 	for element in values:
 		w[element] = forms.RadioSelect(choices=values[element])#, attrs={"class" : "with-gap", "type" : "radio"}) #attrs={'class': "form-check-input", "type" : "radio"})
 		# w[element] = "radio"
-	return w 
+	for element in timestamps:
+		w_times[element] = DateTimeSelector
+	return (w, w_times) 
 
 values["estimatedAgeBystander"] = [("", 'Neznano'), (True, 'Da'), (False, 'Ne')]
 
@@ -83,7 +84,7 @@ values["estimatedAgeBystander"] = [("", 'Neznano'), (True, 'Da'), (False, 'Ne')]
 # 		w[elt] = forms.TimeField(widget=TimePickerInput)
 # 	return w
 
-w = create_widgets(values) #
+(w, w_times) = create_widgets(values) #
 w["ecgBLOB"] = forms.FileInput(attrs={"class" : "form-control", "type" : "file"})
 
 
@@ -126,26 +127,31 @@ class InterventionForm(forms.Form):
 		for f in fields:
 			self.fields[f].label = False
 
+class TimestampForm(forms.ModelForm):
 
-	# 	self.helper = FormHelper(self)
-	# 	self.helper.layout = Layout(
-	# 		Row(
-	# 			Column('i1', css_class='form-group col-md-1 mb-0'),
-	# 			Column('i2', css_class='form-group col-md-1 mb-0'),
-	# 			Column('i3', css_class='form-group col-md-1 mb-0'),
-	# 			Column('i4', css_class='form-group col-md-1 mb-0'),
-	# 			Column('i5', css_class='form-group col-md-1 mb-0'),
-	# 			Column('i6', css_class='form-group col-md-1 mb-0'),
-	# 			Column('i7', css_class='form-group col-md-1 mb-0'),
-	# 			Column('i8', css_class='form-group col-md-1 mb-0'),
-	# 			Column('i9', css_class='form-group col-md-1 mb-0'),
-	# 			Column('i10', css_class='form-group col-md-1 mb-0'),
-	# 			Column('i11', css_class='form-group col-md-1 mb-0'),
-	# 			Column('i12', css_class='form-group col-md-1 mb-0'),
-	# 			css_class='form-row'
-	# 		),
-	# 		Submit("submit", "submit!")
-	# 	)
+	# f = []
+	# timestamps[0] = forms.DateTimeField(widget=DateTimeSelector)
+	# timestamps[1] = forms.DateTimeField(widget=DateTimeSelector)
+	# timestamps[2] = forms.DateTimeField(widget=DateTimeSelector)
+	# # for element in timestamps:
+	# # 	f.append(element)
+	# # 	element = forms.DateTimeField(widget=DateTimeSelector)
+		
+
+	# def __init__(self, *args, **kwargs):
+	# 	super().__init__(*args, **kwargs)
+	# 	fields = [timestamps[0], timestamps[1], timestamps[2]]
+
+
+	class Meta:
+		model = CaseReport
+		fields = tuple(timestamps)
+		exclude = ("cPREMS3Timestamp", )
+		widgets= w_times
+		labels = titles
+		help_texts = descriptions
+	# pass
+
 	
 
 class MyNewFrom(forms.ModelForm):
@@ -200,11 +206,14 @@ class MyThirdNewFrom(forms.ModelForm):
 	Patient_surname = forms.CharField(label="Priimek pacienta")
 	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
 	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput())
-	Time = forms.TimeField(label="Čas srčnega zastoja", widget=TimeWidgetSeconds)
+	# Time = forms.TimeField(label="Čas srčnega zastoja", widget=TimeWidgetSeconds)
+	Time = forms.TimeField(label="Čas srčnega zastoja", widget=TimePickerInputSeconds(format='%H:%M:%S', attrs={'type': 'time', 'step' : 1}))
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 	
 	Date_of_hospital_discharge = forms.DateField(label='Datum odpusta iz bolnišnice', widget=DatePickerInput, required=False)
+
+	# poskus = forms.DateTimeField(label="poskus", widget=DateTimeSelector)
 
 	All_drugs = forms.MultipleChoiceField(label="Aplicirana zdravila",widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
 	#Estimated_bystander_age = forms.ChoiceField(label="Ali je starost očividca ocenjena?", widget=forms.CheckboxInput)
@@ -212,6 +221,51 @@ class MyThirdNewFrom(forms.ModelForm):
 		model = CaseReport
 		fields = "__all__"		
 		exclude = ("caseID", "reaLand", "age", "dischDay", "drugs", "dispatchID") 
+		widgets = w
+		labels = titles
+		help_texts = descriptions
+
+
+class MyThirdNewFrom(forms.ModelForm):
+
+	Patient_name = forms.CharField(label="Ime pacienta")
+	Patient_surname = forms.CharField(label="Priimek pacienta")
+	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
+	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput())
+	# Time = forms.TimeField(label="Čas srčnega zastoja", widget=TimeWidgetSeconds)
+	Time = forms.TimeField(label="Čas srčnega zastoja", widget=TimePickerInputSeconds(format='%H:%M:%S', attrs={'type': 'time', 'step' : 1}))
+	# Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
+	Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
+	
+	Date_of_hospital_discharge = forms.DateField(label='Datum odpusta iz bolnišnice', widget=DatePickerInput, required=False)
+
+	# poskus = forms.DateTimeField(label="poskus", widget=DateTimeSelector)
+
+	All_drugs = forms.MultipleChoiceField(label="Aplicirana zdravila",widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
+	#Estimated_bystander_age = forms.ChoiceField(label="Ali je starost očividca ocenjena?", widget=forms.CheckboxInput)
+	class Meta: 
+		model = CaseReport
+		fields = "__all__"		
+		exclude = ("caseID", "reaLand", "age", "dischDay", "drugs", "dispatchID") 
+		widgets = w
+		labels = titles
+		help_texts = descriptions
+
+class MySecondNewFrom(forms.ModelForm):
+
+	Patient_name = forms.CharField(label="Ime pacienta")
+	Patient_surname = forms.CharField(label="Priimek pacienta")
+	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
+	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput())
+	# Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
+	Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
+
+	Date_of_hospital_discharge = forms.DateField(label='Datum odpusta iz bolnišnice', widget=DatePickerInput, required=False)
+
+	class Meta: #
+		model = CaseReport
+		fields = "__all__"	
+		exclude = ("caseID", "reaLand", "age", "dischDay") 
 		widgets = w
 		labels = titles
 		help_texts = descriptions

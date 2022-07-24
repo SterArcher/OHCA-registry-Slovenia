@@ -13,7 +13,7 @@ def case_by_id(request):
         else:
             return Response({"message": "Error saving case report"})
 
-def case_by_id_multi(request):
+def case_by_id_multi(request): #
     if validate_post(request):
         i = 0
         errors = []
@@ -273,6 +273,54 @@ def form_name_view(request):
     return render(request, "ohca/form_page.html", {"form1":form1, "form2":form2})
 
 
+def second_first_form_name_view(request):
+    form1 = MyNewFrom()
+    form2 = TimestampForm()
+
+    if request.method == "POST":
+        form1 = MyNewFrom(request.POST)
+        form2 = TimestampForm(request.POST)
+
+        if form1.is_valid() and form2.is_valid():
+            print("VALIDATION SUCCESS")
+
+            first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
+            last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
+
+            date = str(form1.cleaned_data['Date'])
+            date_birth = str(form1.cleaned_data["Date_birth"])
+            disch_date = str(form1.cleaned_data["Date_of_hospital_discharge"])
+            # print((date, date_birth))
+
+            print(date, disch_date)
+            print(date and disch_date)
+            if not (date and disch_date):
+                print(day_difference(date, disch_date))
+                form1.instance.dischDay = day_difference(date, disch_date)
+
+            print((date, date_birth))
+
+            for field in form2:
+                print(form2.cleaned_data[field])
+
+            # form.instance.age = calculate_age(date_birth, date) # age bo že od prej
+
+            id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
+            CaseReport.objects.update_or_create(
+                caseID=id, 
+                defaults=dict([(field, form1.cleaned_data[field]) for field in second_form[1:]])
+                # {
+                #     "ecls" : form.cleaned_data["ecls"] # zgeneriraj
+                # }
+            )
+        else:
+            print("form invalid")
+    else:
+        form1 = MySecondNewFrom() 
+        form2 = TimestampForm()
+    return render(request, "ohca/second_first_formpage.html", {"form1":form1, "form2":form2})
+
+
 def second_form_name_view(request):
     form1 = MySecondNewFrom() 
     form2 = InterventionForm()
@@ -340,6 +388,7 @@ def third_form_name_view(request):
 
     form1 = MyThirdNewFrom() 
     form2 = InterventionForm()
+    
     if request.method == "POST":
 
         form1 = MyThirdNewFrom(request.POST)
@@ -349,7 +398,7 @@ def third_form_name_view(request):
         if form1.is_valid() and form2.is_valid(): 
 
             print("VALIDATION SUCCESS")
-            
+
             first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
             last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
 
@@ -387,7 +436,7 @@ def third_form_name_view(request):
             print(intID)
 
             ca_date = form1.cleaned_data["Date"]
-            form1.instance.dispatchID = generate_dispatch_id(str(intID), str(ca_date))
+            # form1.instance.dispatchID = generate_dispatch_id(str(intID), str(ca_date))
 
             ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
             sum = 0
@@ -434,4 +483,103 @@ def third_form_name_view(request):
     else:
         form1 = MyThirdNewFrom() 
         form2 = InterventionForm()
+       
     return render(request, "ohca/third_form_page.html", {"form1":form1, "form2":form2})
+
+
+def second_third_form_name_view(request):
+
+    form1 = MyThirdNewFrom() 
+    form2 = TimestampForm()
+    
+    if request.method == "POST":
+
+        form1 = MyThirdNewFrom(request.POST)
+        print(form1.errors)
+        form2 = TimestampForm(request.POST)
+
+        if form1.is_valid() and form2.is_valid(): 
+
+            print("VALIDATION SUCCESS")
+
+            
+            first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
+            last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
+
+            date = str(form1.cleaned_data['Date'])
+            date_birth = str(form1.cleaned_data["Date_birth"])
+            catime = str(form1.cleaned_data["Time"])
+
+            disch_date = str(form1.cleaned_data["Date_of_hospital_discharge"])
+            # print((date, date_birth))
+
+            if not (date and disch_date):
+                print(day_difference(date, disch_date))
+                form1.instance.dischDay = day_difference(date, disch_date)
+
+            print((date, date_birth, catime, disch_date))
+            print(calculate_age(date_birth, date))
+            form1.instance.age = calculate_age(date_birth, date)
+            
+            id = generate_case_id(first_name, last_name, date, date_birth)
+            print(id)
+            print(len(id))
+            # print(id.digest())
+            cases = CaseReport.objects.all()
+            existing_ids = []
+            for case in cases:
+                existing_ids.append(case.caseID)
+            form1.instance.caseID = id #[0:32] #random.choice([i for i in range(100000, 10000000) if i not in existing_ids]) #id 
+            # form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
+
+
+            ca_date = form1.cleaned_data["Date"]
+            # form1.instance.dispatchID = generate_dispatch_id(str(intID), str(ca_date))
+
+            ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
+            sum = 0
+            print(form1.cleaned_data['All_drugs'])
+            for elt in form1.cleaned_data['All_drugs']:
+                 
+                # options = {'1': -1, '2': 0, '3': 1,'4': 2, '5': 4}
+                sum += int(elt)
+                print(sum) #
+            form1.instance.drugs = sum
+            
+            
+            form1.instance.reaLand = "Slovenia"
+            form1.instance.reaRegion = str(form1.cleaned_data["localID"])
+
+            callTime = str(form1.cleaned_data["callTimestamp"])
+            bystanderResponseTimestamp = str(form1.cleaned_data["bystanderResponseTimestamp"])
+            bystanderAEDTimestamp = str(form1.cleaned_data["bystanderAEDTimestamp"])
+
+            print(bystanderResponseTimestamp)
+            print(bystanderAEDTimestamp)
+
+            if callTime:
+                if bystanderResponseTimestamp != "None":
+                    print(calculate_time(date, callTime, date, bystanderResponseTimestamp))
+                    t1 = calculate_time(date, callTime, date, bystanderResponseTimestamp)
+                if bystanderAEDTimestamp != "None":
+                    form1.instance.bystanderAEDTime = calculate_time(date, callTime, date, bystanderAEDTimestamp)
+
+            #print(time.strftime('%H:%M:%S', time.gmtime(t1)))
+            # print([field for field in all_form])
+            CaseReport.objects.update_or_create(
+                caseID=id, 
+                defaults=dict([(field, form1.cleaned_data[field]) for field in all_form[1:]]) # + [('bystanderResponseTime', time.strftime('%H:%M:%S', time.gmtime(t1)))]) 
+                
+                #+ [('dispatchID', generate_dispatch_id(str(intID), str(ca_date)))])
+            )
+
+            # # to save into database:
+            # form1.save(commit=True) #
+            # return index(request) # to mi neke errorje vrača, not sure why 
+        else:
+            print("form invalid")
+    else:
+        form1 = MyThirdNewFrom() 
+        form2 = TimestampForm()
+       
+    return render(request, "ohca/second_third_formpage.html", {"form1":form1, "form2":form2})

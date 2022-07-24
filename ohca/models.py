@@ -175,6 +175,7 @@ class CaseReport(models.Model):
     reaConf = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     cprEms = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     cPREMS3Time = models.IntegerField(null = True, blank = True)
+    #cPREMS3Timestamp = models.DateTimeField(null = True, blank = True)
     noCPR = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(0), MaxValueValidator(5)])
     # # patID = None # NULL, TODO?
     reaYr = models.SmallIntegerField(null = True, blank = True)
