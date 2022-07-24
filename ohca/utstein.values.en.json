@@ -174,7 +174,7 @@
             },
             "core": true
         },
-        "bystanderAEDtimestamp" : {
+        "bystanderAEDTimestamp" : {
             "title" : "Čas ob prvem AED šoku očividca",
             "values" : {
                 "null" : "Ni zapisa",
@@ -1035,7 +1035,7 @@
             "form": "day1",
             "core": false
         },
-        "CPRbystander3Timestamp": {
+        "cPRbystander3Timestamp": {
             "title": "Čas začetka TPO očividca",
             "values" : {
                 "null" : "Ni zapisa",
