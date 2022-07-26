@@ -1,4 +1,4 @@
-const datepickers = document.getElementsByClassName("datepicker")
+const datepickers = document.getElementsByClassName("datepickerinput")
 
 const callTimeStampField = document.getElementById("id_callTimestamp_0")
 const dateOfCAField = document.getElementById("id_Date")
