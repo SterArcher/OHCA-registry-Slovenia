@@ -7,10 +7,10 @@ dateOfCAField.addEventListener('onchange', updateDateFields())
 
 function updateDateFields() {
     const excludedIds = [callTimeStampField.id, dateOfCAField.id, "id_Date_birth"]
-    var date = callTimeStampField.
-    datepickers.array.forEach(datepicker => {
-        if (!(excludedIds.includes(datepicker.id))) {
-            datepicker.value = date
+    var date = callTimeStampField.value
+    for (let i = 0; i < datepickers.length; i++) {
+        if (!(excludedIds.includes(datepickers[i].id))) {
+            datepickers[i].value = date
         }
-    });
+    };
 }
