@@ -53,11 +53,17 @@ class DateTimeSelector(forms.widgets.MultiWidget):
         super(DateTimeSelector, self).__init__(widgets, attrs)
 
     def decompress(self, value):
+        # print(value)
         if isinstance(value, datetime):
+            # print("tukaj" + str(value))
             return [value.day, value.month, value.year, value.hour, value.minute, value.second]
             # return [datetime(value.year, value.month, value.day, value.hour, value.minute, value.second)]
+
         return [None, None, None, None, None, None]
 
     def value_from_datadict(self, data, files, name):
+        # print(super(DateTimeSelector, self).value_from_datadict(data, files, name))
         date, time = super(DateTimeSelector, self).value_from_datadict(data, files, name)
+        if date == "" or time == "":
+            return None
         return date + ' ' + time

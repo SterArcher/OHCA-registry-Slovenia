@@ -1028,7 +1028,7 @@
             },
             "core": false
         },
-        "CPRbystander3Time": {
+        "cPRbystander3Time": {
             "title": "Čas začetka TPO očividca",
             "description": "Čas začetka TPO očividca v hh:mm:ss formi",
             "from": "EuReCa3",
