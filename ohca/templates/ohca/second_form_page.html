@@ -147,6 +147,7 @@
                  <p>{{form1.Patient_surname|as_crispy_field}}</p>
                  <p>{{form1.Date_birth|as_crispy_field}}</p>
                  <p>{{form1.Date|as_crispy_field}}</p>
+                 <p>{{form1.Date_of_hospital_discharge|as_crispy_field}}</p>
                  
                  {% for field in form1 %}
                      {% if field.name != "Patient_name" and field.name != "Patient_surname" and field.name != "Date" and field.name != "Date_birth" and field.name != "Date_of_hospital_discharge" and field.label != 'Dan odpusta iz bolnice'%}

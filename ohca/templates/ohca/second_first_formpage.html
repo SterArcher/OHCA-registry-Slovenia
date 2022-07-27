@@ -85,7 +85,7 @@
                 <p> </p>
                   
 
-                {% crispy form2 %}
+                
 
 
                 <!-- <p>{{ formset|crispy }}</p> -->
@@ -93,11 +93,19 @@
                 <p>{{form1.Patient_surname|as_crispy_field}}</p>
                 <p>{{form1.Date_birth|as_crispy_field}}</p>
                 <p>{{form1.Date|as_crispy_field}}</p>
+                <p>{{form1.localID|as_crispy_field}}</p>
+                <p>{{form1.systemID|as_crispy_field}}</p>
                 
-                
-                <!-- <input type="time" step="1"> -->
+                {% for field in form2 %}
+                  {% if field.name == "CAtimestamp" %}
+                    <p>{{ field|as_crispy_field}}</p>
+                    <p>{{ form1.estim_time|as_crispy_field}}</p>
+                  {% else %}
+                  <p>{{ field|as_crispy_field}}</p>
+                  {% endif %}
+                  {% endfor %}
 
-                {% with '"Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
+                {% with '"estim_time", "localID", "systemID", "Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
                 {% for field in form1 %}
                     {% if field.name not in list %}
                         <!-- <p>{{ field.label}}{{ field|as_crispy_field }}</p> -->
