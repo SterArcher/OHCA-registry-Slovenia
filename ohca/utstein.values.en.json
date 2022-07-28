@@ -812,6 +812,19 @@
                 "1": "Da"
             },
             "core": false
+          },
+          "hospDisc": {
+              "title": "Preživetje do odpusta iz bolnišnice",
+              "from": "EuReCa3",
+              "form": "day30",
+              "description": "medbolnišnična premestitev na enak ali višji nivo se ne upošteva kot odpust iz bolnišice. Če bolnik umre v bolnišnici je dan odpusta enak dnevu smrti."
+              "values": {
+                  "null": "Ni zapisa",
+                  "-1": "Neznano",
+                  "0": "Ne",
+                  "1": "Da"
+              },
+              "core": false
         },
         "treatmentWithdrawn": {
             "title": "Kdaj je bilo zdravljenje prekinjeno?",
