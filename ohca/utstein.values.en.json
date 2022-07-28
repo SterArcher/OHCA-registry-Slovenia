@@ -65,6 +65,19 @@
             },
             "core": true
         },
+        "confirmedCA": {
+            "title": "Potrjen srčni zastoj s strani NMP",
+            "source": "(protokol predbolnišničnega oživljanja)",
+            "from": "EuReCa3",
+            "form": "day1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "01": "Da",
+                "02": "Ne"
+            },
+            "core": true
+        },
         "witnesses": {
             "title": "Ali se je srčni zastoj zgodil vpričo očividcev",
             "source": "Pred prihodom NMP (poročilo o nujnem reševlnem prevozu), Zastoj srca se je zgodil (protokol predbolnišničnega oživljanja)",
@@ -126,8 +139,8 @@
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 "0": "Očividec ni izvajal TPO",
-                "1": "Očividec izvajal TPO (podrobneje: samo stisi prsnega koša, stisi prsnega koša in umetno predihavanje)",
-                "2": "Očividec izvajal TPO (podrobneje: samo stisi prsnega koša, stisi prsnega koša in umetno predihavanje)"
+                "1": "Očividec izvajal TPO (samo stisi prsnega koša)",
+                "2": "Očividec izvajal TPO (stisi prsnega koša in umetno predihavanje)"
             },
             "core": true
         },
@@ -228,12 +241,12 @@
             "form": "day1",
             "values": {
                 "null": "Ni zapisa",
-                "1": "Internistični",
-                "2": "Travmatski",
-                "3": "Predoziranje z drogami",
+                "1": "Internistični (vključuje tako srčne kot tudi vse ostale ne-srčne internistične vzroke; npr. pulmološki, gastrointestinalni, ipd.)",
+                "2": "Poškodba (topa, penetrantna, opekline)",
+                "3": "Zloraba drog (prekomeren odmerek))",
                 "4": "Utopitev",
                 "5": "Poškodba z električnim tokom",
-                "6": "Zadušitev"
+                "6": "Zadušitev (zunanji vzrok; npr. obešenje, zadavljenje, zadušitev s tujkom)"
             },
             "description": "Opomba: neznani razlogi naj bodo opredeljeni kot zdravstvena težava.",
             "core": true
@@ -326,14 +339,14 @@
             }
         },
         "defibTime": {
-            "title": "Čas do defibrilacije",
+            "title": "Čas prve defibrilacije",
             "source": "Poročilo prvih posredovalcev, Lifepak",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 ">0": "value"
             },
-            "description": "Čas do defibrilacije v sekundah - čas od sprejema klica do prvega šoka",
+            "description": "Čas prve defibrilacije v sekundah - čas od sprejema klica do prvega šoka",
             "from": "Utstein2015",
             "form": "day1",
             "core": true
@@ -687,17 +700,18 @@
             "title": "ROSC",
             "source": "Stanje po intervenciji (protokol predbolnišničnega oživljanja)",
             "from": "EuReCa3 & Utstein2015",
+            "description": "Vsaka povrnitev spontanega krvnega obtoka (ROSC), ki je trajala vsaj 30 sekund, ki jo lahko potrdimo/dokažemo s tipnim utripom/pulzom, izmerjenim krvnim tlakom ali arterijsko krivuljo v primeru, da imamo nastavljen intraarterijski kanal. V primeru nastvaitve zunajtelesnega krvnega obtoka (npr. ECMO) , bolnik ne izpolnjuje pogojev definicije povrnitve spontanega krvnega obtoka, dokler se ne vzpostavi bolnikov lasten krvni obtok oz srčna akcija (patient-generated)."
             "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
-                "0": "Ne",
-                "1": "Da"
+                "1": "ROSC",
+                "2": "Brez ROSC",
             },
             "core": true
         },
         "roscTime": {
-            "title": "Čas do ROSC",
+            "title": "čas prve povrnitve spontanega krvnega obtoka (ROSC)",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
@@ -892,17 +906,17 @@
             "core": false
         },
         "cPREMS3Time": {
-            "title": "Kdaj je ekipa NMP začela oživljati",
-            "description": "Kdaj so začeli oživljati NMP v hh:mm:ss formi",
+            "title": "Čas, ko je pričel NMP z oživljanjem",
+            "description": "Čas, ko je pričel NMP z oživljanjem hh:mm:ss formi",
             "core": false
         },
         "cPREMS3Timestamp": {
-            "title": "Kdaj je ekipa NMP začela oživljati",
+            "title": "Čas, ko je pričel NMP z oživljanjem",
             "values" : {
                 "null" :"Ni zapisa",
                 "hh:mm:ss" : "Čas"
             },
-            "description": "Kdaj so začeli oživljati NMP v hh:mm:ss formi",
+            "description": "Čas, ko je pričel NMP z oživljanjem hh:mm:ss formi",
             "core": false
         },
         "noCPR": {
@@ -911,7 +925,7 @@
                 "null": "Ni zabeleženo",
                 "-1": "Neznano",
                 "0": "Umrl prej/pred prihodom NMP",
-                "1": "Dokument o izraženi volji proti oživljanju",
+                "1": "Dokument o izraženi volji proti oživljanju (DNAR)",
                 "2": "Želja družinskih članov, da bolnika ne oživljajo",
                 "3": "Želja/odločitev zdravnika",
                 "4": "Uspešna defibrilacija ICD (implantiran kardioverter/defibrlator)",
@@ -1072,6 +1086,8 @@
         },
         "persCPRstart" : {
             "title" : "Kdo je pričel z oživljanjem?",
+            "from": "EuReCa3",
+            "form": "day1",
             "values" : {
                 "null" :"Ni zabeleženo",
                 "-1" :"Neznano",
@@ -1109,6 +1125,19 @@
             "from": "EuReCa3",
             "form": "day1",
             "core": false
+          },
+          "AEDShock": {
+              "title": "Ali je AED izvedel defibrilacijo pred prihodom NMP?",
+              "values": {
+                  "null": "Ni zabeleženo",
+                  "-1": "Neznano",
+                  "0": "Da",
+                  "1": "Ne"
+              },
+              "description" : "AED shocks before arrival EMS Utstein definition: When a bystander attempts defibrillation, e.g., public access or lay rescuer defibrillation, it is recorded as a defibrillation attempt before EMS arrival. AEDs are increasingly being made available for access by the general public. In patients with an ICD, a shockable rhythm is likely to have triggered at least one shock by the device before the arrival of EMS personnel. This can be confirmed by analyzing the ICD memory.",
+              "from": "EuReCa3",
+              "form": "day1",
+              "core": false
         },
         "timeROSC": {
             "title": "Čas prvega ROSC",
@@ -1125,19 +1154,19 @@
             "core": false
         },
         "endCPR4Time": {
-            "title": "Čas konca TPO",
+            "title": "Čas zaključka oživljanja",
             "description": "Čas konca TPO v hh:mm:ss formi",
             "core": false
         },
         "endCPR4Timestamp": {
-            "title": "Čas konca TPO",
+            "title": "Čas zaključka oživljanja",
             "from": "EuReCa3",
             "form": "day1",
             "values" : {
                 "null" : "Ni zapisa",
                 "hh:mm:ss" : "čas"
             },
-            "description": "Čas konca TPO v hh:mm:ss formi",
+            "description": "Čas zaključka oživljanja v hh:mm:ss formi",
             "core": false
         },
         "leftScene5Time": {
@@ -1178,14 +1207,15 @@
         "hospArri": {
             "title": "Status ob prihodu v bolnišnico",
             "from": "EuReCa3",
+            "description": "pacienti, ki umrejo na terenu so označeni kot brez prevoza do bolnišnice"
             "form": "day1",
             "values": {
                 "null": "Ni zabeleženo",
                 "-1": "Neznano",
                 "0": "Mrtev",
-                "1": "Živ",
+                "1": "Živ (ROSC)",
                 "2": "Brez prevoza do bolnišnice",
-                "3": "Prevoz z TPO",
+                "3": "Še potekajoče oživljanje",
                 "4": "Prevoz z ROSC"
             },
             "core": false
