@@ -670,8 +670,8 @@
             "description": "Ciljni MAP v mmHg",
             "core": false
         },
-        "survived": {
-            "title": "Preživetje",
+        "survived12m": {
+            "title": "Preživetje 12-mesecev po odpustu",
             "source": "Datum odpusta / Datum smrti (protokol predbolnišničnega oživljanja)",
             "from": "Utstein2015",
             "form": "day30",
