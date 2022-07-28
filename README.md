@@ -43,3 +43,4 @@ We would like to thank:
 * [System Software Laboratory](https://lspo.feri.um.si/index-en.php) for lending us their IT infrastructure
 * [Štefan Baebler](https://github.com/stefanb) for giving us technical advice
 * [Joh Dokler](https://github.com/joahim) for giving us technical advice
+* [Eva Zupan Horaček](https://www.linkedin.com/in/evazupan/) for navigating us through designing a user friendly paper form and giving us UX advice in general
