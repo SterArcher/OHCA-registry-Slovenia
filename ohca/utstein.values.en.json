@@ -827,7 +827,21 @@
               "core": false
         },
         "treatmentWithdrawn": {
-            "title": "Kdaj je bilo zdravljenje prekinjeno?",
+            "title": "Aktivno zdravljenje prekinjeno?",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "description": "Ure do prekinitve zdravljenja, dnevi naj se pretvorijo v ure (zaokroženo navzgor)",
+            "from": "Utstein2015",
+            "form": "day30",
+            "core": false
+        },
+        "treatmentWithdrawnhours": {
+            "title": "Kdaj je bilo zdravljenje prekinjeno (v urah)?",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
