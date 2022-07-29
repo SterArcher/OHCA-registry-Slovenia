@@ -700,13 +700,13 @@
             "title": "ROSC",
             "source": "Stanje po intervenciji (protokol predbolnišničnega oživljanja)",
             "from": "EuReCa3 & Utstein2015",
-            "description": "Vsaka povrnitev spontanega krvnega obtoka (ROSC), ki je trajala vsaj 30 sekund, ki jo lahko potrdimo/dokažemo s tipnim utripom/pulzom, izmerjenim krvnim tlakom ali arterijsko krivuljo v primeru, da imamo nastavljen intraarterijski kanal. V primeru nastvaitve zunajtelesnega krvnega obtoka (npr. ECMO) , bolnik ne izpolnjuje pogojev definicije povrnitve spontanega krvnega obtoka, dokler se ne vzpostavi bolnikov lasten krvni obtok oz srčna akcija (patient-generated)."
+            "description": "Vsaka povrnitev spontanega krvnega obtoka (ROSC), ki je trajala vsaj 30 sekund, ki jo lahko potrdimo/dokažemo s tipnim utripom/pulzom, izmerjenim krvnim tlakom ali arterijsko krivuljo v primeru, da imamo nastavljen intraarterijski kanal. V primeru nastvaitve zunajtelesnega krvnega obtoka (npr. ECMO) , bolnik ne izpolnjuje pogojev definicije povrnitve spontanega krvnega obtoka, dokler se ne vzpostavi bolnikov lasten krvni obtok oz srčna akcija (patient-generated).",
             "form": "day1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 "1": "ROSC",
-                "2": "Brez ROSC",
+                "2": "Brez ROSC"
             },
             "core": true
         },
@@ -817,7 +817,7 @@
               "title": "Preživetje do odpusta iz bolnišnice",
               "from": "EuReCa3",
               "form": "day30",
-              "description": "medbolnišnična premestitev na enak ali višji nivo se ne upošteva kot odpust iz bolnišice. Če bolnik umre v bolnišnici je dan odpusta enak dnevu smrti."
+              "description": "medbolnišnična premestitev na enak ali višji nivo se ne upošteva kot odpust iz bolnišice. Če bolnik umre v bolnišnici je dan odpusta enak dnevu smrti.",
               "values": {
                   "null": "Ni zapisa",
                   "-1": "Neznano",
@@ -1234,7 +1234,7 @@
         "hospArri": {
             "title": "Status ob prihodu v bolnišnico",
             "from": "EuReCa3",
-            "description": "pacienti, ki umrejo na terenu so označeni kot brez prevoza do bolnišnice"
+            "description": "pacienti, ki umrejo na terenu so označeni kot brez prevoza do bolnišnice",
             "form": "day1",
             "values": {
                 "null": "Ni zabeleženo",
