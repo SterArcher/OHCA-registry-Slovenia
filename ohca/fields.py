@@ -66,4 +66,6 @@ class DateTimeSelector(forms.widgets.MultiWidget):
         date, time = super(DateTimeSelector, self).value_from_datadict(data, files, name)
         if date == "" or time == "":
             return None
+        if date == None or time == None:
+            return None
         return date + ' ' + time

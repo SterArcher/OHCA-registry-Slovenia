@@ -12,24 +12,35 @@ from .fields import *
 
 from .auxiliary import values, titles, descriptions, first_form, second_form, timestamps, utstein, eureca, utstein_and_eureca
 
-# ker sem neka polja dodala / spremenila moram še posodobit v jsonu preden lahko preko importa
-first_form = ['age', 'gender', 'witnesses', 'location', 
-'bystanderResponse', 'bystanderAED', 'diedOnField', 
-'firstMonitoredRhy', 'pathogenesis', 'independentLiving', 
-'comorbidities', 'vad', 'cardioverterDefib', 'stemiPresent', 
-'responseTime', 'defibTimestamp', 'ttm', 'ttmTemp', 'drugs', 
-'airwayControl', 'cprQuality', 'shocks', 'vascularAccess', 
+
+first_form = [#'age', -> računa samodejno 
+'gender', #'confirmedCA', 
+'witnesses', 'location', 'bystanderResponse', 'bystanderAED', 
+'diedOnField', 'firstMonitoredRhy', 'pathogenesis', 
+'independentLiving', 'comorbidities', 'vad', 'cardioverterDefib', 
+'stemiPresent', #'responseTime', 'defibTime', -> računa, namesto tega:
+# "responseTimestamp", -> TODO ali dobimo to od sipecerjev? Ziher je v timestamp formi
+'defibTimestamp', 'ttm', 'ttmTemp', 
+# 'drugs', 
+'airwayControl', 'cprQuality', 'shocks', 'vascularAccess',
 'mechanicalCPR', 'targetVent', 'reperfusionAttempt', 'ecls', 
 'iabp', 'ph', 'lactate', 'glucose', 'ecg', 'targetBP', 'rosc', 
 'roscTimestamp', 'transportToHospital', 'cprEms', 'noCPR', 
-'reaYr', 'reaMo', 'reaDay', 'reaTime', 'reaCause', 'timestampTCPR', 
+# 'reaYr', 'reaMo', 'reaDay', 'reaTime', 
+'reaCause', 'timestampTCPR', # timeTCPR
 'gbystnader', 'ageBystander', 'estimatedAgeBystander', 
-'cPRbystander3Timestamp', 'helperCPR', 'helperWho', 
-'cPRhelper3Timestamp', 'defiOrig', 'endCPR4Timestamp', 
-'leftScene5Timestamp', 'hospitalArrival6Timestamp', 'hospArri', 
-"responseTimestamp", "reperfusionTimestamp"]
+'cPRbystander3Timestamp', #'cPRbystander3Time'
+'helperCPR', 'helperWho', #'persCPRstart', 
+'cPRhelper3Timestamp', #'cPRhelper3Time',
+'defiOrig', #'AEDShock', 
+'endCPR4Timestamp', #'leftScene5Time', 
+'leftScene5Timestamp', 
+'hospitalArrival6Time', # 'hospitalArrival6Time',
+ 'hospArri'] 
 
-# spodnja polja morajo biti samodejno poračunana
+
+
+# # spodnja polja morajo biti samodejno poračunana
 exclude_first = (
 	"age", 
 	'responseTime', # rabimo call timestamt
@@ -47,19 +58,26 @@ exclude_first = (
 	"reaDay",
 	"reaTime")
 
-first_form = list(filter(lambda x: x not in exclude_first, first_form))
+# first_form = list(filter(lambda x: x not in exclude_first, first_form))
 
-# print(first_form) #
+
 
 first_form = ["localID", "systemID"] + first_form
-# first_form += ["responseTimestamp", "defibTimestamp", "roscTimestamp", "reaTimestamp", "cPRbystander3Time", "endCPR4Timestamp", "leftScene5Timestamp", "hospitalArrival6Timestamp"]
-#
+# # first_form += ["responseTimestamp", "defibTimestamp", "roscTimestamp", "reaTimestamp", "cPRbystander3Time", "endCPR4Timestamp", "leftScene5Timestamp", "hospitalArrival6Timestamp"]
+# #
 
-second_form = ['neuroprognosticTests', 'survived', 'survival30d', 
-'survivalDischarge', 'SurvivalDischarge30d', 'cpcDischarge', 'treatmentWithdrawn', 
-'treatmentWithdrawnTimestamp', 'cod', 'organDonation', 
-'patientReportedOutcome', 'qualityOfLife', 'dischDay', 
-'dischMonth', 'dischYear']
+# second_form = ['neuroprognosticTests', 'survived', 'survival30d', 
+# 'survivalDischarge', 'SurvivalDischarge30d', 'cpcDischarge', 'treatmentWithdrawn', 
+# 'treatmentWithdrawnTimestamp', 'cod', 'organDonation', 
+# 'patientReportedOutcome', 'qualityOfLife', 'dischDay', 
+# 'dischMonth', 'dischYear']
+
+second_form = ['neuroprognosticTests', 'survived12m', 'survival30d', 'SurvivalDischarge30d', 'cpcDischarge', 'hospDisc', 'treatmentWithdrawn', 'treatmentWithdrawnhours', 'treatmentWithdrawnTimestamp', 'cod', 'organDonation', 'patientReportedOutcome', 'qualityOfLife', 'dischDay', 'dischMonth', 'dischYear']
+
+# TODO v models
+second_form.remove("survived12m")
+second_form.remove("hospDisc")
+second_form.remove("treatmentWithdrawnhours")
 
 exclude_second = [
 	"SurvivalDischarge30d",
@@ -92,6 +110,13 @@ timestamp_dict = {
 	"hospitalArrival6Timestamp" : "hospitalArrival6Time",
 	"cPREMS3Timestamp" : 'cPREMS3Time'
 }
+
+timestamps = ['callTimestamp', 'CAtimestamp', 'bystanderResponseTimestamp', 'bystanderAEDTimestamp', 'responseTimestamp', 'defibTimestamp', 'drugTimingsTimestamp', 'reperfusionTimestamp', 'roscTimestamp', 'treatmentWithdrawnTimestamp', 
+#'cPREMS3Timestamp', 
+#'reaTimestamp', 'timestampTCPR', 
+'cPRbystander3Timestamp', 'cPRhelper3Timestamp', 
+#'timestampROSC', 
+'endCPR4Timestamp', 'leftScene5Timestamp', 'hospitalArrival6Timestamp']
 
 all_form = first_form + second_form + ["interventionID", "mainInterventionID"]
 
@@ -146,7 +171,7 @@ def create_widgets(values, timestamps):
 w = create_widgets(values, timestamps) #
 w["ecgBLOB"] = forms.FileInput(attrs={"class" : "form-control", "type" : "file"})
 w["estimatedAgeBystander"] = forms.CheckboxInput
-w["drugs"] = forms.CheckboxSelectMultiple(choices=values["drugs"])
+# w["drugs"] = forms.MultipleChoiceField(label="Aplicirana zdravila",widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
 
 # ========================================== FORMS ================================================================================
 
@@ -208,7 +233,7 @@ class MyNewFrom(forms.ModelForm):
 	estim_time = forms.BooleanField(label="Označite, če je čas srčnega zastoja le ocenjen.", widget=forms.CheckboxInput(), required=False)
 	Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput())
 
-	# All_drugs = forms.MultipleChoiceField(label="Aplicirana zdravila", widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
+	All_drugs = forms.MultipleChoiceField(label="Aplicirana zdravila", widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
 	# Estimated_bystander_age = forms.ChoiceField(label="Ali je starost očividca ocenjena?", widget=forms.CheckboxInput)
 
 	class Meta: 	
@@ -216,7 +241,7 @@ class MyNewFrom(forms.ModelForm):
 		fields = tuple(first_form)		
 		# exclude = ("age", 'responseTime', 'responseTime', 'defibTime','reaTime', 'timeTCPR', 'cPRhelper3Time', 'endCPR4Timestamp', 'leftScene5Time', 'leftScene5Timestamp', 'hospitalArrival6Time',)
 		# ("caseID", "reaLand", "drugs", "age", "dischDay") 
-		exclude = ("bystanderAEDTime",)
+		exclude = ("bystanderAEDTime", "drugs")
 		widgets = w
 		labels = titles
 		help_texts = descriptions
@@ -261,7 +286,7 @@ class MyThirdNewFrom(forms.ModelForm):
 	Time = forms.TimeField(label="Čas srčnega zastoja", widget=TimePickerInputSeconds(format='%H:%M:%S', attrs={'type': 'time', 'step' : 1}))
 	# Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
 	Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
-	
+	estim_time = forms.BooleanField(label="Označite, če je čas srčnega zastoja le ocenjen.", widget=forms.CheckboxInput(), required=False)
 	Date_of_hospital_discharge = forms.DateField(label='Datum odpusta iz bolnišnice', widget=DatePickerInput, required=False)
 
 	# poskus = forms.DateTimeField(label="poskus", widget=DateTimeSelector)
@@ -270,53 +295,10 @@ class MyThirdNewFrom(forms.ModelForm):
 	#Estimated_bystander_age = forms.ChoiceField(label="Ali je starost očividca ocenjena?", widget=forms.CheckboxInput)
 	class Meta: 
 		model = CaseReport
-		fields = "__all__"		
-		exclude = ("caseID", "reaLand", "age", "dischDay", "drugs", "dispatchID") 
+		fields = tuple(all_form)		
+		# exclude = ("caseID", "reaLand", "age", "dischDay", "dispatchID") 
 		widgets = w
 		labels = titles
 		help_texts = descriptions
 
 
-# class MyThirdNewFrom(forms.ModelForm):
-
-# 	Patient_name = forms.CharField(label="Ime pacienta")
-# 	Patient_surname = forms.CharField(label="Priimek pacienta")
-# 	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
-# 	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput())
-# 	# Time = forms.TimeField(label="Čas srčnega zastoja", widget=TimeWidgetSeconds)
-# 	Time = forms.TimeField(label="Čas srčnega zastoja", widget=TimePickerInputSeconds(format='%H:%M:%S', attrs={'type': 'time', 'step' : 1}))
-# 	# Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
-# 	Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
-	
-# 	Date_of_hospital_discharge = forms.DateField(label='Datum odpusta iz bolnišnice', widget=DatePickerInput, required=False)
-
-# 	# poskus = forms.DateTimeField(label="poskus", widget=DateTimeSelector)
-
-# 	All_drugs = forms.MultipleChoiceField(label="Aplicirana zdravila",widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
-# 	#Estimated_bystander_age = forms.ChoiceField(label="Ali je starost očividca ocenjena?", widget=forms.CheckboxInput)
-# 	class Meta: 
-# 		model = CaseReport
-# 		fields = "__all__"		
-# 		exclude = ("caseID", "reaLand", "age", "dischDay", "drugs", "dispatchID") 
-# 		widgets = w
-# 		labels = titles
-# 		help_texts = descriptions
-
-# class MySecondNewFrom(forms.ModelForm):
-
-# 	Patient_name = forms.CharField(label="Ime pacienta")
-# 	Patient_surname = forms.CharField(label="Priimek pacienta")
-# 	# Date = forms.DateField(label='Datum srčnega zastoja', widget=forms.SelectDateWidget(months=MONTHS, years=[x for x in range(2020,2025)]))
-# 	Date = forms.DateField(label='Datum srčnega zastoja', widget=DatePickerInput())
-# 	# Date_birth = forms.DateField(label='Datum rojstva', widget=forms.SelectDateWidget(years=[x for x in range(1910,2025)], months=MONTHS))
-# 	Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
-
-# 	Date_of_hospital_discharge = forms.DateField(label='Datum odpusta iz bolnišnice', widget=DatePickerInput, required=False)
-
-# 	class Meta: #
-# 		model = CaseReport
-# 		fields = "__all__"	
-# 		exclude = ("caseID", "reaLand", "age", "dischDay") 
-# 		widgets = w
-# 		labels = titles
-# 		help_texts = descriptions

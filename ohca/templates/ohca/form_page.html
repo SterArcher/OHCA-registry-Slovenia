@@ -156,7 +156,7 @@
                 
                 <!-- <input type="time" step="1"> -->
 
-                {% with '"estim_time", "Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
+                {% with '"gender", "estim_time", "Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
                 {% for field in form1 %}
                     {% if field.name not in list %}
                         <!-- <p>{{ field.label}}{{ field|as_crispy_field }}</p> -->

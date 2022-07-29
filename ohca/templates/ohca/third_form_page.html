@@ -148,12 +148,27 @@
                 <p>{{form1.gender|as_crispy_field}}</p>
                 <p>{{form1.Date|as_crispy_field}}</p>
                 <p>{{form1.Time|as_crispy_field}}</p>
-                {% for field in form1 %}
+                <p>{{form1.estim_time|as_crispy_field}}</p>
+                <!-- {% for field in form1 %}
                     {% if field.name != "Patient_name" and field.name != "Patient_surname" and field.name != "Date" and field.name != "Date_birth" and field.name != "Time"%}
-                        <!-- <p>{{ field.label}}{{ field|as_crispy_field }}</p> -->
                         <p>{{ field|as_crispy_field }}</p>
                     {% endif %}
+                {% endfor %} -->
+
+                {% with '"estim_time", "Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time", "mainInterventionID"' as list %}
+                {% for field in form1 %}
+                    {% if field.name not in list %}
+                        <!-- <p>{{ field.label}}{{ field|as_crispy_field }}</p> -->
+                        <p>{{ field|as_crispy_field }}</p>
+                        {% if field.name == "bystanderAEDTime" %}
+                        
+                        <input type="time" step="1">
+                        {% endif %}
+                      
+                    {% endif %}
                 {% endfor %}
+                {% endwith %}
+
             <input type="submit" class="btn btn-primary" value="Submit">
         </form>
         <!-- </div> -->

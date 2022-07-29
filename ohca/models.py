@@ -146,7 +146,7 @@ class CaseReport(models.Model):
     ecgBLOB = models.FileField(null = True, blank = True)
     targetBP = models.DecimalField(max_digits = 10, decimal_places = 5, null = True, blank = True, validators=[MinValueValidator(-1)])
     survived = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
-    rosc = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
+    rosc = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
     roscTime = models.BigIntegerField(null = True, blank = True)
     roscTimestamp = models.DateTimeField(null = True, blank = True)
 
