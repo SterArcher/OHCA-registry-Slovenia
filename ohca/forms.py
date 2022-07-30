@@ -29,11 +29,11 @@ first_form = [
 	'gbystnader', 'ageBystander', 
 	#'responseTime', 'defibTime', -> se zračuna iz podatka o callTimestampu, namesto tega:
 	"responseTimestamp", 
-	'cPRbystander3Timestamp', #'cPRbystander3Time'
-	'helperCPR', 'helperWho', #'persCPRstart', -> polje za dodat v models
+	#'cPRbystander3Timestamp', #'cPRbystander3Time'
+	'helperCPR', 'helperWho', 'persCPRstart', #-> polje za dodat v models
 	'cPRhelper3Timestamp', #'cPRhelper3Time',
 	'endCPR4Timestamp',
-	'defiOrig', #'AEDShock', 
+	'defiOrig', 'AEDshock', 
 	'defibTimestamp', 
 	'shocks',
 	'cprEms', 
@@ -348,6 +348,7 @@ class MyThirdNewFrom(forms.ModelForm):
 	Date_birth = forms.DateField(label='Datum rojstva', widget=DatePickerInput)
 	estim_time = forms.BooleanField(label="Označite, če je čas srčnega zastoja le ocenjen.", widget=forms.CheckboxInput(), required=False)
 	Date_of_hospital_discharge = forms.DateField(label='Datum odpusta iz bolnišnice', widget=DatePickerInput, required=False)
+	estim_age = forms.BooleanField(label="Označite, če je starost očividca le ocenjena.", widget=forms.CheckboxInput(), required=False)
 
 	# poskus = forms.DateTimeField(label="poskus", widget=DateTimeSelector)
 
