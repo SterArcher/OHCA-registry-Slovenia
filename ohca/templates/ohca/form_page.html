@@ -156,15 +156,20 @@
                 
                 <!-- <input type="time" step="1"> -->
 
-                {% with '"gender", "estim_time", "Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
+                {% with '"estim_age", "All_drugs", "gender", "estim_time", "Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
                 {% for field in form1 %}
                     {% if field.name not in list %}
                         <!-- <p>{{ field.label}}{{ field|as_crispy_field }}</p> -->
-                        <p>{{ field|as_crispy_field }}</p>
-                        {% if field.name == "bystanderAEDTime" %}
                         
-                        <input type="time" step="1">
-                        {% endif %}
+                        {% if field.name == "drugTimingsTimestamp" %}
+                          <p>{{ form1.All_drugs|as_crispy_field }}</p>
+                          <p>{{ form1.drugTimingsTimestamp|as_crispy_field }}</p>
+                        {% elif field.name == "ageBystander" %}
+                        <p>{{ form1.ageBystander|as_crispy_field }}</p>
+                          <p>{{ form1.estim_age|as_crispy_field }}</p>
+                          {% else %}
+                        <p>{{ field|as_crispy_field }}</p>                        
+                          {% endif %}
                       
                     {% endif %}
                 {% endfor %}

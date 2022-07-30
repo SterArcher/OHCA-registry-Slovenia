@@ -203,6 +203,7 @@
                 "0": "Ne",
                 "1": "Da"
             },
+            "form": "day1",
             "core": true
         },
         "diedOnField" : {
@@ -459,7 +460,7 @@
         "drugTimings": {
             "title": "Čas do aplikacije zdravil",
             "source": "Zdravila - adrenalin, amiodaron, glukoza, razno (proočilo o nujnem reševalnem prevozu)",
-            "description": "JSON, kot opisan",
+            "description": "",
             "core": false
         },
         "drugTimingsTimestamp" : {
@@ -467,7 +468,8 @@
             "values" : {
                 "null" :"Ni zapisa",
                 "hh:mm:ss" : "čas"
-            }
+            },
+            "form": "day1"
         },
         "vascularAccess": {
             "title": "Žilni pristopi",
@@ -621,7 +623,7 @@
             "from": "Utstein2015",
             "form": "day30",
             "source": "Bolnišnice",
-            "description": "JSON, kot opisan",
+            "description": "",
             "core": false
         },
         "specialistHospital": {
@@ -897,7 +899,7 @@
             "from": "Utstein2015",
             "form": "day30",
             "source": "/",
-            "description": "JSON, kot opisan",
+            "description": "",
             "core": false
         },
         "reaLand": {
@@ -911,14 +913,17 @@
             "core": false
         },
         "reaConf": {
-            "title": "Srčni zastoj potrjen",
+            "title": "Potrjen srčni zastoj s strani NMP",
+            "source": "(protokol predbolnišničnega oživljanja)",
+            "from": "EuReCa3",
+            "form": "day1",
             "values": {
-                "null": "Ni zabeleženo",
+                "null": "Ni zapisa",
                 "-1": "Neznano",
-                "0": "Da",
-                "1": "Ne"
+                "0": "Ne",
+                "1": "Da"
             },
-            "core": false
+            "core": true
         },
         "cprEms": {
             "title": "Ali je NMP izvajal oživljanje?",
@@ -927,8 +932,8 @@
             "values": {
                 "null": "Ni zabeleženo",
                 "-1": "Neznano",
-                "0": "Da",
-                "1": "Ne"
+                "0": "Ne",
+                "1": "Da"
             },
             "core": false
         },
@@ -1052,7 +1057,7 @@
         },
         "ageBystander": {
             "title": "Starost očividca",
-            "description": "Starost očividca v XXX formi",
+            "description": "Vpišite tudi v primeru, če je starost le ocenjena.",
             "from": "EuReCa3",
             "form": "day1",
             "core": false

@@ -134,6 +134,13 @@ def calculate_time(date1, time1, date2, time2):
     date1 = date1.split("-")
     date2 = date2.split("-")
 
+    if "+" in time1:
+        time1 = time1[:time1.find("+")]
+    if "+" in time2:
+        time2 = time2[:time2.find("+")]
+
+    print((time1, time2))
+
     time1 = time1.split(":")
     time2 = time2.split(":")
 
@@ -219,12 +226,13 @@ def form_name_view(request):
             ca_time = form1.cleaned_data["Time"]
             estim = form1.cleaned_data["estim_time"]
             print((str(ca_date), ca_time, estim))#
-            izracunana_polja.append(("CAtimestamp", str(ca_date) + " " + str(ca_time)))
-            # izracunana_polja.append(())
-            if estim:
-                izracunana_polja.append(("estimatedCAtimestamp", 1))
-            else:
-                izracunana_polja.append(("estimatedCAtimestamp", 0))
+            
+            if ca_time != None:
+                izracunana_polja.append(("CAtimestamp", str(ca_date) + " " + str(ca_time)))
+                if estim:
+                    izracunana_polja.append(("estimatedCAtimestamp", 1))
+                else:
+                    izracunana_polja.append(("estimatedCAtimestamp", 0))
             # form1.instance.dispatchID = generate_dispatch_id(form1.cleaned_data['interventionID'], ca_date)
             # form1.instance.dispatchID = generate_dispatch_id(str(intID), str(ca_date))
 
@@ -244,6 +252,26 @@ def form_name_view(request):
                 # form1.instance.drugs = sum
                 izracunana_polja.append(("drugs", sum))
 
+            bage = form1.cleaned_data["ageBystander"]
+            estim_bage = form1.cleaned_data["estim_age"]
+            
+            print((bage, estim_bage))
+            
+            if bage != None:
+                izracunana_polja.append(("ageBystander", bage))
+                if estim_bage:
+                    print("tle")
+                    print(estim_bage)
+                    izracunana_polja.append(("estimatedAgeBystander", 1))
+                else:
+                    print("suda")
+                    izracunana_polja.append(("estimatedAgeBystander", 0))
+            
+            # if ca_time != None:
+            #     if estim:
+            #         izracunana_polja.append(("estimatedCAtimestamp", 1))
+            #     else:
+            #         izracunana_polja.append(("estimatedCAtimestamp", 0))
            
             # form1.instance.reaLand = "Slovenia"
             # form1.instance.reaRegion = str(form1.cleaned_data["localID"])
@@ -270,14 +298,26 @@ def form_name_view(request):
             # samodejno morajo biti poračunane:
             # exclude = ("age", "gender", 'responseTime', 'defibTime','reaTime', 'timeTCPR', 'cPRhelper3Time', 'endCPR4Timestamp', 'leftScene5Time', 'leftScene5Timestamp', 'hospitalArrival6Time',)
             
-            izracunana_polja.append(("timestampROSC", form1.cleaned_data["roscTimestamp"]))
+            # izracunana_polja.append(("timestampROSC", form1.cleaned_data["roscTimestamp"]))
 
             # izracunana_polja.append("estimatedAgeBystander", form1.cleaned_data)
 
+            # field_dict = dict()
+            # for elt in first_form[2:]:
+            #     if form1.cleaned_data[field] != None:
+            #         field_dict[field] = form1.cleaned_data[field]
+
+            field_dict = dict([(field, form1.cleaned_data[field]) for field in first_form[2:]] + izracunana_polja)
+            new_field_dict = dict() #dict(filter(lambda val: val[0] != None, field_dict.items()))
+            for elt in field_dict:
+                if field_dict[elt] != None:
+                    new_field_dict[elt] = field_dict[elt]
+
             print(izracunana_polja)
+            print(new_field_dict)
             CaseReport.objects.update_or_create(
                 caseID=id, 
-                defaults=dict([(field, form1.cleaned_data[field]) for field in first_form[2:]] + izracunana_polja)
+                defaults=new_field_dict #dict([(field, form1.cleaned_data[field]) for field in first_form[2:]] + izracunana_polja)
                 #+ [('dispatchID', generate_dispatch_id(str(intID), str(ca_date)))])
             ) # update, create
 
@@ -314,7 +354,7 @@ def second_first_form_name_view(request):
 
             id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
             
-            
+            izracunana_polja = []
             T = dict()
             for t in timestamps:
                 # T[elt] = str(form2.cleaned_data[elt])
@@ -322,14 +362,17 @@ def second_first_form_name_view(request):
                 # if t != ['None']:
                     # print(timestamp)
                 timestamp = str(form2.cleaned_data[t])
+                
                 print(timestamp)
                 if str(timestamp) != 'None':
+                    izracunana_polja.append((t, timestamp))
                     timestamp = timestamp.split(" ")
                     timestampDate = timestamp[0]
-                    if "+" in timestamp[1]:
-                        timestampTime = timestamp[1][:timestamp[1].find("+")]
-                    else:
-                        timestampTime = timestamp[1]
+                    # if "+" in timestamp[1]:
+                    #     timestampTime = timestamp[1][:timestamp[1].find("+")]
+                    # else:
+                    #     timestampTime = timestamp[1]
+                    timestampTime = timestamp[1]
                     print(timestamp)
                     T[t] = (timestampDate, timestampTime)
 
@@ -339,22 +382,24 @@ def second_first_form_name_view(request):
             # print(bystanderResponseTimestamp)
             # print(bystanderAEDTimestamp)
 
-            izracunana_polja = []
+            
 
             # print(callTime)
             callTime = str(form2.cleaned_data["callTimestamp"])
             izracunana_polja.append(("callTimestamp", callTime))
+            print(callTime)
             # izracunana_polja.append(("CAtimestamp", form1.cleaned_data["CAtimestamp"]))
             # print(T)
             if callTime != None:
                 callTime = str(callTime).split(" ")
                 print("calltime: " + str(callTime))
                 callDate = callTime[0]
-                if "+" in callTime[1]:
-                    callTimestamp = callTime[1][:callTime[1].find("+")]
-                else:
-                    callTimestamp = callTime[1]
-                # print((callTime, callDate))
+                # if "+" in callTime[1]:
+                #     callTimestamp = callTime[1][:callTime[1].find("+")]
+                # else:
+                #     callTimestamp = callTime[1]
+                callTimestamp = callTime[1]
+                print((callTime, callDate))
             
             # if callTime != None:
                 for key in T:
@@ -436,7 +481,7 @@ def second_form_name_view(request):
                 form1.instance.dischDay = day_difference(date, disch_date)
 
             print((date, date_birth))
-            if disch_date:
+            if disch_date != None:
                 disch_date = disch_date.split("-")
                 izracunana_polja.append(("dischYear", disch_date[0]))
                 izracunana_polja.append(("dischMonth", disch_date[1]))
