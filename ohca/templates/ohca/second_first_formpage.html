@@ -92,7 +92,10 @@
                 <p>{{form1.Patient_name|as_crispy_field}}</p>
                 <p>{{form1.Patient_surname|as_crispy_field}}</p>
                 <p>{{form1.Date_birth|as_crispy_field}}</p>
+                <p>{{form1.gender|as_crispy_field}}</p>
                 <p>{{form1.Date|as_crispy_field}}</p>
+                <p>{{form1.Time|as_crispy_field}}</p>
+                <p>{{form1.estim_time|as_crispy_field}}</p>
                 <p>{{form1.localID|as_crispy_field}}</p>
                 <p>{{form1.systemID|as_crispy_field}}</p>
                 
@@ -105,20 +108,26 @@
                   {% endif %}
                   {% endfor %}
 
-                {% with '"estim_time", "localID", "systemID", "Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
+                {% with '"cPRhelper3Timestamp", "endCPR4Timestamp", "defibTimestamp", "drugTimingsTimestamp", "roscTimestamp", "leftScene5Timestamp", "hospitalArrival6Timestamp"' as timestamps %}
+                {% with '"estim_age", "All_drugs", "drugs","estim_time", "localID", "systemID", "Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
                 {% for field in form1 %}
                     {% if field.name not in list %}
-                        <!-- <p>{{ field.label}}{{ field|as_crispy_field }}</p> -->
-                        <p>{{ field|as_crispy_field }}</p>
-                        {% if field.name == "bystanderAEDTime" %}
-                        
-                        <input type="time" step="1">
-                        {% endif %}
-                      
+                    {% if field.name not in timestamps %}
+                    {% if field.name == "drugTimingsTimestamp" %}
+                    <p>{{ form1.All_drugs|as_crispy_field }}</p>
+                    <p>{{ form1.drugTimingsTimestamp|as_crispy_field }}</p>
+                  {% elif field.name == "ageBystander" %}
+                  <p>{{ form1.ageBystander|as_crispy_field }}</p>
+                    <p>{{ form1.estim_age|as_crispy_field }}</p>
+                    {% else %}
+                  <p>{{ field|as_crispy_field }}</p>                        
                     {% endif %}
-                {% endfor %}
-                {% endwith %}
-
+                
+              {% endif %}
+              {% endif %}
+          {% endfor %}
+          {% endwith %}
+          {% endwith %}
                 <!-- <form action="#"> -->
                 
             <input type="submit" class="btn btn-dark" value="Submit">

@@ -108,7 +108,7 @@ second_form = [
 	'cpcDischarge', 
 	'hospDisc', 
 	'treatmentWithdrawn', 
-	'treatmentWithdrawnhours', 
+	# 'treatmentWithdrawnhours', 
 	'treatmentWithdrawnTimestamp', 
 	'cod', 
 	'organDonation', 
@@ -156,15 +156,15 @@ timestamp_dict = {
 timestamps = [
 	'callTimestamp', 
 	'CAtimestamp', 
-	'cPRhelper3Timestamp',
-	'endCPR4Timestamp', 
+	'cPRhelper3Timestamp', #-
+	'endCPR4Timestamp', #-
 	# 'bystanderResponseTimestamp', 
 	'bystanderAEDTimestamp', 
 	'responseTimestamp', 
-	'defibTimestamp', 
-	'drugTimingsTimestamp', 
+	'defibTimestamp', #-
+	'drugTimingsTimestamp', #- 
 	'reperfusionTimestamp', 
-	'roscTimestamp',
+	'roscTimestamp', #-
 	 'treatmentWithdrawnTimestamp', 
 	#'cPREMS3Timestamp', 
 	#'reaTimestamp', 
@@ -173,8 +173,8 @@ timestamps = [
 	 
 	#'timestampROSC', 
 	
-	'leftScene5Timestamp', 
-	'hospitalArrival6Timestamp']
+	'leftScene5Timestamp', #-
+	'hospitalArrival6Timestamp']#-]
 
 all_form = first_form + second_form + ["interventionID", "mainInterventionID"]
 
@@ -226,10 +226,16 @@ def create_widgets(values, timestamps):
 	return w
 
 
+cods = list(ICD.objects.all())
+icd_choices = [(0, "Izberite")]
+for elt in cods:
+	icd_choices.append((elt.code, str(elt.code) + " - " + str(elt.slovenian)))
+
 w = create_widgets(values, timestamps) #
 w["ecgBLOB"] = forms.FileInput(attrs={"class" : "form-control", "type" : "file"})
-w["estimatedAgeBystander"] = forms.CheckboxInput
-w["estimatedCAtimestamp"] = forms.CheckboxInput
+# w["estimatedAgeBystander"] = forms.CheckboxInput
+# w["estimatedCAtimestamp"] = forms.CheckboxInput
+w["cod"] = forms.Select(choices=icd_choices)
 # w["drugs"] = forms.MultipleChoiceField(label="Aplicirana zdravila",widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
 
 # ========================================== FORMS ================================================================================
