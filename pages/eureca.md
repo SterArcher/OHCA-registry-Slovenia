@@ -55,15 +55,15 @@ Na v obrazcu vpisan mail boste prejeli povezavo do enkriptiranega odložišča. 
 Za namestitev sledite spodnjim korakom:
 1. Odpremo shranjeno datoteko “SiOHCA VPN.zip”
 2. Vse datoteke v ZIP arhivu ekstrahiramo v enako mapo z orodjem po izbiri (na sliki prikazana Drag&Drop metoda z uporabo Windows Explorer-ja):
-![ekstrahiranje podatkov](assets/img/EuReCa/ekstrahiranje.png)
+![ekstrahiranje podatkov](https://siohca.um.si/assets/img/EuReCa/ekstrahiranje.png)
 3. V mapi, kamor smo ekstrahirali datoteke, zaženemo program “SiOHCA VPN.exe”:
-![prikaz po ekstrahiranju](assets/img/EuReCa/ekstrahirano.png)
+![prikaz po ekstrahiranju](https://siohca.um.si/assets/img/EuReCa/ekstrahirano.png)
 4.	Odpre se pojavno okno s prošnjo za administratorske pravice, ki jih za pravilno delovanje programa moramo odobriti:
-![odobritev administratorskih pravic](assets/img/EuReCa/admin.png)
+![odobritev administratorskih pravic](https://siohca.um.si/assets/img/EuReCa/admin.png)
 5.	Pojavi se program za namestitev VPN omrežja in nas prosi za geslo certfikata. Geslo VTIPKAJTE in ne kopirajte, saj bo kopiranje povzročilo napako! Po vtipkanem geslu pritisnite tipko ENTER:
-![geslo certifikata](assets/img/EuReCa/geslo.png)
+![geslo certifikata](https://siohca.um.si/assets/img/EuReCa/geslo.png)
 6.	Počakajte nekaj sekund, da se namestitev zaključi. Namestitev je uspešna, če se v oknu izpiše podobno besedilo:
-![zakljucek](assets/img/EuReCa/zakljucek.png)
+![zakljucek](https://siohca.um.si/assets/img/EuReCa/zakljucek.png)
 7.	Po uspešni namestitvi vam svetujemo, da vse ekstrahirane datoteke zbrišete z računalnika.
 
 ### Operacijski sistem Apple
