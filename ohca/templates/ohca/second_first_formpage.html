@@ -109,7 +109,7 @@
                   {% endfor %}
 
                 {% with '"cPRhelper3Timestamp", "endCPR4Timestamp", "defibTimestamp", "drugTimingsTimestamp", "roscTimestamp", "leftScene5Timestamp", "hospitalArrival6Timestamp"' as timestamps %}
-                {% with '"estim_age", "All_drugs", "drugs","estim_time", "localID", "systemID", "Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
+                {% with '"gender", "estim_age", "All_drugs", "drugs","estim_time", "localID", "systemID", "Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
                 {% for field in form1 %}
                     {% if field.name not in list %}
                     {% if field.name not in timestamps %}
