@@ -15,6 +15,8 @@ This subpage is in Slovenian language and is intended for use by Slovenian healt
 | mail za podporo | luka.petravic@student.um.si  |
 | link do baze| https://local.siohca.um.si  |
 |link za vpis podatkov| http://test-api.siohca.local/formpage  |
+
+⚠️Napovedano vzdrževanje serverja v ponedeljek od 13.00 ure naprej, uporabniki bodo morda izkusili težave pri povezovanju⚠️
 ___
 - [Kaj je SiOHCA](#kaj-je-siohca)
 - [Kaj je EuReCa 3](#kaj-je-eureca-3)
