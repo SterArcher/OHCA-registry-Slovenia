@@ -15,8 +15,6 @@ This subpage is in Slovenian language and is intended for use by Slovenian healt
 | mail za podporo | luka.petravic@student.um.si  |
 | link do baze| https://local.siohca.um.si  |
 |link za vpis podatkov| http://test-api.siohca.local/formpage  |
-
-⚠️Napovedano vzdrževanje serverja v ponedeljek od 13.00 ure naprej, uporabniki bodo morda izkusili težave pri povezovanju⚠️
 ___
 - [Kaj je SiOHCA](#kaj-je-siohca)
 - [Kaj je EuReCa 3](#kaj-je-eureca-3)
@@ -25,6 +23,9 @@ ___
   - [Namestitev VPN](#namestitev-vpn)
     - [Operacijski sistem Windows](#operacijski-sistem-windows)
     - [Operacijski sistem Apple](#operacijski-sistem-apple)
+      - [Kako namestiti VPN certifikat?](#kako-namestiti-vpn-certifikat)
+      - [Kako aktivirati VPN?](#kako-aktivirati-vpn)
+      - [Kako dodati bližnjico do nastavitev za VPN v zgornjo vrstico operacijskega sistema?](#kako-dodati-bližnjico-do-nastavitev-za-vpn-v-zgornjo-vrstico-operacijskega-sistema)
     - [Drugi operacijski sistemi](#drugi-operacijski-sistemi)
   - [Vpisovanje podatkov](#vpisovanje-podatkov)
     - [Ročno](#ročno)
@@ -56,25 +57,91 @@ Na v obrazcu vpisan mail boste prejeli povezavo do enkriptiranega odložišča. 
 
 Za namestitev sledite spodnjim korakom:
 1. Odpremo shranjeno datoteko “SiOHCA VPN.zip”
+   
 2. Vse datoteke v ZIP arhivu ekstrahiramo v enako mapo z orodjem po izbiri (na sliki prikazana Drag&Drop metoda z uporabo Windows Explorer-ja):
-![ekstrahiranje podatkov](https://siohca.um.si/assets/img/EuReCa/ekstrahiranje.png)
+   
+![ekstrahiranje podatkov](https://siohca.um.si/assets/windows/img/EuReCa/ekstrahiranje.png)
+
 3. V mapi, kamor smo ekstrahirali datoteke, zaženemo program “SiOHCA VPN.exe”:
-![prikaz po ekstrahiranju](https://siohca.um.si/assets/img/EuReCa/ekstrahirano.png)
+   
+![prikaz po ekstrahiranju](https://siohca.um.si/assets/windows/img/EuReCa/ekstrahirano.png)
+
 4.	Odpre se pojavno okno s prošnjo za administratorske pravice, ki jih za pravilno delovanje programa moramo odobriti:
-![odobritev administratorskih pravic](https://siohca.um.si/assets/img/EuReCa/admin.png)
+
+![odobritev administratorskih pravic](https://siohca.um.si/assets/windows/img/EuReCa/admin.png)
+
 5.	Pojavi se program za namestitev VPN omrežja in nas prosi za geslo certfikata. Geslo VTIPKAJTE in ne kopirajte, saj bo kopiranje povzročilo napako! Po vtipkanem geslu pritisnite tipko ENTER:
-![geslo certifikata](https://siohca.um.si/assets/img/EuReCa/geslo.png)
+
+![geslo certifikata](https://siohca.um.si/assets/windows/img/EuReCa/geslo.png)
+
 6.	Počakajte nekaj sekund, da se namestitev zaključi. Namestitev je uspešna, če se v oknu izpiše podobno besedilo:
-![zakljucek](https://siohca.um.si/assets/img/EuReCa/zakljucek.png)
+
+![zakljucek](https://siohca.um.si/assets/windows/img/EuReCa/zakljucek.png)
+
 7.	Po uspešni namestitvi vam svetujemo, da vse ekstrahirane datoteke zbrišete z računalnika.
 
 ### Operacijski sistem Apple
 Na v obrazcu vpisan mail boste prejeli povezavo do enkriptiranega odložišča. Zraven povezave je priložena tudi koda za dekodiranje datotek na povezavi in geslo certifikata.
 
+#### Kako namestiti VPN certifikat?
 Za namestitev sledite spodnjim korakom:
-1. Odpremo shranjeno datoteko “SiOHCA VPN.zip”
-2. Vtipkajte geslo certifikata.
+1. Odprite .mobileconfig datoteko tako, da nanjo dvakrat kliknete:
 
+![.mobileconfig datoteka](https://siohca.um.si/assets/img/EuReCa/ios/odprtje_config.png)
+
+2. Sistem vas obvesti, da je certifikat potrebno potrditi v nastavitvah:
+
+![obvestilo sistema](https://siohca.um.si/assets/img/EuReCa/ios/obvestilo_sistema.png)
+
+3. Odprite **System Preferences**:
+   
+![nastavitve](https://siohca.um.si/assets/img/EuReCa/ios/nastavitve.png)
+
+4.	Izberite **Profiles**:
+
+![Profiles](https://siohca.um.si/assets/img/EuReCa/ios/profiles.png)
+
+5.	Z rdečim napisom **Unverified** vas sistem obvesti, da certifikat še ni dokončno naložen. Klikinte »**Install...**«:
+
+![instalacija](https://siohca.um.si/assets/img/EuReCa/ios/instalacija.png)
+
+6.	Izberite možnost **Continue**:
+
+![nadaljevanje instalacije](https://siohca.um.si/assets/img/EuReCa/ios/nadaljevanje_instalacije.png)
+
+7.	Vnesite geslo in vnos potrdite s klikom na **Install**:
+
+![vnos gesla](https://siohca.um.si/assets/img/EuReCa/ios/geslo.png)
+
+8.	Zelen napis Verified je potrditev, da je bil certifikat uspešno nameščen:
+
+![oznaka verified](https://siohca.um.si/assets/img/EuReCa/ios/verified.png)
+
+#### Kako aktivirati VPN?
+1.	V **System Preferences** izberite **Network**:
+
+![Network](https://siohca.um.si/assets/img/EuReCa/ios/network.png)
+
+2.	V levem stolpcu izberite **SiOHCA**, na desni strani pa klikinte **Connect**:
+
+![siohca netwrok](https://siohca.um.si/assets/img/EuReCa/ios/siohca_network.png)
+
+3. **Status: Connected** je znak, da je bila povezava uspešna:
+
+![status connected](https://siohca.um.si/assets/img/EuReCa/ios/connected.png)
+
+#### Kako dodati bližnjico do nastavitev za VPN v zgornjo vrstico operacijskega sistema?
+1. V **System Preferences** izberite **Network**:
+
+![Network](https://siohca.um.si/assets/img/EuReCa/ios/network.png)
+
+2. V levem stolpcu izberite **SiOHCA**. Obkljukajte »**Show VPN status in menu bar.**«:
+
+![show VPN status](https://siohca.um.si/assets/img/EuReCa/ios/siohca_network.png)
+
+3.	Sedaj je bližnjica za aktivacijo VPN na voljo v opravilni vrstici:
+
+![bliznjica](https://siohca.um.si/assets/img/EuReCa/ios/bliznjica.png)
 
 ### Drugi operacijski sistemi
 Če uporabljate drug operacijski sistem, pišite na [luka.petravic@student.um.si](mailto:luka.petravic@student.um.si). Z veseljem vam bomo pomagali.
