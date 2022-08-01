@@ -170,7 +170,7 @@ Za dostop do podatkov je potrebno imeti nameščen in aktiviran VPN.
 ### Analiziranje
 Za dostop do podatkov uporabljamo [MetaBase](https://www.metabase.com). Zaradi omejitve financ projekta uporabljamo osnovno verzijo. Vseeno je funkcionalnosti za analiziranje podatkov ogromno.
 
-Uporabniški vmesnik je preprost in prijazen do uporabnika. V angleščini pa so na voljo tudi uporabna navodila, do njih lahko dostopate preko povezave [**tukaj**](https://www.metabase.com).
+Uporabniški vmesnik je preprost in prijazen do uporabnika. V angleščini pa so na voljo tudi uporabna navodila, do njih lahko dostopate preko povezave [**tukaj**](https://www.metabase.com/docs/latest/).
 
 ### Izvoz
 Podatki, ki jih zbirate so zmeraj na voljo za prenos. Odločite se lahko, da prenesete samo podatke povezane z vašimi vprašanji, glej [analiziranje](#Analiziranje).
