@@ -99,10 +99,12 @@ class index(TemplateView):
 
 # ==================== FOR AUTO FORM ============================================
 
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from . import forms
 from ohca.forms import *
 from ohca.models import CaseReport, System, Locale
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 def calculate_age(birth, cardiac_arrest):
     """Calculates age from date of birth.
@@ -187,7 +189,9 @@ def form_name_view(request):
         print(form1.errors)
 
         if form2.is_valid() and form1.is_valid(): 
-            
+
+            messages.success(request, 'Podatki uspešno oddani!')
+
             print("VALIDATION SUCCESS")
 
             izracunana_polja = []
@@ -324,10 +328,11 @@ def form_name_view(request):
             # to save into database:
             # form1.save()
             # return index(request) # to mi neke errorje vrača, not sure why 
-
             
         else:
             print("form invalid")
+            messages.error(request, 'Nepravilno izpolnjen obrazec.')
+            messages.error(request, form1.errors)
     else:
         form1 = MyNewFrom() 
         form2 = InterventionForm()
@@ -346,6 +351,8 @@ def second_first_form_name_view(request):
 
         if form1.is_valid() and form2.is_valid():
             print("VALIDATION SUCCESS")
+
+            messages.success(request, 'Podatki uspešno oddani!')
 
             first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
             last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
@@ -434,6 +441,8 @@ def second_first_form_name_view(request):
             )
         else:
             print("form invalid")
+            messages.error(request, 'Nepravilno izpolnjen obrazec.')
+            messages.error(request, form1.errors)
     else:
         form1 = MyNewFrom() 
         form2 = TimestampForm()
@@ -453,6 +462,8 @@ def second_form_name_view(request):
         if form1.is_valid() and form2.is_valid(): 
             
             print("VALIDATION SUCCESS")
+
+            messages.success(request, 'Podatki uspešno oddani!')
 
             izracunana_polja = []
 
@@ -519,6 +530,8 @@ def second_form_name_view(request):
             # return index(request) # to mi neke errorje vrača, not sure why 
         else:
             print("form invalid")
+            messages.error(request, 'Nepravilno izpolnjen obrazec.')
+            messages.error(request, form1.errors)
     else:
         form1 = MySecondNewFrom() 
         form2 = InterventionForm()
@@ -539,6 +552,8 @@ def third_form_name_view(request):
         if form1.is_valid() and form2.is_valid(): 
 
             print("VALIDATION SUCCESS")
+
+            messages.success(request, 'Podatki uspešno oddani!')
 
             izracunana_polja = []
 
@@ -729,6 +744,8 @@ def third_form_name_view(request):
             # return index(request) # to mi neke errorje vrača, not sure why 
         else:
             print("form invalid")
+            messages.error(request, 'Nepravilno izpolnjen obrazec.')
+            messages.error(request, form1.errors)
     else:
         form1 = MyThirdNewFrom() 
         form2 = InterventionForm()
@@ -750,6 +767,8 @@ def second_third_form_name_view(request):
         if form1.is_valid() and form2.is_valid(): 
 
             print("VALIDATION SUCCESS")
+
+            messages.success(request, 'Podatki uspešno oddani!')
 
             izracunana_polja = []
 
@@ -971,6 +990,8 @@ def second_third_form_name_view(request):
             # return index(request) # to mi neke errorje vrača, not sure why 
         else:
             print("form invalid")
+            messages.error(request, 'Nepravilno izpolnjen obrazec.')
+            messages.error(request, form1.errors)
     else:
         form1 = MyThirdNewFrom() 
         form2 = TimestampForm()

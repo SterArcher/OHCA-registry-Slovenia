@@ -78,7 +78,19 @@
              <form method="POST">
                  <h2 style="font-weight: 500;">Izpolnite podatke o dogodku</h1>
                  {% csrf_token %}
-
+                 
+                 <!-- -------submit message-------- -->
+                 {% if messages %}
+                  {% for message in messages %}
+                    <div class="alert alert-dismissible alert-success">
+                      <button type="button" class="close" data-dismiss="alert">
+                      x
+                      </button>
+                      <strong>{{message}}</strong>
+                    </div>
+                  {% endfor %}
+                 {% endif %}
+                  <!-- -------submit message-------- -->
 
                  <p> </p>
                 <p> </p>

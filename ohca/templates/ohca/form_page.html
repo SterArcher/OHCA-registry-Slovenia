@@ -76,7 +76,20 @@
           <div class="container" style="font-family: 'Inter';font-weight: 300; width: 50%; padding: 50px; margin-top: 7px; margin-bottom: 50px; border-radius: 25px; background-color:white; box-shadow: 0 0 10px 1px rgba(61, 60, 134, 0.637);" >
             <!-- <div class="vertical-center"> -->
               {% block content %}
-          
+              
+              <!-- -------submit message-------- -->
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="close" data-dismiss="alert">
+                    x
+                    </button>
+                    <strong>{{message}}</strong>
+                  </div>
+                {% endfor %}
+              {% endif %}
+              <!-- -------submit message-------- -->
+
               <h2 style="font-weight: 500;">Izpolnite podatke o dogodku</h2>
 
                 <form method="POST" action="" id="form2">
