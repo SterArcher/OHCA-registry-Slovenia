@@ -2,10 +2,9 @@ from dis import dis
 from sys import prefix
 from rest_framework.response import Response
 from .functions import *
-import random
+import random, time
 from datetime import date, datetime
 import datetime
-import time
 from .auxiliary import timestamps
 from .forms import timestamp_dict
 
@@ -172,7 +171,20 @@ def day_difference(date1, date2):
 
     return int(diff.days)
 
+# ================== FOR UPLOADING DSZ DATA DUMPS ===================================
 
+def dsz(request):
+    if request.method == 'POST':
+        uploaded_file = request.FILES['document'].read().decode('utf-8-sig').replace('\r', '').replace('\n\n', '\n').split('\n')
+        dataJson = dispatchDataParse(uploaded_file)
+        result = None
+        for block in dataJson:
+            result = to_CaseReport(block, 'dispatchID')
+        if result:
+            messages.success(request, 'Podatki uspešno oddani!')
+        else:
+            messages.error(request, "Napaka pri obdelavi podatkov!")     
+    return render(request, 'ohca/dsz.html')
 
 # ================== FORMS ==========================================================
 
@@ -196,8 +208,8 @@ def form_name_view(request):
 
             izracunana_polja = []
 
-            f = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',] #
-            intID = '' 
+            f = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12'] 
+            intID = '' #
             for field in f:
                 intID += str(form2.cleaned_data[field])
             print(intID)
@@ -210,9 +222,9 @@ def form_name_view(request):
             date = str(form1.cleaned_data['Date'])
             date_birth = str(form1.cleaned_data["Date_birth"])
 
-            id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
-            # form1.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
-            # form1.instance.age = calculate_age(date_birth, date)
+            id = generate_case_id(" ".join(first_name), " ".join(last_name), date, date_birth)
+            form1.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
+            form1.instance.age = calculate_age(date_birth, date)
 
             
             calculated_age = calculate_age(date_birth, date)
@@ -505,7 +517,7 @@ def second_form_name_view(request):
             izracunana_polja.append(("localID", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])[0]))
             izracunana_polja.append(("systemID", System.objects.all().filter(friendlyName__exact=form1.cleaned_data["systemID"])[0]))
            
-            id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
+            id = generate_case_id(" ".join(first_name), " ".join(last_name), date, date_birth)
             CaseReport.objects.update_or_create(
                 caseID=id, 
                 defaults=dict([(field, form1.cleaned_data[field]) for field in second_form[2:]]+ izracunana_polja)

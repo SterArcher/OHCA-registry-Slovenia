@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('download/', views.download),
     path('summary/', index.as_view()),
+    path('dsz/', views.dsz),
     # path('summary2/', views.http_response),
     path('case/id/', views.case_by_id, name='case'),
     path('case/id/multi/', views.case_by_id_multi, name='case_multi'),

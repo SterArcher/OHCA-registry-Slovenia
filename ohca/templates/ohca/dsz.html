@@ -1,0 +1,36 @@
+{% extends 'ohca/form_base.html' %}
+
+{% block content %}
+
+    <!-- -------submit message-------- -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>{{message}}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <!-- -------submit message-------- -->
+
+    <h2 style="text-align:center;">Prenos podatkov DSZ</h2>
+    <div class="text-center" style="padding-top: 20px;">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card text-center container d-table" style="width: 100%; height:50vh;">
+                <div class="card-body file-upload-wrapper d-table-cell align-middle">
+                        <input type="file" id="input-file" class="file-upload" name="document" data-height="500" hidden />
+                        <label for="input-file">
+                            <ion-icon style="font-size: 15vw; color:cornflowerblue;" name="cloud-upload-outline"></ion-icon>
+                        </label>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="margin-top: 20px; width: 100%;">Naloži</button>
+        </form>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+{% endblock %}
