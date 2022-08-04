@@ -1,5 +1,4 @@
 import json
-
   
 def read_values():
     """Reads the json file and returns:
@@ -56,7 +55,5 @@ def read_values():
                 utstein_and_eureca.append(element)
 
     return (values, titles, desc, first_form, second_form, timestamps, utstein, eureca, utstein_and_eureca)
-  
-    # file.close()
 
 (values, titles, descriptions, first_form, second_form, timestamps, utstein, eureca, utstein_and_eureca) = read_values()
