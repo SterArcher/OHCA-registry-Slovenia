@@ -19,10 +19,12 @@
             margin-top: auto !important;
             margin-bottom: auto !important;
             color: white;
+            font-size: 2vh;
         }
         .list-group-item {
             background-color: rgba(0, 0, 0, 0);
             border: 1px solid rgba(255,255,255,.35);
+            min-height: 5vh;
         }
         .list-group-item:hover {
             background-color: rgba(255, 255, 255, 0.22);
@@ -32,7 +34,8 @@
         }
         .card {
             background-color: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255,255,255,.35);
+            border: 0.1vh solid rgba(255,255,255,.35);
+            border-radius: 0.8vh;
         }
         ion-icon {
             font-size: 60px;
@@ -46,24 +49,24 @@
 <body>
     <div class="container text-center mx-auto d-table" style="width:100%; height:100%;">
         <div class="container d-table-cell align-middle">
-            <img src="/static/img/logo-underline.svg" style="height: 15vh; margin-top: 10vh; margin-bottom: 5vh;">
+            <img src="/static/img/logo-underline.svg" style="height: 10vh; max-width: 70vw; margin-top: 10vh; margin-bottom: 5vh;">
 
-            <div class="card mx-auto" style="max-width: 500px;">
+            <div class="card mx-auto" style="max-width: 700px;">
                 <div class="list-group list-group-flush">
-                    <a href="/formpage" class="list-group-item list-group-item-action">
-                        <h5>Dan dogodka (DCZ)</h5>
+                    <a href="/formpage" class="list-group-item list-group-item-action d-table">
+                        <h5 class="d-table-cell align-middle">Dan dogodka (DCZ)</h5>
                     </a>
-                    <a href="/secondfirstformpage" class="list-group-item list-group-item-action">
-                        <h5>Dan dogodka</h5>
+                    <a href="/secondfirstformpage" class="list-group-item list-group-item-action d-table">
+                        <h5 class="d-table-cell align-middle">Dan dogodka</h5>
                     </a>
-                    <a href="/secondformpage" class="list-group-item list-group-item-action">
-                        <h5>30 dni po dogodku</h5>
+                    <a href="/secondformpage" class="list-group-item list-group-item-action d-table">
+                        <h5 class="d-table-cell align-middle">30 dni po dogodku</h5>
                     </a>
-                    <a href="/thirdformpage" class="list-group-item list-group-item-action">
-                        <h5>Retrogradno izpolnjevanje (DCZ)</h5>
+                    <a href="/thirdformpage" class="list-group-item list-group-item-action d-table">
+                        <h5 class="d-table-cell align-middle">Retrogradno izpolnjevanje (DCZ)</h5>
                     </a>
-                    <a href="/secondthirdformpage" class="list-group-item list-group-item-action">
-                        <h5>Retrogradno izpolnjevanje</h5>
+                    <a href="/secondthirdformpage" class="list-group-item list-group-item-action d-table">
+                        <h5 class="d-table-cell align-middle">Retrogradno izpolnjevanje</h5>
                     </a>
                 </div>
             </div>
