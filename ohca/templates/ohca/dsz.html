@@ -19,17 +19,25 @@
             {% csrf_token %}
             <div class="card text-center container d-table" style="width: 100%; height:50vh;">
                 <div class="card-body file-upload-wrapper d-table-cell align-middle">
-                        <input type="file" id="input-file" class="file-upload" name="document" data-height="500" hidden />
-                        <label for="input-file">
-                            <ion-icon style="font-size: 15vw; color:cornflowerblue;" name="cloud-upload-outline"></ion-icon>
-                        </label>
+                    <input type="file" id="input-file" class="file-upload" name="document" data-height="500" hidden />
+                    <label for="input-file">
+                        <ion-icon style="font-size: 15vw; color:#007bff;" name="cloud-upload-outline"></ion-icon>
+                        <header id="file-chosen">Kliknite ikono za izbor datoteke</header>
+                    </label>
                 </div>
             </div>
             
-            <button type="submit" class="btn btn-primary" style="margin-top: 20px; width: 100%;">Naloži</button>
+            <button type="submit" class="btn btn-primary" style="min-height:5vh; margin-top: 20px; width: 100%;">Naloži</button>
         </form>
     </div>
 
+    <script>
+        const inputFileField = document.getElementById('input-file');
+        const fileChosen = document.getElementById('file-chosen');
+        inputFileField.addEventListener('change', function(){
+            fileChosen.textContent = this.files[0].name
+        })
+    </script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
