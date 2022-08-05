@@ -24,6 +24,11 @@ FROM base AS runtime
 RUN apt-get update && apt-get install unixodbc-dev default-libmysqlclient-dev memcached -y --no-install-recommends
 
 # Setup memcached
+RUN echo -d > /etc/memcached.conf
+RUN echo logfile /var/log/memcached.log >> /etc/memcached.conf
+RUN echo -m 64 >> /etc/memcached.conf
+RUN echo -u root >> /etc/memcached.conf
+RUN echo -P /var/run/memcached/memcached.pid >> /etc/memcached.conf
 RUN echo -s /var/run/memcached.sock >> /etc/memcached.conf
 RUN echo -a 660 >> /etc/memcached.conf
 RUN service memcached start
