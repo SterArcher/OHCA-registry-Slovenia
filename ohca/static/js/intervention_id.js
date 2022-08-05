@@ -157,6 +157,7 @@ function handleIDchange() {
     // Handle date change
     if (b3 && b4 && b5 && b6 && b7 && b8) {
         document.getElementById('id_Date').value = year + '-' + month + '-' + day;
+        document.getElementById('id_Date').dispatchEvent(new Event('change'));
     }
     document.getElementById('dateInt').innerHTML = day + '/' + month + '/' + year;
 
