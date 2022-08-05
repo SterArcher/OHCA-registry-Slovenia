@@ -12,7 +12,8 @@
         {% endfor %}
     {% endif %}
     <!-- -------submit message-------- -->
-
+    {% load cache %}
+    {% cache 86400 form4 %}
     <h2 style="font-weight: 500;">Izpolnite podatke o dogodku</h2>
 
     <form method="POST">
@@ -113,4 +114,5 @@
 
         <input type="submit" class="btn btn-primary" value="Submit">
     </form>
+    {% endcache %}
 {% endblock %}

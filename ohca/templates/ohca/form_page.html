@@ -12,7 +12,8 @@
         {% endfor %}
     {% endif %}
     <!-- -------submit message-------- -->
-
+    {% load cache %}
+    {% cache 86400 form1 %}
     <h2 style="font-weight: 500;">Izpolnite podatke o dogodku</h2>
 
     <form method="POST" action="" id="form2">
@@ -90,7 +91,7 @@
         <p>{{form1.estim_time|as_crispy_field}}</p>
           
         <!-- <input type="time" step="1"> -->
-
+        
         {% with '"estim_age", "All_drugs", "gender", "estim_time", "Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
             {% for field in form1 %}
                 {% if field.name not in list %}
@@ -111,5 +112,6 @@
         <!-- <form action="#"> -->
         <input type="submit" class="btn btn-dark" value="Submit">
     </form>
+    {% endcache %}
 
 {% endblock %}
