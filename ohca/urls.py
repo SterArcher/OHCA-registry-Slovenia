@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ohca import views
+from django.views.decorators.cache import cache_page
 
 from ohca.views import index
+
+pageCacheTimeout = 24 * 60 * 60
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,10 +36,10 @@ urlpatterns = [
     path('locale/', views.locale_view, name='locale'),
     # path('autoform/', views.index22),
     # path('', index.as_view())
-    path("", views.new_index, name="index"),
-    path("formpage", views.form_name_view, name="form_name"),
-    path("secondformpage", views.second_form_name_view, name="second_form_name"),
-    path("thirdformpage", views.third_form_name_view, name="third_form_name"),
-    path("secondfirstformpage", views.second_first_form_name_view, name="second_first_formpage"),
-    path("secondthirdformpage", views.second_third_form_name_view, name="second_third_form_name")
+    path("", cache_page(pageCacheTimeout)(views.new_index), name="index"),
+    path("formpage", cache_page(pageCacheTimeout)(views.form_name_view), name="form_name"),
+    path("secondformpage", cache_page(pageCacheTimeout)(views.second_form_name_view), name="second_form_name"),
+    path("thirdformpage", cache_page(pageCacheTimeout)(views.third_form_name_view), name="third_form_name"),
+    path("secondfirstformpage", cache_page(pageCacheTimeout)(views.second_first_form_name_view), name="second_first_formpage"),
+    path("secondthirdformpage", cache_page(pageCacheTimeout)(views.second_third_form_name_view), name="second_third_form_name"),
 ]

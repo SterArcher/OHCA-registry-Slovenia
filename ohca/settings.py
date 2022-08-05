@@ -131,7 +131,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'TIMEOUT': 60,
+        'TIMEOUT': None,
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000
+        }
     }
 }
 
