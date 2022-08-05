@@ -13,6 +13,7 @@ gunicorn = "*"
 mssql-django = "*"
 mysqlclient = "*"
 django-crispy-forms = "*"
+pymemcache = "*"
 
 [requires]
 python_version = "3.8"
