@@ -31,6 +31,7 @@ RUN echo -u root >> /etc/memcached.conf
 RUN echo -P /var/run/memcached/memcached.pid >> /etc/memcached.conf
 RUN echo -s /var/run/memcached.sock >> /etc/memcached.conf
 RUN echo -a 660 >> /etc/memcached.conf
+RUN service memcached stop
 RUN service memcached start
 RUN update-rc.d memcached defaults && update-rc.d memcached enable
 
