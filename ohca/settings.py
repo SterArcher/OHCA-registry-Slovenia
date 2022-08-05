@@ -131,11 +131,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-        'LOCATION': 'unix:/var/run/memcached/memcached.sock',
-        'TIMEOUT': None,
-        'OPTIONS': {
-            'MAX_ENTRIES': 1000
-        }
+        'LOCATION': 'unix:/var/run/memcached.sock',
+        'TIMEOUT': None
     }
 }
 
