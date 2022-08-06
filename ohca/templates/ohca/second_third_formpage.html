@@ -17,6 +17,8 @@
 
     <form method="POST">
         {% csrf_token %}
+        {% load cache %}
+        {% cache 86400 form %}
         <p> </p>
         <p> </p>
         <!-- <p>{{ formset|crispy }}</p> -->
@@ -54,6 +56,7 @@
         <!-- <form action="#"> -->
         
         <input type="submit" class="btn btn-dark" value="Submit">
+        {% endcache %}
     </form>
 
 {% endblock %}

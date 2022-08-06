@@ -17,6 +17,8 @@
 
     <form method="POST" action="" id="form2">
         {% csrf_token %}
+        {% load cache %}
+        {% cache 86400 form %}
         <p> </p>
         <p> </p>
         Vpišite 12-mestno številko intervencije
@@ -110,6 +112,7 @@
 
         <!-- <form action="#"> -->
         <input type="submit" class="btn btn-dark" value="Submit">
+        {% endcache %}
     </form>
 
 {% endblock %}

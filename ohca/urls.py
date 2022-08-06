@@ -37,9 +37,9 @@ urlpatterns = [
     # path('autoform/', views.index22),
     # path('', index.as_view())
     path("", cache_page(pageCacheTimeout)(views.new_index), name="index"),
-    path("formpage", cache_page(pageCacheTimeout)(views.form_name_view), name="form_name"),
-    path("secondformpage", cache_page(pageCacheTimeout)(views.second_form_name_view), name="second_form_name"),
-    path("thirdformpage", cache_page(pageCacheTimeout)(views.third_form_name_view), name="third_form_name"),
-    path("secondfirstformpage", cache_page(pageCacheTimeout)(views.second_first_form_name_view), name="second_first_formpage"),
-    path("secondthirdformpage", cache_page(pageCacheTimeout)(views.second_third_form_name_view), name="second_third_form_name"),
+    path("formpage", views.form_name_view, name="form_name"),
+    path("secondformpage", views.second_form_name_view, name="second_form_name"),
+    path("thirdformpage", views.third_form_name_view, name="third_form_name"),
+    path("secondfirstformpage", views.second_first_form_name_view, name="second_first_formpage"),
+    path("secondthirdformpage", views.second_third_form_name_view, name="second_third_form_name"),
 ]
