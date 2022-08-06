@@ -1,5 +1,9 @@
 version: "3"
 
+networks:
+  ohca-internal:
+    driver: bridge
+
 services:
   web:
     image: gtomsic/si-ohca-base
@@ -11,6 +15,8 @@ services:
     volumes:
       - ${MYSQL_SOCKET:-/dev/null}:/run/mysqld/mysqld.sock
       - .:/opt/app
+    networks:
+      - ohca-internal
     env_file:
       - .env
     environment:
@@ -22,3 +28,10 @@ services:
       - DATABASE_PORT=${DATABASE_PORT}
       - SECRET_KEY=${SECRET_KEY}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+  memcached:
+    image: 'bitnami/memcached:1.6.16'
+    networks:
+      - ohca-internal
+    environment:
+      - MEMCACHED_CACHE_SIZE=128
+      - MEMCACHED_MAX_ITEM_SIZE=26214400

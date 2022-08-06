@@ -21,20 +21,7 @@ RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
 # RUNTIME STAGE
 FROM base AS runtime
 
-RUN apt-get update && apt-get install netcat unixodbc-dev default-libmysqlclient-dev memcached -y --no-install-recommends
-
-# Setup memcached
-RUN echo -d > /etc/memcached.conf
-RUN echo logfile /var/log/memcached.log >> /etc/memcached.conf
-RUN echo -m 64 >> /etc/memcached.conf
-RUN echo -I 25M >> /etc/memcached.conf
-RUN echo -u root >> /etc/memcached.conf
-RUN echo -P /var/run/memcached.pid >> /etc/memcached.conf
-RUN echo -s /var/run/memcached.sock >> /etc/memcached.conf
-RUN echo -a 660 >> /etc/memcached.conf
-RUN service memcached stop
-RUN runuser -l root -g root -c 'service memcached start'
-RUN update-rc.d memcached defaults && update-rc.d memcached enable
+RUN apt-get update && apt-get install netcat unixodbc-dev default-libmysqlclient-dev -y --no-install-recommends
 
 # Copy virtual env from python-deps stage
 RUN mkdir -p /opt/app/.venv
