@@ -139,7 +139,7 @@ if DEBUG:
 else:
     cacheConfig = {
         'default': {
-            'BACKEND': 'django.core.cache.backends.locmem.PyMemcacheCache',
+            'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
             'LOCATION': 'unix:/var/run/memcached/memcached.sock',
             'TIMEOUT': None
         }
