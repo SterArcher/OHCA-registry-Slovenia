@@ -128,12 +128,23 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-        'LOCATION': 'unix:/var/run/memcached.sock',
-        'TIMEOUT': None
+cacheConfig = dict()
+if DEBUG:
+    cacheConfig = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'TIMEOUT': 60
+        }
     }
-}
+else:
+    cacheConfig = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.PyMemcacheCache',
+            'LOCATION': 'unix:/var/run/memcached/memcached.sock',
+            'TIMEOUT': None
+        }
+    }
+
+CACHES = cacheConfig
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
