@@ -26,7 +26,7 @@ This subpage is in Slovenian language and is intended for use by Slovenian healt
 | začetek študije       | 1. september 2022                                      |
 | mail za podporo       | luka.petravic@student.um.si                            |
 | link do baze          | [baza](https://local.siohca.um.si)                     |
-| link za vpis podatkov | [vpis podatkov](http://test-api.siohca.local/formpage) |
+| link za vpis podatkov | [vpis podatkov](https://test-api.siohca.local) |
 
 ___
 - [Kaj je SiOHCA](#kaj-je-siohca)
