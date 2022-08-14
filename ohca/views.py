@@ -5,8 +5,8 @@ from .functions import *
 import random, time
 from datetime import date, datetime
 import datetime
-from .auxiliary import timestamps
-from .forms import timestamp_dict
+# from .auxiliary import timestamps
+# from .forms import timestamp_dict
 
 # timestamps.remove("cPREMS3Timestamp")
 
@@ -209,137 +209,64 @@ def form_name_view(request):
             izracunana_polja = []
 
             f = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12'] 
-            intID = '' #
+            intID = '' 
             for field in f:
                 intID += str(form2.cleaned_data[field])
             print(intID)
 
             izracunana_polja.append(("interventionID", intID))
             izracunana_polja.append(("mainInterventionID", intID))
-            
-            first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
-            last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
-            date = str(form1.cleaned_data['Date'])
-            date_birth = str(form1.cleaned_data["Date_birth"])
 
-            id = generate_case_id(" ".join(first_name), " ".join(last_name), date, date_birth)
-            form1.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
-            form1.instance.age = calculate_age(date_birth, date)
+            first_name = (form1.cleaned_data['name']).strip().split(" ")
+            last_name = (form1.cleaned_data['surname']).strip().split(" ")
+            date = str(form1.cleaned_data['dateOfCA'])
+            date_time = str(form1.cleaned_data["reaTimestamp"])
 
-            
-            calculated_age = calculate_age(date_birth, date)
-            izracunana_polja.append(("age", calculated_age))
-            izracunana_polja.append(("gender", form1.cleaned_data["gender"]))
+            id = generate_case_id(" ".join(first_name), " ".join(last_name), date, date_time)
+            form1.instance.caseID = id 
 
-            # form1.instance.interventionID = intID
-            ca_date = form1.cleaned_data["Date"]
-            y, m, d = str(ca_date).split("-")
+            birth = form1.cleaned_data['dateOfBirth']
+            estimAge = form1.cleaned_data['estimatedAge']
+
+            if birth != None and estimAge == None:
+
+                calculated_age = calculate_age(str(birth), date)
+                izracunana_polja.append(("age", calculated_age))
+                print(calculate_age)
+
+            elif birth != None and estimAge != None: 
+                pass # TODO 
+
+            # izracunana_polja.append(("gender", form1.cleaned_data["gender"]))
+
+            # ca_date = form1.cleaned_data["dateOfCA"]
+            y, m, d = date.split("-")
 
             izracunana_polja.append(("reaYr", int(y)))
             izracunana_polja.append(("reaMo", int(m)))
             izracunana_polja.append(("reaDay", int(d)))
 
-            ca_time = form1.cleaned_data["Time"]
-            estim = form1.cleaned_data["estim_time"]
-            print((str(ca_date), ca_time, estim))#
-            
-            if ca_time != None:
-                izracunana_polja.append(("CAtimestamp", str(ca_date) + " " + str(ca_time)))
-                if estim:
-                    izracunana_polja.append(("estimatedCAtimestamp", 1))
-                else:
-                    izracunana_polja.append(("estimatedCAtimestamp", 0))
-            # form1.instance.dispatchID = generate_dispatch_id(form1.cleaned_data['interventionID'], ca_date)
-            # form1.instance.dispatchID = generate_dispatch_id(str(intID), str(ca_date))
+            izracunana_polja.append(("dispatchID", generate_dispatch_id(str(intID), date)))
 
-            izracunana_polja.append(("dispatchID", generate_dispatch_id(str(intID), str(ca_date))))
-
-            ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
-            sum = 0
-            drugs = form1.cleaned_data['All_drugs']
-            print(drugs)
-
-            if drugs:
-                for elt in form1.cleaned_data['All_drugs']:
-                    
-                    # options = {'1': -1, '2': 0, '3': 1,'4': 2, '5': 4}
-                    sum += int(elt)
-                    print(sum)
-                # form1.instance.drugs = sum
-                izracunana_polja.append(("drugs", sum))
-
-            bage = form1.cleaned_data["ageBystander"]
-            estim_bage = form1.cleaned_data["estim_age"]
-            
-            print((bage, estim_bage))
-            
-            if bage != None:
-                izracunana_polja.append(("ageBystander", bage))
-                if estim_bage:
-                    print("tle")
-                    print(estim_bage)
-                    izracunana_polja.append(("estimatedAgeBystander", 1))
-                else:
-                    print("suda")
-                    izracunana_polja.append(("estimatedAgeBystander", 0))
-            
-            # if ca_time != None:
-            #     if estim:
-            #         izracunana_polja.append(("estimatedCAtimestamp", 1))
-            #     else:
-            #         izracunana_polja.append(("estimatedCAtimestamp", 0))
-           
-            # form1.instance.reaLand = "Slovenia"
-            # form1.instance.reaRegion = str(form1.cleaned_data["localID"])
-            # form1.instance.reaLand = "1"
             izracunana_polja.append(("reaLand", "Slovenia"))
             izracunana_polja.append(("reaRegion", str(form1.cleaned_data["localID"])))
             
-            # callTime = form1.cleaned_data["callTimestamp"]
-            # bystanderResponseTimestamp = form1.cleaned_data["bystanderResponseTimestamp"]
-            # bystanderAEDTimestamp = form1.cleaned_data["bystanderAEDTimestamp"]
-
-            # if callTime:
-            #     if bystanderResponseTimestamp:
-            #         form1.instance.bystanderResponseTime = calculate_time(date, callTime, date, bystanderResponseTimestamp)
-            #     if bystanderAEDTimestamp:
-            #         form1.instance.bystanderAEDTime = calculate_time(date, callTime, date, bystanderAEDTimestamp)
-
-            # locale = Locale.objects.all()
-            # obcina = Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])
-            # print(obcina)
-            # izracunana_polja.append(("localID_id", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"][0].localID)))
             izracunana_polja.append(("localID", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])[0]))
             izracunana_polja.append(("systemID", System.objects.all().filter(friendlyName__exact=form1.cleaned_data["systemID"])[0]))
-            # samodejno morajo biti poračunane:
-            # exclude = ("age", "gender", 'responseTime', 'defibTime','reaTime', 'timeTCPR', 'cPRhelper3Time', 'endCPR4Timestamp', 'leftScene5Time', 'leftScene5Timestamp', 'hospitalArrival6Time',)
             
-            # izracunana_polja.append(("timestampROSC", form1.cleaned_data["roscTimestamp"]))
 
-            # izracunana_polja.append("estimatedAgeBystander", form1.cleaned_data)
-
-            # field_dict = dict()
-            # for elt in first_form[2:]:
-            #     if form1.cleaned_data[field] != None:
-            #         field_dict[field] = form1.cleaned_data[field]
-
-            field_dict = dict([(field, form1.cleaned_data[field]) for field in first_form[2:]] + izracunana_polja)
-            new_field_dict = dict() #dict(filter(lambda val: val[0] != None, field_dict.items()))
-            for elt in field_dict:
-                if field_dict[elt] != None:
-                    new_field_dict[elt] = field_dict[elt]
+            # field_dict = dict([(field, form1.cleaned_data[field]) for field in first_form] + izracunana_polja)
+            # new_field_dict = dict() #dict(filter(lambda val: val[0] != None, field_dict.items()))
+            # for elt in field_dict:
+            #     if field_dict[elt] != None:
+            #         new_field_dict[elt] = field_dict[elt]
 
             print(izracunana_polja)
-            print(new_field_dict)
+            # print(new_field_dict)
             CaseReport.objects.update_or_create(
                 caseID=id, 
-                defaults=new_field_dict #dict([(field, form1.cleaned_data[field]) for field in first_form[2:]] + izracunana_polja)
-                #+ [('dispatchID', generate_dispatch_id(str(intID), str(ca_date)))])
-            ) # update, create
-
-            # to save into database:
-            # form1.save()
-            # return index(request) # to mi neke errorje vrača, not sure why 
+                defaults=dict([(field, form1.cleaned_data[field]) for field in first_form] + izracunana_polja)
+            ) 
             
         else:
             print("form invalid")
@@ -353,103 +280,47 @@ def form_name_view(request):
 
 def second_first_form_name_view(request):
     form1 = MyNewFrom()
-    form2 = TimestampForm()
+    # form2 = TimestampForm()
 
     if request.method == "POST":
         form1 = MyNewFrom(request.POST)
         print(form1.errors)
-        form2 = TimestampForm(request.POST)
-        print(form2.errors)
+        # form2 = TimestampForm(request.POST)
+        # print(form2.errors)
 
-        if form1.is_valid() and form2.is_valid():
+        if form1.is_valid(): # and form2.is_valid():
             print("VALIDATION SUCCESS")
 
             messages.success(request, 'Podatki uspešno oddani!')
 
-            first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
-            last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
-            date = str(form1.cleaned_data['Date'])
-            date_birth = str(form1.cleaned_data["Date_birth"])
-
-            id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
-            
             izracunana_polja = []
-            T = dict()
-            for t in timestamps:
-                # T[elt] = str(form2.cleaned_data[elt])
-                print(t)
-                # if t != ['None']:
-                    # print(timestamp)
-                timestamp = str(form2.cleaned_data[t])
-                
-                print(timestamp)
-                if str(timestamp) != 'None':
-                    izracunana_polja.append((t, timestamp))
-                    timestamp = timestamp.split(" ")
-                    timestampDate = timestamp[0]
-                    # if "+" in timestamp[1]:
-                    #     timestampTime = timestamp[1][:timestamp[1].find("+")]
-                    # else:
-                    #     timestampTime = timestamp[1]
-                    timestampTime = timestamp[1]
-                    print(timestamp)
-                    T[t] = (timestampDate, timestampTime)
-
-            # bystanderResponseTimestamp = str(form1.cleaned_data["bystanderResponseTimestamp"])
-            # bystanderAEDTimestamp = str(form1.cleaned_data["bystanderAEDTimestamp"])
-
-            # print(bystanderResponseTimestamp)
-            # print(bystanderAEDTimestamp)
-
             
+            first_name = (form1.cleaned_data['name']).strip().split(" ")
+            last_name = (form1.cleaned_data['surname']).strip().split(" ")
+            date = str(form1.cleaned_data['dateOfCA'])
+            date_time = str(form1.cleaned_data["reaTimestamp"])
 
-            # print(callTime)
-            callTime = str(form2.cleaned_data["callTimestamp"])
-            izracunana_polja.append(("callTimestamp", callTime))
-            print(callTime)
-            # izracunana_polja.append(("CAtimestamp", form1.cleaned_data["CAtimestamp"]))
-            # print(T)
-            if callTime != None:
-                callTime = str(callTime).split(" ")
-                print("calltime: " + str(callTime))
-                callDate = callTime[0]
-                # if "+" in callTime[1]:
-                #     callTimestamp = callTime[1][:callTime[1].find("+")]
-                # else:
-                #     callTimestamp = callTime[1]
-                callTimestamp = callTime[1]
-                print((callTime, callDate))
-            
-            # if callTime != None:
-                for key in T:
-                    if T[key] != None and key != "callTimestamp" and key != "CAtimestamp":
-                        print(T[key])
-                        print((callTimestamp, callDate))
-                        t = calculate_time(callDate, callTimestamp, T[key][0], T[key][1])
-                        izracunana_polja.append((timestamp_dict[key], t))
-            print(izracunana_polja)
-                # if bystanderResponseTimestamp != "None":
-                #     print(calculate_time(date, callTime, date, bystanderResponseTimestamp))
-                #     t1 = calculate_time(date, callTime, date, bystanderResponseTimestamp)
-                # if bystanderAEDTimestamp != "None":
-                #     form1.instance.bystanderAEDTime = calculate_time(date, callTime, date, bystanderAEDTimestamp)
+            id = generate_case_id(" ".join(first_name), " ".join(last_name), date, date_time)
+            form1.instance.caseID = id 
+
+            birth = form1.cleaned_data['dateOfBirth']
+            estimAge = form1.cleaned_data['estimatedAge']
+
+            if birth != None and estimAge == None:
+
+                calculated_age = calculate_age(str(birth), date)
+                izracunana_polja.append(("age", calculated_age))
+
+            elif birth != None and estimAge != None: 
+                pass # TODO 
 
 
 
-            # for field in form2:
-            #     print(form2.cleaned_data[field])
-
-            # form.instance.age = calculate_age(date_birth, date) # age bo že od prej
-            izracunana_polja.append(("localID", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])[0]))
-            izracunana_polja.append(("systemID", System.objects.all().filter(friendlyName__exact=form1.cleaned_data["systemID"])[0]))
-            
-            print(izracunana_polja)
-
-            id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
+            # id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
             print(id)
             CaseReport.objects.update_or_create(
                 caseID=id, 
-                defaults=dict([(field, form1.cleaned_data[field]) for field in first_form[2:]] + izracunana_polja)
+                defaults=dict([(field, form1.cleaned_data[field]) for field in first_form] + izracunana_polja)
             )
         else:
             print("form invalid")
@@ -457,21 +328,21 @@ def second_first_form_name_view(request):
             messages.error(request, form1.errors)
     else:
         form1 = MyNewFrom() 
-        form2 = TimestampForm()
-    return render(request, "ohca/second_first_formpage.html", {"form1":form1, "form2":form2})
+        # form2 = TimestampForm()
+    return render(request, "ohca/second_first_formpage.html", {"form1":form1})
 
 
 def second_form_name_view(request):
     form1 = MySecondNewFrom() 
-    form2 = InterventionForm()
+    # form2 = InterventionForm()
     if request.method == "POST":
 
         form1 = MySecondNewFrom(request.POST)
         print(form1.errors)
         
-        form2 = InterventionForm(request.POST)
+        # form2 = InterventionForm(request.POST)
 
-        if form1.is_valid() and form2.is_valid(): 
+        if form1.is_valid(): # and form2.is_valid(): 
             
             print("VALIDATION SUCCESS")
 
@@ -479,22 +350,22 @@ def second_form_name_view(request):
 
             izracunana_polja = []
 
-            f = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',] #
-            intID = '' 
-            for field in f:
-                intID += str(form2.cleaned_data[field])
-            print(intID)
+            # f = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',] #
+            # intID = '' 
+            # for field in f:
+            #     intID += str(form2.cleaned_data[field])
+            # print(intID)
 
-            izracunana_polja.append(("interventionID", intID))
-            izracunana_polja.append(("mainInterventionID", intID))
+            # izracunana_polja.append(("interventionID", intID))
+            # izracunana_polja.append(("mainInterventionID", intID))
             
 
-            first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
-            last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
+            first_name = (form1.cleaned_data['name']).strip().split(" ")
+            last_name = (form1.cleaned_data['surname']).strip().split(" ")
 
-            date = str(form1.cleaned_data['Date'])
-            date_birth = str(form1.cleaned_data["Date_birth"])
-            disch_date = str(form1.cleaned_data["Date_of_hospital_discharge"])
+            date = str(form1.cleaned_data['dateOfCA'])
+            date_birth = str(form1.cleaned_data["dateOfBirth"])
+            disch_date = str(form1.cleaned_data["discDate"])
             # print((date, date_birth))
             
             print(date, disch_date)
@@ -520,492 +391,18 @@ def second_form_name_view(request):
             id = generate_case_id(" ".join(first_name), " ".join(last_name), date, date_birth)
             CaseReport.objects.update_or_create(
                 caseID=id, 
-                defaults=dict([(field, form1.cleaned_data[field]) for field in second_form[2:]]+ izracunana_polja)
-                # {
-                #     "ecls" : form.cleaned_data["ecls"] # zgeneriraj
-                # }
+                defaults=dict([(field, form1.cleaned_data[field]) for field in second_form]+ izracunana_polja)
+
             ) # update, create
             
-            form1.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
-            # form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
 
-            f = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',] #
-            intID = '' #
-            for field in f:
-                intID += str(form2.cleaned_data[field])
-
-            print(intID)
-            ca_date = form1.cleaned_data["Date"]
-            form1.instance.dispatchID = generate_dispatch_id(str(intID), str(ca_date))
-            # to save into database:
-            # form.save(commit=True)
-            # return index(request) # to mi neke errorje vrača, not sure why 
         else:
             print("form invalid")
             messages.error(request, 'Nepravilno izpolnjen obrazec.')
             messages.error(request, form1.errors)
     else:
         form1 = MySecondNewFrom() 
-        form2 = InterventionForm()
-    return render(request, "ohca/second_form_page.html", {"form1":form1, "form2":form2})
+        # form2 = InterventionForm()
+    return render(request, "ohca/second_form_page.html", {"form1":form1})
 
 
-def third_form_name_view(request):
-
-    form1 = MyThirdNewFrom() 
-    form2 = InterventionForm()
-    
-    if request.method == "POST":
-
-        form1 = MyThirdNewFrom(request.POST)
-        print(form1.errors)
-        form2 = InterventionForm(request.POST)
-
-        if form1.is_valid() and form2.is_valid(): 
-
-            print("VALIDATION SUCCESS")
-
-            messages.success(request, 'Podatki uspešno oddani!')
-
-            izracunana_polja = []
-
-            f = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',] #
-            intID = '' 
-            for field in f:
-                intID += str(form2.cleaned_data[field])
-            print(intID)
-
-            izracunana_polja.append(("interventionID", intID))
-            izracunana_polja.append(("mainInterventionID", intID))
-            
-            first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
-            last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
-            date = str(form1.cleaned_data['Date'])
-            date_birth = str(form1.cleaned_data["Date_birth"])
-
-            id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
-            # form1.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
-            # form1.instance.age = calculate_age(date_birth, date)
-
-            
-            calculated_age = calculate_age(date_birth, date)
-            izracunana_polja.append(("age", calculated_age))
-            izracunana_polja.append(("gender", form1.cleaned_data["gender"]))
-
-            # form1.instance.interventionID = intID
-            ca_date = form1.cleaned_data["Date"]
-            y, m, d = str(ca_date).split("-")
-
-            izracunana_polja.append(("reaYr", int(y)))
-            izracunana_polja.append(("reaMo", int(m)))
-            izracunana_polja.append(("reaDay", int(d)))
-
-            ca_time = form1.cleaned_data["Time"]
-            estim = form1.cleaned_data["estim_time"]
-            print((str(ca_date), ca_time, estim))#
-            izracunana_polja.append(("CAtimestamp", str(ca_date) + " " + str(ca_time)))
-            # izracunana_polja.append(())
-            if estim:
-                izracunana_polja.append(("estimatedCAtimestamp", 1))
-            else:
-                izracunana_polja.append(("estimatedCAtimestamp", 0))
-            # form1.instance.dispatchID = generate_dispatch_id(form1.cleaned_data['interventionID'], ca_date)
-            # form1.instance.dispatchID = generate_dispatch_id(str(intID), str(ca_date))
-
-            izracunana_polja.append(("dispatchID", generate_dispatch_id(str(intID), str(ca_date))))
-
-            ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
-            sum = 0
-            drugs = form1.cleaned_data['drugs']
-
-            if drugs:
-                for elt in form1.cleaned_data['drugs']:
-                    
-                    # options = {'1': -1, '2': 0, '3': 1,'4': 2, '5': 4}
-                    sum += int(elt)
-                    print(sum)
-                # form1.instance.drugs = sum
-                izracunana_polja.append(("drugs", sum))
-
-           
-            # form1.instance.reaLand = "Slovenia"
-            # form1.instance.reaRegion = str(form1.cleaned_data["localID"])
-            # form1.instance.reaLand = "1"
-            izracunana_polja.append(("reaLand", "Slovenia"))
-            izracunana_polja.append(("reaRegion", str(form1.cleaned_data["localID"])))
-            
-            # callTime = form1.cleaned_data["callTimestamp"]
-            # bystanderResponseTimestamp = form1.cleaned_data["bystanderResponseTimestamp"]
-            # bystanderAEDTimestamp = form1.cleaned_data["bystanderAEDTimestamp"]
-
-            # if callTime:
-            #     if bystanderResponseTimestamp:
-            #         form1.instance.bystanderResponseTime = calculate_time(date, callTime, date, bystanderResponseTimestamp)
-            #     if bystanderAEDTimestamp:
-            #         form1.instance.bystanderAEDTime = calculate_time(date, callTime, date, bystanderAEDTimestamp)
-
-            # locale = Locale.objects.all()
-            # obcina = Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])
-            # print(obcina)
-            # izracunana_polja.append(("localID_id", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"][0].localID)))
-            izracunana_polja.append(("localID", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])[0]))
-            izracunana_polja.append(("systemID", System.objects.all().filter(friendlyName__exact=form1.cleaned_data["systemID"])[0]))
-            # samodejno morajo biti poračunane:
-            # exclude = ("age", "gender", 'responseTime', 'defibTime','reaTime', 'timeTCPR', 'cPRhelper3Time', 'endCPR4Timestamp', 'leftScene5Time', 'leftScene5Timestamp', 'hospitalArrival6Time',)
-            
-            izracunana_polja.append(("timestampROSC", form1.cleaned_data["roscTimestamp"]))
-
-            disch_date = str(form1.cleaned_data["Date_of_hospital_discharge"])
-            # print((date, date_birth))
-            
-            print(date, disch_date)
-            print(date and disch_date)
-            if not (date and disch_date):
-                print(day_difference(date, disch_date))
-                form1.instance.dischDay = day_difference(date, disch_date)
-
-            print((date, date_birth))
-            if disch_date:
-                disch_date = disch_date.split("-")
-                izracunana_polja.append(("dischYear", disch_date[0]))
-                izracunana_polja.append(("dischMonth", disch_date[1]))
-                izracunana_polja.append(("dischDay", disch_date[2]))
-            # form.instance.age = calculate_age(date_birth, date) # age bo že od prej
-
-            if form1.cleaned_data["survivalDischarge"] == 1 or form1.cleaned_data["survival30d"] == 1:
-                izracunana_polja.append(("SurvivalDischarge30d", 1))
-
-            # first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
-            # last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
-
-            # date = str(form1.cleaned_data['Date'])
-            # date_birth = str(form1.cleaned_data["Date_birth"])
-            # catime = str(form1.cleaned_data["Time"])
-
-            # disch_date = str(form1.cleaned_data["Date_of_hospital_discharge"])
-            # # print((date, date_birth))
-
-            # if not (date and disch_date):
-            #     print(day_difference(date, disch_date))
-            #     form1.instance.dischDay = day_difference(date, disch_date)
-
-            # print((date, date_birth, catime, disch_date))
-            # print(calculate_age(date_birth, date))
-            # form1.instance.age = calculate_age(date_birth, date)
-            
-            # id = generate_case_id(first_name, last_name, date, date_birth)
-            # print(id)
-            # print(len(id))
-            # # print(id.digest())
-            # cases = CaseReport.objects.all()
-            # existing_ids = []
-            # for case in cases:
-            #     existing_ids.append(case.caseID)
-            # form1.instance.caseID = id #[0:32] #random.choice([i for i in range(100000, 10000000) if i not in existing_ids]) #id 
-            # # form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
-
-            # f = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',] #
-            # intID = '' #
-            # for field in f:
-            #     intID += str(form2.cleaned_data[field])
-
-            # print(intID)
-
-            # ca_date = form1.cleaned_data["Date"]
-            # # form1.instance.dispatchID = generate_dispatch_id(str(intID), str(ca_date))
-
-            # ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
-            # sum = 0
-            # print(form1.cleaned_data['drugs'])
-            # for elt in form1.cleaned_data['drugs']:
-                 
-            #     # options = {'1': -1, '2': 0, '3': 1,'4': 2, '5': 4}
-            #     sum += int(elt)
-            #     print(sum) #
-            # form1.instance.drugs = sum
-            
-            
-            # form1.instance.reaLand = "Slovenia"
-            # form1.instance.reaRegion = str(form1.cleaned_data["localID"])
-
-            # callTime = str(form1.cleaned_data["callTimestamp"])
-            # bystanderResponseTimestamp = str(form1.cleaned_data["bystanderResponseTimestamp"])
-            # bystanderAEDTimestamp = str(form1.cleaned_data["bystanderAEDTimestamp"])
-
-            # print(bystanderResponseTimestamp)
-            # print(bystanderAEDTimestamp)
-
-            # if callTime:
-            #     if bystanderResponseTimestamp != "None":
-            #         print(calculate_time(date, callTime, date, bystanderResponseTimestamp))
-            #         t1 = calculate_time(date, callTime, date, bystanderResponseTimestamp)
-            #     if bystanderAEDTimestamp != "None":
-            #         form1.instance.bystanderAEDTime = calculate_time(date, callTime, date, bystanderAEDTimestamp)
-
-            #print(time.strftime('%H:%M:%S', time.gmtime(t1)))
-            # print([field for field in all_form])
-            CaseReport.objects.update_or_create(
-                caseID=id, 
-                defaults=dict([(field, form1.cleaned_data[field]) for field in all_form[1:]]) # + [('bystanderResponseTime', time.strftime('%H:%M:%S', time.gmtime(t1)))]) 
-                
-                #+ [('dispatchID', generate_dispatch_id(str(intID), str(ca_date)))])
-            )
-
-            # # to save into database:
-            # form1.save(commit=True) #
-            # return index(request) # to mi neke errorje vrača, not sure why 
-        else:
-            print("form invalid")
-            messages.error(request, 'Nepravilno izpolnjen obrazec.')
-            messages.error(request, form1.errors)
-    else:
-        form1 = MyThirdNewFrom() 
-        form2 = InterventionForm()
-       
-    return render(request, "ohca/third_form_page.html", {"form1":form1, "form2":form2})
-
-
-def second_third_form_name_view(request):
-
-    form1 = MyThirdNewFrom() 
-    form2 = TimestampForm()
-    
-    if request.method == "POST":
-
-        form1 = MyThirdNewFrom(request.POST)
-        print(form1.errors)
-        form2 = TimestampForm(request.POST)
-
-        if form1.is_valid() and form2.is_valid(): 
-
-            print("VALIDATION SUCCESS")
-
-            messages.success(request, 'Podatki uspešno oddani!')
-
-            izracunana_polja = []
-
-            f = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',] #
-            intID = '' 
-            for field in f:
-                intID += str(form2.cleaned_data[field])
-            print(intID)
-
-            izracunana_polja.append(("interventionID", intID))
-            izracunana_polja.append(("mainInterventionID", intID))
-            
-            first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
-            last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
-            date = str(form1.cleaned_data['Date'])
-            date_birth = str(form1.cleaned_data["Date_birth"])
-
-            id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
-            # form1.instance.caseID = id #[0:32] #"".join([word[0] for word in first_name])
-            # form1.instance.age = calculate_age(date_birth, date)
-
-            T = dict()
-            for t in timestamps:
-                # T[elt] = str(form2.cleaned_data[elt])
-                print(t)
-                # if t != ['None']:
-                    # print(timestamp)
-                timestamp = str(form2.cleaned_data[t])
-                print(timestamp)
-                if str(timestamp) != 'None':
-                    timestamp = timestamp.split(" ")
-                    timestampDate = timestamp[0]
-                    if "+" in timestamp[1]:
-                        timestampTime = timestamp[1][:timestamp[1].find("+")]
-                    else:
-                        timestampTime = timestamp[1]
-                    print(timestamp)
-                    T[t] = (timestampDate, timestampTime)
-            
-            calculated_age = calculate_age(date_birth, date)
-            izracunana_polja.append(("age", calculated_age))
-            izracunana_polja.append(("gender", form1.cleaned_data["gender"]))
-
-            # form1.instance.interventionID = intID
-            ca_date = form1.cleaned_data["Date"]
-            y, m, d = str(ca_date).split("-")
-
-            izracunana_polja.append(("reaYr", int(y)))
-            izracunana_polja.append(("reaMo", int(m)))
-            izracunana_polja.append(("reaDay", int(d)))
-
-            ca_time = form1.cleaned_data["Time"]
-            estim = form1.cleaned_data["estim_time"]
-            print((str(ca_date), ca_time, estim))#
-            izracunana_polja.append(("CAtimestamp", str(ca_date) + " " + str(ca_time)))
-            # izracunana_polja.append(())
-            if estim:
-                izracunana_polja.append(("estimatedCAtimestamp", 1))
-            else:
-                izracunana_polja.append(("estimatedCAtimestamp", 0))
-            # form1.instance.dispatchID = generate_dispatch_id(form1.cleaned_data['interventionID'], ca_date)
-            # form1.instance.dispatchID = generate_dispatch_id(str(intID), str(ca_date))
-
-            izracunana_polja.append(("dispatchID", generate_dispatch_id(str(intID), str(ca_date))))
-
-            ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
-            sum = 0
-            drugs = form1.cleaned_data['drugs']
-
-            if drugs:
-                for elt in form1.cleaned_data['drugs']:
-                    
-                    # options = {'1': -1, '2': 0, '3': 1,'4': 2, '5': 4}
-                    sum += int(elt)
-                    print(sum)
-                # form1.instance.drugs = sum
-                izracunana_polja.append(("drugs", sum))
-
-            callTime = str(form2.cleaned_data["callTimestamp"])
-            izracunana_polja.append(("callTimestamp", callTime))
-            # izracunana_polja.append(("CAtimestamp", form1.cleaned_data["CAtimestamp"]))
-            # print(T)
-            if callTime != None:
-                callTime = str(callTime).split(" ")
-                print("calltime: " + str(callTime))
-                callDate = callTime[0]
-                if "+" in callTime[1]:
-                    callTimestamp = callTime[1][:callTime[1].find("+")]
-                else:
-                    callTimestamp = callTime[1]
-                # print((callTime, callDate))
-            
-            # if callTime != None:
-                for key in T:
-                    if T[key] != None and key != "callTimestamp" and key != "CAtimestamp":
-                        print(T[key])
-                        print((callTimestamp, callDate))
-                        t = calculate_time(callDate, callTimestamp, T[key][0], T[key][1])
-                        izracunana_polja.append((timestamp_dict[key], t))
-
-            # form1.instance.reaLand = "Slovenia"
-            # form1.instance.reaRegion = str(form1.cleaned_data["localID"])
-            # form1.instance.reaLand = "1"
-            izracunana_polja.append(("reaLand", "Slovenia"))
-            izracunana_polja.append(("reaRegion", str(form1.cleaned_data["localID"])))
-            
-            # callTime = form1.cleaned_data["callTimestamp"]
-            # bystanderResponseTimestamp = form1.cleaned_data["bystanderResponseTimestamp"]
-            # bystanderAEDTimestamp = form1.cleaned_data["bystanderAEDTimestamp"]
-
-            # if callTime:
-            #     if bystanderResponseTimestamp:
-            #         form1.instance.bystanderResponseTime = calculate_time(date, callTime, date, bystanderResponseTimestamp)
-            #     if bystanderAEDTimestamp:
-            #         form1.instance.bystanderAEDTime = calculate_time(date, callTime, date, bystanderAEDTimestamp)
-
-            # locale = Locale.objects.all()
-            # obcina = Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])
-            # print(obcina)
-            # izracunana_polja.append(("localID_id", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"][0].localID)))
-            izracunana_polja.append(("localID", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])[0]))
-            izracunana_polja.append(("systemID", System.objects.all().filter(friendlyName__exact=form1.cleaned_data["systemID"])[0]))
-            # samodejno morajo biti poračunane:
-            # exclude = ("age", "gender", 'responseTime', 'defibTime','reaTime', 'timeTCPR', 'cPRhelper3Time', 'endCPR4Timestamp', 'leftScene5Time', 'leftScene5Timestamp', 'hospitalArrival6Time',)
-            
-            izracunana_polja.append(("timestampROSC", form1.cleaned_data["roscTimestamp"]))
-
-            disch_date = str(form1.cleaned_data["Date_of_hospital_discharge"])
-            # print((date, date_birth))
-            
-            print(date, disch_date)
-            print(date and disch_date)
-            if not (date and disch_date):
-                print(day_difference(date, disch_date))
-                form1.instance.dischDay = day_difference(date, disch_date)
-
-            print((date, date_birth))
-            if disch_date:
-                disch_date = disch_date.split("-")
-                izracunana_polja.append(("dischYear", disch_date[0]))
-                izracunana_polja.append(("dischMonth", disch_date[1]))
-                izracunana_polja.append(("dischDay", disch_date[2]))
-            # form.instance.age = calculate_age(date_birth, date) # age bo že od prej
-
-            if form1.cleaned_data["survivalDischarge"] == 1 or form1.cleaned_data["survival30d"] == 1:
-                izracunana_polja.append(("SurvivalDischarge30d", 1))
-            # first_name = (form1.cleaned_data['Patient_name']).strip().split(" ")
-            # last_name = (form1.cleaned_data['Patient_surname']).strip().split(" ")
-
-            # date = str(form1.cleaned_data['Date'])
-            # date_birth = str(form1.cleaned_data["Date_birth"])
-            # catime = str(form1.cleaned_data["Time"])
-
-            # disch_date = str(form1.cleaned_data["Date_of_hospital_discharge"])
-            # # print((date, date_birth))
-
-            # if not (date and disch_date):
-            #     print(day_difference(date, disch_date))
-            #     form1.instance.dischDay = day_difference(date, disch_date)
-
-            # print((date, date_birth, catime, disch_date))
-            # print(calculate_age(date_birth, date))
-            # form1.instance.age = calculate_age(date_birth, date)
-            
-            # id = generate_case_id(first_name, last_name, date, date_birth)
-            # print(id)
-            # print(len(id))
-            # # print(id.digest())
-            # cases = CaseReport.objects.all()
-            # existing_ids = []
-            # for case in cases:
-            #     existing_ids.append(case.caseID)
-            # form1.instance.caseID = id #[0:32] #random.choice([i for i in range(100000, 10000000) if i not in existing_ids]) #id 
-            # # form.instance.systemID = System.objects.all().filter(systemID__exact=int(zdID))[0] 
-
-
-            # ca_date = form1.cleaned_data["Date"]
-            # # form1.instance.dispatchID = generate_dispatch_id(str(intID), str(ca_date))
-
-            # ## Set vseh uporabljenih zdravil, dovoljena izbira vedih (kot vsota ID-jev vrednosti)
-            # sum = 0
-            # print(form1.cleaned_data['All_drugs'])
-            # for elt in form1.cleaned_data['All_drugs']:
-                 
-            #     # options = {'1': -1, '2': 0, '3': 1,'4': 2, '5': 4}
-            #     sum += int(elt)
-            #     print(sum) #
-            # form1.instance.drugs = sum
-            
-            
-            # form1.instance.reaLand = "Slovenia"
-            # form1.instance.reaRegion = str(form1.cleaned_data["localID"])
-
-            # callTime = str(form1.cleaned_data["callTimestamp"])
-            # bystanderResponseTimestamp = str(form1.cleaned_data["bystanderResponseTimestamp"])
-            # bystanderAEDTimestamp = str(form1.cleaned_data["bystanderAEDTimestamp"])
-
-            # print(bystanderResponseTimestamp)
-            # print(bystanderAEDTimestamp)
-
-            # if callTime:
-            #     if bystanderResponseTimestamp != "None":
-            #         print(calculate_time(date, callTime, date, bystanderResponseTimestamp))
-            #         t1 = calculate_time(date, callTime, date, bystanderResponseTimestamp)
-            #     if bystanderAEDTimestamp != "None":
-            #         form1.instance.bystanderAEDTime = calculate_time(date, callTime, date, bystanderAEDTimestamp)
-
-            #print(time.strftime('%H:%M:%S', time.gmtime(t1)))
-            # print([field for field in all_form])
-            CaseReport.objects.update_or_create(
-                caseID=id, 
-                defaults=dict([(field, form1.cleaned_data[field]) for field in all_form[1:]] + izracunana_polja) # + [('bystanderResponseTime', time.strftime('%H:%M:%S', time.gmtime(t1)))]) 
-                
-                #+ [('dispatchID', generate_dispatch_id(str(intID), str(ca_date)))])
-            )
-
-            # # to save into database:
-            # form1.save(commit=True) #
-            # return index(request) # to mi neke errorje vrača, not sure why 
-        else:
-            print("form invalid")
-            messages.error(request, 'Nepravilno izpolnjen obrazec.')
-            messages.error(request, form1.errors)
-    else:
-        form1 = MyThirdNewFrom() 
-        form2 = TimestampForm()
-       
-    return render(request, "ohca/second_third_formpage.html", {"form1":form1, "form2":form2})

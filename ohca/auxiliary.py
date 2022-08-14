@@ -11,49 +11,119 @@ def read_values():
     - eureca (names of fields belonging to eureca)
     - timestamps (all fields that are filled as timestamps)"""
     
-    file = open('ohca/utstein.values.en.json', encoding="utf-8")
+    file = open('ohca/variables.json', encoding="utf-8")
     data = json.load(file)
     values, titles, desc = dict(), dict(), dict()
-    timestamps = []
-    first_form, second_form = [], []
+    dates = []
+    first_form, second_form, both_forms = [], [], []
     utstein, eureca, utstein_and_eureca = [], [], []
     names = [] # all variable names
-    exceptions = ["BLOB", ">0", ">=0", "0-14", "1-5", "0-6"]
+    sections = dict()
+    counter = 0
+    exceptions = ["BLOB", ">0", ">=0", "0-14", "1-5", "0-6", "hh:mm:ss", "date"]
+    except_names = {"bystanCPR", "CPRdone"}
     for element in data["cases"]:
-        names.append(element)
+        counter += 1
+
+        # first collect all variable names
+        if element not in except_names: #True: #element not in except_names
+            if "shown" in data["cases"][element]:
+                if data["cases"][element]["shown"] == True:
+                    names.append(element)
+            else: # če shown ni notri pol je shown
+                names.append(element)
+
+    for element in names:
+        # second organize them by sections
+        if "section" in data["cases"][element]:
+            section = data["cases"][element]["section"]
+            if section in sections:
+                sections[section].append(element)
+            else:
+                sections[section] = [element]
+
+        # third remember their titles which will be the questions in the form
         if "title" in data["cases"][element]:
             titles[element] = data["cases"][element]["title"]
             if 'description' in data["cases"][element]:
                 desc[element] = data["cases"][element]["description"]
+        
+        # fourth remember possible values
         value_list = []
         if "values" in data["cases"][element] and data["cases"][element]["values"] != "BLOB":
             value_dict = data["cases"][element]["values"]
             # print(value_dict)
-            if "hh:mm:ss" in value_dict:
-                timestamps.append(element)
+            # if "hh:mm:ss" in value_dict:
+            #     timestamps.append(element)
+            if "date" in value_dict:
+                dates.append(element)
 
             if len(set(value_dict).intersection(set(exceptions))) == 0: 
                 for val in value_dict:
                     # print(val)
-                    if val != "null" and val!= "hh:mm:ss":
+                    if val != "null" and val!= "-1":
+                        # print((int(val), value_dict[val]))
                         value_list.append((int(val), value_dict[val])) 
+                value_list.append((-1, "Neznano"))
+                # value_list.append((None, "Ni zabeleženo / ni zavedeno"))
         if len(value_list) > 0:
             values[element] = value_list
 
+        # fifth remember if it belongs to first or second form
         if "form" in data["cases"][element]:
-            if data["cases"][element]["form"] == "day1":
+            elt = data["cases"][element]["form"] 
+            if elt == "d1" or elt == "d1&d30":
                 first_form.append(element)
-            elif data["cases"][element]["form"] == "day30":
+            if elt == "d30" or elt == "d1&d30":
                 second_form.append(element)
+            # elif elt == "d1&d30":
+            #     both_forms.append(element)
 
-        if "from" in data["cases"][element]:
-            if data["cases"][element]["from"] == "Utstein2015":
-                utstein.append(element)
-            elif data["cases"][element]["from"] == "EuReCa3":
-                eureca.append(element)
-            elif data["cases"][element]["from"] == "EuReCa3 & Utstein2015":
-                utstein_and_eureca.append(element)
+            # TODO
+            # if "from" in data["cases"][element]:
+            #     if data["cases"][element]["from"] == "Utstein2015":
+            #         utstein.append(element)
+            #     elif data["cases"][element]["from"] == "EuReCa3":
+            #         eureca.append(element)
+            #     elif data["cases"][element]["from"] == "EuReCa3 & Utstein2015":
+            #         utstein_and_eureca.append(element)
+    # print(counter)
+    # first_form = both_forms + first_form
+    # second_form = both_forms + second_form #
+    timestamps = sections["timeline"]
+    return (values, titles, desc, first_form, second_form, dates, utstein, eureca, utstein_and_eureca, sections, names, timestamps)
 
-    return (values, titles, desc, first_form, second_form, timestamps, utstein, eureca, utstein_and_eureca)
+(values, titles, descriptions, first_form, second_form, dates, utstein, eureca, utstein_and_eureca, sections, names, timestamps) = read_values()
 
-(values, titles, descriptions, first_form, second_form, timestamps, utstein, eureca, utstein_and_eureca) = read_values()
+section_names = {
+    'metadata': "Osnovni podatki", 
+    'general_info': "Splošni podatki", 
+    'patient': "Pacient", 
+    'timeline': "Časovnica", 
+    'cardiac_arrest': "Podatki o srčnem zastoju", 
+    'dispatch': "Odziv dispečerja", 
+    'first_responders': "Prvi posredovalci", 
+    'rythm': "Ritem", 
+    'result': "Rezultati",
+    'therapy': "Zdravljenje", 
+    'lab' : "Laboratorijski izvidi",
+    'follow_up': "Dolgotrajen izid"
+}
+
+# all_fields = ""
+# for elt in sections:
+    # print("<h2 style='font-weight: 300;'>" + section_names[elt] + "</h2>")
+    # all_fields += '"' + str(elt) + '", '
+    # fields = ""
+    # for name in sections[elt]:
+    #     if name in names:
+            # print("<p>{{ form1." + str(name) + "|as_crispy_field }}</p>")
+            # fields += '"' + str(name) + '", '
+#     print("{% with '" + fields[:-2] + "' as " + str(elt) + " %}")
+# print("{% with '" + all_fields[:-2] + "' as all_fields %}")
+
+# for f in all_fields
+# <h2 style="font-weight: 500;">section_names[f]</h2>
+# <p> </p>
+# for elt in f:
+# f as crispy field
