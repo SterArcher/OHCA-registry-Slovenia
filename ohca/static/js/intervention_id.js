@@ -26,7 +26,7 @@ for (let i = 0; i < inputs.length; i++) {
         } else if (event.key === "ArrowRight" && i !== inputs.length - 1) {
             inputs[i + 1].focus();
         } else if (event.key === "Enter") {
-            document.getElementById("id_Patient_name").focus();
+            document.getElementById("id_systemID").focus();
         } else if (event.key !== "Tab") {
             inputs[i].setAttribute("type", "number");
             inputs[i].value = '';
@@ -37,7 +37,7 @@ for (let i = 0; i < inputs.length; i++) {
         inputs[i].value = inputs[i].value;
         handleIDchange();
         if (i === inputs.length - 1 && inputs[i].value !== '') {
-            document.getElementById("id_Patient_name").focus();
+            document.getElementById("id_systemID").focus();
         } else if (inputs[i].value !== '') {
             inputs[i + 1].focus();
         }
@@ -156,8 +156,8 @@ function handleIDchange() {
     }
     // Handle date change
     if (b3 && b4 && b5 && b6 && b7 && b8) {
-        document.getElementById('id_Date').value = year + '-' + month + '-' + day;
-        document.getElementById('id_Date').dispatchEvent(new Event('change'));
+        document.getElementById('id_dateOfCA').value = year + '-' + month + '-' + day;
+        document.getElementById('id_dateOfCA').dispatchEvent(new Event('change'));
     }
     document.getElementById('dateInt').innerHTML = day + '/' + month + '/' + year;
 
