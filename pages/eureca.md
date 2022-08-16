@@ -27,7 +27,7 @@ This subpage is in Slovenian language and is intended for use by Slovenian healt
 | mail za podporo       | luka.petravic@student.um.si                            |
 | link do baze          | [baza](https://local.siohca.um.si)                     |
 | link za vpis podatkov | [vpis podatkov](https://test-api.siohca.local) |
-| link do obrazca za tisk | [obrazec](https://github.com/SterArcher/OHCA-registry-Slovenia/blob/gh-pages/assets/pdf/SiOHCA%20form_v150822.pdf)                     |
+| link do obrazca za tisk | [obrazec](https://raw.githubusercontent.com/SterArcher/OHCA-registry-Slovenia/gh-pages/assets/pdf/SiOHCA%20form_v150822.pdf) |
 
 ___
 - [Kaj je SiOHCA](#kaj-je-siohca)
