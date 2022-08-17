@@ -77,7 +77,8 @@ class CaseReport(models.Model):
     dispProvidedCPRinst = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     callTimestamp = models.DateTimeField(null = True, blank = True)
     firstResponder = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
-
+    noFirstResponder = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(3)])
+ 
     dateOfCA = models.DateField(blank=True, null=True)
     name = models.CharField(max_length=200, blank = True, null = True)
     surname = models.CharField(max_length=200, blank = True, null = True)
@@ -87,6 +88,8 @@ class CaseReport(models.Model):
     gender = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
     genderUtstein = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     witnesses = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(3)])
+    reaWitnesses = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(3)])
+
     location  = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(8)])
     reaLocation = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(6)])
     CAtimestamp = models.DateTimeField(null=True, blank=True) # time of CA
@@ -95,6 +98,9 @@ class CaseReport(models.Model):
     bystanderResponse = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
     bystanderResponseTime = models.BigIntegerField(null = True, blank = True)
     bystanderResponseTimestamp = models.DateTimeField(null = True, blank = True)
+
+    bystanderCPR = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(3)])
+    CPRdone = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
 
     bystanderAED = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
     bystanderAEDTime = models.BigIntegerField(null = True, blank = True),
@@ -158,6 +164,7 @@ class CaseReport(models.Model):
     hospitalVolume = models.IntegerField(null = True, blank = True, validators=[MinValueValidator(-1)])
     ecg = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     ecgBLOB = models.FileField(null = True, blank = True)
+    ecgResult = models.CharField(null = True, blank = True, max_length=1000)
     targetBP = models.DecimalField(max_digits = 10, decimal_places = 5, null = True, blank = True, validators=[MinValueValidator(-1)])
     survived = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     rosc = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
@@ -224,6 +231,8 @@ class CaseReport(models.Model):
     dischMonth = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(12)])
     dischYear = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1)])
     discDate = models.DateField(null = True, blank = True)
+
+    doctorName = models.CharField(null = True, blank = True, max_length=200)
 
 
     def update(self, *args, **kwargs):
