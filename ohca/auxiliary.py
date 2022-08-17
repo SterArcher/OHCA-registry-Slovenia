@@ -66,7 +66,7 @@ def read_values():
                         value_list.append((int(val), value_dict[val])) 
                 value_list.append((-1, "Neznano/ni podatka"))
                 # value_list.append((-9999, "Ni zabeleženo/ni zavedeno"))
-                # value_list.append((None, "Ni zabeleženo / ni zavedeno"))
+                value_list.append((None, "Ni zabeleženo / ni zavedeno"))
         if len(value_list) > 0:
             values[element] = value_list
 

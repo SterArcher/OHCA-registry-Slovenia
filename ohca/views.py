@@ -187,8 +187,8 @@ def form_name_view(request):
             izracunana_polja.append(("interventionID", intID))
             izracunana_polja.append(("mainInterventionID", intID))
 
-            first_name = (form1.cleaned_data['name']).strip().split(" ")
-            last_name = (form1.cleaned_data['surname']).strip().split(" ")
+            # first_name = (form1.cleaned_data['name']).strip().split(" ")
+            # last_name = (form1.cleaned_data['surname']).strip().split(" ")
             date = str(form1.cleaned_data['dateOfCA'])
             # date_time = str(form1.cleaned_data["reaTimestamp"])
 
@@ -340,7 +340,7 @@ def second_first_form_name_view(request):
 
             # id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
             print(id)
-            field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl"] + not_dcz), first_form))] + izracunana_polja
+            field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl"]), first_form))] + izracunana_polja
             field_list = list(map(lambda x: (x[0], None) if x[1] == -9999 else x, field_list))
             
             CaseReport.objects.update_or_create(
@@ -415,7 +415,7 @@ def second_form_name_view(request):
             # izracunana_polja.append(("localID", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])[0]))
             # izracunana_polja.append(("systemID", System.objects.all().filter(friendlyName__exact=form1.cleaned_data["systemID"])[0]))
            
-            field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl", "systemID", "localID"] + not_dcz), second_form))] + izracunana_polja
+            field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl", "systemID", "localID"]), second_form))] + izracunana_polja
             field_list = list(map(lambda x: (x[0], None) if x[1] == -9999 else x, field_list))
             
             if intID == "":
