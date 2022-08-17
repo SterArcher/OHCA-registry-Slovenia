@@ -12,16 +12,16 @@ def read_values():
     - timestamps (all fields that are filled as timestamps)"""
     
     file = open('ohca/variables.json', encoding="utf-8")
-    data = json.load(file)
+    data = json.load(file) 
     values, titles, desc = dict(), dict(), dict()
     dates = []
     first_form, second_form, both_forms = [], [], []
     utstein, eureca, utstein_and_eureca = [], [], []
     names = [] # all variable names
-    sections = dict()
+    sections = dict() 
     counter = 0
     exceptions = ["BLOB", ">0", ">=0", "0-14", "1-5", "0-6", "hh:mm:ss", "date"]
-    except_names = {"bystanCPR", "CPRdone"}
+    except_names = []
     for element in data["cases"]:
         counter += 1
 
@@ -64,7 +64,8 @@ def read_values():
                     if val != "null" and val!= "-1":
                         # print((int(val), value_dict[val]))
                         value_list.append((int(val), value_dict[val])) 
-                value_list.append((-1, "Neznano"))
+                value_list.append((-1, "Neznano/ni podatka"))
+                # value_list.append((-9999, "Ni zabeleženo/ni zavedeno"))
                 # value_list.append((None, "Ni zabeleženo / ni zavedeno"))
         if len(value_list) > 0:
             values[element] = value_list
@@ -91,9 +92,13 @@ def read_values():
     # first_form = both_forms + first_form
     # second_form = both_forms + second_form #
     timestamps = sections["timeline"]
-    return (values, titles, desc, first_form, second_form, dates, utstein, eureca, utstein_and_eureca, sections, names, timestamps)
+    not_dcz = []
+    for timestamp in timestamps:
+        if "dcz" in data["cases"][timestamp]:
+            not_dcz.append(timestamp)
+    return (values, titles, desc, first_form, second_form, dates, names, timestamps, not_dcz)
 
-(values, titles, descriptions, first_form, second_form, dates, utstein, eureca, utstein_and_eureca, sections, names, timestamps) = read_values()
+(values, titles, descriptions, first_form, second_form, dates, names, timestamps, not_dcz) = read_values()
 
 section_names = {
     'metadata': "Osnovni podatki", 
