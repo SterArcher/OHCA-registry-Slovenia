@@ -21,13 +21,18 @@
         {% cache 86400 form2 %}
         <p> </p>
         <p> </p>
+
+        {% with '"allDrugs", "airway"' as list %}
+
         {% for field in form1 %}
 
+        {% if field.name not in list %}
+
         {% if field.name == "name" %}
-            <h2 style='font-weight: 600; font-size: 25px'> 1. Pacient</h2>
+            <h2 style='font-weight: 600; font-size: 25px'> 1. Podatki o pacientu </h2>
             <p>{{ field|as_crispy_field }}</p>
 
-        {% elif field.name == "reaConf" %}
+        {% elif field.name == "dateOfCA" %}
             <h2 style='font-weight: 600; font-size: 25px'> 2. Osnovni podatki</h2>
             <p>{{ field|as_crispy_field }}</p>
 
@@ -35,7 +40,7 @@
             <h2 style='font-weight: 600; font-size: 25px'> 3. Časovnica</h2>
             <p>{{ field|as_crispy_field }}</p>
 
-        {% elif field.name == "stemiPresent" %}
+        {% elif field.name == "reaLocation" %}
             <h2 style='font-weight: 600; font-size: 25px'> 4. Podatki o srčnem zastoju</h2>
             <p>{{ field|as_crispy_field }}</p>
 
@@ -67,13 +72,19 @@
             <h2 style='font-weight: 600; font-size: 25px'> 11. Dolgotrajen izid </h2>
             <p>{{ field|as_crispy_field }}</p>
         
+        {% elif field.name == "airwayControl" %}
+            <p>{{ form1.airway|as_crispy_field }}</p>
 
+        {% elif field.name == "drugs" %}
+            <p>{{ form1.allDrugs|as_crispy_field }}</p>
 
         {% else %}
             <p>{{ field|as_crispy_field }}</p>
 
         {% endif %}
+        {% endif %}
         {% endfor %}
+        {% endwith %}
           
             
         <input type="submit" class="btn btn-dark" value="Submit">

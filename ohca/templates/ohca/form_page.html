@@ -85,33 +85,32 @@
         <!-- <p>{{ formset|crispy }}</p> -->
         
 
+        {% with '"allDrugs", "airway"' as list %}
+
         {% for field in form1 %}
 
+        {% if field.name not in list %}
+
         {% if field.name == "name" %}
-            <h2 style='font-weight: 600; font-size: 25px'> 1. Pacient</h2>
+            <h2 style='font-weight: 600; font-size: 25px'> 1. Podatki o pacientu</h2>
             <p>{{ field|as_crispy_field }}</p>
 
-        {% elif field.name == "dateOfBirth" %}
-            <p>{{ field|as_crispy_field }}</p>
+        
 
         {% elif field.name == "dateOfCA" %}
-            <p>{{ field|as_crispy_field }}</p>
-
-
-        {% elif field.name == "reaConf" %}
             <h2 style='font-weight: 600; font-size: 25px'> 2. Osnovni podatki</h2>
             <p>{{ field|as_crispy_field }}</p>
 
-        {% elif field.name == "reaTimestamp" %}
+        {% elif field.name == "defibTimestamp" %}
             <h2 style='font-weight: 600; font-size: 25px'> 3. Časovnica</h2>
             <p>{{ field|as_crispy_field }}</p>
 
-        {% elif field.name == "stemiPresent" %}
+        {% elif field.name == "reaLocation" %}
             <h2 style='font-weight: 600; font-size: 25px'> 4. Podatki o srčnem zastoju</h2>
             <p>{{ field|as_crispy_field }}</p>
 
         {% elif field.name == "dispIdentifiedCA" %}
-            <h2 style='font-weight: 600; font-size: 25px'> 5. Odziv dispečerja</h2>
+            <h2 style='font-weight: 600; font-size: 25px'> 5. Odziv dispečerja in očividca</h2>
             <p>{{ field|as_crispy_field }}</p>
 
         {% elif field.name == "helperWho" %}
@@ -130,7 +129,7 @@
             <h2 style='font-weight: 600; font-size: 25px'> 9. Zdravljenje </h2>
             <p>{{ field|as_crispy_field }}</p>
 
-            {% elif field.name == "ph" %}
+        {% elif field.name == "ph" %}
             <h2 style='font-weight: 600; font-size: 25px'> 10. Laboratorijski izvidi </h2>
             <p>{{ field|as_crispy_field }}</p>
 
@@ -138,14 +137,21 @@
             <h2 style='font-weight: 600; font-size: 25px'> 11. Dolgotrajen izid </h2>
             <p>{{ field|as_crispy_field }}</p>
         
+        {% elif field.name == "drugs" %}
+            <p>{{ form1.allDrugs|as_crispy_field }}</p>
+        
+        {% elif field.name == "airwayControl" %}
+            <p>{{ form1.airway|as_crispy_field }}</p>
 
+        
 
         {% else %}
             <p>{{ field|as_crispy_field }}</p>
 
         {% endif %}
+        {% endif %}
         {% endfor %}
-          
+        {% endwith %}
 
         <!-- <form action="#"> -->
         <input type="submit" class="btn btn-dark" value="Submit">
