@@ -44,7 +44,7 @@ def read_values():
 
         # third remember their titles which will be the questions in the form
         if "title" in data["cases"][element]:
-            titles[element] = data["cases"][element]["title"]
+            titles[element] = "<b>" + data["cases"][element]["title"] + "</b>"
             if 'description' in data["cases"][element]:
                 desc[element] = data["cases"][element]["description"]
         
@@ -64,9 +64,11 @@ def read_values():
                     if val != "null" and val!= "-1":
                         # print((int(val), value_dict[val]))
                         value_list.append((int(val), value_dict[val])) 
-                value_list.append((-1, "Neznano/ni podatka"))
-                # value_list.append((-9999, "Ni zabeleženo/ni zavedeno"))
-                value_list.append((None, "Ni zabeleženo / ni zavedeno"))
+
+                if element not in ["estimatedAge", "estimatedAgeBystander", "estimatedCAtimestamp"]:
+                    value_list.append((-1, "Neznano/ni podatka"))
+                    value_list.append((-9999, "Ni zabeleženo/ni zavedeno"))
+                # value_list.append((None, "Ni zabeleženo / ni zavedeno"))
         if len(value_list) > 0:
             values[element] = value_list
 

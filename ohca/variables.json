@@ -1562,7 +1562,7 @@
             "description" : "Preživetje do odpusta iz bolnišnice: medbolnišnična premestitev na enak ali višji nivo se ne upošteva kot odpust iz bolnišice. Če bolnik umre v bolnišnici je dan odpusta enak dnevu smrti."
         },
         "survival30d" : {
-            "title" : "A30-dnevno preživetje po zastoju",
+            "title" : "30-dnevno preživetje po zastoju",
             "from": "EuReCa3",
             "form": "d30",
             "values" : {
@@ -1674,7 +1674,7 @@
             "title" : "Ime in priimek zdravnika oz. izpolnjevalca obrazca",
             "shown" : true,
             "section" : "result",
-            "form": "d30"
+            "form": "d1&d30"
         }       
     }
 

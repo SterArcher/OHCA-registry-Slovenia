@@ -2,16 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-    <!-- -------submit message-------- -->
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-dismissible alert-success">
-                <button type="button" class="close" data-dismiss="alert">x</button>
-                <strong>{{message}}</strong>
-            </div>
-        {% endfor %}
-    {% endif %}
-    <!-- -------submit message-------- -->
+
 
     <h2 style="font-weight: 500;">Izpolnite podatke o dogodku</h2>
 
@@ -22,7 +13,7 @@
         <p> </p>
         <p> </p>
 
-        {% with '"allDrugs", "airway"' as list %}
+        {% with '"allDrugs", "airway", "adTtmTemp", "adTargetBP", "adPh", "adLactate", "adShocks"' as list %}
 
         {% for field in form1 %}
 
@@ -67,6 +58,7 @@
             {% elif field.name == "ph" %}
             <h2 style='font-weight: 600; font-size: 25px'> 10. Laboratorijski izvidi </h2>
             <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adPh|as_crispy_field }}</p>
 
         {% elif field.name == "discDate" %}
             <h2 style='font-weight: 600; font-size: 25px'> 11. Dolgotrajen izid </h2>
@@ -77,6 +69,22 @@
 
         {% elif field.name == "drugs" %}
             <p>{{ form1.allDrugs|as_crispy_field }}</p>
+
+            {% elif field.name == "ttmTemp" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adTtmTemp|as_crispy_field }}</p>
+
+            {% elif field.name == "lactate" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adLactate|as_crispy_field }}</p>
+
+            {% elif field.name == "targetBP" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adTargetBP|as_crispy_field }}</p>
+
+            {% elif field.name == "shocks" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adShocks|as_crispy_field }}</p>
 
         {% else %}
             <p>{{ field|as_crispy_field }}</p>
