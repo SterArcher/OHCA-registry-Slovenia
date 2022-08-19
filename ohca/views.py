@@ -164,14 +164,17 @@ def new_index(request):
 def form_name_view(request):
     form1 = DSZ_1_DAN() 
     form2 = InterventionForm()
+    context = {}
     if request.method == "POST":
         
         form1 = DSZ_1_DAN(request.POST)     
         form2 = InterventionForm(request.POST)
-        print(form1.errors)
+
+        
 
         if form2.is_valid() and form1.is_valid(): 
 
+            
             messages.success(request, 'Podatki uspešno oddani!')
 
             print("VALIDATION SUCCESS")
@@ -237,10 +240,21 @@ def form_name_view(request):
             izracunana_polja.append(("localID", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])[0]))
             izracunana_polja.append(("systemID", System.objects.all().filter(friendlyName__exact=form1.cleaned_data["systemID"])[0]))
             
-            # print(izracunana_polja)
-            # print(new_field_dict)
+            if form1.cleaned_data["ttmTemp"] == None:
+                izracunana_polja.append(("ttmTemp", form1.cleaned_data["adTtmTemp"]))
+            if form1.cleaned_data["targetBP"] == None:
+                izracunana_polja.append(("targetBP", form1.cleaned_data["adTargetBP"]))
+            if form1.cleaned_data["ph"] == None:
+                izracunana_polja.append(("ph", form1.cleaned_data["adPh"]))
+            if form1.cleaned_data["lactate"] == None:
+                izracunana_polja.append(("lactate", form1.cleaned_data["adLactate"]))
+            if form1.cleaned_data["shocks"] == None:
+                izracunana_polja.append(("shocks", form1.cleaned_data["adShocks"]))
+
+
+
             field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl"] + not_dcz), first_form))] + izracunana_polja
-            field_list = list(map(lambda x: (x[0], None) if x[1] == -9999 else x, field_list))
+            # field_list = list(map(lambda x: (x[0], None) if x[1] == -9999 else x, field_list))
             
             print(field_list)
             
@@ -249,15 +263,29 @@ def form_name_view(request):
                 dispatchID=dispatch_id, 
                 defaults=dict(field_list)#dict([(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl"] + not_dcz), first_form))] + izracunana_polja)
             ) 
+            # form1 = DSZ_1_DAN() 
+            # form2 = InterventionForm()
                 
         else:
             print("form invalid")
+
             messages.error(request, 'Nepravilno izpolnjen obrazec.')
+            
+            print(list(form1.errors))
+            print(form1.errors)
             messages.error(request, form1.errors)
-    else:
-        form1 = DSZ_1_DAN() 
-        form2 = InterventionForm()
-    return render(request, "ohca/form_page.html", {"form1":form1, "form2":form2})
+            # form1 = DSZ_1_DAN() 
+            # form2 = InterventionForm()
+            # return render(request, "ohca/form_page.html", {"form1":form1, "form2":form2})
+
+    # else:
+    #     form1 = DSZ_1_DAN() 
+    #     form2 = InterventionForm()
+
+    final = {"form1":form1, "form2":form2}
+    final.update(context)
+    print(context)
+    return render(request, "ohca/form_page.html", final)
 
 
 def second_first_form_name_view(request):
@@ -268,85 +296,101 @@ def second_first_form_name_view(request):
         print(form1.errors)
 
         if form1.is_valid(): # and form2.is_valid():
-            print("VALIDATION SUCCESS")
 
-            messages.success(request, 'Podatki uspešno oddani!')
+            if form1.cleaned_data["name"] == None:
+                messages.error(request, "poskus")
 
-            izracunana_polja = []
-            
-            first_name = (form1.cleaned_data['name']).strip().split(" ")
-            last_name = (form1.cleaned_data['surname']).strip().split(" ")
-            date = str(form1.cleaned_data['dateOfCA'])
-            date_time = str(form1.cleaned_data["reaTimestamp"])
+            else:
+                print("VALIDATION SUCCESS")
 
-            id = generate_case_id(" ".join(first_name), " ".join(last_name), date, date_time)
-            form1.instance.caseID = id 
+                messages.success(request, 'Podatki uspešno oddani!')
 
-            #======================= SAME FOR BOTH FORMS ==================================
+                izracunana_polja = []
+                
+                first_name = (form1.cleaned_data['name']).strip().split(" ")
+                last_name = (form1.cleaned_data['surname']).strip().split(" ")
+                date = str(form1.cleaned_data['dateOfCA'])
+                date_time = str(form1.cleaned_data["reaTimestamp"])
 
-            birth = form1.cleaned_data['dateOfBirth']
-            estimAge = form1.cleaned_data['estimatedAge']
+                id = generate_case_id(" ".join(first_name), " ".join(last_name), date, date_time)
+                form1.instance.caseID = id 
 
-            if birth != None and estimAge == None:
+                #======================= SAME FOR BOTH FORMS ==================================
 
-                calculated_age = calculate_age(str(birth), date)
-                izracunana_polja.append(("age", calculated_age))
+                birth = form1.cleaned_data['dateOfBirth']
+                estimAge = form1.cleaned_data['estimatedAge']
 
-            elif birth != None and estimAge != None: 
-                pass # TODO 
+                if birth != None and estimAge == None:
 
-            # handle multipleselect fields separately
-            drugs = form1.cleaned_data['allDrugs']
-            drugs = list(map(lambda x: int(x), drugs))
-            print((drugs, sum(drugs)))
-            if drugs:
-                izracunana_polja.append(("drugs", sum(drugs)))
+                    calculated_age = calculate_age(str(birth), date)
+                    izracunana_polja.append(("age", calculated_age))
 
-            airway = form1.cleaned_data['airway']
-            airway = list(map(lambda x: int(x), airway))
-            print((airway, sum(airway)))
-            if airway:
-                izracunana_polja.append(("airwayControl", sum(airway)))
+                elif birth != None and estimAge != None: 
+                    pass # TODO 
 
-            y, m, d = date.split("-")
+                # handle multipleselect fields separately
+                drugs = form1.cleaned_data['allDrugs']
+                drugs = list(map(lambda x: int(x), drugs))
+                print((drugs, sum(drugs)))
+                if drugs:
+                    izracunana_polja.append(("drugs", sum(drugs)))
 
-            izracunana_polja.append(("reaYr", int(y)))
-            izracunana_polja.append(("reaMo", int(m)))
-            izracunana_polja.append(("reaDay", int(d)))
+                airway = form1.cleaned_data['airway']
+                airway = list(map(lambda x: int(x), airway))
+                print((airway, sum(airway)))
+                if airway:
+                    izracunana_polja.append(("airwayControl", sum(airway)))
 
-            # izracunana_polja.append(("dispatchID", generate_dispatch_id(str(intID), date)))
+                y, m, d = date.split("-")
 
-            izracunana_polja.append(("reaLand", "Slovenia"))
-            izracunana_polja.append(("reaRegion", str(form1.cleaned_data["localID"])))
-            
-            izracunana_polja.append(("localID", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])[0]))
-            izracunana_polja.append(("systemID", System.objects.all().filter(friendlyName__exact=form1.cleaned_data["systemID"])[0]))
-            
+                izracunana_polja.append(("reaYr", int(y)))
+                izracunana_polja.append(("reaMo", int(m)))
+                izracunana_polja.append(("reaDay", int(d)))
 
-            #========================= CALCULATE TIME INTERVALS ===================================================
+                # izracunana_polja.append(("dispatchID", generate_dispatch_id(str(intID), date)))
 
-            callTimestamp = form1.cleaned_data["callTimestamp"]
-            timestamps = timeline[2:] # remove reaTimestamp and callTimestamp
-            print(timestamps)
-            if callTimestamp != None:
-                beginning = callTimestamp
-                for elt in timestamps:
-                    time = form1.cleaned_data[elt]
-                    seconds = calcSeconds(time, beginning)
-                    izracunana_polja.append((timestamp_dict[elt], seconds))
+                izracunana_polja.append(("reaLand", "Slovenia"))
+                izracunana_polja.append(("reaRegion", str(form1.cleaned_data["localID"])))
+                
+                izracunana_polja.append(("localID", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])[0]))
+                izracunana_polja.append(("systemID", System.objects.all().filter(friendlyName__exact=form1.cleaned_data["systemID"])[0]))
 
-            #=====================================================================
+                if form1.cleaned_data["ttmTemp"] == None:
+                    izracunana_polja.append(("ttmTemp", form1.cleaned_data["adTtmTemp"]))
+                if form1.cleaned_data["targetBP"] == None:
+                    izracunana_polja.append(("targetBP", form1.cleaned_data["adTargetBP"]))
+                if form1.cleaned_data["ph"] == None:
+                    izracunana_polja.append(("ph", form1.cleaned_data["adPh"]))
+                if form1.cleaned_data["lactate"] == None:
+                    izracunana_polja.append(("lactate", form1.cleaned_data["adLactate"]))
+                if form1.cleaned_data["shocks"] == None:
+                    izracunana_polja.append(("shocks", form1.cleaned_data["adShocks"]))
+                
+
+                #========================= CALCULATE TIME INTERVALS ===================================================
+
+                callTimestamp = form1.cleaned_data["callTimestamp"]
+                timestamps = timeline[2:] # remove reaTimestamp and callTimestamp
+                print(timestamps)
+                if callTimestamp != None:
+                    beginning = callTimestamp
+                    for elt in timestamps:
+                        time = form1.cleaned_data[elt]
+                        seconds = calcSeconds(time, beginning)
+                        izracunana_polja.append((timestamp_dict[elt], seconds))
+
+                #=====================================================================
 
 
-            # id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
-            print(id)
-            field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl"]), first_form))] + izracunana_polja
-            field_list = list(map(lambda x: (x[0], None) if x[1] == -9999 else x, field_list))
-            
-            CaseReport.objects.update_or_create(
-                caseID=id, 
-                defaults=dict(field_list)#dict([(field, form1.cleaned_data[field]) for field in first_form] + izracunana_polja)
-            )
+                # id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
+                print(id)
+                field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl"]), first_form))] + izracunana_polja
+                field_list = list(map(lambda x: (x[0], None) if x[1] == -9999 else x, field_list))
+                
+                CaseReport.objects.update_or_create(
+                    caseID=id, 
+                    defaults=dict(field_list)#dict([(field, form1.cleaned_data[field]) for field in first_form] + izracunana_polja)
+                )
         else:
             print("form invalid")
             messages.error(request, 'Nepravilno izpolnjen obrazec.')

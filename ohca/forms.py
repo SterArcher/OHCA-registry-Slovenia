@@ -1,7 +1,5 @@
-from random import choices
-from time import time
 from django import forms
-from django.core import validators
+from django.core.exceptions import ValidationError
 # from matplotlib import widgets
 from .models import *
 from django.utils.translation import gettext_lazy as _
@@ -45,7 +43,7 @@ def generate_case_id(first_name: str, last_name: str, cardiac_arrest_date: str, 
 	"""Takes the name, surname and dates in format recieved from input from form: 2020-02-03 (year, month, day) and generates ID"""
 
 	# poskrbi za primer več imen in poenoti velike začetnice
-	name = ""
+	name = "",
 	for i in range(len(first_name)):
 		name += first_name[i][0].upper() + first_name[i][1:].lower()
 
@@ -106,6 +104,9 @@ w = create_widgets(values, dates, timestamps)
 w["ecgBLOB"] = forms.FileInput(attrs={"class" : "form-control", "type" : "file"})
 w["cod"] = forms.Select(choices=icd_choices)
 
+# w["ttmTemp"] = valueInput
+w["drugs"] = forms.CheckboxSelectMultiple(choices=values['drugs'])
+w["airwayControl"] = forms.CheckboxSelectMultiple(choices=values['airwayControl'])
 
 # ========================================== FORMS ================================================================================
 
@@ -155,24 +156,57 @@ class DSZ_1_DAN(forms.ModelForm):
 	allDrugs = forms.MultipleChoiceField(label=titles["drugs"], widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
 	airway = forms.MultipleChoiceField(label=titles["airwayControl"], widget=forms.CheckboxSelectMultiple,choices=values['airwayControl'], required=False)
 
+	adTtmTemp = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adTargetBP = forms.IntegerField(widget=forms.RadioSelect(choices=((0, "Ni opredeljenega cilja"), (-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adPh = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adLactate = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adShocks = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+
 	class Meta: 	
 		model = CaseReport
 		fields = tuple(first_form)	
-		exclude = tuple(not_dcz)	
+		exclude = tuple(not_dcz) + ("estimatedCAtimestamp",)
 		widgets = w
 		labels = titles
 		help_texts = descriptions
 
-	# def __init__(self, *args, **kwargs):
-	# 	super(DSZ_1_DAN, self).__init__(*args, **kwargs)
-		
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		fields = ["adTtmTemp", "adPh", "adTargetBP", "adLactate", "adShocks"]
+
+		for f in fields:
+			self.fields[f].label = False
+
 	# 	for key in self.fields:
 	# 		self.fields[key].required = True
+
+
+	def clean(self):# -> Optional[Dict[str, Any]]:
+		cleaned_data = super().clean()
+		print(cleaned_data)
+
+		for key in cleaned_data:
+			if cleaned_data[key] == -9999:
+				cleaned_data[key] = None
+
+
+		# if cleaned_data["name"] == None and cleaned_data["surname"] == None:
+		# 	raise ValidationError({"name" : "poskus", "surname" : "tudi poskus"})
+
+		return cleaned_data
+
+
 
 class NDSZ_1_DAN(forms.ModelForm):
 
 	allDrugs = forms.MultipleChoiceField(label=titles["drugs"], widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
 	airway = forms.MultipleChoiceField(label=titles["airwayControl"], widget=forms.CheckboxSelectMultiple,choices=values['airwayControl'], required=False)
+
+	adTtmTemp = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adTargetBP = forms.IntegerField(widget=forms.RadioSelect(choices=((0, "Ni opredeljenega cilja"), (-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adPh = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adLactate = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adShocks = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
 
 	class Meta: 	
 		model = CaseReport
@@ -182,11 +216,28 @@ class NDSZ_1_DAN(forms.ModelForm):
 		labels = titles
 		help_texts = descriptions
 
-	# def __init__(self, *args, **kwargs):
-	# 	super(NDSZ_1_DAN, self).__init__(*args, **kwargs)
-		
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		fields = ["adTtmTemp", "adPh", "adTargetBP", "adLactate", "adShocks"]
+
+		for f in fields:
+			self.fields[f].label = False
+
 	# 	for key in self.fields:
 	# 		self.fields[key].required = True
+
+	def clean(self):# -> Optional[Dict[str, Any]]:
+		cleaned_data = super().clean()
+		# print(cleaned_data)
+
+		for key in cleaned_data:
+			if cleaned_data[key] == -9999:
+				cleaned_data[key] = None
+
+		# if cleaned_data["name"] == None and cleaned_data["surname"] == None:
+		# 	raise ValidationError({"name" : "poskus", "surname" : "tudi poskus"})
+
+		return cleaned_data
 
 	
 class MySecondNewFrom(forms.ModelForm):
@@ -206,5 +257,18 @@ class MySecondNewFrom(forms.ModelForm):
 	# 	for key in self.fields:
 	# 		self.fields[key].required = True
 		
+	def clean(self):# -> Optional[Dict[str, Any]]:
+		cleaned_data = super().clean()
+		# print(cleaned_data)
 
+		for key in cleaned_data:
+			if cleaned_data[key] == -9999:
+				cleaned_data[key] = None
+
+
+
+		# if cleaned_data["name"] == None and cleaned_data["surname"] == None:
+		# 	raise ValidationError({"name" : "poskus", "surname" : "tudi poskus"})
+
+		return cleaned_data
 
