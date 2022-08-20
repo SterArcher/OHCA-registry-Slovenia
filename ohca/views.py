@@ -252,8 +252,8 @@ def form_name_view(request):
                 izracunana_polja.append(("shocks", form1.cleaned_data["adShocks"]))
 
 
-
-            field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl"] + not_dcz), first_form))] + izracunana_polja
+            
+            field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["estimatedCAtimestamp", "drugs", "airwayControl"] + not_dcz), first_form))] + izracunana_polja
             # field_list = list(map(lambda x: (x[0], None) if x[1] == -9999 else x, field_list))
             
             print(field_list)
