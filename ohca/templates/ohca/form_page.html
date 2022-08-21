@@ -164,7 +164,8 @@
 
         <!-- <form action="#"> -->
         <script src="/static/js/formPersistence.js"></script>
-        <input type="submit" class="btn btn-dark" value="Submit" onclick="saveFormToCookie()">
+        <script src="/static/js/formValidation.js"></script>
+        <input type="submit" class="btn btn-dark" value="Submit" onclick="saveFormToCookie()" onload="saveFormToCookie()">
         {% endcache %}
     </form>
 
