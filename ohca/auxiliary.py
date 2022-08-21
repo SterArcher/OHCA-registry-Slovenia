@@ -65,7 +65,7 @@ def read_values():
                         # print((int(val), value_dict[val]))
                         value_list.append((int(val), value_dict[val])) 
 
-                if element not in ["estimatedAge", "estimatedAgeBystander", "estimatedCAtimestamp"]:
+                if element not in ["estimatedAge", "estimatedAgeBystander"]: #, "estimatedCAtimestamp"]:
                     value_list.append((-1, "Neznano/ni podatka"))
                     value_list.append((-9999, "Ni zabeleženo/ni zavedeno"))
                 # value_list.append((None, "Ni zabeleženo / ni zavedeno"))

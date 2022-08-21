@@ -99,6 +99,7 @@ icd_choices = [(0, "Izberite")]
 for elt in cods:
 	icd_choices.append((elt.code, str(elt.code) + " - " + str(elt.slovenian)))
 
+timestamps += ["treatmentWithdrawnTimestamp"]
 w = create_widgets(values, dates, timestamps) 
 
 w["ecgBLOB"] = forms.FileInput(attrs={"class" : "form-control", "type" : "file"})
@@ -138,17 +139,30 @@ class InterventionForm(forms.Form):
 		for f in fields:
 			self.fields[f].label = False
 
-# class TimestampForm(forms.ModelForm):
+class InterventionForm2(forms.Form):
+	"""Form for 12 separate fields for the intervention number"""
 
-# 	class Meta:
-# 		model = CaseReport
-# 		fields = tuple(timestamps)
-# 		exclude = ("cPREMS3Timestamp", ) 
-# 		widgets= w
-# 		labels = titles
-# 		help_texts = descriptions
-	
+	i1 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}), required=False)
+	i2 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}), required=False)
+	i3 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}), required=False)
+	i4 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}), required=False)
+	i5 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}), required=False)
+	i6 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}), required=False)
+	i7 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}), required=False)
+	i8 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}), required=False)
+	i9 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}), required=False)
+	i10 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}), required=False)
+	i11 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}), required=False)
+	i12 = forms.IntegerField(min_value=0, max_value=9, widget=forms.NumberInput(attrs={'style': 'width: 50px'}), required=False)
 
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		fields = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',]
+		#fields = ["interventionID"]
+
+		for f in fields:
+			self.fields[f].label = False
 	
 
 class DSZ_1_DAN(forms.ModelForm):
@@ -156,11 +170,11 @@ class DSZ_1_DAN(forms.ModelForm):
 	allDrugs = forms.MultipleChoiceField(label=titles["drugs"], widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
 	airway = forms.MultipleChoiceField(label=titles["airwayControl"], widget=forms.CheckboxSelectMultiple,choices=values['airwayControl'], required=False)
 
-	adTtmTemp = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
-	adTargetBP = forms.IntegerField(widget=forms.RadioSelect(choices=((0, "Ni opredeljenega cilja"), (-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
-	adPh = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
-	adLactate = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
-	adShocks = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adTtmTemp = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adTargetBP = forms.IntegerField(widget=forms.RadioSelect(choices=((0, "Ni opredeljenega cilja"), (-1, "Neznano/ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adPh = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adLactate = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adShocks = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
 
 	class Meta: 	
 		model = CaseReport
@@ -177,21 +191,89 @@ class DSZ_1_DAN(forms.ModelForm):
 		for f in fields:
 			self.fields[f].label = False
 
-	# 	for key in self.fields:
-	# 		self.fields[key].required = True
+		extras = ["ph", "adPh", "lactate", "adLactate", "targetBP", "adTargetBP", "shocks", "adShocks", "ttmTemp", "adTtmTemp"]
+
+
+		for key in self.fields:
+			if key not in (timestamps + extras + ["dateOfBirth", "estimatedAge"]):
+				self.fields[key].required = True
 
 
 	def clean(self):# -> Optional[Dict[str, Any]]:
 		cleaned_data = super().clean()
 		print(cleaned_data)
 
+		errors = dict()
+
+		ph = cleaned_data["ph"]
+		adPh = cleaned_data["adPh"]
+		if ph == None and adPh == None:
+			errors["ph"] = "Izpolnite podatke o ph tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+			errors["adPh"] = "Izpolnite podatke o ph tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+
+		lactate = cleaned_data["lactate"]
+		adlactate = cleaned_data["adLactate"]
+		if lactate == None and adlactate == None:
+			errors["lactate"] = "Izpolnite podatke o laktatu tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+			errors["adLactate"] = "Izpolnite podatke o laktatu tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+
+		Shocks = cleaned_data["shocks"]
+		adShocks = cleaned_data["adShocks"]
+		if Shocks == None and adShocks == None:
+			errors["shocks"] = "Izpolnite podatke o številu defibrilacij tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+			errors["adShocks"] = "Izpolnite podatke o številu defibrilacij tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+
+		TargetBP = cleaned_data["targetBP"]
+		adTargetBP = cleaned_data["adTargetBP"]
+		if TargetBP == None and adTargetBP == None:
+			errors["targetBP"] = "Izpolnite podatke o ciljanem upravljanju krvnega pritiska tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+			errors["adTargetBP"] = "Izpolnite podatke o ciljanem upravljanju krvnega pritiska tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+
+		TtmTemp = cleaned_data["ttmTemp"]
+		adTtmTemp = cleaned_data["adTtmTemp"]
+		if TtmTemp == None and adTtmTemp == None:
+			errors["ttmTemp"] = "Izpolnite podatke o ciljanem upravljanju krvnega pritiska tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+			errors["adTtmTemp"] = "Izpolnite podatke o ciljanem upravljanju krvnega pritiska tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+
+
 		for key in cleaned_data:
 			if cleaned_data[key] == -9999:
 				cleaned_data[key] = None
 
+		
 
-		# if cleaned_data["name"] == None and cleaned_data["surname"] == None:
-		# 	raise ValidationError({"name" : "poskus", "surname" : "tudi poskus"})
+		drugs = cleaned_data["allDrugs"]
+		const = "1" in drugs or "2" in drugs or "4" in drugs
+		if "0" in drugs and const:
+			errors["allDrugs"] = "Pri vprašanju o aplikaciji zdravil ste označili možnost 'brez', 'neznano' ali 'ni zabeleženo' in hkrati enega od zdravil!"
+		elif "-1" in drugs and const:
+			errors["allDrugs"] = "Pri vprašanju o aplikaciji zdravil ste označili možnost 'brez', 'neznano' ali 'ni zabeleženo' in hkrati enega od zdravil!"
+		elif "-9999" in drugs and const:
+			errors["allDrugs"] = "Pri vprašanju o aplikaciji zdravil ste označili možnost 'brez', 'neznano' ali 'ni zabeleženo' in hkrati enega od zdravil!"
+		else:
+			drugs = list(map(lambda x: int(x), drugs))
+			cleaned_data["drugs"] = sum(drugs)
+
+		airway = cleaned_data["airway"]
+		const = "1" in airway or "2" in airway or "4" in airway or "8" in airway
+		if "0" in airway and const:
+			errors["airway"] = "Pri vprašanju o aplikaciji zdravil ste označili možnost 'brez', 'neznano' ali 'ni zabeleženo' in hkrati enega od zdravil!"
+		elif "-1" in airway and const:
+			errors["airway"] = "Pri vprašanju o aplikaciji zdravil ste označili možnost 'brez', 'neznano' ali 'ni zabeleženo' in hkrati enega od zdravil!"
+		elif "-9999" in airway and const:
+			errors["airway"] = "Pri vprašanju o aplikaciji zdravil ste označili možnost 'brez', 'neznano' ali 'ni zabeleženo' in hkrati enega od zdravil!"
+		else:
+			airway = list(map(lambda x: int(x), airway))
+			cleaned_data["airwayControl"] = sum(airway)
+		# ne smejo bit prazna oboje ph in neznano
+
+		if cleaned_data["dateOfBirth"] == None and cleaned_data["estimatedAge"] == None:
+			errors["dateOfBirth"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
+			errors["estimatedAge"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
+
+		
+		if len(list(errors.keys())) >= 1:
+			raise ValidationError(errors)
 
 		return cleaned_data
 
@@ -223,21 +305,91 @@ class NDSZ_1_DAN(forms.ModelForm):
 		for f in fields:
 			self.fields[f].label = False
 
-	# 	for key in self.fields:
-	# 		self.fields[key].required = True
+		extras = ["ph", "adPh", "lactate", "adLactate", "targetBP", "adTargetBP", "shocks", "adShocks", "ttmTemp", "adTtmTemp"]
+
+		for key in self.fields:
+			if key not in ((list(filter(lambda x: x != "reaTimestamp", timestamps))) + ["dateOfBirth", "estimatedAge"] + extras):
+				self.fields[key].required = True
+
 
 	def clean(self):# -> Optional[Dict[str, Any]]:
 		cleaned_data = super().clean()
-		# print(cleaned_data)
+		print(cleaned_data)
+
+		errors = dict()
+
+		ph = cleaned_data["ph"]
+		adPh = cleaned_data["adPh"]
+		if ph == None and adPh == None:
+			errors["ph"] = "Izpolnite podatke o ph tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+			errors["adPh"] = "Izpolnite podatke o ph tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+
+		lactate = cleaned_data["lactate"]
+		adlactate = cleaned_data["adLactate"]
+		if lactate == None and adlactate == None:
+			errors["lactate"] = "Izpolnite podatke o laktatu tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+			errors["adLactate"] = "Izpolnite podatke o laktatu tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+
+		Shocks = cleaned_data["shocks"]
+		adShocks = cleaned_data["adShocks"]
+		if Shocks == None and adShocks == None:
+			errors["shocks"] = "Izpolnite podatke o številu defibrilacij tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+			errors["adShocks"] = "Izpolnite podatke o številu defibrilacij tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+
+		TargetBP = cleaned_data["targetBP"]
+		adTargetBP = cleaned_data["adTargetBP"]
+		if TargetBP == None and adTargetBP == None:
+			errors["targetBP"] = "Izpolnite podatke o ciljanem upravljanju krvnega pritiska tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+			errors["adTargetBP"] = "Izpolnite podatke o ciljanem upravljanju krvnega pritiska tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+
+		TtmTemp = cleaned_data["ttmTemp"]
+		adTtmTemp = cleaned_data["adTtmTemp"]
+		if TtmTemp == None and adTtmTemp == None:
+			errors["ttmTemp"] = "Izpolnite podatke o ciljanem upravljanju krvnega pritiska tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+			errors["adTtmTemp"] = "Izpolnite podatke o ciljanem upravljanju krvnega pritiska tako da vpišete vrednost ali označite 'neznano' ali 'ni zabeleženo'!"
+
 
 		for key in cleaned_data:
 			if cleaned_data[key] == -9999:
 				cleaned_data[key] = None
 
-		# if cleaned_data["name"] == None and cleaned_data["surname"] == None:
-		# 	raise ValidationError({"name" : "poskus", "surname" : "tudi poskus"})
+		
+
+		drugs = cleaned_data["allDrugs"]
+		const = "1" in drugs or "2" in drugs or "4" in drugs
+		if "0" in drugs and const:
+			errors["allDrugs"] = "Pri vprašanju o aplikaciji zdravil ste označili možnost 'brez', 'neznano' ali 'ni zabeleženo' in hkrati enega od zdravil!"
+		elif "-1" in drugs and const:
+			errors["allDrugs"] = "Pri vprašanju o aplikaciji zdravil ste označili možnost 'brez', 'neznano' ali 'ni zabeleženo' in hkrati enega od zdravil!"
+		elif "-9999" in drugs and const:
+			errors["allDrugs"] = "Pri vprašanju o aplikaciji zdravil ste označili možnost 'brez', 'neznano' ali 'ni zabeleženo' in hkrati enega od zdravil!"
+		else:
+			drugs = list(map(lambda x: int(x), drugs))
+			cleaned_data["drugs"] = sum(drugs)
+
+		airway = cleaned_data["airway"]
+		const = "1" in airway or "2" in airway or "4" in airway or "8" in airway
+		if "0" in airway and const:
+			errors["airway"] = "Pri vprašanju o aplikaciji zdravil ste označili možnost 'brez', 'neznano' ali 'ni zabeleženo' in hkrati enega od zdravil!"
+		elif "-1" in airway and const:
+			errors["airway"] = "Pri vprašanju o aplikaciji zdravil ste označili možnost 'brez', 'neznano' ali 'ni zabeleženo' in hkrati enega od zdravil!"
+		elif "-9999" in airway and const:
+			errors["airway"] = "Pri vprašanju o aplikaciji zdravil ste označili možnost 'brez', 'neznano' ali 'ni zabeleženo' in hkrati enega od zdravil!"
+		else:
+			airway = list(map(lambda x: int(x), airway))
+			cleaned_data["airwayControl"] = sum(airway)
+		# ne smejo bit prazna oboje ph in neznano
+
+		if cleaned_data["dateOfBirth"] == None and cleaned_data["estimatedAge"] == None:
+			errors["dateOfBirth"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
+			errors["estimatedAge"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
+
+		
+		if len(list(errors.keys())) >= 1:
+			raise ValidationError(errors)
 
 		return cleaned_data
+
 
 	
 class MySecondNewFrom(forms.ModelForm):
@@ -246,26 +398,47 @@ class MySecondNewFrom(forms.ModelForm):
 	class Meta: 
 		model = CaseReport
 		fields = tuple(second_form)		
-		# exclude = timestamps
+		exclude = ("doctorName",)
 		widgets = w
 		labels = titles
 		help_texts = descriptions
 
-	# def __init__(self, *args, **kwargs):
-	# 	super(MySecondNewFrom, self).__init__(*args, **kwargs)
+	def __init__(self, *args, **kwargs):
+		super(MySecondNewFrom, self).__init__(*args, **kwargs)
 		
-	# 	for key in self.fields:
-	# 		self.fields[key].required = True
+		
+
+		all_fields = list(self.fields)
+		for key in list(filter(lambda x: x != "reaTimestamp", all_fields)):
+			self.fields[key].required = True
+
+		for key in ["reaTimestamp", "estimatedCAtimestamp", "dateOfBirth", "estimatedAge"]:
+			self.fields[key].required = False
 		
 	def clean(self):# -> Optional[Dict[str, Any]]:
 		cleaned_data = super().clean()
 		# print(cleaned_data)
+		errors = dict()
 
 		for key in cleaned_data:
 			if cleaned_data[key] == -9999:
 				cleaned_data[key] = None
 
+		# if cleaned_data["interventionID"] == None and cleaned_data["reaTimestamp"] == None:
+		# 	errors["reaTimestamp"] = "Vpišite ali intervencijko številko ali pa podatke o datumu, imenu, priimku in času srčnega zastoja, da lahko sistem identificira pacienta!"
+		# # if cleaned_data["interventionID"] == None and cleaned_data["name"] == None:
+		# 	errors["reaTimestamp"] = "Vpišite ali intervencijko številko ali pa podatke o datumu, imenu, priimku in času srčnega zastoja, da lahko sistem identificira pacienta!"
+		# if cleaned_data["interventionID"] == None and cleaned_data["surname"] == None:
+		# 	errors["reaTimestamp"] = "Vpišite ali intervencijko številko ali pa podatke o datumu, imenu, priimku in času srčnega zastoja, da lahko sistem identificira pacienta!"
+		# if cleaned_data["interventionID"] == None and cleaned_data["reaTimestamp"] == None:
+		# 	errors["reaTimestamp"] = "Vpišite ali intervencijko številko ali pa podatke o datumu, imenu, priimku in času srčnega zastoja, da lahko sistem identificira pacienta!"
 
+		if cleaned_data["dateOfBirth"] == None and cleaned_data["estimatedAge"] == None:
+			errors["dateOfBirth"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
+			errors["estimatedAge"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
+
+		if len(list(errors.keys())) >= 1:
+			raise ValidationError(errors)
 
 		# if cleaned_data["name"] == None and cleaned_data["surname"] == None:
 		# 	raise ValidationError({"name" : "poskus", "surname" : "tudi poskus"})

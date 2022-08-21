@@ -212,17 +212,17 @@ def form_name_view(request):
                 pass # TODO 
 
             # handle multipleselect fields separately
-            drugs = form1.cleaned_data['allDrugs']
-            drugs = list(map(lambda x: int(x), drugs))
-            print((drugs, sum(drugs)))
-            if drugs:
-                izracunana_polja.append(("drugs", sum(drugs)))
+            # drugs = form1.cleaned_data['allDrugs']
+            # drugs = list(map(lambda x: int(x), drugs))
+            # print((drugs, sum(drugs)))
+            # if drugs:
+            #     izracunana_polja.append(("drugs", sum(drugs)))
 
-            airway = form1.cleaned_data['airway']
-            airway = list(map(lambda x: int(x), airway))
-            print((airway, sum(airway)))
-            if airway:
-                izracunana_polja.append(("airwayControl", sum(airway)))
+            # airway = form1.cleaned_data['airway']
+            # airway = list(map(lambda x: int(x), airway))
+            # print((airway, sum(airway)))
+            # if airway:
+            #     izracunana_polja.append(("airwayControl", sum(airway)))
 
 
             # ca_date = form1.cleaned_data["dateOfCA"]
@@ -253,7 +253,7 @@ def form_name_view(request):
 
 
             
-            field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["estimatedCAtimestamp", "drugs", "airwayControl"] + not_dcz), first_form))] + izracunana_polja
+            field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["estimatedCAtimestamp"] + not_dcz), first_form))] + izracunana_polja
             # field_list = list(map(lambda x: (x[0], None) if x[1] == -9999 else x, field_list))
             
             print(field_list)
@@ -329,17 +329,17 @@ def second_first_form_name_view(request):
                     pass # TODO 
 
                 # handle multipleselect fields separately
-                drugs = form1.cleaned_data['allDrugs']
-                drugs = list(map(lambda x: int(x), drugs))
-                print((drugs, sum(drugs)))
-                if drugs:
-                    izracunana_polja.append(("drugs", sum(drugs)))
+                # drugs = form1.cleaned_data['allDrugs']
+                # drugs = list(map(lambda x: int(x), drugs))
+                # print((drugs, sum(drugs)))
+                # if drugs:
+                #     izracunana_polja.append(("drugs", sum(drugs)))
 
-                airway = form1.cleaned_data['airway']
-                airway = list(map(lambda x: int(x), airway))
-                print((airway, sum(airway)))
-                if airway:
-                    izracunana_polja.append(("airwayControl", sum(airway)))
+                # airway = form1.cleaned_data['airway']
+                # airway = list(map(lambda x: int(x), airway))
+                # print((airway, sum(airway)))
+                # if airway:
+                #     izracunana_polja.append(("airwayControl", sum(airway)))
 
                 y, m, d = date.split("-")
 
@@ -403,13 +403,13 @@ def second_first_form_name_view(request):
 
 def second_form_name_view(request):
     form1 = MySecondNewFrom() 
-    form2 = InterventionForm()
+    form2 = InterventionForm2()
     if request.method == "POST":
 
         form1 = MySecondNewFrom(request.POST)
         print(form1.errors)
         
-        form2 = InterventionForm(request.POST)
+        form2 = InterventionForm2(request.POST)
 
         if form1.is_valid() and form2.is_valid(): 
             
@@ -464,6 +464,7 @@ def second_form_name_view(request):
             
             if intID == "":
                 id = generate_case_id(" ".join(first_name), " ".join(last_name), date, date_birth)
+                
                 CaseReport.objects.update_or_create(
                     caseID=id, 
                     # dispatchID=dispatch_id,
@@ -484,7 +485,7 @@ def second_form_name_view(request):
             messages.error(request, form1.errors)
     else:
         form1 = MySecondNewFrom() 
-        form2 = InterventionForm()
+        form2 = InterventionForm2()
     return render(request, "ohca/second_form_page.html", {"form1":form1, "form2":form2})
 
 
