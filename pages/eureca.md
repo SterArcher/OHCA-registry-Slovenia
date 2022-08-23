@@ -153,7 +153,7 @@ Za namestitev sledite spodnjim korakom:
 ### Ročno
 Za ročno vpisovanje podatkov je potrebno imeti nameščen in aktiviran VPN.
 
-> Za odprtje obrazca za vpisovanje podatkov kliknite [**tukaj**](http://test-api.siohca.local/formpage).
+> Za odprtje obrazca za vpisovanje podatkov kliknite [tukaj](https://test-api.siohca.local) .
 
 ### Avtomatizirano (trenutno samo preko Computela)
 
