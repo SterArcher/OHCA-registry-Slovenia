@@ -212,6 +212,9 @@ def form_name_view(request):
                 pass # TODO 
 
             # handle multipleselect fields separately
+            # izracunana_polja.append(("drugs", form1.cleaned_data["drugs"]))
+            # izracunana_polja.append(("airwayControl", form1.cleaned_data["airwayControl"]))
+
             # drugs = form1.cleaned_data['allDrugs']
             # drugs = list(map(lambda x: int(x), drugs))
             # print((drugs, sum(drugs)))
@@ -257,14 +260,26 @@ def form_name_view(request):
             # field_list = list(map(lambda x: (x[0], None) if x[1] == -9999 else x, field_list))
             
             print(field_list)
+
+            case = CaseReport.objects.all().filter(dispatchID__exact=dispatch_id)
+            if len(case) == 0:
+                doctor_name = form1.cleaned_data["doctorName"] + " - 1.1 - " + str(datetime.now())
+                CaseReport.objects.update_or_create(
+                    # caseID=id,
+                    dispatchID=dispatch_id, 
+                    defaults=dict(list(filter(lambda x: x != "doctorName", field_list)) + [("doctorName", doctor_name)])
+                )
+            else:
+                doctor_name = case[0].doctorName
+                new_name = doctor_name + ", " + form1.cleaned_data["doctorName"] + " - 1.1 - " + str(datetime.now())
+                # new_name = doctor_name + ", " + form1.cleaned_data["doctorName"] + " - 1.1 - " + str(datetime.datetime.now())
+                CaseReport.objects.update_or_create(
+                    # caseID=id,
+                    dispatchID=dispatch_id, 
+                    defaults=dict(list(filter(lambda x: x != "doctorName", field_list)) + [("doctorName", new_name)])
+                ) 
+
             
-            CaseReport.objects.update_or_create(
-                # caseID=id,
-                dispatchID=dispatch_id, 
-                defaults=dict(field_list)#dict([(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl"] + not_dcz), first_form))] + izracunana_polja)
-            ) 
-            # form1 = DSZ_1_DAN() 
-            # form2 = InterventionForm()
                 
         else:
             print("form invalid")
@@ -274,13 +289,7 @@ def form_name_view(request):
             print(list(form1.errors))
             print(form1.errors)
             messages.error(request, form1.errors)
-            # form1 = DSZ_1_DAN() 
-            # form2 = InterventionForm()
-            # return render(request, "ohca/form_page.html", {"form1":form1, "form2":form2})
-
-    # else:
-    #     form1 = DSZ_1_DAN() 
-    #     form2 = InterventionForm()
+            
 
     final = {"form1":form1, "form2":form2}
     final.update(context)
@@ -312,7 +321,10 @@ def second_first_form_name_view(request):
                 date = str(form1.cleaned_data['dateOfCA'])
                 date_time = str(form1.cleaned_data["reaTimestamp"])
 
-                id = generate_case_id(" ".join(first_name), " ".join(last_name), date, date_time)
+                print((date, date_time))
+                print((first_name, last_name))
+
+                id = generate_case_id(first_name, last_name, date, date_time)
                 form1.instance.caseID = id 
 
                 #======================= SAME FOR BOTH FORMS ==================================
@@ -370,7 +382,7 @@ def second_first_form_name_view(request):
                 #========================= CALCULATE TIME INTERVALS ===================================================
 
                 callTimestamp = form1.cleaned_data["callTimestamp"]
-                timestamps = timeline[2:] # remove reaTimestamp and callTimestamp
+                timestamps = list(filter(lambda x: x != "treatmentWithdrawnTimestamp", timeline[2:])) # remove reaTimestamp and callTimestamp
                 print(timestamps)
                 if callTimestamp != None:
                     beginning = callTimestamp
@@ -384,13 +396,33 @@ def second_first_form_name_view(request):
 
                 # id = generate_case_id("".join(first_name), "".join(last_name), date, date_birth)
                 print(id)
-                field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl"]), first_form))] + izracunana_polja
+                field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["estimatedCAtimestamp"]), first_form))] + izracunana_polja
                 field_list = list(map(lambda x: (x[0], None) if x[1] == -9999 else x, field_list))
                 
-                CaseReport.objects.update_or_create(
-                    caseID=id, 
-                    defaults=dict(field_list)#dict([(field, form1.cleaned_data[field]) for field in first_form] + izracunana_polja)
-                )
+
+                case = CaseReport.objects.all().filter(caseID__exact=id)
+                if len(case) == 0:
+                    doctor_name = form1.cleaned_data["doctorName"] + " - 1.2 - " + str(datetime.now())
+                    CaseReport.objects.update_or_create(
+                        # caseID=id,
+                        caseID=id, 
+                        defaults=dict(list(filter(lambda x: x != "doctorName", field_list)) + [("doctorName", doctor_name)])
+                    )
+                else:
+                    doctor_name = case[0].doctorName
+                    new_name = doctor_name + ", " + form1.cleaned_data["doctorName"] + " - 1.2 - " + str(datetime.now())
+                    # new_name = doctor_name + ", " + form1.cleaned_data["doctorName"] + " - 1.1 - " + str(datetime.datetime.now())
+                    CaseReport.objects.update_or_create(
+                        # caseID=id,
+                        caseID=id, 
+                        defaults=dict(list(filter(lambda x: x != "doctorName", field_list)) + [("doctorName", new_name)])
+                    ) 
+
+
+                # CaseReport.objects.update_or_create(
+                #     caseID=id, 
+                #     defaults=dict(field_list)#dict([(field, form1.cleaned_data[field]) for field in first_form] + izracunana_polja)
+                # )
         else:
             print("form invalid")
             messages.error(request, 'Nepravilno izpolnjen obrazec.')
@@ -462,21 +494,57 @@ def second_form_name_view(request):
             field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl", "systemID", "localID"]), second_form))] + izracunana_polja
             field_list = list(map(lambda x: (x[0], None) if x[1] == -9999 else x, field_list))
             
-            if intID == "":
-                id = generate_case_id(" ".join(first_name), " ".join(last_name), date, date_birth)
+            print(len(intID))
+            if len(intID) != 12:
+                id = generate_case_id(first_name, last_name, date, str(form1.cleaned_data["reaTimestamp"]))
                 
-                CaseReport.objects.update_or_create(
-                    caseID=id, 
-                    # dispatchID=dispatch_id,
-                    defaults=dict(field_list)#dict([(field, form1.cleaned_data[field]) for field in second_form]+ izracunana_polja)
-                ) # update, create
+                case = CaseReport.objects.all().filter(caseID__exact=id)
+                if len(case) == 0:
+                    doctor_name = form1.cleaned_data["doctorName"] + " - 2 - " + str(datetime.now())
+                    CaseReport.objects.update_or_create(
+                        caseID=id,
+                        # dispatchID=dispatch_id, 
+                        defaults=dict(list(filter(lambda x: x != "doctorName", field_list)) + [("doctorName", doctor_name)])
+                    )
+                else:
+                    doctor_name = case[0].doctorName
+                    new_name = doctor_name + ", " + form1.cleaned_data["doctorName"] + " - 2 - " + str(datetime.now())
+                    # new_name = doctor_name + ", " + form1.cleaned_data["doctorName"] + " - 2 - " + str(datetime.datetime.now())
+                    CaseReport.objects.update_or_create(
+                        caseID=id,
+                        # dispatchID=dispatch_id, 
+                        defaults=dict(list(filter(lambda x: x != "doctorName", field_list)) + [("doctorName", new_name)])
+                    ) 
+                # CaseReport.objects.update_or_create(
+                #     caseID=id, 
+                #     # dispatchID=dispatch_id,
+                #     defaults=dict(field_list)#dict([(field, form1.cleaned_data[field]) for field in second_form]+ izracunana_polja)
+                # ) # update, create
             else:
                 dispatch_id = generate_dispatch_id(str(intID), date)
-                CaseReport.objects.update_or_create(
-                    # caseID=id, 
-                    dispatchID=dispatch_id,
-                    defaults=dict(field_list)#dict([(field, form1.cleaned_data[field]) for field in second_form]+ izracunana_polja)
-                ) # update, create
+
+                case = CaseReport.objects.all().filter(dispatchID__exact=dispatch_id)
+                if len(case) == 0:
+                    doctor_name = form1.cleaned_data["doctorName"] + " - 2 - " + str(datetime.now())
+                    CaseReport.objects.update_or_create(
+                        # caseID=id,
+                        dispatchID=dispatch_id, 
+                        defaults=dict(list(filter(lambda x: x != "doctorName", field_list)) + [("doctorName", doctor_name)])
+                    )
+                else:
+                    doctor_name = case[0].doctorName
+                    new_name = doctor_name + ", " + form1.cleaned_data["doctorName"] + " - 2 - " + str(datetime.now())
+                    # new_name = doctor_name + ", " + form1.cleaned_data["doctorName"] + " - 1.1 - " + str(datetime.datetime.now())
+                    CaseReport.objects.update_or_create(
+                        # caseID=id,
+                        dispatchID=dispatch_id, 
+                        defaults=dict(list(filter(lambda x: x != "doctorName", field_list)) + [("doctorName", new_name)])
+                    ) 
+                # CaseReport.objects.update_or_create(
+                #     # caseID=id, 
+                #     dispatchID=dispatch_id,
+                #     defaults=dict(field_list)#dict([(field, form1.cleaned_data[field]) for field in second_form]+ izracunana_polja)
+                # ) # update, create
             
 
         else:

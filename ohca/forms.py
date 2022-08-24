@@ -39,13 +39,13 @@ timestamp_dict = {
 #======================================== USEFUL FUNCTIONS ==================================================================================
 
 
-def generate_case_id(first_name: str, last_name: str, cardiac_arrest_date: str, ca_timestamp: str): #birth_date: str):
+def generate_case_id(first_name, last_name, cardiac_arrest_date: str, ca_timestamp: str): #birth_date: str):
 	"""Takes the name, surname and dates in format recieved from input from form: 2020-02-03 (year, month, day) and generates ID"""
 
 	# poskrbi za primer več imen in poenoti velike začetnice
-	name = "",
+	name = ""
 	for i in range(len(first_name)):
-		name += first_name[i][0].upper() + first_name[i][1:].lower()
+		name = name + first_name[i][0].upper() + first_name[i][1:].lower()
 
 	surname = ""
 	for i in range(len(last_name)):
@@ -191,7 +191,7 @@ class DSZ_1_DAN(forms.ModelForm):
 		for f in fields:
 			self.fields[f].label = False
 
-		extras = ["ph", "adPh", "lactate", "adLactate", "targetBP", "adTargetBP", "shocks", "adShocks", "ttmTemp", "adTtmTemp"]
+		extras = ["drugs", "airwayControl", "ph", "adPh", "lactate", "adLactate", "targetBP", "adTargetBP", "shocks", "adShocks", "ttmTemp", "adTtmTemp"]
 
 
 		for key in self.fields:
@@ -265,7 +265,6 @@ class DSZ_1_DAN(forms.ModelForm):
 		else:
 			airway = list(map(lambda x: int(x), airway))
 			cleaned_data["airwayControl"] = sum(airway)
-		# ne smejo bit prazna oboje ph in neznano
 
 		if cleaned_data["dateOfBirth"] == None and cleaned_data["estimatedAge"] == None:
 			errors["dateOfBirth"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
@@ -305,7 +304,7 @@ class NDSZ_1_DAN(forms.ModelForm):
 		for f in fields:
 			self.fields[f].label = False
 
-		extras = ["ph", "adPh", "lactate", "adLactate", "targetBP", "adTargetBP", "shocks", "adShocks", "ttmTemp", "adTtmTemp"]
+		extras = ["drugs", "airwayControl", "ph", "adPh", "lactate", "adLactate", "targetBP", "adTargetBP", "shocks", "adShocks", "ttmTemp", "adTtmTemp"]
 
 		for key in self.fields:
 			if key not in ((list(filter(lambda x: x != "reaTimestamp", timestamps))) + ["dateOfBirth", "estimatedAge"] + extras):
@@ -398,7 +397,7 @@ class MySecondNewFrom(forms.ModelForm):
 	class Meta: 
 		model = CaseReport
 		fields = tuple(second_form)		
-		exclude = ("doctorName",)
+		# exclude = ("doctorName",)
 		widgets = w
 		labels = titles
 		help_texts = descriptions
