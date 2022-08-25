@@ -85,6 +85,117 @@ targetBP.addEventListener("keydown", function(event) {
     }
 )
 
+
+
+
+// if (document.getElementsByClassName("alert-danger").length >= 1) {
+// console.log(document.getElementsByClassName("alert-danger").outerText)
+// }
+
+// handle question about AED and first monitored rhytm
+
+// bystanderAED and firstMonitoredRhy
+
+var aed1 = document.getElementById("id_bystanderAED_0");
+var aed2 = document.getElementById("id_bystanderAED_1");
+var aed3 = document.getElementById("id_bystanderAED_2");
+
+aed1.addEventListener("change", function() {
+    if (aed1.checked) {
+        document.getElementById('id_firstMonitoredRhy_0').disabled = true;
+        // document.getElementById('id_firstMonitoredRhy_1').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_1').checked = true;
+        document.getElementById('id_firstMonitoredRhy_1').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_2').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_3').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_4').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_5').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_6').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_7').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_8').disabled = true;
+    }
+})
+
+aed2.addEventListener("change", function() {
+    if (aed2.checked) {
+        document.getElementById('id_firstMonitoredRhy_1').disabled = true;
+        // document.getElementById('id_firstMonitoredRhy_1').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_0').checked = true;
+        document.getElementById('id_firstMonitoredRhy_0').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_2').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_3').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_4').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_5').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_6').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_7').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_8').disabled = true;
+    }
+})
+
+aed3.addEventListener("change", function() {
+    if (aed3.checked) {
+        document.getElementById('id_firstMonitoredRhy_0').checked = false;
+        document.getElementById('id_firstMonitoredRhy_1').checked = false;
+        document.getElementById('id_firstMonitoredRhy_1').disabled = true;
+        // document.getElementById('id_firstMonitoredRhy_1').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_0').disabled = true;
+        document.getElementById('id_firstMonitoredRhy_2').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_3').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_4').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_5').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_6').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_7').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_8').disabled = false;
+    }
+}
+)
+
+document.getElementById("id_bystanderAED_3").addEventListener("change", function() {
+    if (document.getElementById("id_bystanderAED_3").checked) {
+        document.getElementById('id_firstMonitoredRhy_0').checked = false;
+        document.getElementById('id_firstMonitoredRhy_1').checked = false;
+        document.getElementById('id_firstMonitoredRhy_1').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_0').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_2').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_3').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_4').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_5').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_6').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_7').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_8').disabled = false;
+    }
+})
+
+document.getElementById("id_bystanderAED_4").addEventListener("change", function() {
+    if (document.getElementById("id_bystanderAED_3").checked) {
+        document.getElementById('id_firstMonitoredRhy_0').checked = false;
+        document.getElementById('id_firstMonitoredRhy_1').checked = false;
+        document.getElementById('id_firstMonitoredRhy_1').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_0').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_2').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_3').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_4').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_5').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_6').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_7').disabled = false;
+        document.getElementById('id_firstMonitoredRhy_8').disabled = false;
+    }
+})
+
+    // else {
+    //     document.getElementById('Pop').disabled = false;
+    //     document.getElementById('Rock').disabled = false;
+    //     document.getElementById('Jazz').disabled = false;
+    //     document.getElementById('Classical').disabled = false;
+    // }
+
+
+
+
+
+
+
+
 window.onclick = function() {
     handleClick("id_ph", ph_ids);
     handleClick("id_lactate", lactate_ids);
@@ -92,10 +203,3 @@ window.onclick = function() {
     handleClick("id_shocks", shocks_ids);
     handleClick("id_targetBP", targetBP_ids);
 }
-
-
-if (document.getElementsByClassName("alert-danger").length >= 1) {
-console.log(document.getElementsByClassName("alert-danger").outerText)
-}
-
-        

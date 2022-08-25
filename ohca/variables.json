@@ -130,7 +130,8 @@
                 "null" : "Ni zabeleženo/ni zavedeno", 
                 "-1" : "Neznano/ni podatka",
                 "date" : "datum"
-            }
+            },
+            "description" : "Če datum rojstva ni znan polje pustite prazno in izpolnite podatek o ocenjeni starosti. "
         },
         "estimatedAge" : {
             "title" : "Ocenjena starost, če datum ni znan",
@@ -139,7 +140,8 @@
             "values" : {
                 "null" : "Ni zabeleženo/ni zavedeno",
                 ">=0" : "value"
-            }
+            },
+            "description" : "Če je datum rojstva poznan lahko to polje pustite prazno."
         },
         "age": {
             "title" : "Starost bolnika ob srčnem zastoju",
@@ -298,8 +300,7 @@
             "from" : "EuReCa3",
             "form" : "d1&d30",
             "shown" : true,
-            "section" : "timeline",
-            "dcz" : true
+            "section" : "timeline"
         },
         "reaTime": {
             "title": "Čas srčnega zastoja",
@@ -325,8 +326,7 @@
             "from" : "EuReCa3",
             "form" : "d1&d30",
             "shown" : true,
-            "section" : "general_info",
-            "dcz" : true 
+            "section" : "general_info"
         },
         "callTimestamp" : {
             "title" : "Čas sprejema klica v dispečerski center/NMP (dvig telefona)",
@@ -906,6 +906,21 @@
             "shown" : true,
             "section" : "first_responders"
         },
+        "bystanderAED": {
+            "title": "Uporaba AED s strani očividca",
+            "from": "Utstein",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0": "AED uporabljen, defibrilacija izvedena",
+                "1": "AED uporabljen, defibrilacija ni izvedena",
+                "2": "AED ni bil uporabljen"
+            },
+            "core": true,
+            "section" : "rhythm",
+            "description" : "Kadar je AED uporabljen pred prihodom NMP"
+        },
         "firstMonitoredRhy": {
             "title": "Začetni (prvi) ritem (Utstein)",
             "from": "Utstein",
@@ -998,7 +1013,8 @@
             "core": false,
             "section" : "rhythm",
             "from": "Utstein",
-            "form": "d1"
+            "form": "d1",
+            "shown" : false
         },
         "ecgResult" : {
             "title" : "Prepis prvega EKG izvida po uspešnem oživljanju",
@@ -1021,32 +1037,17 @@
             "section" : "rhythm",
             "description" : "Kvaliteta TPO: ali so bili med oživaljanjem uporabljeni mehanizmi ali procesi s katerimi bi izmerili kvaliteto TPO?"
         },
-        "bystanderAED": {
-            "title": "Uporaba AED s strani očividca",
-            "from": "Utstein",
-            "form": "d1",
-            "values": {
-                "null": "Ni zapisa",
-                "-1": "Neznano/ni podatka",
-                "0": "AED uporabljen, defibrilacija izvedena",
-                "1": "AED uporabljen, defibrilacija ni izvedena",
-                "2": "AED ni bil uporabljen"
-            },
-            "core": true,
-            "section" : "rhythm",
-            "description" : "Kadar je AED uporabljen pred prihodom NMP"
-        },
         "mechanicalCPR": {
             "title": "Mehanski stiski prsnega koša",
             "from": "Utstein",
             "form": "d1",
             "values": {
                 "null": "Ni zapisa",
-                "-1": "Neznano/ni podatka",
-                "0": "Brez",
                 "1": "Uporabljena aprava za mehanske kompresije prsnega koša (npr. Lucas®)",
                 "2": "Uporabljena mehanska naprava s trakom z razporeditvijo obremenitve (npr. Autopulse)",
-                "3": "Druga mehanska naprava"
+                "3": "Druga mehanska naprava",
+                "-1": "Neznano/ni podatka",
+                "0": "Brez"
             },
             "core": false,
             "section" : "rhythm"
@@ -1136,7 +1137,8 @@
             "description": "",
             "from": "Utstein",
             "shown" : true,
-            "section" : "result"
+            "section" : "result",
+            "form" : "d1"
         },
         "specialistHospital": {
             "title": "Tip bolnišnice, ki je sprejela bolnika s srčnim zastojem",
@@ -1149,6 +1151,7 @@
             "core": false,
             "section" : "result",
             "shown" : false,
+            "form" : "d1",
             "description": "Specialistični centri: UKC LJ, UKC MB, SB CE"
         },
         "survivalStatus": {
@@ -1212,10 +1215,10 @@
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
-                "0": "Brez aplikacije zdravil",
                 "1": "Adrenalin",
                 "2": "Amjodaron",
-                "4": "Vazopresin"
+                "4": "Vazopresin",
+                "0": "Brez aplikacije zdravil"
             },
             "description": "Set vseh uporabljenih zdravil, dovoljena izbira večih.",
             "core": true,
@@ -1228,11 +1231,11 @@
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
-                "0": "Brez",
                 "1": "Orofaringealna dihalna pot",
                 "2": "Supraglotična dihalna pot",
                 "4": "Endotrahealni tubus",
-                "8": "Kirurška dihalna pot"
+                "8": "Kirurška dihalna pot",
+                "0": "Brez"
             },
             "description": "Set vseh uporabljenih tipov nadzora dihalne poti, dovoljena izbira večih.",
             "core": false,
@@ -1245,11 +1248,11 @@
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
-                "0": "Brez",
                 "1": "Centralna venska pot",
                 "2": "Periferna IV pot",
                 "3": "IO pot",
-                "4": "Endotrahealna"
+                "4": "Endotrahealna",
+                "0": "Brez"
             },
             "core": false,
             "section" : "therapy"
@@ -1261,10 +1264,10 @@
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
-                "0": "Brez",
                 "1": "Samo O2",
                 "2": "Samo CO2",
-                "3": "O2 & CO2"
+                "3": "O2 & CO2",
+                "0": "Brez"
             },
             "description": "Če je ta spremenljivka uporabljena, vključi podrobnosti o specifičnih ciljih v opisu sistema",
             "core": false,
@@ -1292,10 +1295,10 @@
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
-                "0": "Brez",
                 "1": "Samo angiografija",
                 "2": "PCI - perkutana koronarna intervencija",
-                "4": "Tromboliza"
+                "4": "Tromboliza",
+                "0": "Brez"
             },
             "description": "Set vseh poskusov reperfuzije, dovoljena izbira večih (kot vsota ID-jev vrednosti)",
             "core": true,
@@ -1322,9 +1325,9 @@
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
-                "0": "Brez",
                 "1": "Pred ROSC",
-                "2": "Po ROSC"
+                "2": "Po ROSC",
+                "0": "Brez"
             },
             "core": false,
             "section" : "result"
