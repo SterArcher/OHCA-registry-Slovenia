@@ -97,8 +97,8 @@ class CaseReport(models.Model):
     location  = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(8)])
     reaLocation = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(6)])
     CAtimestamp = models.DateTimeField(null=True, blank=True) # time of CA
-    estimatedCAtimestamp = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
-
+    estimatedCAtimestamp = models.BooleanField(null=True, blank=True) # was the time estimated or not?
+    
     bystanderResponse = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(2)])
     bystanderResponseTime = models.BigIntegerField(null = True, blank = True)
     bystanderResponseTimestamp = models.DateTimeField(null = True, blank = True)
@@ -162,8 +162,8 @@ class CaseReport(models.Model):
     ct = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     mri = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     clinicalTest = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
-    otherNeuroprognosticTests = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
-    
+    otherNeuroprognosticTests = models.TextField(null = True, blank = True)
+     
     specialistHospital  = models.SmallIntegerField(null = True, blank = True, validators=[MinValueValidator(-1), MaxValueValidator(1)])
     hospitalName = models.CharField(null=True, blank=True, max_length=1000) # če bomo hoteli določit obremenitev bomo rabili vedet katera bolnica je? Najbrž isto kot pri systemID
     
