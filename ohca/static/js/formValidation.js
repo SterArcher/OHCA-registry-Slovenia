@@ -203,3 +203,101 @@ window.onclick = function() {
     handleClick("id_shocks", shocks_ids);
     handleClick("id_targetBP", targetBP_ids);
 }
+
+
+//------------------ DISPLAY/HIDE/REQUIRED INPUT FIELDS
+
+// cprEMS - noCPR
+const noCPRblock = document.getElementById("div_id_noCPR");
+function handleNoCPR() {
+    const noCPRfields = ["id_noCPR_0", "id_noCPR_1", "id_noCPR_2", "id_noCPR_3", "id_noCPR_4", "id_noCPR_5", "id_noCPR_6", "id_noCPR_7"];
+    if(document.getElementById('id_cprEms_0').checked){
+        noCPRblock.style.display = 'block';
+        for(const field in noCPRfields){
+            document.getElementById(field).setAttribute("required", "");
+        }
+    }
+    else if (document.getElementById('id_cprEms_1').checked || document.getElementById('id_cprEms_2').checked || document.getElementById('id_cprEms_3').checked){
+        noCPRblock.style.display = 'none';
+        for(const field in noCPRfields){
+            document.getElementById(field).removeAttribute("required");
+        }
+    }
+    else{
+        noCPRblock.style.display = 'block'; 
+    }
+
+}
+
+const cprRadioButtons = document.querySelectorAll('input[name="cprEms"]');
+cprRadioButtons.forEach(radio => {
+  radio.addEventListener('click', handleNoCPR);
+});
+
+
+// reaWitnesses - bystanderCPR
+const reaWitnessesBlock = document.getElementById("div_id_bystanderCPR");
+function handleWitnesses() {
+    const bystanderCPRfields = ["id_bystanderCPR_0", "id_bystanderCPR_1", "id_bystanderCPR_2", "id_bystanderCPR_3", "id_bystanderCPR_4", "id_bystanderCPR_5"];
+    if(document.getElementById('id_reaWitnesses_0').checked){
+        reaWitnessesBlock.style.display = 'none';
+        for (const field in bystanderCPRfields){
+            document.getElementById(field).removeAttribute("required");
+        }
+    }
+    else if (document.getElementById('id_reaWitnesses_1').checked || document.getElementById('id_reaWitnesses_2').checked || document.getElementById('id_reaWitnesses_3').checked || document.getElementById('id_reaWitnesses_4').checked || document.getElementById('id_reaWitnesses_5').checked){
+        reaWitnessesBlock.style.display = 'block';
+        for (const field in bystanderCPRfields){
+            document.getElementById(field).setAttribute("required", "");
+        }
+    }
+    else{
+        reaWitnessesBlock.style.display = 'block'; 
+    }
+}
+
+const witnessesRadioButtons = document.querySelectorAll('input[name="reaWitnesses"]');
+witnessesRadioButtons.forEach(radio => {
+  radio.addEventListener('click', handleWitnesses);
+});
+
+
+// transportToHospital - hospitalName
+const hospitalNameBlock = document.getElementById("div_id_hospitalName");
+function handleHospitalName(){
+    if(document.getElementById('id_transportToHospital_0').checked){
+        hospitalNameBlock.style.display = 'none';
+        document.getElementById("id_hospitalName").removeAttribute("required");
+    }
+    else if (document.getElementById('id_transportToHospital_1').checked || document.getElementById('id_transportToHospital_2').checked  || document.getElementById('id_transportToHospital_3').checked ){
+        hospitalNameBlock.style.display = 'block';
+        document.getElementById("id_hospitalName").setAttribute("required", "");
+    }
+    else{
+        hospitalNameBlock.style.display = 'block';
+    }
+}
+
+const transportToHospitalRadioButtons = document.querySelectorAll('input[name="transportToHospital"]');
+transportToHospitalRadioButtons.forEach(radio => {
+    radio.addEventListener('click', handleHospitalName);
+})
+
+
+const estimatedAgeBlock = document.getElementById("div_id_estimatedAge");
+function handleEstimatedAge(){
+    if(document.getElementById('id_dateOfBirth').value == ""){
+        estimatedAgeBlock.style.display = 'block';
+        document.getElementById("id_estimatedAge").removeAttribute("required");
+    }
+    else{
+        estimatedAgeBlock.style.display = 'none';
+        
+        document.getElementById("id_estimatedAge").setAttribute("required", "");
+    }
+}
+
+const dateOfBirthInput = document.querySelectorAll('input[name="dateOfBirth"]');
+dateOfBirthInput.forEach(radio => {
+    radio.addEventListener('click', handleEstimatedAge);
+})
