@@ -13,7 +13,7 @@
         <p> </p>
         <p> </p>
 
-        {% with '"allDrugs", "airway", "adTtmTemp", "adTargetBP", "adPh", "adLactate", "adShocks"' as list %}
+        {% with '"ecgopt", "allDrugs", "airway", "adTtmTemp", "adTargetBP", "adPh", "adLactate", "adShocks"' as list %}
 
         {% for field in form1 %}
 
@@ -43,7 +43,7 @@
             <h2 style='font-weight: 600; font-size: 25px'> 6. Prvi posredovalci </h2>
             <p>{{ field|as_crispy_field }}</p>
 
-        {% elif field.name == "bystanderAED" %}
+        {% elif field.name == "AEDconn" %}
             <h2 style='font-weight: 600; font-size: 25px'> 7. Ritem</h2>
             <p>{{ field|as_crispy_field }}</p>
 
@@ -51,9 +51,9 @@
             <h2 style='font-weight: 600; font-size: 25px'> 8. Izhod po oživljanju </h2>
             <p>{{ field|as_crispy_field }}</p>
 
-        {% elif field.name == "ttm" %}
+        {% elif field.name == "drugs" %}
             <h2 style='font-weight: 600; font-size: 25px'> 9. Zdravljenje </h2>
-            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.allDrugs|as_crispy_field }}</p>
 
             {% elif field.name == "ph" %}
             <h2 style='font-weight: 600; font-size: 25px'> 10. Laboratorijski izvidi </h2>
@@ -66,9 +66,10 @@
         
         {% elif field.name == "airwayControl" %}
             <p>{{ form1.airway|as_crispy_field }}</p>
+            
 
-        {% elif field.name == "drugs" %}
-            <p>{{ form1.allDrugs|as_crispy_field }}</p>
+            {% elif field.name == "ecgOptions" %}
+            <p>{{ form1.ecgopt|as_crispy_field }}</p>
 
             {% elif field.name == "ttmTemp" %}
             <p>{{ field|as_crispy_field }}</p>

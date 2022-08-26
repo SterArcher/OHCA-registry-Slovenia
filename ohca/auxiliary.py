@@ -22,6 +22,8 @@ def read_values():
     counter = 0
     exceptions = ["BLOB", ">0", ">=0", "0-14", "1-5", "0-6", "hh:mm:ss", "date"]
     except_names = []
+    not_dcz = []
+    estimations = []
     for element in data["cases"]:
         counter += 1
 
@@ -48,6 +50,9 @@ def read_values():
             if 'description' in data["cases"][element]:
                 desc[element] = data["cases"][element]["description"]
         
+        if "dcz" in data["cases"][element]:
+            not_dcz.append(element)
+        
         # fourth remember possible values
         value_list = []
         if "values" in data["cases"][element] and data["cases"][element]["values"] != "BLOB":
@@ -64,8 +69,7 @@ def read_values():
                     if val != "null" and val!= "-1":
                         # print((int(val), value_dict[val]))
                         value_list.append((int(val), value_dict[val])) 
-
-                if element not in ["estimatedAge", "estimatedAgeBystander"]: #, "estimatedCAtimestamp"]:
+                if element not in ["estimatedAge", "estimatedAgeBystander", "emergencyTransport", "cardiacArrest"] and "estimated" not in element: #, "estimatedCAtimestamp"]:
                     value_list.append((-1, "Neznano/ni podatka"))
                     value_list.append((-9999, "Ni zabeleženo/ni zavedeno"))
                 # value_list.append((None, "Ni zabeleženo / ni zavedeno"))
@@ -82,6 +86,8 @@ def read_values():
             # elif elt == "d1&d30":
             #     both_forms.append(element)
 
+        
+
             # TODO
             # if "from" in data["cases"][element]:
             #     if data["cases"][element]["from"] == "Utstein2015":
@@ -94,7 +100,7 @@ def read_values():
     # first_form = both_forms + first_form
     # second_form = both_forms + second_form #
     timestamps = sections["timeline"]
-    not_dcz = []
+    
     for timestamp in timestamps:
         if "dcz" in data["cases"][timestamp]:
             not_dcz.append(timestamp)

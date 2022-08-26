@@ -108,6 +108,7 @@ w["cod"] = forms.Select(choices=icd_choices)
 # w["ttmTemp"] = valueInput
 w["drugs"] = forms.CheckboxSelectMultiple(choices=values['drugs'])
 w["airwayControl"] = forms.CheckboxSelectMultiple(choices=values['airwayControl'])
+w["ecgOptions"] = forms.CheckboxSelectMultiple(choices=values['ecgOptions'])
 
 # ========================================== FORMS ================================================================================
 
@@ -169,6 +170,8 @@ class DSZ_1_DAN(forms.ModelForm):
 
 	allDrugs = forms.MultipleChoiceField(label=titles["drugs"], widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
 	airway = forms.MultipleChoiceField(label=titles["airwayControl"], widget=forms.CheckboxSelectMultiple,choices=values['airwayControl'], required=False)
+	ecgopt = forms.MultipleChoiceField(label=titles["ecgOptions"], widget=forms.CheckboxSelectMultiple,choices=values['ecgOptions'], required=False)
+
 
 	adTtmTemp = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
 	adTargetBP = forms.IntegerField(widget=forms.RadioSelect(choices=((0, "Ni opredeljenega cilja"), (-1, "Neznano/ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
@@ -179,7 +182,7 @@ class DSZ_1_DAN(forms.ModelForm):
 	class Meta: 	
 		model = CaseReport
 		fields = tuple(first_form)	
-		exclude = tuple(not_dcz) + ("estimatedCAtimestamp",)
+		exclude = tuple(not_dcz) #+ ("estimatedCAtimestamp",)
 		widgets = w
 		labels = titles
 		help_texts = descriptions
@@ -266,6 +269,12 @@ class DSZ_1_DAN(forms.ModelForm):
 			airway = list(map(lambda x: int(x), airway))
 			cleaned_data["airwayControl"] = sum(airway)
 
+		ecg = cleaned_data["ecgopt"]
+		ecg_val = ""
+		for elt in ecg:
+			ecg_val += elt
+		cleaned_data["ecgOptions"] = ecg_val
+
 		if cleaned_data["dateOfBirth"] == None and cleaned_data["estimatedAge"] == None:
 			errors["dateOfBirth"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
 			errors["estimatedAge"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
@@ -282,6 +291,8 @@ class NDSZ_1_DAN(forms.ModelForm):
 
 	allDrugs = forms.MultipleChoiceField(label=titles["drugs"], widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
 	airway = forms.MultipleChoiceField(label=titles["airwayControl"], widget=forms.CheckboxSelectMultiple,choices=values['airwayControl'], required=False)
+	ecgopt = forms.MultipleChoiceField(label=titles["ecgOptions"], widget=forms.CheckboxSelectMultiple,choices=values['ecgOptions'], required=False)
+
 
 	adTtmTemp = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
 	adTargetBP = forms.IntegerField(widget=forms.RadioSelect(choices=((0, "Ni opredeljenega cilja"), (-1, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
@@ -306,9 +317,9 @@ class NDSZ_1_DAN(forms.ModelForm):
 
 		extras = ["drugs", "airwayControl", "ph", "adPh", "lactate", "adLactate", "targetBP", "adTargetBP", "shocks", "adShocks", "ttmTemp", "adTtmTemp"]
 
-		for key in self.fields:
-			if key not in ((list(filter(lambda x: x != "reaTimestamp", timestamps))) + ["dateOfBirth", "estimatedAge"] + extras):
-				self.fields[key].required = True
+		# for key in self.fields:
+		# 	if key not in ((list(filter(lambda x: x != "reaTimestamp", timestamps))) + ["dateOfBirth", "estimatedAge"] + extras):
+		# 		self.fields[key].required = True
 
 
 	def clean(self):# -> Optional[Dict[str, Any]]:
@@ -378,6 +389,12 @@ class NDSZ_1_DAN(forms.ModelForm):
 			airway = list(map(lambda x: int(x), airway))
 			cleaned_data["airwayControl"] = sum(airway)
 		# ne smejo bit prazna oboje ph in neznano
+
+		ecg = cleaned_data["ecgopt"]
+		ecg_val = ""
+		for elt in ecg:
+			ecg_val += elt
+		cleaned_data["ecgOptions"] = ecg_val
 
 		if cleaned_data["dateOfBirth"] == None and cleaned_data["estimatedAge"] == None:
 			errors["dateOfBirth"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
