@@ -182,19 +182,6 @@ document.getElementById("id_bystanderAED_4").addEventListener("change", function
     }
 })
 
-    // else {
-    //     document.getElementById('Pop').disabled = false;
-    //     document.getElementById('Rock').disabled = false;
-    //     document.getElementById('Jazz').disabled = false;
-    //     document.getElementById('Classical').disabled = false;
-    // }
-
-
-
-
-
-
-
 
 window.onclick = function() {
     handleClick("id_ph", ph_ids);
@@ -213,14 +200,14 @@ function handleNoCPR() {
     const noCPRfields = ["id_noCPR_0", "id_noCPR_1", "id_noCPR_2", "id_noCPR_3", "id_noCPR_4", "id_noCPR_5", "id_noCPR_6", "id_noCPR_7"];
     if(document.getElementById('id_cprEms_0').checked){
         noCPRblock.style.display = 'block';
-        for(const field in noCPRfields){
-            document.getElementById(field).setAttribute("required", "");
+        for(let i = 0; i < noCPRfields.length; i++){
+            document.getElementById(noCPRfields[i]).setAttribute("required", "");
         }
     }
     else if (document.getElementById('id_cprEms_1').checked || document.getElementById('id_cprEms_2').checked || document.getElementById('id_cprEms_3').checked){
         noCPRblock.style.display = 'none';
-        for(const field in noCPRfields){
-            document.getElementById(field).removeAttribute("required");
+        for(let i = 0; i < noCPRfields.length; i++){
+            document.getElementById(noCPRfields[i]).removeAttribute("required");
         }
     }
     else{
@@ -301,3 +288,64 @@ const dateOfBirthInput = document.querySelectorAll('input[name="dateOfBirth"]');
 dateOfBirthInput.forEach(radio => {
     radio.addEventListener('click', handleEstimatedAge);
 })
+
+
+// // persCPRstart + cPRbystander3Timestamp + estimatedCPRbystander
+const persCPRstart = document.getElementById("div_id_persCPRstart");
+
+const bystander = document.getElementById("id_persCPRstart_0");
+const bystanderDispatch = document.getElementById("id_persCPRstart_1");
+const ems = document.getElementById("id_persCPRstart_2");
+
+function handlePersCPR() {
+    console.log("tukej")
+    if (bystander.checked) {
+        document.getElementById("id_cPRbystander3Timestamp_0").setAttribute("required", "");
+        document.getElementById("id_cPRbystander3Timestamp_1").setAttribute("required", "");
+        document.getElementById("id_estimatedCPRbystander_0").setAttribute("required", "");
+        document.getElementById("id_estimatedCPRbystander_1").setAttribute("required", "");
+    }
+    else {
+        document.getElementById("id_cPRbystander3Timestamp_0").removeAttribute("required");
+        document.getElementById("id_cPRbystander3Timestamp_1").removeAttribute("required");
+        document.getElementById("id_estimatedCPRbystander_0").removeAttribute("required");
+        document.getElementById("id_estimatedCPRbystander_1").removeAttribute("required");
+    }
+
+    if (bystanderDispatch.checked) {
+        document.getElementById("id_cPRhelper3Timestamp_0").setAttribute("required", "");
+        document.getElementById("id_cPRhelper3Timestamp_1").setAttribute("required", "");
+        document.getElementById("id_estimatedCPRhelperTimestamp_0").setAttribute("required", "");
+        document.getElementById("id_estimatedCPRhelperTimestamp_1").setAttribute("required", "");
+    }
+    else {
+        document.getElementById("id_cPRhelper3Timestamp_0").removeAttribute("required");
+        document.getElementById("id_cPRhelper3Timestamp_1").removeAttribute("required");
+        document.getElementById("id_estimatedCPRhelperTimestamp_0").removeAttribute("required");
+        document.getElementById("id_estimatedCPRhelperTimestamp_1").removeAttribute("required");
+    }
+    if (ems.checked) {
+        document.getElementById("id_cPREMS3Timestamp_0").setAttribute("required", "");
+        document.getElementById("id_cPREMS3Timestamp_1").setAttribute("required", "");
+        document.getElementById("id_estimatedCPREMStimestamp_0").setAttribute("required", "");
+        document.getElementById("id_estimatedCPREMStimestamp_1").setAttribute("required", "");
+    } 
+    else {
+        document.getElementById("id_cPREMS3Timestamp_0").removeAttribute("required");
+        document.getElementById("id_cPREMS3Timestamp_1").removeAttribute("required");
+        document.getElementById("id_estimatedCPREMStimestamp_0").removeAttribute("required");
+        document.getElementById("id_estimatedCPREMStimestamp_1").removeAttribute("required");
+    }
+}
+
+bystander.addEventListener("change", handlePersCPR)
+bystanderDispatch.addEventListener("change", handlePersCPR)
+ems.addEventListener("change", handlePersCPR)
+
+
+// const persCPRstartInput = document.querySelectorAll('input[name="persCPRstart"]');
+// persCPRstartInput.forEach(radio => {
+//     radio.addEventListener('click', handlePersCPRstart);
+// })
+
+
