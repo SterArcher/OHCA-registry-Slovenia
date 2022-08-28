@@ -28,7 +28,7 @@
             "shown" : true
         },
         "localID": {
-            "title": "Občina",
+            "title": "Občina zastoja",
             "description": "Občina, v kateri je pacient doživel srčni zastoj",
             "core": true,
             "form" : "d1",
@@ -113,7 +113,7 @@
             "from" : "EuReCa3"
         },
         "gender": {
-            "title" : "Spol bolnika (EuReCa3)",
+            "title" : "Spol pacienta (EuReCa3)",
             "description" : "",
             "from" : "EuReCa3",
             "form" : "d1&d30",
@@ -128,7 +128,7 @@
             "section" : "patient"
         },
         "genderUtstein": {
-            "title" : "Spol bolnika (Utstein)",
+            "title" : "Spol pacienta (Utstein)",
             "description" : "",
             "from" : "Utstein",
             "form" : "d1&d30",

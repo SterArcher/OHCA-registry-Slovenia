@@ -68,10 +68,16 @@ def read_values():
                     # print(val)
                     if val != "null" and val!= "-1":
                         # print((int(val), value_dict[val]))
-                        value_list.append((int(val), value_dict[val])) 
+                        if (val == "0" and value_dict[val] == "Ne") or (val == "1" and value_dict[val] == "Da"):
+                            value_list = [(int(val), value_dict[val])] + value_list
+                        else:
+                            value_list.append((int(val), value_dict[val])) 
                 if element not in ["estimatedAge", "estimatedAgeBystander", "emergencyTransport", "cardiacArrest"] and "estimated" not in element: #, "estimatedCAtimestamp"]:
                     value_list.append((-1, "Neznano/ni podatka"))
                     value_list.append((-9999, "Ni zabeleženo/ni zavedeno"))
+                #if element in ["estimatedCAtimestamp", "estimatedCPRhelperTimestamp", "estimatedCPREMStimestamp", "estimatedDrugTimings", "estimatedEndCPRtimestamp", "estimatedAgeBystander", "estimatedCallTimestamp", "estimatedTimestampTCPR", "estimatedCPRbystander", "estimatedResponseTime", "estimatedDefibTimestamp"]:
+                if "estimated" in element and element not in ["estimatedAge"]:
+                    value_list.append((-1, "Neznano/ni podatka"))
                 # value_list.append((None, "Ni zabeleženo / ni zavedeno"))
         if len(value_list) > 0:
             values[element] = value_list

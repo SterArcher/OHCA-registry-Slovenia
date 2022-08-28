@@ -198,7 +198,7 @@ class DSZ_1_DAN(forms.ModelForm):
 
 
 		for key in self.fields:
-			if key not in (timestamps + extras + ["dateOfBirth", "estimatedAge"]):
+			if key not in (timestamps + extras + ["dateOfBirth", "estimatedAge", "ageBystander", "shocks", "ecgResult", "hospitalName"]):
 				self.fields[key].required = True
 
 
