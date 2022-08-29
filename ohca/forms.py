@@ -202,7 +202,7 @@ class DSZ_1_DAN(forms.ModelForm):
 
 		# define fields that are NOT required
 		extras = ["drugs", "airwayControl", "ecgOptions",
-		"ecgOptions", "targetBP", "adPh", "adLactate", "drugs", "ttmTemp",
+		"ecgOptions", "targetBP", "adPh", "adLactate", "drugs", "ttmTemp", "ph", "lactate",
 		# "ph", "adPh", "lactate", "adLactate", "targetBP", "adTargetBP", "shocks", "adShocks", "ttmTemp", "adTtmTemp"]
 		"dateOfBirth", "estimatedAge", "ageBystander", #"estimatedAgeBystander", 
 		"adBystAge", "shocks", "ecgResult", "hospitalName", "noCPR"]
@@ -341,10 +341,10 @@ class NDSZ_1_DAN(forms.ModelForm):
 
 		# define fields that are NOT required
 		extras = ["drugs", "airwayControl", "ecgOptions",
-		"ecgOptions", "targetBP", "adPh", "adLactate", "drugs", "ttmTemp",
+		"ecgOptions", "targetBP", "adPh", "adLactate", "drugs", "ttmTemp", "ph", "lactate",
 		# "ph", "adPh", "lactate", "adLactate", "targetBP", "adTargetBP", "shocks", "adShocks", "ttmTemp", "adTtmTemp"]
 		"dateOfBirth", "estimatedAge", "ageBystander", #"estimatedAgeBystander", 
-		"adBystAge", "shocks", "ecgResult", "hospitalName"]
+		"adBystAge", "shocks", "ecgResult", "hospitalName", "noCPR"]
 
 		estimatedTimestamps = ["estimatedDefibTimestamp", "estimatedDrugTimings", "estimatedRoscTimestamp", "estimatedCPREMStimestamp", "estimatedTimestampTCPR", "estimatedCPRbystander", "estimatedCPRhelperTimestamp", "estimatedEndCPRtimestamp", "estimatedHospitalArrival"]
 

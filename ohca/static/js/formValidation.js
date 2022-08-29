@@ -295,21 +295,27 @@ for (let k = 0; k < 4; k++) {
 }
 //=======================================================================
 function handleMultipleselect() {
+    console.log("multiple select")
     var bool1 = false;
     var bool2 = false;
     for (let i = 0; i < ecg.length; i++) {
         if (ecg[i].checked && ecg[i].value != "0" && ecg[i].value != "-9999" && ecg[i].value != "-1") {
             bool1 = true;}
-        else if (ecg[i].checked || ecg[i].value == "0" || ecg[i].value == "-9999" || ecg[i].value == "-1") {
+        else if (ecg[i].checked && (ecg[i].value == "0" || ecg[i].value == "-9999" || ecg[i].value == "-1")) {
             bool2 = true;}}
+    console.log(bool1)
+    console.log(bool2)
     if (bool1 || bool2) {
         document.getElementById("id_ecgopt_0").removeAttribute("required");}
+    else {
+        document.getElementById("id_ecgopt_0").setAttribute("required", "");
+    }
     var bool1 = false;
     var bool2 = false;
     for (let i = 0; i < drugs.length; i++) {
         if (drugs[i].checked && drugs[i].value != "0" && drugs[i].value != "-9999" && drugs[i].value != "-1") {
             bool1 = true;}
-        else if (drugs[i].checked || drugs[i].value == "0" || drugs[i].value == "-9999" || drugs[i].value == "-1") {
+        else if (drugs[i].checked && (drugs[i].value == "0" || drugs[i].value == "-9999" || drugs[i].value == "-1")) {
             bool2 = true;}}
     if (bool1 || bool2) {
         document.getElementById("id_allDrugs_0").removeAttribute("required");}
@@ -318,7 +324,7 @@ function handleMultipleselect() {
     for (let i = 0; i < airway.length; i++) {
         if (airway[i].checked && airway[i].value != "0" && airway[i].value != "-9999" && airway[i].value != "-1") {
             bool1 = true;}
-        else if (airway[i].checked || airway[i].value == "0" || airway[i].value == "-9999" || airway[i].value == "-1") {
+        else if (airway[i].checked && (airway[i].value == "0" || airway[i].value == "-9999" || airway[i].value == "-1")) {
             bool2 = true;}}
     if (bool1 || bool2) {
         document.getElementById("id_airway_0").removeAttribute("required");}}
