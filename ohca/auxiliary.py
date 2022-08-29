@@ -57,9 +57,7 @@ def read_values():
         value_list = []
         if "values" in data["cases"][element] and data["cases"][element]["values"] != "BLOB":
             value_dict = data["cases"][element]["values"]
-            # print(value_dict)
-            # if "hh:mm:ss" in value_dict:
-            #     timestamps.append(element)
+
             if "date" in value_dict:
                 dates.append(element)
 
@@ -74,11 +72,8 @@ def read_values():
                             value_list.append((int(val), value_dict[val])) 
                 if element not in ["estimatedAge", "estimatedAgeBystander", "emergencyTransport", "cardiacArrest"] and "estimated" not in element or element == "estimatedAgeBystander": #, "estimatedCAtimestamp"]:
                     value_list.append((-1, "Neznano/ni podatka"))
-                    value_list.append((-9999, "Ni zabeleženo/ni zavedeno"))
-                #if element in ["estimatedCAtimestamp", "estimatedCPRhelperTimestamp", "estimatedCPREMStimestamp", "estimatedDrugTimings", "estimatedEndCPRtimestamp", "estimatedAgeBystander", "estimatedCallTimestamp", "estimatedTimestampTCPR", "estimatedCPRbystander", "estimatedResponseTime", "estimatedDefibTimestamp"]:
-                # if "estimated" in element and element not in ["estimatedAge"]:
-                #     value_list.append((-1, "Neznano/ni podatka"))
-                # value_list.append((None, "Ni zabeleženo / ni zavedeno"))
+                    value_list.append((-2, "Ni zabeleženo/ni zavedeno"))
+
         if len(value_list) > 0:
             values[element] = value_list
 
@@ -92,8 +87,6 @@ def read_values():
             # elif elt == "d1&d30":
             #     both_forms.append(element)
 
-        
-
             # TODO
             # if "from" in data["cases"][element]:
             #     if data["cases"][element]["from"] == "Utstein2015":
@@ -102,9 +95,7 @@ def read_values():
             #         eureca.append(element)
             #     elif data["cases"][element]["from"] == "EuReCa3 & Utstein2015":
             #         utstein_and_eureca.append(element)
-    # print(counter)
-    # first_form = both_forms + first_form
-    # second_form = both_forms + second_form #
+
     timestamps = sections["timeline"]
     
     for timestamp in timestamps:
@@ -114,35 +105,3 @@ def read_values():
 
 (values, titles, descriptions, first_form, second_form, dates, names, timestamps, not_dcz) = read_values()
 
-section_names = {
-    'metadata': "Osnovni podatki", 
-    'general_info': "Splošni podatki", 
-    'patient': "Pacient", 
-    'timeline': "Časovnica", 
-    'cardiac_arrest': "Podatki o srčnem zastoju", 
-    'dispatch': "Odziv dispečerja", 
-    'first_responders': "Prvi posredovalci", 
-    'rythm': "Ritem", 
-    'result': "Rezultati",
-    'therapy': "Zdravljenje", 
-    'lab' : "Laboratorijski izvidi",
-    'follow_up': "Dolgotrajen izid"
-}
-
-# all_fields = ""
-# for elt in sections:
-    # print("<h2 style='font-weight: 300;'>" + section_names[elt] + "</h2>")
-    # all_fields += '"' + str(elt) + '", '
-    # fields = ""
-    # for name in sections[elt]:
-    #     if name in names:
-            # print("<p>{{ form1." + str(name) + "|as_crispy_field }}</p>")
-            # fields += '"' + str(name) + '", '
-#     print("{% with '" + fields[:-2] + "' as " + str(elt) + " %}")
-# print("{% with '" + all_fields[:-2] + "' as all_fields %}")
-
-# for f in all_fields
-# <h2 style="font-weight: 500;">section_names[f]</h2>
-# <p> </p>
-# for elt in f:
-# f as crispy field
