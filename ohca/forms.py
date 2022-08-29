@@ -428,7 +428,7 @@ class MySecondNewFrom(forms.ModelForm):
 		
 	def clean(self):# -> Optional[Dict[str, Any]]:
 		cleaned_data = super().clean()
-		# print(cleaned_data)
+		print(cleaned_data)
 		errors = dict()
 
 		for key in cleaned_data:
