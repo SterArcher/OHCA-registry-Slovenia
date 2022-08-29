@@ -88,7 +88,7 @@ targetBP.addEventListener("keydown", function(event) {
 const hospitalName = document.getElementById("id_hospitalName")
 const hospitalName_ids = ["id_adHospitalName_0", "id_adHospitalName_1"]
 
-targetBP.addEventListener("keydown", function(event) {
+hospitalName.addEventListener("keydown", function(event) {
     handleTab("id_hospitalName", hospitalName_ids, event)
     }
 )
@@ -96,8 +96,8 @@ targetBP.addEventListener("keydown", function(event) {
 const bystanderAge = document.getElementById("id_ageBystander")
 const bystanderAge_ids = ["id_adBystAge_0", "id_adBystAge_1"]
 
-targetBP.addEventListener("keydown", function(event) {
-    handleTab("id_estimatedAgeBystander", hospitalName_ids, event)
+bystanderAge.addEventListener("keydown", function(event) {
+    handleTab("id_estimatedAgeBystander", bystanderAge_ids, event)
     }
 )
 
@@ -114,8 +114,8 @@ window.onclick = function() {
 
 // ========================= handle fields with text and radio buttons ================
 
-const textFields = ["id_ph", "id_lactate", "id_shocks", "id_targetBP", "id_ttmTemp", "id_hospitalName", "id_ageBystander"]
-const radioFields = [["id_adPh_0", "id_adPh_1"], ["id_adLactate_0", "id_adLactate_1"], ["id_adShocks_0", "id_adShocks_1"], ["id_adTargetBP_0", "id_adTargetBP_1"], ["id_adTtmTemp_0", "id_adTtmTemp_1"], ["id_adHospitalName_0", "id_adHospitalName_1"], ["id_adBystAge_0", "id_adBystAge_1"]]
+const textFields = ["id_ph", "id_lactate", "id_shocks", "id_targetBP", "id_ttmTemp"] //, "id_hospitalName", "id_ageBystander"]
+const radioFields = [["id_adPh_0", "id_adPh_1"], ["id_adLactate_0", "id_adLactate_1"], ["id_adShocks_0", "id_adShocks_1"], ["id_adTargetBP_0", "id_adTargetBP_1"], ["id_adTtmTemp_0", "id_adTtmTemp_1"]]//, ["id_adHospitalName_0", "id_adHospitalName_1"], ["id_adBystAge_0", "id_adBystAge_1"]]
 
 
 

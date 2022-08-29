@@ -204,8 +204,8 @@ class DSZ_1_DAN(forms.ModelForm):
 		extras = ["drugs", "airwayControl", "ecgOptions",
 		"ecgOptions", "targetBP", "adPh", "adLactate", "drugs", "ttmTemp", "ph", "lactate",
 		# "ph", "adPh", "lactate", "adLactate", "targetBP", "adTargetBP", "shocks", "adShocks", "ttmTemp", "adTtmTemp"]
-		"dateOfBirth", "estimatedAge", "ageBystander", #"estimatedAgeBystander", 
-		"adBystAge", "shocks", "ecgResult", "hospitalName", "noCPR"]
+		"dateOfBirth", "estimatedAge", "ageBystander", "adBystAge", #"estimatedAgeBystander", 
+		"adBystAge", "shocks", "ecgResult", "hospitalName", "adHospitalName", "noCPR"]
 
 		estimatedTimestamps = ["estimatedCallTimestamp", "estimatedResponseTime", "estimatedDefibTimestamp", "estimatedDrugTimings", "estimatedRoscTimestamp", "estimatedCPREMStimestamp", "estimatedTimestampTCPR", "estimatedCPRbystander", "estimatedCPRhelperTimestamp", "estimatedEndCPRtimestamp", "estimatedLeftSceneTimestamp", "estimatedHospitalArrival"]
 
@@ -343,8 +343,8 @@ class NDSZ_1_DAN(forms.ModelForm):
 		extras = ["drugs", "airwayControl", "ecgOptions",
 		"ecgOptions", "targetBP", "adPh", "adLactate", "drugs", "ttmTemp", "ph", "lactate",
 		# "ph", "adPh", "lactate", "adLactate", "targetBP", "adTargetBP", "shocks", "adShocks", "ttmTemp", "adTtmTemp"]
-		"dateOfBirth", "estimatedAge", "ageBystander", #"estimatedAgeBystander", 
-		"adBystAge", "shocks", "ecgResult", "hospitalName", "noCPR"]
+		"dateOfBirth", "estimatedAge", "ageBystander", "adBystAge", #"estimatedAgeBystander", 
+		"adBystAge", "shocks", "ecgResult", "hospitalName", "adHospitalName", "noCPR"]
 
 		estimatedTimestamps = ["estimatedDefibTimestamp", "estimatedDrugTimings", "estimatedRoscTimestamp", "estimatedCPREMStimestamp", "estimatedTimestampTCPR", "estimatedCPRbystander", "estimatedCPRhelperTimestamp", "estimatedEndCPRtimestamp", "estimatedHospitalArrival"]
 
