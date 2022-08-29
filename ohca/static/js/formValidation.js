@@ -115,7 +115,7 @@ window.onclick = function() {
 // ========================= handle fields with text and radio buttons ================
 
 const textFields = ["id_ph", "id_lactate", "id_shocks", "id_targetBP", "id_ttmTemp"] //, "id_hospitalName", "id_ageBystander"]
-const radioFields = [["id_adPh_0", "id_adPh_1"], ["id_adLactate_0", "id_adLactate_1"], ["id_adShocks_0", "id_adShocks_1"], ["id_adTargetBP_0", "id_adTargetBP_1"], ["id_adTtmTemp_0", "id_adTtmTemp_1"]]//, ["id_adHospitalName_0", "id_adHospitalName_1"], ["id_adBystAge_0", "id_adBystAge_1"]]
+const radioFields = [["id_adPh_0", "id_adPh_1"], ["id_adLactate_0", "id_adLactate_1"], ["id_adShocks_0", "id_adShocks_1"], ["id_adTargetBP_0", "id_adTargetBP_1", "id_adTargetBP_2"], ["id_adTtmTemp_0", "id_adTtmTemp_1"]]//, ["id_adHospitalName_0", "id_adHospitalName_1"], ["id_adBystAge_0", "id_adBystAge_1"]]
 
 
 
@@ -187,15 +187,15 @@ function check1() {
                     ecg[j].checked = false;}}}}}
 function check2() {
     for (let i = 0; i < ecg.length; i++) {
-        if (ecg[i].checked && ecg[i].value == "-9999") {
+        if (ecg[i].checked && ecg[i].value == "-2") {
             for (let j = 0; j < ecg.length; j++) {
-                if (ecg[j].value != "-9999") {
+                if (ecg[j].value != "-2") {
                     ecg[j].checked = false;}}
             ecg[i].checked = true;}}}
 function check3() {
     var bool1 = false;
     for (let i = 0; i < ecg.length; i++) {
-            if (ecg[i].checked && ecg[i].value != "0" && ecg[i].value != "-9999" && ecg[i].value != "-1") {
+            if (ecg[i].checked && ecg[i].value != "0" && ecg[i].value != "-2" && ecg[i].value != "-1") {
                 bool1 = true;}}
     if (bool1) {
         document.getElementById("id_ecgopt_27").checked = false;
@@ -218,9 +218,9 @@ function checkDrugs1() {
                     drugs[j].checked = false;}}}}}
 function checkDrugs2() {
     for (let i = 0; i < drugs.length; i++) {
-        if (drugs[i].checked && drugs[i].value == "-9999") {
+        if (drugs[i].checked && drugs[i].value == "-2") {
             for (let j = 0; j < drugs.length; j++) {
-                if (drugs[j].value != "-9999") {
+                if (drugs[j].value != "-2") {
                     drugs[j].checked = false;}}
             drugs[i].checked = true;}}}
 function checkDrugs3() {
@@ -233,7 +233,7 @@ function checkDrugs3() {
 function checkDrugs4() {
     var bool1 = false;
     for (let i = 0; i < drugs.length; i++) {
-            if (drugs[i].checked && drugs[i].value != "0" && drugs[i].value != "-9999" && drugs[i].value != "-1") {
+            if (drugs[i].checked && drugs[i].value != "0" && drugs[i].value != "-2" && drugs[i].value != "-1") {
                 bool1 = true;}}
     if (bool1) {
         document.getElementById("id_allDrugs_3").checked = false;
@@ -260,9 +260,9 @@ function checkairway1() {
                     airway[j].checked = false;}}}}}
 function checkairway2() {
     for (let i = 0; i < airway.length; i++) {
-        if (airway[i].checked && airway[i].value == "-9999") {
+        if (airway[i].checked && airway[i].value == "-2") {
             for (let j = 0; j < airway.length; j++) {
-                if (airway[j].value != "-9999") {
+                if (airway[j].value != "-2") {
                     airway[j].checked = false;}}
             airway[i].checked = true;}}}
 function checkairway3() {
@@ -275,7 +275,7 @@ function checkairway3() {
 function checkairway4() {
     var bool1 = false;
     for (let i = 0; i < airway.length; i++) {
-            if (airway[i].checked && airway[i].value != "0" && airway[i].value != "-9999" && airway[i].value != "-1") {
+            if (airway[i].checked && airway[i].value != "0" && airway[i].value != "-2" && airway[i].value != "-1") {
                 bool1 = true;}}
     if (bool1) {
         document.getElementById("id_airway_4").checked = false;
@@ -299,9 +299,9 @@ function handleMultipleselect() {
     var bool1 = false;
     var bool2 = false;
     for (let i = 0; i < ecg.length; i++) {
-        if (ecg[i].checked && ecg[i].value != "0" && ecg[i].value != "-9999" && ecg[i].value != "-1") {
+        if (ecg[i].checked && ecg[i].value != "0" && ecg[i].value != "-2" && ecg[i].value != "-1") {
             bool1 = true;}
-        else if (ecg[i].checked && (ecg[i].value == "0" || ecg[i].value == "-9999" || ecg[i].value == "-1")) {
+        else if (ecg[i].checked && (ecg[i].value == "0" || ecg[i].value == "-2" || ecg[i].value == "-1")) {
             bool2 = true;}}
     console.log(bool1)
     console.log(bool2)
@@ -313,18 +313,18 @@ function handleMultipleselect() {
     var bool1 = false;
     var bool2 = false;
     for (let i = 0; i < drugs.length; i++) {
-        if (drugs[i].checked && drugs[i].value != "0" && drugs[i].value != "-9999" && drugs[i].value != "-1") {
+        if (drugs[i].checked && drugs[i].value != "0" && drugs[i].value != "-2" && drugs[i].value != "-1") {
             bool1 = true;}
-        else if (drugs[i].checked && (drugs[i].value == "0" || drugs[i].value == "-9999" || drugs[i].value == "-1")) {
+        else if (drugs[i].checked && (drugs[i].value == "0" || drugs[i].value == "-2" || drugs[i].value == "-1")) {
             bool2 = true;}}
     if (bool1 || bool2) {
         document.getElementById("id_allDrugs_0").removeAttribute("required");}
     var bool1 = false;
     var bool2 = false;
     for (let i = 0; i < airway.length; i++) {
-        if (airway[i].checked && airway[i].value != "0" && airway[i].value != "-9999" && airway[i].value != "-1") {
+        if (airway[i].checked && airway[i].value != "0" && airway[i].value != "-2" && airway[i].value != "-1") {
             bool1 = true;}
-        else if (airway[i].checked && (airway[i].value == "0" || airway[i].value == "-9999" || airway[i].value == "-1")) {
+        else if (airway[i].checked && (airway[i].value == "0" || airway[i].value == "-2" || airway[i].value == "-1")) {
             bool2 = true;}}
     if (bool1 || bool2) {
         document.getElementById("id_airway_0").removeAttribute("required");}}

@@ -23,33 +23,38 @@ document.getElementById("id_estimatedAge").addEventListener("change", handleBirt
 // ===========================================
 
 
-// function handleTreatmentWithdrawn() {
-//     var val = document.getElementById("id_treatmentWithdrawn_0").checked;
-//     // var death2 = document.getElementById("id_survival30d_1");
-//     if (val) {
+function handleTreatmentWithdrawn() {
+    var val = document.getElementById("id_treatmentWithdrawn_0").checked;
+    // var death2 = document.getElementById("id_survival30d_1");
+    console.log(val)
+    if (val) {
 
-//         document.getElementById("id_treatmentWithdrawnTimestamp_0").setAttribute("required", "");
-//         document.getElementById("id_treatmentWithdrawnTimestamp_1").setAttribute("required", "");
-//     }
-//     else {
-//         document.getElementById("id_treatmentWithdrawnTimestamp_0").removeAttribute("required");
-//         document.getElementById("id_treatmentWithdrawnTimestamp_1").removeAttribute("required");
-//     }}
-// document.getElementById("id_treatmentWithdrawn_0").addEventListener("change", handleTreatmentWithdrawn)
-// document.getElementById("id_treatmentWithdrawn_1").addEventListener("change", handleTreatmentWithdrawn)
-// document.getElementById("id_treatmentWithdrawn_2").addEventListener("change", handleTreatmentWithdrawn)
-// document.getElementById("id_treatmentWithdrawn_3").addEventListener("change", handleTreatmentWithdrawn)
+        document.getElementById("id_treatmentWithdrawnTimestamp_0").setAttribute("required", "");
+        document.getElementById("id_treatmentWithdrawnTimestamp_1").setAttribute("required", "");
+    }
+    else {
+        document.getElementById("id_treatmentWithdrawnTimestamp_0").removeAttribute("required");
+        document.getElementById("id_treatmentWithdrawnTimestamp_1").removeAttribute("required");
+    }}
+document.getElementById("id_treatmentWithdrawn_0").addEventListener("change", handleTreatmentWithdrawn)
+document.getElementById("id_treatmentWithdrawn_1").addEventListener("change", handleTreatmentWithdrawn)
+document.getElementById("id_treatmentWithdrawn_2").addEventListener("change", handleTreatmentWithdrawn)
+document.getElementById("id_treatmentWithdrawn_3").addEventListener("change", handleTreatmentWithdrawn)
 
 function handleTreatmentWithdrawn1() {
     if (document.getElementById("id_treatmentWithdrawnTimestamp_1").value != null && document.getElementById("id_treatmentWithdrawnTimestamp_1").value != "") {
         document.getElementById("id_adWithdraw_0").checked = false;
         document.getElementById("id_adWithdraw_1").checked = false;
+        document.getElementById("id_adWithdraw_0").removeAttribute("required")
+        document.getElementById("id_adWithdraw_1").removeAttribute("required")
     }
 }
 function handleTreatmentWithdrawn2() {
     if (document.getElementById("id_adWithdraw_0").checked || document.getElementById("id_adWithdraw_0").checked) {
         document.getElementById("id_treatmentWithdrawnTimestamp_1").value = null;
         document.getElementById("id_treatmentWithdrawnTimestamp_0").value = null;
+        document.getElementById("id_treatmentWithdrawnTimestamp_1").removeAttribute("required")
+        document.getElementById("id_treatmentWithdrawnTimestamp_0").removeAttribute("required")
     }
 }
 document.getElementById("id_treatmentWithdrawnTimestamp_1").addEventListener("change", handleTreatmentWithdrawn1)
@@ -89,6 +94,7 @@ window.onload = function require() {
     checkFormReload();
     handleTreatmentWithdrawn1();
     handleTreatmentWithdrawn2();
+    handleTreatmentWithdrawn();
     handleDiscDate();
     tests();
 }
