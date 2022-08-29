@@ -78,7 +78,7 @@
 
         
 
-        {% with '"ecgopt", "allDrugs", "airway", "adTtmTemp", "adTargetBP", "adPh", "adLactate", "adShocks"' as list %}
+        {% with '"adHospitalName", "adBystAge", "ecgopt", "allDrugs", "airway", "adTtmTemp", "adTargetBP", "adPh", "adLactate", "adShocks"' as list %}
 
         {% for field in form1 %}
 
@@ -132,6 +132,7 @@
             <p>{{ field|as_crispy_field }}</p>
         
         {% elif field.name == "ecgOptions" %}
+        <p>{{ form1.ecg|as_crispy_field }}</p>
         <p>{{ form1.ecgopt|as_crispy_field }}</p>
         
         {% elif field.name == "airwayControl" %}
@@ -153,6 +154,14 @@
             <p>{{ field|as_crispy_field }}</p>
             <p>{{ form1.adShocks|as_crispy_field }}</p>
 
+            {% elif field.name == "hospitalName" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adHospitalName|as_crispy_field }}</p>
+
+            {% elif field.name == "ageBystander" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adBystAge|as_crispy_field }}</p>
+
 
         {% else %}
             <p>{{ field|as_crispy_field }}</p>
@@ -165,7 +174,7 @@
         <!-- <form action="#"> -->
         <script src="/static/js/formPersistence.js"></script>
         <script src="/static/js/formValidation.js"></script>
-        <input type="submit" class="btn btn-dark" value="Submit" onclick="saveFormToCookie()" onload="saveFormToCookie()">
+        <input type="submit" class="btn btn-dark" value="Submit" onclick="saveFormToCookie(); handleDoubleField()" onload="saveFormToCookie()">
         {% endcache %}
     </form>
 

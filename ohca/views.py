@@ -253,8 +253,10 @@ def form_name_view(request):
                 izracunana_polja.append(("lactate", form1.cleaned_data["adLactate"]))
             if form1.cleaned_data["shocks"] == None:
                 izracunana_polja.append(("shocks", form1.cleaned_data["adShocks"]))
-
-
+            if form1.cleaned_data["hospitalName"] == None:
+                izracunana_polja.append(("hospitalName", form1.cleaned_data["adHospitalName"]))
+            if form1.cleaned_data["estimatedAgeBystander"] == None:
+                izracunana_polja.append(("estimatedAgeBystander", form1.cleaned_data["adBystAge"]))
             
             field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["estimatedCAtimestamp"] + not_dcz), first_form))] + izracunana_polja
             # field_list = list(map(lambda x: (x[0], None) if x[1] == -9999 else x, field_list))
@@ -478,7 +480,7 @@ def second_form_name_view(request):
                 form1.instance.dischDay = day_difference(date, disch_date)
 
             print((date, date_birth))
-            if disch_date != None:
+            if disch_date != 'None':
                 disch_date = disch_date.split("-")
                 izracunana_polja.append(("dischYear", disch_date[0]))
                 izracunana_polja.append(("dischMonth", disch_date[1]))

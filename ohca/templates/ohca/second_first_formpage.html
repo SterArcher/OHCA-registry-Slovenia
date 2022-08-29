@@ -13,7 +13,7 @@
         <p> </p>
         <p> </p>
 
-        {% with '"ecgopt", "allDrugs", "airway", "adTtmTemp", "adTargetBP", "adPh", "adLactate", "adShocks"' as list %}
+        {% with '"adHospitalName", "adBystAge", "ecgopt", "allDrugs", "airway", "adTtmTemp", "adTargetBP", "adPh", "adLactate", "adShocks"' as list %}
 
         {% for field in form1 %}
 
@@ -69,6 +69,7 @@
             
 
             {% elif field.name == "ecgOptions" %}
+            <p>{{ form1.ecg|as_crispy_field }}</p>
             <p>{{ form1.ecgopt|as_crispy_field }}</p>
 
             {% elif field.name == "ttmTemp" %}
@@ -86,6 +87,14 @@
             {% elif field.name == "shocks" %}
             <p>{{ field|as_crispy_field }}</p>
             <p>{{ form1.adShocks|as_crispy_field }}</p>
+
+            {% elif field.name == "hospitalName" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adHospitalName|as_crispy_field }}</p>
+
+            {% elif field.name == "ageBystander" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adBystAge|as_crispy_field }}</p>
 
         {% else %}
             <p>{{ field|as_crispy_field }}</p>
