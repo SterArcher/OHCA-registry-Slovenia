@@ -117,23 +117,7 @@ window.onclick = function() {
 const textFields = ["id_ph", "id_lactate", "id_shocks", "id_targetBP", "id_ttmTemp", "id_hospitalName", "id_ageBystander"]
 const radioFields = [["id_adPh_0", "id_adPh_1"], ["id_adLactate_0", "id_adLactate_1"], ["id_adShocks_0", "id_adShocks_1"], ["id_adTargetBP_0", "id_adTargetBP_1"], ["id_adTtmTemp_0", "id_adTtmTemp_1"], ["id_adHospitalName_0", "id_adHospitalName_1"], ["id_adBystAge_0", "id_adBystAge_1"]]
 
-// make fields required
-window.onload = function require() {
-    checkFormReload();
-    for (let i = 0; i < textFields.length; i++) {
-        document.getElementById(textFields[i]).setAttribute("required", "")
-    }
-    handleDoubleField();
 
-    document.getElementById("id_dateOfBirth").setAttribute("required", "");
-    document.getElementById("div_id_allDrugs").setAttribute("required", "");
-    handleBirthdateField();
-
-    document.getElementById("id_allDrugs_0").setAttribute("required", "");
-    document.getElementById("id_airway_0").setAttribute("required", "");
-    document.getElementById("id_ecgopt_0").setAttribute("required", "");
-    handleMultipleselect();
-}
 
 function handleDoubleField() {
     // console.log("handledoublefield")
@@ -354,3 +338,213 @@ document.getElementById("id_ecgopt_26").addEventListener("change", otherEcg)
 
 
 // ============================ if sentences for timestamps! ===========================================
+
+// dependent fields
+// timestamp
+// estimation
+
+
+// Čas, ko je dispečer/NMP dal navodila za oživljanje po telefonu
+function timestampTCPR() {
+    // "dispProvidedCPRinst"
+    if (document.getElementById("id_dispProvidedCPRinst_0")) {
+    if (document.getElementById("id_dispProvidedCPRinst_0").checked) {
+        document.getElementById("id_timestampTCPR_0").setAttribute("required", "");
+        document.getElementById("id_timestampTCPR_1").setAttribute("required", "");
+        document.getElementById("id_estimatedTimestampTCPR_0").setAttribute("required", "");
+        document.getElementById("id_estimatedTimestampTCPR_1").setAttribute("required", "");
+    }
+    else {
+        document.getElementById("id_timestampTCPR_0").removeAttribute("required");
+        document.getElementById("id_timestampTCPR_1").removeAttribute("required");
+        document.getElementById("id_estimatedTimestampTCPR_0").removeAttribute("required");
+        document.getElementById("id_estimatedTimestampTCPR_1").removeAttribute("required");
+    
+    }}
+if (document.getElementById("id_dispProvidedCPRinst_0")) {
+    document.getElementById("id_dispProvidedCPRinst_0").addEventListener("change", timestampTCPR)
+    document.getElementById("id_dispProvidedCPRinst_1").addEventListener("change", timestampTCPR)
+    document.getElementById("id_dispProvidedCPRinst_2").addEventListener("change", timestampTCPR)
+    document.getElementById("id_dispProvidedCPRinst_3").addEventListener("change", timestampTCPR)
+}}
+
+// Čas, ko je pričel očividec z oživljanjem (TPO)
+function bystanderCPR() {
+    if (document.getElementById("id_cPRbystander3Timestamp_0")) {
+        var const1 = document.getElementById("id_bystanderCPR_1").checked || document.getElementById("id_bystanderCPR_2").checked || document.getElementById("id_bystanderCPR_3").checked
+        var const2 = document.getElementById("id_bystanderResponse_1").checked || document.getElementById("id_bystanderResponse_2").checked
+        // console.log(const1)
+        // console.log(const2)
+        // console.log(document.getElementById("id_persCPRstart_0").checked)
+        if (document.getElementById("id_persCPRstart_0").checked || const1 || const2) {
+            document.getElementById("id_cPRbystander3Timestamp_0").setAttribute("required", "");
+            document.getElementById("id_cPRbystander3Timestamp_1").setAttribute("required", "");
+            document.getElementById("id_estimatedCPRbystander_0").setAttribute("required", "");
+            document.getElementById("id_estimatedCPRbystander_1").setAttribute("required", "");
+        }
+        else {
+            document.getElementById("id_cPRbystander3Timestamp_0").removeAttribute("required");
+            document.getElementById("id_cPRbystander3Timestamp_1").removeAttribute("required");
+            document.getElementById("id_estimatedCPRbystander_0").removeAttribute("required");
+            document.getElementById("id_estimatedCPRbystander_1").removeAttribute("required");
+        }}}
+const bystCPR1 = document.querySelectorAll('input[name="bystanderCPR"]')
+const bystCPR2 = document.querySelectorAll('input[name="bystanderResponse"]')
+const bystCPR3 = document.querySelectorAll('input[name="persCPRstart"]')
+for (let i = 0; i < bystCPR1.length; i++) {bystCPR1[i].addEventListener("change", bystanderCPR)}
+for (let i = 0; i < bystCPR2.length; i++) {bystCPR2[i].addEventListener("change", bystanderCPR)}
+for (let i = 0; i < bystCPR3.length; i++) {bystCPR3[i].addEventListener("change", bystanderCPR)}
+
+// Čas, ko je pričela oseba, ki jo je DCZ/NMP poslal na kraj zastoja (npr. prvi posredovalec) z oživljanjem (TPO)
+function helperCPR() {
+    if (document.getElementById("id_cPRhelper3Timestamp_0")) {
+        var const1 = document.getElementById("id_helperCPR_1").checked || document.getElementById("id_helperCPR_2").checked || document.getElementById("id_helperCPR_3").checked 
+        if (document.getElementById("id_persCPRstart_1").checked || const1) {
+            document.getElementById("id_cPRhelper3Timestamp_0").setAttribute("required", "");
+            document.getElementById("id_cPRhelper3Timestamp_1").setAttribute("required", "");
+            document.getElementById("id_estimatedCPRhelperTimestamp_0").setAttribute("required", "");
+            document.getElementById("id_estimatedCPRhelperTimestamp_1").setAttribute("required", "");
+        }
+        else {
+            document.getElementById("id_cPRhelper3Timestamp_0").removeAttribute("required");
+            document.getElementById("id_cPRhelper3Timestamp_1").removeAttribute("required");
+            document.getElementById("id_estimatedCPRhelperTimestamp_0").removeAttribute("required");
+            document.getElementById("id_estimatedCPRhelperTimestamp_1").removeAttribute("required");  
+        }}}
+const helperCPR1 = document.querySelectorAll('input[name="helperCPR"]')
+const helperCPR2 = document.querySelectorAll('input[name="persCPRstart"]')
+for (let i = 0; i < helperCPR1.length; i++) {helperCPR1[i].addEventListener("change", helperCPR)}
+for (let i = 0; i < helperCPR2.length; i++) {helperCPR2[i].addEventListener("change", helperCPR)}
+
+// Čas, ko je pričela služba NMP z oživljanjem
+function CPREMS() {
+    if (document.getElementById("id_cPREMS3Timestamp_0")) {
+        if (document.getElementById("id_cprEms_0").checked) {
+            document.getElementById("id_cPREMS3Timestamp_0").setAttribute("required", "");
+            document.getElementById("id_cPREMS3Timestamp_1").setAttribute("required", "");
+            document.getElementById("id_estimatedCPREMStimestamp_0").setAttribute("required", "");
+            document.getElementById("id_estimatedCPREMStimestamp_1").setAttribute("required", "");
+        }
+        else {
+            document.getElementById("id_cPREMS3Timestamp_0").removeAttribute("required");
+            document.getElementById("id_cPREMS3Timestamp_1").removeAttribute("required");
+            document.getElementById("id_estimatedCPREMStimestamp_0").removeAttribute("required");
+            document.getElementById("id_estimatedCPREMStimestamp_1").removeAttribute("required");
+        
+        }
+    }
+}
+const cprems1 = document.querySelectorAll('input[name="cprEms"]')
+for (let i = 0; i < cprems1.length; i++) {cprems1[i].addEventListener("change", CPREMS)}
+
+// Čas prve defibrilacije
+function defibTime() {
+    if (document.getElementById("id_defibTimestamp_0")) {
+        if (document.getElementById("id_AEDshock_0").checked) {
+            document.getElementById("id_defibTimestamp_0").setAttribute("required", "");
+            document.getElementById("id_defibTimestamp_1").setAttribute("required", "");
+            document.getElementById("id_estimatedDefibTimestamp_0").setAttribute("required", "");
+            document.getElementById("id_estimatedDefibTimestamp_1").setAttribute("required", "");
+        }
+        else {
+            document.getElementById("id_defibTimestamp_0").removeAttribute("required");
+            document.getElementById("id_defibTimestamp_1").removeAttribute("required");
+            document.getElementById("id_estimatedDefibTimestamp_0").removeAttribute("required");
+            document.getElementById("id_estimatedDefibTimestamp_1").removeAttribute("required");
+        }}}
+const defib = document.querySelectorAll('input[name="AEDshock"]')
+for (let i = 0; i < defib.length; i++) {defib[i].addEventListener("change", defibTime)}
+
+
+function drugTimings() {
+    if (document.getElementById("id_drugTimingsTimestamp_0")) {
+        console.log(document.getElementById("id_allDrugs_0").checked || document.getElementById("id_allDrugs_1").checked || document.getElementById("id_allDrugs_2").checked)
+        if (document.getElementById("id_allDrugs_0").checked || document.getElementById("id_allDrugs_1").checked || document.getElementById("id_allDrugs_2").checked) {
+            document.getElementById("id_drugTimingsTimestamp_0").setAttribute("required", "");
+            document.getElementById("id_drugTimingsTimestamp_1").setAttribute("required", "");
+            document.getElementById("id_estimatedDrugTimings_0").setAttribute("required", "");
+            document.getElementById("id_estimatedDrugTimings_1").setAttribute("required", "");
+        }
+        else {
+            document.getElementById("id_drugTimingsTimestamp_0").removeAttribute("required");
+            document.getElementById("id_drugTimingsTimestamp_1").removeAttribute("required");
+            document.getElementById("id_estimatedDrugTimings_0").removeAttribute("required");
+            document.getElementById("id_estimatedDrugTimings_1").removeAttribute("required");
+        }}}
+const drugTimings1 = document.querySelectorAll('input[name="allDrugs"]')
+for (let i = 0; i < drugTimings1.length; i++) {drugTimings1[i].addEventListener("change", drugTimings)}
+
+
+function rosc() {
+    if (document.getElementById("id_roscTimestamp_0")) {
+        if (document.getElementById("id_rosc_0").checked) {
+            document.getElementById("id_roscTimestamp_0").setAttribute("required", "");
+            document.getElementById("id_roscTimestamp_1").setAttribute("required", "");
+            document.getElementById("id_estimatedRoscTimestamp_0").setAttribute("required", "");
+            document.getElementById("id_estimatedRoscTimestamp_1").setAttribute("required", "");
+        }
+        else {
+            document.getElementById("id_roscTimestamp_0").removeAttribute("required");
+            document.getElementById("id_roscTimestamp_1").removeAttribute("required");
+            document.getElementById("id_estimatedRoscTimestamp_0").removeAttribute("required");
+            document.getElementById("id_estimatedRoscTimestamp_1").removeAttribute("required");
+        }}}
+const rosc1 = document.querySelectorAll('input[name="rosc"]')
+for (let i = 0; i < rosc1.length; i++) {rosc1[i].addEventListener("change", rosc)}
+
+function cprEnd() {
+    if (document.getElementById("id_endCPR4Timestamp_0")) {
+        if (document.getElementById("id_diedOnField_0").checked) {
+            document.getElementById("id_endCPR4Timestamp_0").setAttribute("required", "");
+            document.getElementById("id_endCPR4Timestamp_1").setAttribute("required", "");
+            document.getElementById("id_estimatedEndCPRtimestamp_1").setAttribute("required", "");
+            document.getElementById("id_estimatedEndCPRtimestamp_1").setAttribute("required", "");
+        }
+        else {
+            document.getElementById("id_endCPR4Timestamp_0").removeAttribute("required");
+            document.getElementById("id_endCPR4Timestamp_1").removeAttribute("required");
+            document.getElementById("id_estimatedEndCPRtimestamp_0").removeAttribute("required");
+            document.getElementById("id_estimatedEndCPRtimestamp_1").removeAttribute("required");
+        }}}
+const cprend1 = document.querySelectorAll('input[name="diedOnField"]')
+for (let i = 0; i < cprend1.length; i++) {cprend1[i].addEventListener("change", cprEnd)}
+
+function handleNoCPR() {
+    const fields = document.querySelectorAll('input[name="noCPR"]');
+    if (document.getElementById("id_cprEms_1").checked) {
+        console.log("tukaj")
+        for (let i = 0; i < fields.length; i++) { fields[i].setAttribute("required", "")}
+    }
+    else {
+        for (let i = 0; i < fields.length; i++) { fields[i].removeAttribute("required")}
+    }}
+const fields2 = document.querySelectorAll('input[name="cprEms"]');
+for (let i = 0; i < fields2.length; i++) { fields2[i].addEventListener("change", handleNoCPR)}
+
+
+window.onload = function require() {
+    checkFormReload();
+    for (let i = 0; i < textFields.length; i++) {
+        document.getElementById(textFields[i]).setAttribute("required", "")
+    }
+    handleDoubleField();
+
+    document.getElementById("id_dateOfBirth").setAttribute("required", "");
+    document.getElementById("div_id_allDrugs").setAttribute("required", "");
+    handleBirthdateField();
+
+    document.getElementById("id_allDrugs_0").setAttribute("required", "");
+    document.getElementById("id_airway_0").setAttribute("required", "");
+    document.getElementById("id_ecgopt_0").setAttribute("required", "");
+    handleMultipleselect();
+    handleNoCPR();
+
+    timestampTCPR();
+    bystanderCPR();
+    helperCPR();
+    CPREMS();
+    defibTime();
+    drugTimings();
+    rosc();
+    cprEnd();
+}
