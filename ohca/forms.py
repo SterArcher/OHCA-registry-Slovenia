@@ -110,6 +110,8 @@ w["drugs"] = forms.CheckboxSelectMultiple(choices=values['drugs'])
 w["airwayControl"] = forms.CheckboxSelectMultiple(choices=values['airwayControl'])
 w["ecgOptions"] = forms.CheckboxSelectMultiple(choices=values['ecgOptions'])
 
+w["neuroprognosticTests"] = forms.Textarea(attrs={'rows':1})
+
 # ========================================== FORMS ================================================================================
 
 from django import forms
@@ -202,7 +204,8 @@ class DSZ_1_DAN(forms.ModelForm):
 		extras = ["drugs", "airwayControl", "ecgOptions",
 		"ecgOptions", "targetBP", "adPh", "adLactate", "drugs", "ttmTemp",
 		# "ph", "adPh", "lactate", "adLactate", "targetBP", "adTargetBP", "shocks", "adShocks", "ttmTemp", "adTtmTemp"]
-		"dateOfBirth", "estimatedAge", "ageBystander", "estimatedAgeBystander", "adBystAge", "shocks", "ecgResult", "hospitalName"]
+		"dateOfBirth", "estimatedAge", "ageBystander", #"estimatedAgeBystander", 
+		"adBystAge", "shocks", "ecgResult", "hospitalName", "noCPR"]
 
 		estimatedTimestamps = ["estimatedCallTimestamp", "estimatedResponseTime", "estimatedDefibTimestamp", "estimatedDrugTimings", "estimatedRoscTimestamp", "estimatedCPREMStimestamp", "estimatedTimestampTCPR", "estimatedCPRbystander", "estimatedCPRhelperTimestamp", "estimatedEndCPRtimestamp", "estimatedLeftSceneTimestamp", "estimatedHospitalArrival"]
 
@@ -210,6 +213,11 @@ class DSZ_1_DAN(forms.ModelForm):
 			if key not in (timestamps + extras + estimatedTimestamps):
 				self.fields[key].required = True
 		self.fields["reaTimestamp"].required = True
+
+		# self.fields["reaTimestamp"].required = True
+		# self.fields["callTimestamp"].required = True
+		# self.fields["responseTimestamp"].required = True
+		# self.fields["leftScene5Timestamp"].required = True
 
 
 	def clean(self):# -> Optional[Dict[str, Any]]:
@@ -335,14 +343,19 @@ class NDSZ_1_DAN(forms.ModelForm):
 		extras = ["drugs", "airwayControl", "ecgOptions",
 		"ecgOptions", "targetBP", "adPh", "adLactate", "drugs", "ttmTemp",
 		# "ph", "adPh", "lactate", "adLactate", "targetBP", "adTargetBP", "shocks", "adShocks", "ttmTemp", "adTtmTemp"]
-		"dateOfBirth", "estimatedAge", "ageBystander", "estimatedAgeBystander", "adBystAge", "shocks", "ecgResult", "hospitalName"]
+		"dateOfBirth", "estimatedAge", "ageBystander", #"estimatedAgeBystander", 
+		"adBystAge", "shocks", "ecgResult", "hospitalName"]
 
-		estimatedTimestamps = ["estimatedCallTimestamp", "estimatedResponseTime", "estimatedDefibTimestamp", "estimatedDrugTimings", "estimatedRoscTimestamp", "estimatedCPREMStimestamp", "estimatedTimestampTCPR", "estimatedCPRbystander", "estimatedCPRhelperTimestamp", "estimatedEndCPRtimestamp", "estimatedLeftSceneTimestamp", "estimatedHospitalArrival"]
+		estimatedTimestamps = ["estimatedDefibTimestamp", "estimatedDrugTimings", "estimatedRoscTimestamp", "estimatedCPREMStimestamp", "estimatedTimestampTCPR", "estimatedCPRbystander", "estimatedCPRhelperTimestamp", "estimatedEndCPRtimestamp", "estimatedHospitalArrival"]
 
 		for key in self.fields:
 			if key not in (timestamps + extras + estimatedTimestamps):
 				self.fields[key].required = True
+		
 		self.fields["reaTimestamp"].required = True
+		self.fields["callTimestamp"].required = True
+		self.fields["responseTimestamp"].required = True
+		self.fields["leftScene5Timestamp"].required = True
 
 		
 
@@ -402,6 +415,7 @@ class NDSZ_1_DAN(forms.ModelForm):
 	
 class MySecondNewFrom(forms.ModelForm):
 
+	adWithdraw = forms.IntegerField(widget=forms.RadioSelect(choices=((-9999, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
 
 	class Meta: 
 		model = CaseReport
@@ -418,10 +432,13 @@ class MySecondNewFrom(forms.ModelForm):
 
 		all_fields = list(self.fields)
 		required = list(filter(lambda x: x != "reaTimestamp", all_fields))
-		not_required = ["discDate", "cod", "treatmentWithdrawnTimestamp"]
+		not_required = ["neuroprognosticTests", "discDate", "cod", "treatmentWithdrawnTimestamp"]
 		for key in required:
 			if key not in not_required:
 				self.fields[key].required = True
+
+		self.fields["neuroprognosticTests"].label = False
+		self.fields["adWithdraw"].label = False
 
 		for key in ["reaTimestamp", "estimatedCAtimestamp", "dateOfBirth", "estimatedAge"]:
 			self.fields[key].required = False

@@ -6,6 +6,24 @@
 
     <h2 style="font-weight: 500;">Izpolnite podatke o dogodku</h2>
 
+    <h5 style="font-weight: 600;">Obrazec izpolnjujete, če vaš NMP ni vključen v DCZ (nimate intervencijske številke primera)</h5>
+
+    <p><b style="font-weight: 600;">Opomba:</b> za identifikacijo dogodka uporabimo ime in priimek pacienta, datum ter čas (lahko ocenjen) dogodka, zato so te spremenljivke obvezne.</p>
+
+    <p><b style="font-weight: 600;">Navodila za izpolnjevanje obrazca:</b></p>
+    <p> Odgovor <b style="font-weight: 600;">“Ni zabeleženo/ni zavedeno”</b> se uporabi kadar poizvedba o
+        podatku ni opravljena. V kolikor se podatek poskuša pridobiti, vendar ne dobimo odgovora, se označi <b style="font-weight: 600;">“Neznano/ni podatka”. “Neznano/ni podatka"</b> izberite prosim tudi takrat, kadar vprašanje oz. odgovor nanj ni smiseln glede na okoliščine dogodka (npr. če očividca ni bilo na kraju dogodka, potem ne morete izpolniti njegovega spola; zato izberete ni podatka).
+        
+        <p>Prosimo <b style="font-weight: 600;">natančno izpolnite obrazec</b>. </p>
+        
+        <p>Če ni označeno drugače, je možen <b style="font-weight: 600;">le en odgovor.</b> </p>
+        <p>Prosimo izpolnite celoten obrazec (odgovorite na vse spremenljivke), razen, če je označeno drugače. Čase zapisujte v <b style="font-weight: 600;">24-urnem formatu</b>. </p>
+        
+        <p>Če je vaš NMP vključen v DCZ na obrazcu ne boste našli vprašanj z oznako DCZ, saj jih bo zagotovil DCZ, v nasprotnem primeru jih prosimo izpolnite sami.  </p>
+
+        <p>V primeru, da ekipa ob svojem prihodu ugotovi, da je bolnik/bolnica mrtev in oživljanje s strani NMP ni indicirano, prosimo <b style="font-weight: 600;">smiselno izpolnite obrazec v skladu z ugotovitvami na terenu.</b></p>
+
+
     <form method="POST">
         {% csrf_token %}
         {% load cache %}
@@ -19,7 +37,12 @@
 
         {% if field.name not in list %}
 
-        {% if field.name == "name" %}
+        {% if field.name == "cardiacArrest" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>Če ste na obe vprašanji odgovorili z DA nadaljujte z izpolnjevanjem.</p>
+
+
+        {% elif field.name == "name" %}
             <h2 style='font-weight: 600; font-size: 25px'> 1. Podatki o pacientu </h2>
             <p>{{ field|as_crispy_field }}</p>
 
@@ -47,6 +70,10 @@
             <h2 style='font-weight: 600; font-size: 25px'> 7. Ritem</h2>
             <p>{{ field|as_crispy_field }}</p>
 
+        {% elif field.name == "stemiPresent" %}
+            <p>{{ form1.ecg|as_crispy_field }}</p>
+            <p>{{ field|as_crispy_field }}</p>
+
         {% elif field.name == "rosc" %}
             <h2 style='font-weight: 600; font-size: 25px'> 8. Izhod po oživljanju </h2>
             <p>{{ field|as_crispy_field }}</p>
@@ -63,13 +90,12 @@
         {% elif field.name == "discDate" %}
             <h2 style='font-weight: 600; font-size: 25px'> 11. Dolgotrajen izid </h2>
             <p>{{ field|as_crispy_field }}</p>
-        
+
         {% elif field.name == "airwayControl" %}
             <p>{{ form1.airway|as_crispy_field }}</p>
             
 
             {% elif field.name == "ecgOptions" %}
-            <p>{{ form1.ecg|as_crispy_field }}</p>
             <p>{{ form1.ecgopt|as_crispy_field }}</p>
 
             {% elif field.name == "ttmTemp" %}

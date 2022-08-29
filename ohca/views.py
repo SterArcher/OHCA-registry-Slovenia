@@ -258,6 +258,8 @@ def form_name_view(request):
             if form1.cleaned_data["estimatedAgeBystander"] == None:
                 izracunana_polja.append(("estimatedAgeBystander", form1.cleaned_data["adBystAge"]))
             
+            
+
             field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["estimatedCAtimestamp"] + not_dcz), first_form))] + izracunana_polja
             # field_list = list(map(lambda x: (x[0], None) if x[1] == -9999 else x, field_list))
             
@@ -496,6 +498,9 @@ def second_form_name_view(request):
                 if form1.cleaned_data["survivalDischarge"] == 1 or form1.cleaned_data["survival30d"] == 1:
                     izracunana_polja.append(("SurvivalDischarge30d", 1))
                 
+                if form1.cleaned_data["treatmentWithdrawnTimestamp"] == None:
+                    izracunana_polja.append(("treatmentWithdrawnTimestamp", form1.cleaned_data["adWithdraw"]))
+
                 # izracunana_polja.append(("localID", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])[0]))
                 # izracunana_polja.append(("systemID", System.objects.all().filter(friendlyName__exact=form1.cleaned_data["systemID"])[0]))
                 
