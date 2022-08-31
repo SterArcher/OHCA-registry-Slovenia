@@ -184,7 +184,8 @@ class DSZ_1_DAN(forms.ModelForm):
 		# define fields that are NOT required
 		extras = [
 			"drugs", "airwayControl", "ecgOptions", # mutliple select fields
-			"targetBP", "adPh", "adLactate", "drugs", "ttmTemp", "ph", "lactate", # string fields with radio 
+			"targetBP", "drugs", "ttmTemp", "ph", "lactate", # string fields with radio 
+			"adPh", "adLactate", "adTtmTemp", "adShocks", "adTargetBP",
 			"dateOfBirth", "estimatedAge", "ageBystander", "adBystAge", 
 			"shocks", "ecgResult", "hospitalName", "adHospitalName", "noCPR"
 			]
@@ -267,7 +268,8 @@ class NDSZ_1_DAN(forms.ModelForm):
 		# define fields that are NOT required
 		extras = [
 			"drugs", "airwayControl", "ecgOptions", # mutliple select fields
-			"targetBP", "adPh", "adLactate", "drugs", "ttmTemp", "ph", "lactate", # string fields with radio 
+			"targetBP", "drugs", "ttmTemp", "ph", "lactate", # string fields with radio 
+			"adPh", "adLactate", "adTtmTemp", "adShocks", "adTargetBP",
 			"dateOfBirth", "estimatedAge", "ageBystander", "adBystAge", 
 			"shocks", "ecgResult", "hospitalName", "adHospitalName", "noCPR"
 			]
