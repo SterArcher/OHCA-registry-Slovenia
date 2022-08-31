@@ -1287,21 +1287,6 @@
             "shown" : true,
             "section" : "result"
         },
-        "hospArri": {
-            "title": "Status bolnika ob prihodu v bolnišnico",
-            "from": "EuReCa3",
-            "form": "d1",
-            "values": {
-                "null": "Ni zabeleženo",
-                "-1": "Neznano/ni podatka",
-                "3" : "Živ, brez transporta v bolnišnico",
-                "1": "Živ (s spontanim krvnim obtokom, ROSC)",
-                "2" : "Oživljanje v teku (angl. ongoing CPR)",
-                "0": "Mrtev"
-            },
-            "shown" : true,
-            "section" : "result"
-        },
         "diedOnField" : {
             "title" : "Bolnik umrl na terenu?",
             "from": "EuReCa3",
@@ -1327,15 +1312,32 @@
             },
             "section" : "result"
         },
-        
+        "hospArri": {
+            "title": "Status bolnika ob prihodu v bolnišnico",
+            "from": "EuReCa3",
+            "form": "d1",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano/ni podatka",
+                "3" : "Živ, brez transporta v bolnišnico",
+                "1": "Živ (s spontanim krvnim obtokom, ROSC)",
+                "2" : "Oživljanje v teku (angl. ongoing CPR)",
+                "0": "Mrtev"
+            },
+            "shown" : true,
+            "section" : "result"
+        },
         "survivalStatus": {
             "title": "Preživetje (ROSC) do sprejema v bolnišnico",
+            "from": "Utstein",
+            "form": "d1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano",
                 "0": "Ne",
                 "1": "Da"
             },
+            "shown" : true,
             "core": false,
             "section" : "result"
         },
