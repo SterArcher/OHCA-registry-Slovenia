@@ -16,7 +16,7 @@ Your browser does not support the video tag.
 
 Starting September 1st we will be supporting the Slovenian part of data gathering for the EuReCa THREE study - [click to read more](https://siohca.um.si/posts/EuReCa-3-and-SiOHCA).
 
-We will be covering a population of 1398357 people, which is **66 % of all residents** in Slovenia and collecting data from 110 (**52 %** of total) Slovenian municipalities as shown on the map below.
+We will be covering a population of 1,398,357 people, which is **66 % of all residents** in Slovenia and collecting data from 110 (**52 %** of total) Slovenian municipalities as shown on the map below.
 
 ![EuReCa coverage](https://siohca.um.si/assets/img/EuReCa/EuReCa_coverage.png)
 
