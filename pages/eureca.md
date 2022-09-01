@@ -28,6 +28,7 @@ This subpage is in Slovenian language and is intended for use by Slovenian healt
 | link do baze          | [baza](https://local.siohca.um.si)                     |
 | link za vpis podatkov | [vpis podatkov](https://test-api.siohca.local) |
 | link do obrazca za tisk | <a href="https://github.com/SterArcher/OHCA-registry-Slovenia/raw/gh-pages/assets/pdf/siohca-v280822.pdf" download>obrazec </a>|
+| pogosta vprašanja     | [FAQ](https://siohca.um.si/faq/)                       |
 
 ___
 - [Kaj je SiOHCA](#kaj-je-siohca)
