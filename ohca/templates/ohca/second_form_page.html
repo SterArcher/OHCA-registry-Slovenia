@@ -95,8 +95,12 @@
             </div>
         </div>
         
+        {% with '"adHospitalName", "adBystAge", "ecgopt", "allDrugs", "airway", "adTtmTemp", "adTargetBP", "adPh", "adLactate", "adShocks"' as list %}
+
 
         {% for field in form1 %}
+
+        {% if field.name not in list %}
 
         {% if field.name != "adWithdraw" %}
 
@@ -134,13 +138,14 @@
             <h2 style='font-weight: 600; font-size: 25px'> 8. Izhod po oživljanju </h2>
             <p>{{ field|as_crispy_field }}</p>
 
-        {% elif field.name == "organDonation" %}
+        {% elif field.name == "drugs" %}
             <h2 style='font-weight: 600; font-size: 25px'> 9. Zdravljenje </h2>
-            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.allDrugs|as_crispy_field }}</p>
 
-            {% elif field.name == "ph" %}
+        {% elif field.name == "ph" %}
             <h2 style='font-weight: 600; font-size: 25px'> 10. Laboratorijski izvidi </h2>
             <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adPh|as_crispy_field }}</p>
 
         {% elif field.name == "discDate" %}
             <h2 style='font-weight: 600; font-size: 25px'> 11. Dolgotrajen izid </h2>
@@ -154,12 +159,41 @@
             <h2 style='font-weight: 300; font-size: 20px'> Nevroprognostični testi </h2>
             <p>{{ field|as_crispy_field }}</p>
 
+            {% elif field.name == "airwayControl" %}
+            <p>{{ form1.airway|as_crispy_field }}</p>
+
+        {% elif field.name == "ttmTemp" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adTtmTemp|as_crispy_field }}</p>
+
+            {% elif field.name == "lactate" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adLactate|as_crispy_field }}</p>
+
+            {% elif field.name == "targetBP" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adTargetBP|as_crispy_field }}</p>
+
+            {% elif field.name == "shocks" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adShocks|as_crispy_field }}</p>
+
+            {% elif field.name == "hospitalName" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adHospitalName|as_crispy_field }}</p>
+
+            {% elif field.name == "ageBystander" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adBystAge|as_crispy_field }}</p>
+
         {% else %}
             <p>{{ field|as_crispy_field }}</p>
 
         {% endif %}
         {% endif %}
+        {% endif %}
         {% endfor %}
+        {% endwith %}
         <script src="/static/js/formPersistence.js"></script>
         <script src="/static/js/secondFormValidation.js"></script>
         <input type="submit" class="btn btn-dark" value="Submit" onclick="saveFormToCookie()">

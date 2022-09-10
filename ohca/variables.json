@@ -618,7 +618,7 @@
             "description": "Pustite prazno, če zdravila niso aplicirana.",
             "core": false,
             "from" : "EuReCa3",
-            "form" : "d1",
+            "form" : "d30",
             "shown" : true,
             "section" : "timeline"
         },
@@ -644,7 +644,7 @@
                 "1" : "Da"
             },
             "from" : "EuReCa3",
-            "form" : "d1",
+            "form" : "d30",
             "shown" : true,
             "section" : "general_info"
         },
@@ -1379,7 +1379,7 @@
             "title": "Zdravila uporabljena med oživljanjem",
             "source": "Zdravila - adrenalin, amiodaron, glukoza, razno (proočilo o nujnem reševalnem prevozu)",
             "from": "Utstein",
-            "form": "d1",
+            "form": "d30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
@@ -1395,7 +1395,7 @@
         "airwayControl": {
             "title": "Oskrba dihalne poti",
             "from": "Utstein",
-            "form": "d1",
+            "form": "d30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
@@ -1412,7 +1412,7 @@
         "vascularAccess": {
             "title": "Žilni pristopi",
             "from": "Utstein",
-            "form": "d1",
+            "form": "d30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
@@ -1428,7 +1428,7 @@
         "ttm": {
             "title": "Terapevtska hipotermija (TTM, Targeted temperature management)",
             "from": "Utstein",
-            "form": "d1",
+            "form": "d30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
@@ -1444,7 +1444,7 @@
         "ttmTemp": {
             "title": "Ciljna temperatura, če TTM izveden (v stopinjah celzija)",
             "from": "Utstein",
-            "form": "d1",
+            "form": "d30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
@@ -1456,7 +1456,7 @@
         },
         "targetVent": {
             "title": "Ciljana okisgenacija/ventilacija",
-            "form": "d1",
+            "form": "d30",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
@@ -1486,7 +1486,7 @@
         "iabp": {
             "title": "IABP (intra-aortic balloon pump)?",
             "from": "Utstein",
-            "form": "d1",
+            "form": "d30",
             "source": "/",
             "values": {
                 "null": "Ni zapisa",
@@ -1500,7 +1500,7 @@
         "reperfusionAttempt": {
             "title": "Koronarna reperfuzija",
             "from": "Utstein",
-            "form": "d1",
+            "form": "d30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
@@ -1516,7 +1516,7 @@
         "reperfusionTime": {
             "title": "Čas poskusa reperfuzije",
             "from": "Utstein",
-            "form": "d1",
+            "form": "d30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
@@ -1530,7 +1530,7 @@
         "ecls": {
             "title": "Uporaba ECMO (ExtraCorporeal Life Support)?",
             "from": "Utstein",
-            "form": "d1",
+            "form": "d30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
@@ -1544,7 +1544,7 @@
         "targetBP": {
             "title": "Ciljano upravljanje srednjega krvnega pritiska (mmHg)",
             "from": "Utstein",
-            "form": "d1",
+            "form": "d30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
@@ -1558,7 +1558,7 @@
         "ph": {
             "title": "pH vrednost krvi (prva izmerjena vrednost)",
             "from": "Utstein",
-            "form": "d1",
+            "form": "d30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
@@ -1570,7 +1570,7 @@
         "lactate": {
             "title": "Vrednost laktata (prva izmerjena)",
             "from": "Utstein",
-            "form": "d1",
+            "form": "d30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
@@ -1583,7 +1583,7 @@
         "glucose": {
             "title": "Glukoza titrirana do določenega cilja?",
             "from": "Utstein",
-            "form": "d1",
+            "form": "d30",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",

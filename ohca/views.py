@@ -222,14 +222,14 @@ def form_name_view(request):
 
             # we know that either the string field will be filled or one of the radio options
             # both can't happen because formValidation.js prevents it
-            if form1.cleaned_data["ttmTemp"] == None:
-                izracunana_polja.append(("ttmTemp", form1.cleaned_data["adTtmTemp"]))
-            if form1.cleaned_data["targetBP"] == None:
-                izracunana_polja.append(("targetBP", form1.cleaned_data["adTargetBP"]))
-            if form1.cleaned_data["ph"] == None:
-                izracunana_polja.append(("ph", form1.cleaned_data["adPh"]))
-            if form1.cleaned_data["lactate"] == None:
-                izracunana_polja.append(("lactate", form1.cleaned_data["adLactate"]))
+            # if form1.cleaned_data["ttmTemp"] == None:
+            #     izracunana_polja.append(("ttmTemp", form1.cleaned_data["adTtmTemp"]))
+            # if form1.cleaned_data["targetBP"] == None:
+            #     izracunana_polja.append(("targetBP", form1.cleaned_data["adTargetBP"]))
+            # if form1.cleaned_data["ph"] == None:
+            #     izracunana_polja.append(("ph", form1.cleaned_data["adPh"]))
+            # if form1.cleaned_data["lactate"] == None:
+            #     izracunana_polja.append(("lactate", form1.cleaned_data["adLactate"]))
             if form1.cleaned_data["shocks"] == None:
                 izracunana_polja.append(("shocks", form1.cleaned_data["adShocks"]))
             if form1.cleaned_data["hospitalName"] == None:
@@ -323,14 +323,14 @@ def second_first_form_name_view(request):
             izracunana_polja.append(("systemID", System.objects.all().filter(friendlyName__exact=form1.cleaned_data["systemID"])[0]))
 
             # -------------------- string fields with extra radio buttons ----------------------------
-            if form1.cleaned_data["ttmTemp"] == None:
-                izracunana_polja.append(("ttmTemp", form1.cleaned_data["adTtmTemp"]))
-            if form1.cleaned_data["targetBP"] == None:
-                izracunana_polja.append(("targetBP", form1.cleaned_data["adTargetBP"]))
-            if form1.cleaned_data["ph"] == None:
-                izracunana_polja.append(("ph", form1.cleaned_data["adPh"]))
-            if form1.cleaned_data["lactate"] == None:
-                izracunana_polja.append(("lactate", form1.cleaned_data["adLactate"]))
+            # if form1.cleaned_data["ttmTemp"] == None:
+            #     izracunana_polja.append(("ttmTemp", form1.cleaned_data["adTtmTemp"]))
+            # if form1.cleaned_data["targetBP"] == None:
+            #     izracunana_polja.append(("targetBP", form1.cleaned_data["adTargetBP"]))
+            # if form1.cleaned_data["ph"] == None:
+            #     izracunana_polja.append(("ph", form1.cleaned_data["adPh"]))
+            # if form1.cleaned_data["lactate"] == None:
+            #     izracunana_polja.append(("lactate", form1.cleaned_data["adLactate"]))
             if form1.cleaned_data["shocks"] == None:
                 izracunana_polja.append(("shocks", form1.cleaned_data["adShocks"]))
             if form1.cleaned_data["hospitalName"] == None:
@@ -428,6 +428,15 @@ def second_form_name_view(request):
                 # if date != None and disch_date != None:
                 #     print(day_difference(date, disch_date))
                 #     form1.instance.dischDay = day_difference(date, disch_date)
+
+                if form1.cleaned_data["ttmTemp"] == None:
+                    izracunana_polja.append(("ttmTemp", form1.cleaned_data["adTtmTemp"]))
+                if form1.cleaned_data["targetBP"] == None:
+                    izracunana_polja.append(("targetBP", form1.cleaned_data["adTargetBP"]))
+                if form1.cleaned_data["ph"] == None:
+                    izracunana_polja.append(("ph", form1.cleaned_data["adPh"]))
+                if form1.cleaned_data["lactate"] == None:
+                    izracunana_polja.append(("lactate", form1.cleaned_data["adLactate"]))
 
                 print((date, date_birth))
                 if disch_date != 'None':
