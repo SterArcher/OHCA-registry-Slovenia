@@ -95,7 +95,7 @@
             </div>
         </div>
         
-        {% with '"adHospitalName", "adBystAge", "ecgopt", "allDrugs", "airway", "adTtmTemp", "adTargetBP", "adPh", "adLactate", "adShocks"' as list %}
+        {% with '"adHospitalName", "adBystAge", "ecgopt", "allDrugs", "airway", "adTtmTemp", "adTargetBP", "adPh", "adShocks"' as list %}
 
 
         {% for field in form1 %}
@@ -103,6 +103,8 @@
         {% if field.name not in list %}
 
         {% if field.name != "adWithdraw" %}
+
+        {% if field.name != "adLactate" %}
 
         {% if field.name == "name" %}
             <h2 style='font-weight: 600; font-size: 25px'> 1. Podatki o pacientu </h2>
@@ -189,6 +191,7 @@
         {% else %}
             <p>{{ field|as_crispy_field }}</p>
 
+        {% endif %}
         {% endif %}
         {% endif %}
         {% endif %}

@@ -351,11 +351,11 @@ class MySecondNewFrom(forms.ModelForm):
 
 		# define fields that are NOT required
 		extras = [
-			"drugs", "airwayControl", "ecgOptions", # mutliple select fields
+			"drugs", "airwayControl", #"ecgOptions", # mutliple select fields
 			"targetBP", "drugs", "ttmTemp", "ph", "lactate", # string fields with radio 
-			"adPh", "adLactate", "adTtmTemp", "adShocks", "adTargetBP",
-			"dateOfBirth", "estimatedAge", "ageBystander", "adBystAge", 
-			"shocks", "ecgResult", "hospitalName", "adHospitalName", "noCPR"
+			"adPh", "adLactate", "adTtmTemp", "adTargetBP",
+			"dateOfBirth", #"estimatedAge", "ageBystander", "adBystAge", 
+			# "shocks", "ecgResult", "hospitalName", "adHospitalName", "noCPR"
 			]
 
 		estimatedTimestamps = ["estimatedDefibTimestamp", "estimatedDrugTimings", "estimatedRoscTimestamp", "estimatedCPREMStimestamp", "estimatedTimestampTCPR", "estimatedCPRbystander", "estimatedCPRhelperTimestamp", "estimatedEndCPRtimestamp", "estimatedHospitalArrival"]
@@ -366,6 +366,12 @@ class MySecondNewFrom(forms.ModelForm):
 
 		for key in ["reaTimestamp", "estimatedCAtimestamp", "dateOfBirth", "estimatedAge", "drugTimingsTimestamp", "estimatedDrugTimings"]:
 			self.fields[key].required = False
+
+		for key in extras:
+			self.fields[key].required = False
+
+		self.fields["neuroprognosticTests"].required = False
+
 		
 	def clean(self):# -> Optional[Dict[str, Any]]:
 		cleaned_data = super().clean()
