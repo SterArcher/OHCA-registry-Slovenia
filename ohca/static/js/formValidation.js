@@ -553,5 +553,5 @@ window.onload = function require() {
     defibTime();
     // drugTimings();
     rosc();
-    cprEnd();
+    // cprEnd();
 }

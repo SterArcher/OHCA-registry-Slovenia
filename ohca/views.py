@@ -343,7 +343,7 @@ def second_first_form_name_view(request):
 
             # everything is dependent on the time of call recieved
             callTimestamp = form1.cleaned_data["callTimestamp"]
-            timestamps = list(filter(lambda x: x not in ["treatmentWithdrawnTimestamp", "reaTimestamp", "callTimestamp"], timeline[2:])) # remove reaTimestamp and callTimestamp
+            timestamps = list(filter(lambda x: x not in ["treatmentWithdrawnTimestamp", "reaTimestamp", "callTimestamp", "drugTimingsTimestamp"], timeline[2:])) # remove reaTimestamp and callTimestamp
             # print(timestamps)
             if callTimestamp != None:
                 beginning = callTimestamp
