@@ -1,0 +1,8 @@
+Question;Answer
+Če pride do zastoja v neki ambulanti družinske medicine ali dežurni periferni ambulanti, je tak bolnik vključen v študijo, saj je aktivirana NMP (kaj je v tem primeru kraj srčnega zastoja - drugo?). Kaj pa če pride do zastoja v ambulanti dežurne medicine ali dežurni ambulanti (tako v UC, kot izven UC), je bolnik vključen v študijo?;Bolnik je vključen v študijo. Lokacija zastoja: drugo.
+Kako izpolnimo polje 'Potrjen srčni zastoj'?;Pri potrjenem srčnem zastoju je mišljeno, da je potrjen s strani NMP in ne dispečerja. Lahko se zgodi, da dispečer daje navodila za TPO, ko NMP prispe na kraj dogodka ugotovi, da ni bil srčni zastoj ampak le stanje, ki ga je posnemalo.
+Kako izpolnimo polje 'Nujna vožnja'?;V primeru, da je naročen mrtvogled, izberemo NE. V primeru, da gre za nujno vožnjo s prižganimi modrimi lučmi in sireno, izberemo DA.
+Kako izpolnimo polje 'Mehanski stiski prsnega koša' v primeru, da naprava ni bila uporabljena?;V tem primeru obkrožite 'Neznano/ni podatka'.
+Kako izpolnimo polje 'Začetni/prvi ritem (EuReCa3)' v primeru, da AED ni bil uporabljen?;Izberite odgovor ne glede ali je bil uporabljen AED ali ne ali če je prvi ritem prepoznan s strani NMP z npr. Lifepack.
+Kaj naredim, ko vnesem in potrdim napačen podatek?; v primeru, da ste storili napako in obrazec oddali lahko preko [obrazca]() naredite popravek. To storite tako, da ID podatke vnesete na vrh obrazca potem pa samo popravite pri variabli, ki ste jo izpolnili narobe. Ko obrazec oddate, boste povozili starejši podatek.
+Ura v bazi je drugačna od ure, ki sem jo vpisal_a; Preverite ali so minute pravilne. V primeru, da so to pomeni, da je vse vredu. Metabase prikazuje ure v drugem časovnem pasu in zaradi tega napiše 'napačno' uro.
