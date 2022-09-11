@@ -181,7 +181,7 @@ class DSZ_1_DAN(forms.ModelForm):
 			# "targetBP", "drugs", "ttmTemp", "ph", "lactate", # string fields with radio 
 			# "adPh", "adLactate", "adTtmTemp", "adShocks", "adTargetBP",
 			"dateOfBirth", "estimatedAge", "ageBystander", "adBystAge", 
-			"shocks", "ecgResult", "hospitalName", "adHospitalName", "noCPR"
+			"shocks", "adShocks", "ecgResult", "hospitalName", "adHospitalName", "noCPR"
 			]
 
 		estimatedTimestamps = ["estimatedCallTimestamp", "estimatedResponseTime", "estimatedDefibTimestamp", "estimatedDrugTimings", "estimatedRoscTimestamp", "estimatedCPREMStimestamp", "estimatedTimestampTCPR", "estimatedCPRbystander", "estimatedCPRhelperTimestamp", "estimatedEndCPRtimestamp", "estimatedLeftSceneTimestamp", "estimatedHospitalArrival"]
@@ -260,7 +260,7 @@ class NDSZ_1_DAN(forms.ModelForm):
 			# "targetBP", "drugs", "ttmTemp", "ph", "lactate", # string fields with radio 
 			# "adPh", "adLactate", "adTtmTemp", "adShocks", "adTargetBP",
 			"dateOfBirth", "estimatedAge", "ageBystander", "adBystAge", 
-			"shocks", "ecgResult", "hospitalName", "adHospitalName", "noCPR"
+			"shocks", "adShocks", "ecgResult", "hospitalName", "adHospitalName", "noCPR"
 			]
 
 		estimatedTimestamps = ["estimatedDefibTimestamp", "estimatedDrugTimings", "estimatedRoscTimestamp", "estimatedCPREMStimestamp", "estimatedTimestampTCPR", "estimatedCPRbystander", "estimatedCPRhelperTimestamp", "estimatedEndCPRtimestamp", "estimatedHospitalArrival"]

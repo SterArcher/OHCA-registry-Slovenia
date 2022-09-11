@@ -499,22 +499,22 @@ function rosc() {
 const rosc1 = document.querySelectorAll('input[name="rosc"]')
 for (let i = 0; i < rosc1.length; i++) {rosc1[i].addEventListener("change", rosc)}
 
-function cprEnd() {
-    if (document.getElementById("id_endCPR4Timestamp_0")) {
-        if (document.getElementById("id_diedOnField_0").checked) {
-            document.getElementById("id_endCPR4Timestamp_0").setAttribute("required", "");
-            document.getElementById("id_endCPR4Timestamp_1").setAttribute("required", "");
-            document.getElementById("id_estimatedEndCPRtimestamp_1").setAttribute("required", "");
-            document.getElementById("id_estimatedEndCPRtimestamp_1").setAttribute("required", "");
-        }
-        else {
-            document.getElementById("id_endCPR4Timestamp_0").removeAttribute("required");
-            document.getElementById("id_endCPR4Timestamp_1").removeAttribute("required");
-            document.getElementById("id_estimatedEndCPRtimestamp_0").removeAttribute("required");
-            document.getElementById("id_estimatedEndCPRtimestamp_1").removeAttribute("required");
-        }}}
-const cprend1 = document.querySelectorAll('input[name="diedOnField"]')
-for (let i = 0; i < cprend1.length; i++) {cprend1[i].addEventListener("change", cprEnd)}
+// function cprEnd() {
+//     if (document.getElementById("id_endCPR4Timestamp_0")) {
+//         if (document.getElementById("id_diedOnField_0").checked) {
+//             document.getElementById("id_endCPR4Timestamp_0").setAttribute("required", "");
+//             document.getElementById("id_endCPR4Timestamp_1").setAttribute("required", "");
+//             document.getElementById("id_estimatedEndCPRtimestamp_1").setAttribute("required", "");
+//             document.getElementById("id_estimatedEndCPRtimestamp_1").setAttribute("required", "");
+//         }
+//         else {
+//             document.getElementById("id_endCPR4Timestamp_0").removeAttribute("required");
+//             document.getElementById("id_endCPR4Timestamp_1").removeAttribute("required");
+//             document.getElementById("id_estimatedEndCPRtimestamp_0").removeAttribute("required");
+//             document.getElementById("id_estimatedEndCPRtimestamp_1").removeAttribute("required");
+//         }}}
+// const cprend1 = document.querySelectorAll('input[name="diedOnField"]')
+// for (let i = 0; i < cprend1.length; i++) {cprend1[i].addEventListener("change", cprEnd)}
 
 function handleNoCPR() {
     const fields = document.querySelectorAll('input[name="noCPR"]');
