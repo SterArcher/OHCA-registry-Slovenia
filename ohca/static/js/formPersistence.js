@@ -62,10 +62,18 @@ function clearAllFields() {
             sessionStorage.setItem(formDropdowns[i], null);
         }
     }
+}
+
+function manualClearFields() {
+    clearAllFields();
     // remove succes or error message
-    document.querySelectorAll('.alert').forEach(function(a) {
-        a.remove()
-      })
+    var alerts = document.querySelectorAll('.alert');
+    if (alerts) {
+        alerts.forEach(function(a) {
+            a.remove();
+          }
+        )
+    }
     saveFormToCookie();
 }
 
@@ -98,24 +106,26 @@ function deleteCookies() {
 
 
 function checkFormReload() {
-    if (document.getElementsByClassName("alert-danger").length >= 1) {
+    if (document.getElementsByClassName("alert-danger").length > 0) {
         loadFormFromCookie();
         clearCookies();
-        deleteCookies(); 
-    } else if (document.getElementsByClassName("alert-success") >= 1) {
+        deleteCookies();
+    } else if (document.getElementsByClassName("alert-success").length > 0) {
+        clearAllFields();
         clearCookies();
         deleteCookies();
     } else {
-            loadFormFromCookie();
-            clearCookies();
-            deleteCookies();
-        }
-        }
+        loadFormFromCookie();
+        clearCookies();
+        deleteCookies();
+    }
+}
         
-
 
 window.onbeforeunload = function() {
     saveFormToCookie();
-    return null
-
 }
+
+window.addEventListener('load', function () {
+    checkFormReload();
+})
