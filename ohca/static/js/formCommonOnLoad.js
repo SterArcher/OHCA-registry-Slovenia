@@ -18,3 +18,17 @@ function updateDateFields(caller) {
         }
     };
 }
+
+function addTextBoxUnit(tbID) {
+    inner = document.createElement("span");
+    inner.classList.add("input-group-text");
+    inner.innerText = "°C";
+    unit = document.createElement("div");
+    unit.classList.add("input-group-append");
+    unit.appendChild(inner);
+    ttmTempDiv = document.getElementById(tbID).parentElement;
+    ttmTempDiv.classList.add("input-group");
+    ttmTempDiv.appendChild(unit);
+}
+
+addTextBoxUnit("id_ttmTemp");
