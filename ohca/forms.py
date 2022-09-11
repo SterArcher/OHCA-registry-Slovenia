@@ -371,6 +371,7 @@ class MySecondNewFrom(forms.ModelForm):
 			self.fields[key].required = False
 
 		self.fields["neuroprognosticTests"].required = False
+		self.fields["adWithdraw"].required = False
 
 		
 	def clean(self):# -> Optional[Dict[str, Any]]:
