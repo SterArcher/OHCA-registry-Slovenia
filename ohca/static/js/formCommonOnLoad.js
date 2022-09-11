@@ -32,3 +32,5 @@ function addTextBoxUnit(tbID) {
 }
 
 addTextBoxUnit("id_ttmTemp");
+
+document.body.innerHTML = document.body.innerHTML.replaceAll('O2', 'O<sub>2</sub>');
