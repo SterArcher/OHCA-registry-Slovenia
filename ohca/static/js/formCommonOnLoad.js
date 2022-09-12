@@ -31,6 +31,32 @@ function addTextBoxUnit(tbID) {
     ttmTempDiv.appendChild(unit);
 }
 
+// Add celsius unit to TTM
 addTextBoxUnit("id_ttmTemp");
 
+// Add subscript
 document.body.innerHTML = document.body.innerHTML.replaceAll('O2', 'O<sub>2</sub>');
+
+function clearSelection(element) {
+    radios = element.srcElement.parentElement.children;
+    for (let i = 0; i < radios.length; i++) {
+        radios[i].querySelectorAll('input[type="radio"]').forEach(function(radio) {
+            radio.checked = false;
+        })
+    }
+}
+
+function addClearButtons() {
+    checkboxes = document.querySelectorAll('input[id$="_0"][type="radio"]');
+    checkboxes.forEach(function(e) {
+        container = e.parentElement.parentElement;
+        button = document.createElement("button");
+        button.classList.add("btn");
+        button.classList.add("btn-link");
+        button.innerText = "Počisti izbiro";
+        button.addEventListener('click', clearSelection);
+        container.appendChild(button);
+    })
+}
+
+addClearButtons();
