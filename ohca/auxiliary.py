@@ -82,8 +82,10 @@ def read_values():
             elt = data["cases"][element]["form"] 
             if elt == "d1" or elt == "d1&d30":
                 first_form.append(element)
+                both_forms.append(element)
             if elt == "d30" or elt == "d1&d30":
                 second_form.append(element)
+                both_forms.append(element)
             # elif elt == "d1&d30":
             #     both_forms.append(element)
 
@@ -101,7 +103,7 @@ def read_values():
     for timestamp in timestamps:
         if "dcz" in data["cases"][timestamp]:
             not_dcz.append(timestamp)
-    return (values, titles, desc, first_form, second_form, dates, names, timestamps, not_dcz)
+    return (values, titles, desc, first_form, second_form, both_forms, dates, names, timestamps, not_dcz)
 
-(values, titles, descriptions, first_form, second_form, dates, names, timestamps, not_dcz) = read_values()
+(values, titles, descriptions, first_form, second_form, both_forms, dates, names, timestamps, not_dcz) = read_values()
 

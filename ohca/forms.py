@@ -8,7 +8,7 @@ from .fields import *
 
 #========================================== USEFUL DATA =================================================================================
 
-from .auxiliary import values, titles, descriptions, first_form, second_form, dates, timestamps, not_dcz
+from .auxiliary import values, titles, descriptions, first_form, second_form, both_forms, dates, timestamps, not_dcz
 
 # this defines the connections between timestamps and times
 # which we need when we are calculating time intervals!
@@ -400,3 +400,68 @@ class MySecondNewFrom(forms.ModelForm):
 
 		return cleaned_data
 
+class ErrorForm(forms.ModelForm):
+
+	# add additional fields for text fields with radio options
+	allDrugs = forms.MultipleChoiceField(label=titles["drugs"], widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
+	airway = forms.MultipleChoiceField(label=titles["airwayControl"], widget=forms.CheckboxSelectMultiple,choices=values['airwayControl'], required=False)
+	ecgopt = forms.MultipleChoiceField(label=titles["ecgOptions"], widget=forms.CheckboxSelectMultiple,choices=values['ecgOptions'], required=False)
+	adShocks = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-2, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adHospitalName = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/ni podatka"), (-2, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adBystAge = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/ni podatka"), (-2, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adWithdraw = forms.IntegerField(widget=forms.RadioSelect(choices=((-9999, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adTtmTemp = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-2, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adTargetBP = forms.IntegerField(widget=forms.RadioSelect(choices=((0, "Ni opredeljenega cilja"), (-1, "Neznano/Ni podatka"), (-2, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adPh = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-2, "Ni zabeleženo/ni zavedeno"))), required=False)
+	adLactate = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-2, "Ni zabeleženo/ni zavedeno"))), required=False)
+	
+	class Meta: 
+		model = CaseReport
+		fields = tuple(both_forms)		
+		widgets = w
+		labels = titles
+		help_texts = descriptions
+
+	def __init__(self, *args, **kwargs):
+		super(ErrorForm, self).__init__(*args, **kwargs)
+
+		# no fields are required
+		all_fields = list(self.fields)
+		for field in all_fields:
+			self.fields[field].required = False
+
+		# delete labels for auxiliary fields
+		fields = ["neuroprognosticTests", "adWithdraw", "adTtmTemp", "adPh", "adTargetBP", "adLactate", "adShocks", "adHospitalName", "adBystAge"]
+		for f in fields:
+			self.fields[f].label = False
+
+	def clean(self):# -> Optional[Dict[str, Any]]:
+		cleaned_data = super().clean()
+
+		errors = dict()
+
+		# multiple select (drugs, airway, ecg) fields have to be handled separately
+		drugs = cleaned_data["allDrugs"]
+		if drugs != None:
+			drugs = list(map(lambda x: int(x), drugs))
+			cleaned_data["drugs"] = sum(drugs)
+
+		airway = cleaned_data["airway"]
+		if airway != None:
+			airway = list(map(lambda x: int(x), airway))
+			cleaned_data["airwayControl"] = sum(airway)
+
+		ecg = cleaned_data["ecgopt"]
+		ecg_val = ""
+		if ecg != None:
+			for elt in ecg:
+				ecg_val += elt
+			cleaned_data["ecgOptions"] = ecg_val
+
+		# either date of birth or estimated age have to be put in
+		if cleaned_data["dateOfBirth"] == None and cleaned_data["estimatedAge"] == None:
+			errors["dateOfBirth"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
+			errors["estimatedAge"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
+
+		if len(list(errors.keys())) >= 1:
+			raise ValidationError(errors)

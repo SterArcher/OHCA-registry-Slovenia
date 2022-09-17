@@ -505,3 +505,170 @@ def second_form_name_view(request):
     return render(request, "ohca/second_form_page.html", {"form1":form1, "form2":form2})
 
 
+def error_form_view(request):
+    form1 = ErrorForm() 
+    form2 = InterventionForm2()
+    if request.method == "POST":
+
+        form1 = ErrorForm(request.POST)
+        print(form1.errors)
+        
+        form2 = InterventionForm2(request.POST)
+
+        if form1.is_valid() and form2.is_valid(): 
+            
+            izracunana_polja = []
+
+            # intervention ID
+            f = ["i1",'i2','i3','i4','i5','i6','i7','i8','i9','i10','i11','i12',] #
+            intID = '' 
+            for field in f:
+                if field != None:
+                    intID += str(form2.cleaned_data[field])
+            print(intID)
+
+
+            # ------------- calculating age ---------------------------
+
+            birth = form1.cleaned_data['dateOfBirth']
+
+            if birth != None:
+                calculated_age = calculate_age(str(birth), date)
+                izracunana_polja.append(("age", calculated_age))
+
+            date = str(form1.cleaned_data['dateOfCA'])
+            if date != "None":
+                y, m, d = date.split("-")
+
+                izracunana_polja.append(("reaYr", int(y)))
+                izracunana_polja.append(("reaMo", int(m)))
+                izracunana_polja.append(("reaDay", int(d)))
+
+            # izracunana_polja.append(("reaLand", "Slovenia"))
+
+            if form1.cleaned_data["localID"] != None:
+                izracunana_polja.append(("reaRegion", str(form1.cleaned_data["localID"])))
+            obcina = form1.cleaned_data["localID"]
+            system = form1.cleaned_data["systemID"]
+            if obcina != None:
+                izracunana_polja.append(("localID", Locale.objects.all().filter(friendlyName__exact=form1.cleaned_data["localID"])[0]))
+            if system != None:
+                izracunana_polja.append(("systemID", System.objects.all().filter(friendlyName__exact=form1.cleaned_data["systemID"])[0]))
+            
+
+            # -------- rabimo ali podatek za intervention ID ali za case ID (ime, priimek, cas zastoja) ------------
+
+            if len(intID) != 12 and form1.cleaned_data["reaTimestamp"] == None:
+                messages.error(request, 'Izpolnite ali intervencijsko številko ali naslednje podatke: ime, priimek, datum dogodka, čas dogodka.')
+                
+            else:
+                messages.success(request, 'Podatki uspešno oddani!')
+
+                first_name = (form1.cleaned_data['name']).strip().split(" ")
+                last_name = (form1.cleaned_data['surname']).strip().split(" ")
+
+                date = str(form1.cleaned_data['dateOfCA'])
+                date_birth = str(form1.cleaned_data["dateOfBirth"])
+                disch_date = str(form1.cleaned_data["discDate"])
+
+            # ----------- vprašanja kjer je textfield in radio options ---------------
+            # če je textfield izpolnjen se bo shranil, če pa je namesto textfielda obkljukan en od radio buttonov je treba to posebej shranit
+            # hkrati ne more bit ker tega ne dovoli javascript
+                if form1.cleaned_data["ttmTemp"] == None:
+                    izracunana_polja.append(("ttmTemp", form1.cleaned_data["adTtmTemp"]))
+                if form1.cleaned_data["targetBP"] == None:
+                    izracunana_polja.append(("targetBP", form1.cleaned_data["adTargetBP"]))
+                if form1.cleaned_data["ph"] == None:
+                    izracunana_polja.append(("ph", form1.cleaned_data["adPh"]))
+                if form1.cleaned_data["lactate"] == None:
+                    izracunana_polja.append(("lactate", form1.cleaned_data["adLactate"]))
+                if form1.cleaned_data["shocks"] == None:
+                    izracunana_polja.append(("shocks", form1.cleaned_data["adShocks"]))
+                if form1.cleaned_data["hospitalName"] == None:
+                    izracunana_polja.append(("hospitalName", form1.cleaned_data["adHospitalName"]))
+                if form1.cleaned_data["estimatedAgeBystander"] == None:
+                    izracunana_polja.append(("estimatedAgeBystander", form1.cleaned_data["adBystAge"]))
+                
+                print((date, date_birth))
+                if disch_date != 'None':
+                    disch_date = disch_date.split("-")
+                    izracunana_polja.append(("dischYear", disch_date[0]))
+                    izracunana_polja.append(("dischMonth", disch_date[1]))
+                    izracunana_polja.append(("dischDay", disch_date[2]))
+                
+                if form1.cleaned_data["survivalDischarge"] == 1 or form1.cleaned_data["survival30d"] == 1:
+                    izracunana_polja.append(("SurvivalDischarge30d", 1))
+                
+                if form1.cleaned_data["treatmentWithdrawnTimestamp"] == None:
+                    izracunana_polja.append(("treatmentWithdrawnTimestamp", form1.cleaned_data["adWithdraw"]))
+
+                
+                field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl", "systemID", "localID"]), second_form))] + izracunana_polja
+
+                # ------------------- call timestamp ---------------------------
+                # TODO če updejta čas klica se morjo na novo intervali poračunat
+
+                # everything is dependent on the time of call recieved
+                callTimestamp = form1.cleaned_data["callTimestamp"]
+                if callTimestamp != None: # popravili so callTimestamp
+                    beginning = callTimestamp
+                    timestamps = list(filter(lambda x: x not in ["treatmentWithdrawnTimestamp", "reaTimestamp", "callTimestamp", "drugTimingsTimestamp"], timeline[2:])) # remove reaTimestamp and callTimestamp
+                    if len(intID) != 12:
+                        id = generate_case_id(first_name, last_name, date, str(form1.cleaned_data["reaTimestamp"]))
+                        case = CaseReport.objects.all().filter(caseID__exact=id)[0]
+
+
+                    else:
+                        dispatch_id = generate_dispatch_id(str(intID), date)
+                        case = CaseReport.objects.all().filter(dispatchID__exact=dispatch_id)[0]
+
+                # ----------------- doctor name + shranjevanje podatkov --------------------------------
+                if len(intID) != 12:
+                        
+                    id = generate_case_id(first_name, last_name, date, str(form1.cleaned_data["reaTimestamp"]))
+                    
+                    case = CaseReport.objects.all().filter(caseID__exact=id)
+                    if len(case) == 0:
+                        doctor_name = form1.cleaned_data["doctorName"] + " - popravek - " + str(datetime.now())
+                        CaseReport.objects.update_or_create(
+                            caseID=id,
+                            # dispatchID=dispatch_id, 
+                            defaults=dict(list(filter(lambda x: x != "doctorName", field_list)) + [("doctorName", doctor_name)])
+                        )
+                    else:
+                        doctor_name = case[0].doctorName
+                        new_name = doctor_name + ", " + form1.cleaned_data["doctorName"] + " - popravek - " + str(datetime.now())
+                        CaseReport.objects.update_or_create(
+                            caseID=id,
+                            # dispatchID=dispatch_id, 
+                            defaults=dict(list(filter(lambda x: x != "doctorName", field_list)) + [("doctorName", new_name)])
+                        ) 
+
+                else:
+                    dispatch_id = generate_dispatch_id(str(intID), date)
+
+                    case = CaseReport.objects.all().filter(dispatchID__exact=dispatch_id)
+                    if len(case) == 0:
+                        doctor_name = form1.cleaned_data["doctorName"] + " - popravek - " + str(datetime.now())
+                        CaseReport.objects.update_or_create(
+                            # caseID=id,
+                            dispatchID=dispatch_id, 
+                            defaults=dict(list(filter(lambda x: x != "doctorName", field_list)) + [("doctorName", doctor_name)])
+                        )
+                    else:
+                        doctor_name = case[0].doctorName
+                        new_name = doctor_name + ", " + form1.cleaned_data["doctorName"] + " - popravek - " + str(datetime.now())
+                        CaseReport.objects.update_or_create(
+                            # caseID=id,
+                            dispatchID=dispatch_id, 
+                            defaults=dict(list(filter(lambda x: x != "doctorName", field_list)) + [("doctorName", new_name)])
+                        ) 
+
+        else:
+            print("form invalid")
+            messages.error(request, 'Nepravilno izpolnjen obrazec.')
+            messages.error(request, form1.errors)
+    else:#
+        form1 = ErrorForm() 
+        form2 = InterventionForm2()
+    return render(request, "ohca/error_page.html", {"form1":form1, "form2":form2})
