@@ -21,7 +21,7 @@ function handleTab(field_id, ids, event) {
     }
     if (event.key == "Tab" && field.value != "") {
         for (let i = 0; i < ids.length; i++) {
-            console.log("here!")
+            // console.log("here!")
             field.addEventListener('change', function() { uncheckField(ids[i]) });
             field.addEventListener('change', function() { disableField(ids[i]) });
         }
@@ -120,7 +120,7 @@ const radioFields = [["id_adShocks_0", "id_adShocks_1"],]//, ["id_adHospitalName
 
 
 function handleDoubleField() {
-    // console.log("handledoublefield")
+    // // console.log("handledoublefield")
     var fields = textFields;
     var radioChoices = radioFields; //[["id_adPh_0", "id_adPh_1"], ["id_adLactate_0", "id_adLactate_1"]];
     for (let j = 0; j < radioChoices.length; j++) {
@@ -130,8 +130,8 @@ function handleDoubleField() {
                 bool = false;
             }
         }
-        // console.log(bool);
-        // console.log(fields[j].value)
+        // // console.log(bool);
+        // // console.log(fields[j].value)
         if ((fields[j].value == "" || fields.value == null) && bool) {
             document.getElementById(fields[j]).setAttribute("required", "");
         }
@@ -154,12 +154,12 @@ for (let i = 0; i < radioFields.length; i++) {
 // ============================ handle date of birth and estimated age ==============================
 
 function handleBirthdateField() {
-    console.log("handledoublefield")
+    // console.log("handledoublefield")
     var field1 = document.getElementById("id_dateOfBirth");
     var field2 = document.getElementById("id_estimatedAge");
     // var bool = true;
-    console.log(field2.value)
-    console.log(field1.value)
+    // console.log(field2.value)
+    // console.log(field1.value)
 
     if ((field1.value == "" || field1.value == null) && (field2.value == "" || field2.value == null)){
         field1.setAttribute("required", "");
@@ -295,7 +295,7 @@ for (let k = 0; k < 27; k++) {
 // }
 //=======================================================================
 function handleMultipleselect() {
-    console.log("multiple select")
+    // console.log("multiple select")
     var bool1 = false;
     var bool2 = false;
     for (let i = 0; i < ecg.length; i++) {
@@ -303,8 +303,8 @@ function handleMultipleselect() {
             bool1 = true;}
         else if (ecg[i].checked && (ecg[i].value == "0" || ecg[i].value == "-2" || ecg[i].value == "-1")) {
             bool2 = true;}}
-    console.log(bool1)
-    console.log(bool2)
+    // console.log(bool1)
+    // console.log(bool2)
     if (bool1 || bool2) {
         document.getElementById("id_ecgopt_0").removeAttribute("required");}
     else {
@@ -380,9 +380,9 @@ function bystanderCPR() {
     if (document.getElementById("id_cPRbystander3Timestamp_0")) {
         var const1 = document.getElementById("id_bystanderCPR_1").checked || document.getElementById("id_bystanderCPR_2").checked || document.getElementById("id_bystanderCPR_3").checked
         var const2 = document.getElementById("id_bystanderResponse_1").checked || document.getElementById("id_bystanderResponse_2").checked
-        // console.log(const1)
-        // console.log(const2)
-        // console.log(document.getElementById("id_persCPRstart_0").checked)
+        // // console.log(const1)
+        // // console.log(const2)
+        // // console.log(document.getElementById("id_persCPRstart_0").checked)
         if (document.getElementById("id_persCPRstart_0").checked || const1 || const2) {
             document.getElementById("id_cPRbystander3Timestamp_0").setAttribute("required", "");
             document.getElementById("id_cPRbystander3Timestamp_1").setAttribute("required", "");
@@ -465,7 +465,7 @@ for (let i = 0; i < defib.length; i++) {defib[i].addEventListener("change", defi
 
 // function drugTimings() {
 //     if (document.getElementById("id_drugTimingsTimestamp_0")) {
-//         console.log(document.getElementById("id_allDrugs_0").checked || document.getElementById("id_allDrugs_1").checked || document.getElementById("id_allDrugs_2").checked)
+// //         console.log(document.getElementById("id_allDrugs_0").checked || document.getElementById("id_allDrugs_1").checked || document.getElementById("id_allDrugs_2").checked)
 //         if (document.getElementById("id_allDrugs_0").checked || document.getElementById("id_allDrugs_1").checked || document.getElementById("id_allDrugs_2").checked) {
 //             document.getElementById("id_drugTimingsTimestamp_0").setAttribute("required", "");
 //             document.getElementById("id_drugTimingsTimestamp_1").setAttribute("required", "");
@@ -519,7 +519,7 @@ for (let i = 0; i < rosc1.length; i++) {rosc1[i].addEventListener("change", rosc
 function handleNoCPR() {
     const fields = document.querySelectorAll('input[name="noCPR"]');
     if (document.getElementById("id_cprEms_1").checked) {
-        console.log("tukaj")
+        // console.log("tukaj")
         for (let i = 0; i < fields.length; i++) { fields[i].setAttribute("required", "")}
     }
     else {
