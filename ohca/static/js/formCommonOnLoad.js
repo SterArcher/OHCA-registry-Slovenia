@@ -32,7 +32,9 @@ function addTextBoxUnit(tbID) {
 }
 
 // Add celsius unit to TTM
-addTextBoxUnit("id_ttmTemp");
+if (document.getElementById("id_ttmTemp")) {
+    addTextBoxUnit("id_ttmTemp");
+}
 
 // Add subscript
 document.body.innerHTML = document.body.innerHTML.replaceAll('O2', 'O<sub>2</sub>');
