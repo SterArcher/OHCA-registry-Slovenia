@@ -1,7 +1,8 @@
-const datepickers = document.getElementsByClassName("datepickerinput")
+const datepickers = document.getElementsByClassName("datepickerinput");
 
-const callTimeStampField = document.getElementById("id_callTimestamp_0")
-const dateOfCAField = document.getElementById("id_dateOfCA")
+const callTimeStampField = document.getElementById("id_callTimestamp_0");
+const dateOfCAField = document.getElementById("id_dateOfCA");
+
 if (callTimeStampField) {
     callTimeStampField.addEventListener('change', function() { updateDateFields(callTimeStampField) })
 }
@@ -36,8 +37,14 @@ if (document.getElementById("id_ttmTemp")) {
     addTextBoxUnit("id_ttmTemp");
 }
 
-// Add subscript
-document.body.innerHTML = document.body.innerHTML.replaceAll('O2', 'O<sub>2</sub>');
+
+// Add subscript to all O2 instances
+['small', 'label'].forEach(function(tag) {
+    mols = document.getElementsByTagName(tag);
+    for (let i = 0; i < mols.length; i++) {
+        mols[i].innerHTML = mols[i].innerHTML.replaceAll('O2', 'O<sub>2</sub>');
+    }
+})
 
 function clearSelection(element) {
     radios = element.srcElement.parentElement.children;
