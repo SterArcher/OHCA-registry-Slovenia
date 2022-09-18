@@ -1,5 +1,6 @@
 // Switch between fields
 const inputs = document.querySelectorAll('[id^=id_i].numberinput');
+const input_after_id = document.getElementById("int_handle").getAttribute("next-id");
 
 console.log(inputs);
 for (let i = 0; i < inputs.length; i++) {
@@ -26,7 +27,7 @@ for (let i = 0; i < inputs.length; i++) {
         } else if (event.key === "ArrowRight" && i !== inputs.length - 1) {
             inputs[i + 1].focus();
         } else if (event.key === "Enter") {
-            document.getElementById("id_systemID").focus();
+            document.getElementById(input_after_id).focus();
         } else if (event.key !== "Tab") {
             inputs[i].setAttribute("type", "number");
             inputs[i].value = '';
@@ -37,7 +38,7 @@ for (let i = 0; i < inputs.length; i++) {
         inputs[i].value = inputs[i].value;
         handleIDchange();
         if (i === inputs.length - 1 && inputs[i].value !== '') {
-            document.getElementById("id_systemID").focus();
+            document.getElementById(input_after_id).focus();
         } else if (inputs[i].value !== '') {
             inputs[i + 1].focus();
         }
