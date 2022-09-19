@@ -151,6 +151,9 @@ class InterventionForm2(forms.Form):
 
 class DSZ_1_DAN(forms.ModelForm):
 
+	# create new fields for multiple select questions
+	allDrugs = forms.MultipleChoiceField(label=titles["drugs"], widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
+	airway = forms.MultipleChoiceField(label=titles["airwayControl"], widget=forms.CheckboxSelectMultiple,choices=values['airwayControl'], required=False)
 	ecgopt = forms.MultipleChoiceField(label=titles["ecgOptions"], widget=forms.CheckboxSelectMultiple,choices=values['ecgOptions'], required=False)
 
 	# create separate fields for radion options below string fields ("ni podatka", "ni zabeleženo")
@@ -176,7 +179,7 @@ class DSZ_1_DAN(forms.ModelForm):
 
 		# define fields that are NOT required
 		extras = [
-			# "drugs", "airwayControl", 
+			"drugs", "airwayControl", 
 			"ecgOptions", # mutliple select fields
 			# "targetBP", "drugs", "ttmTemp", "ph", "lactate", # string fields with radio 
 			# "adPh", "adLactate", "adTtmTemp", "adShocks", "adTargetBP",
@@ -208,13 +211,13 @@ class DSZ_1_DAN(forms.ModelForm):
 		# handling multipleselect fields
 		# values are saved as a list of string values that we want to sum
 		# we are not worried about them choosing "ni podatka" and other drugs at the same time bc we handled this in formValidation.js
-		# drugs = cleaned_data["allDrugs"]
-		# drugs = list(map(lambda x: int(x), drugs))
-		# cleaned_data["drugs"] = sum(drugs) if -9999 not in drugs else None
+		drugs = cleaned_data["allDrugs"]
+		drugs = list(map(lambda x: int(x), drugs))
+		cleaned_data["drugs"] = sum(drugs) if -9999 not in drugs else None
 
-		# airway = cleaned_data["airway"]
-		# airway = list(map(lambda x: int(x), airway))
-		# cleaned_data["airwayControl"] = sum(airway) if -9999 not in airway else None
+		airway = cleaned_data["airway"]
+		airway = list(map(lambda x: int(x), airway))
+		cleaned_data["airwayControl"] = sum(airway) if -9999 not in airway else None
 
 		# this one has many values so we save them as a list of numbers
 		ecg = cleaned_data["ecgopt"]
@@ -229,8 +232,8 @@ class DSZ_1_DAN(forms.ModelForm):
 
 class NDSZ_1_DAN(forms.ModelForm):
 
-	# allDrugs = forms.MultipleChoiceField(label=titles["drugs"], widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
-	# airway = forms.MultipleChoiceField(label=titles["airwayControl"], widget=forms.CheckboxSelectMultiple,choices=values['airwayControl'], required=False)
+	allDrugs = forms.MultipleChoiceField(label=titles["drugs"], widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
+	airway = forms.MultipleChoiceField(label=titles["airwayControl"], widget=forms.CheckboxSelectMultiple,choices=values['airwayControl'], required=False)
 	ecgopt = forms.MultipleChoiceField(label=titles["ecgOptions"], widget=forms.CheckboxSelectMultiple,choices=values['ecgOptions'], required=False)
 
 	adShocks = forms.IntegerField(widget=forms.RadioSelect(choices=((-1, "Neznano/Ni podatka"), (-2, "Ni zabeleženo/ni zavedeno"))), required=False)
@@ -255,7 +258,7 @@ class NDSZ_1_DAN(forms.ModelForm):
 
 		# define fields that are NOT required
 		extras = [
-			# "drugs", "airwayControl", 
+			"drugs", "airwayControl",
 			"ecgOptions", # mutliple select fields
 			# "targetBP", "drugs", "ttmTemp", "ph", "lactate", # string fields with radio 
 			# "adPh", "adLactate", "adTtmTemp", "adShocks", "adTargetBP",
@@ -287,6 +290,13 @@ class NDSZ_1_DAN(forms.ModelForm):
 			if cleaned_data[key] == -9999:
 				cleaned_data[key] = None
 
+		drugs = cleaned_data["allDrugs"]
+		drugs = list(map(lambda x: int(x), drugs))
+		cleaned_data["drugs"] = sum(drugs)
+
+		airway = cleaned_data["airway"]
+		airway = list(map(lambda x: int(x), airway))
+		cleaned_data["airwayControl"] = sum(airway)
 
 		ecg = cleaned_data["ecgopt"]
 		ecg_val = ""
@@ -308,11 +318,6 @@ class NDSZ_1_DAN(forms.ModelForm):
 
 	
 class MySecondNewFrom(forms.ModelForm):
-
-	# create new fields for multiple select questions
-	allDrugs = forms.MultipleChoiceField(label=titles["drugs"], widget=forms.CheckboxSelectMultiple,choices=values['drugs'], required=False)
-	airway = forms.MultipleChoiceField(label=titles["airwayControl"], widget=forms.CheckboxSelectMultiple,choices=values['airwayControl'], required=False)
-	
 
 	adWithdraw = forms.IntegerField(widget=forms.RadioSelect(choices=((-9999, "Neznano/Ni podatka"), (-9999, "Ni zabeleženo/ni zavedeno"))), required=False)
 
@@ -351,22 +356,23 @@ class MySecondNewFrom(forms.ModelForm):
 
 		# define fields that are NOT required
 		extras = [
-			"drugs", "airwayControl", #"ecgOptions", # mutliple select fields
+			# "drugs", "airwayControl", #"ecgOptions", # mutliple select fields
 			"targetBP", "drugs", "ttmTemp", "ph", "lactate", # string fields with radio 
 			"adPh", "adLactate", "adTtmTemp", "adTargetBP",
 			"dateOfBirth", #"estimatedAge", "ageBystander", "adBystAge", 
 			# "shocks", "ecgResult", "hospitalName", "adHospitalName", "noCPR"
 			]
 
-		estimatedTimestamps = ["estimatedDefibTimestamp", "estimatedDrugTimings", "estimatedRoscTimestamp", "estimatedCPREMStimestamp", "estimatedTimestampTCPR", "estimatedCPRbystander", "estimatedCPRhelperTimestamp", "estimatedEndCPRtimestamp", "estimatedHospitalArrival"]
+		estimatedTimestamps = ["estimatedDefibTimestamp", "estimatedRoscTimestamp", "estimatedCPREMStimestamp", "estimatedTimestampTCPR", "estimatedCPRbystander", "estimatedCPRhelperTimestamp", "estimatedEndCPRtimestamp", "estimatedHospitalArrival"]
 
 		for key in self.fields:
 			if key not in (timestamps + extras + estimatedTimestamps):
 				self.fields[key].required = True
 
-		for key in ["reaTimestamp", "estimatedCAtimestamp", "dateOfBirth", "estimatedAge", "drugTimingsTimestamp", "estimatedDrugTimings"]:
+		for key in ["reaTimestamp", "estimatedCAtimestamp", "dateOfBirth", "estimatedAge"]: #, "drugTimingsTimestamp", "estimatedDrugTimings"]:
 			self.fields[key].required = False
 
+		extras = list(filter(lambda x: x not in ["drugs"], extras))
 		for key in extras:
 			self.fields[key].required = False
 
@@ -383,13 +389,13 @@ class MySecondNewFrom(forms.ModelForm):
 			if cleaned_data[key] == -9999:
 				cleaned_data[key] = None
 
-		drugs = cleaned_data["allDrugs"]
-		drugs = list(map(lambda x: int(x), drugs))
-		cleaned_data["drugs"] = sum(drugs)
+		# drugs = cleaned_data["allDrugs"]
+		# drugs = list(map(lambda x: int(x), drugs))
+		# cleaned_data["drugs"] = sum(drugs)
 
-		airway = cleaned_data["airway"]
-		airway = list(map(lambda x: int(x), airway))
-		cleaned_data["airwayControl"] = sum(airway)
+		# airway = cleaned_data["airway"]
+		# airway = list(map(lambda x: int(x), airway))
+		# cleaned_data["airwayControl"] = sum(airway)
 
 		if cleaned_data["dateOfBirth"] == None and cleaned_data["estimatedAge"] == None:
 			errors["dateOfBirth"] = "Vpišite ali datum rojstva ali ocenjeno starost!"

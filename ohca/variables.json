@@ -618,7 +618,7 @@
             "description": "Pustite prazno, če zdravila niso aplicirana.",
             "core": false,
             "from" : "EuReCa3",
-            "form" : "d30",
+            "form" : "d1",
             "shown" : true,
             "section" : "timeline"
         },
@@ -644,7 +644,7 @@
                 "1" : "Da"
             },
             "from" : "EuReCa3",
-            "form" : "d30",
+            "form" : "d1",
             "shown" : true,
             "section" : "general_info"
         },
@@ -1379,7 +1379,7 @@
             "title": "Zdravila uporabljena med oživljanjem",
             "source": "Zdravila - adrenalin, amiodaron, glukoza, razno (proočilo o nujnem reševalnem prevozu)",
             "from": "Utstein",
-            "form": "d30",
+            "form": "d1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
@@ -1395,7 +1395,7 @@
         "airwayControl": {
             "title": "Oskrba dihalne poti",
             "from": "Utstein",
-            "form": "d30",
+            "form": "d1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",
@@ -1412,7 +1412,7 @@
         "vascularAccess": {
             "title": "Žilni pristopi",
             "from": "Utstein",
-            "form": "d30",
+            "form": "d1",
             "values": {
                 "null": "Ni zapisa",
                 "-1": "Neznano/ni podatka",

@@ -248,93 +248,93 @@ for (let i = 0; i < radioFields.length; i++) {
 
 
 
-const drugs = document.querySelectorAll('input[name="allDrugs');
-const airway = document.querySelectorAll('input[name="airway');
+// const drugs = document.querySelectorAll('input[name="allDrugs');
+// const airway = document.querySelectorAll('input[name="airway');
 
-// =====================drugs========================================
-function checkDrugs1() {
-    for (let i = 0; i < drugs.length; i++) {
-        if (drugs[i].checked && drugs[i].value == "-1") { 
-            for (let j = 0; j < drugs.length; j++) {
-                if (drugs[j].value != "-1") {
-                    drugs[j].checked = false;}}}}}
-function checkDrugs2() {
-    for (let i = 0; i < drugs.length; i++) {
-        if (drugs[i].checked && drugs[i].value == "-2") {
-            for (let j = 0; j < drugs.length; j++) {
-                if (drugs[j].value != "-2") {
-                    drugs[j].checked = false;}}
-            drugs[i].checked = true;}}}
-function checkDrugs3() {
-    for (let i = 0; i < drugs.length; i++) {
-        if (drugs[i].checked && drugs[i].value == "0") {
-            for (let j = 0; j < drugs.length; j++) {
-                if (drugs[j].value != "0") {
-                    drugs[j].checked = false;}}
-            drugs[i].checked = true;}}}
-function checkDrugs4() {
-    var bool1 = false;
-    for (let i = 0; i < drugs.length; i++) {
-            if (drugs[i].checked && drugs[i].value != "0" && drugs[i].value != "-2" && drugs[i].value != "-1") {
-                bool1 = true;}}
-    if (bool1) {
-        document.getElementById("id_allDrugs_3").checked = false;
-        document.getElementById("id_allDrugs_4").checked = false;
-        document.getElementById("id_allDrugs_5").checked = false;}}
+// // =====================drugs========================================
+// function checkDrugs1() {
+//     for (let i = 0; i < drugs.length; i++) {
+//         if (drugs[i].checked && drugs[i].value == "-1") { 
+//             for (let j = 0; j < drugs.length; j++) {
+//                 if (drugs[j].value != "-1") {
+//                     drugs[j].checked = false;}}}}}
+// function checkDrugs2() {
+//     for (let i = 0; i < drugs.length; i++) {
+//         if (drugs[i].checked && drugs[i].value == "-2") {
+//             for (let j = 0; j < drugs.length; j++) {
+//                 if (drugs[j].value != "-2") {
+//                     drugs[j].checked = false;}}
+//             drugs[i].checked = true;}}}
+// function checkDrugs3() {
+//     for (let i = 0; i < drugs.length; i++) {
+//         if (drugs[i].checked && drugs[i].value == "0") {
+//             for (let j = 0; j < drugs.length; j++) {
+//                 if (drugs[j].value != "0") {
+//                     drugs[j].checked = false;}}
+//             drugs[i].checked = true;}}}
+// function checkDrugs4() {
+//     var bool1 = false;
+//     for (let i = 0; i < drugs.length; i++) {
+//             if (drugs[i].checked && drugs[i].value != "0" && drugs[i].value != "-2" && drugs[i].value != "-1") {
+//                 bool1 = true;}}
+//     if (bool1) {
+//         document.getElementById("id_allDrugs_3").checked = false;
+//         document.getElementById("id_allDrugs_4").checked = false;
+//         document.getElementById("id_allDrugs_5").checked = false;}}
 
-document.getElementById("id_allDrugs_3").addEventListener("change", checkDrugs3)
-document.getElementById("id_allDrugs_4").addEventListener("change", checkDrugs1)
-document.getElementById("id_allDrugs_5").addEventListener("change", checkDrugs2)
-document.getElementById("id_allDrugs_3").addEventListener("change", handleMultipleselect)
-document.getElementById("id_allDrugs_4").addEventListener("change", handleMultipleselect)
-document.getElementById("id_allDrugs_5").addEventListener("change", handleMultipleselect)
+// document.getElementById("id_allDrugs_3").addEventListener("change", checkDrugs3)
+// document.getElementById("id_allDrugs_4").addEventListener("change", checkDrugs1)
+// document.getElementById("id_allDrugs_5").addEventListener("change", checkDrugs2)
+// document.getElementById("id_allDrugs_3").addEventListener("change", handleMultipleselect)
+// document.getElementById("id_allDrugs_4").addEventListener("change", handleMultipleselect)
+// document.getElementById("id_allDrugs_5").addEventListener("change", handleMultipleselect)
 
-for (let k = 0; k < 3; k++) {
-    drugs[k].addEventListener("change", checkDrugs4);
-    drugs[k].addEventListener("change", handleMultipleselect);
-}
-// =====================airway========================================
-function checkairway1() {
-    for (let i = 0; i < airway.length; i++) {
-        if (airway[i].checked && airway[i].value == "-1") { 
-            for (let j = 0; j < airway.length; j++) {
-                if (airway[j].value != "-1") {
-                    airway[j].checked = false;}}}}}
-function checkairway2() {
-    for (let i = 0; i < airway.length; i++) {
-        if (airway[i].checked && airway[i].value == "-2") {
-            for (let j = 0; j < airway.length; j++) {
-                if (airway[j].value != "-2") {
-                    airway[j].checked = false;}}
-            airway[i].checked = true;}}}
-function checkairway3() {
-    for (let i = 0; i < airway.length; i++) {
-        if (airway[i].checked && airway[i].value == "0") {
-            for (let j = 0; j < airway.length; j++) {
-                if (airway[j].value != "0") {
-                    airway[j].checked = false;}}
-            airway[i].checked = true;}}}
-function checkairway4() {
-    var bool1 = false;
-    for (let i = 0; i < airway.length; i++) {
-            if (airway[i].checked && airway[i].value != "0" && airway[i].value != "-2" && airway[i].value != "-1") {
-                bool1 = true;}}
-    if (bool1) {
-        document.getElementById("id_airway_4").checked = false;
-        document.getElementById("id_airway_5").checked = false;
-        document.getElementById("id_airway_6").checked = false;}}
+// for (let k = 0; k < 3; k++) {
+//     drugs[k].addEventListener("change", checkDrugs4);
+//     drugs[k].addEventListener("change", handleMultipleselect);
+// }
+// // =====================airway========================================
+// function checkairway1() {
+//     for (let i = 0; i < airway.length; i++) {
+//         if (airway[i].checked && airway[i].value == "-1") { 
+//             for (let j = 0; j < airway.length; j++) {
+//                 if (airway[j].value != "-1") {
+//                     airway[j].checked = false;}}}}}
+// function checkairway2() {
+//     for (let i = 0; i < airway.length; i++) {
+//         if (airway[i].checked && airway[i].value == "-2") {
+//             for (let j = 0; j < airway.length; j++) {
+//                 if (airway[j].value != "-2") {
+//                     airway[j].checked = false;}}
+//             airway[i].checked = true;}}}
+// function checkairway3() {
+//     for (let i = 0; i < airway.length; i++) {
+//         if (airway[i].checked && airway[i].value == "0") {
+//             for (let j = 0; j < airway.length; j++) {
+//                 if (airway[j].value != "0") {
+//                     airway[j].checked = false;}}
+//             airway[i].checked = true;}}}
+// function checkairway4() {
+//     var bool1 = false;
+//     for (let i = 0; i < airway.length; i++) {
+//             if (airway[i].checked && airway[i].value != "0" && airway[i].value != "-2" && airway[i].value != "-1") {
+//                 bool1 = true;}}
+//     if (bool1) {
+//         document.getElementById("id_airway_4").checked = false;
+//         document.getElementById("id_airway_5").checked = false;
+//         document.getElementById("id_airway_6").checked = false;}}
 
-document.getElementById("id_airway_4").addEventListener("change", checkairway3)
-document.getElementById("id_airway_5").addEventListener("change", checkairway1)
-document.getElementById("id_airway_6").addEventListener("change", checkairway2)
-document.getElementById("id_airway_4").addEventListener("change", handleMultipleselect)
-document.getElementById("id_airway_5").addEventListener("change", handleMultipleselect)
-document.getElementById("id_airway_6").addEventListener("change", handleMultipleselect)
+// document.getElementById("id_airway_4").addEventListener("change", checkairway3)
+// document.getElementById("id_airway_5").addEventListener("change", checkairway1)
+// document.getElementById("id_airway_6").addEventListener("change", checkairway2)
+// document.getElementById("id_airway_4").addEventListener("change", handleMultipleselect)
+// document.getElementById("id_airway_5").addEventListener("change", handleMultipleselect)
+// document.getElementById("id_airway_6").addEventListener("change", handleMultipleselect)
 
-for (let k = 0; k < 4; k++) {
-    airway[k].addEventListener("change", checkairway4);
-    airway[k].addEventListener("change", handleMultipleselect);
-}
+// for (let k = 0; k < 4; k++) {
+//     airway[k].addEventListener("change", checkairway4);
+//     airway[k].addEventListener("change", handleMultipleselect);
+// }
 
 
 function handleMultipleselect() {
