@@ -10,30 +10,8 @@ content-type: eg
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
-  .content table#banner td  {
-    text-align: center;
-    width: 50pt;
+  table, thead, tr, th {
     color: var(--text-main);
-  }
-  .content table td.x {
-    text-align: center;
-    font-size: 15pt;
-    padding: 22pt 0pt 20pt 0pt ;
-  }
-  .content table td.collab-logo {
-    font-size: 20pt;
-    padding: 20pt 0pt 20pt 0pt;
-  }
-  .content table td#siohca-logo {
-    padding: 18pt 5pt 22pt 0pt;
-    text-align:right;
-  }
-  td#RS {
-    padding-top: 0pt;
-  }
-  td#RS img {
-    margin: 0pt 0pt 0pt 0pt;
-    width:60pt;
   }
 </style>
 
@@ -41,58 +19,7 @@ This subpage is in Slovenian language and is intended for use by Slovenian healt
 
 > **Vsem sodelujočim se bi radi zahvalili za pripravljenost sodelovati in angažiranost za sledenje podatkom.** Veselimo se že rezultatov, ki jih bomo dobili. Upamo tudi, da bo naš produkt postavil standard prijazne uporabniške izkušnje v zdravstvu.
 
-<table id="banner">
-  <tr> 
-    <td id="siohca-logo">
-      <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-      width="35pt"  viewBox="0 0 609.000000 609.000000"
-      preserveAspectRatio="xMidYMid meet">
-      <g transform="translate(0.000000,609.000000) scale(0.100000,-0.100000)"
-      fill="var(--text-main)" stroke="none">
-      <path d="M3834 5929 c-272 -21 -550 -131 -795 -315 -178 -135 -295 -286 -419
-      -539 -91 -187 -134 -233 -251 -270 -213 -67 -472 -80 -570 -29 -46 23 -34 79
-      41 189 40 58 116 213 141 286 29 88 24 192 -16 269 -59 116 -219 225 -391 266
-      -88 21 -142 10 -204 -43 -54 -47 -78 -89 -159 -289 -92 -227 -199 -469 -309
-      -699 -50 -104 -102 -221 -117 -260 -54 -146 -114 -426 -135 -634 -13 -133 -13
-      -430 0 -562 72 -713 384 -1451 876 -2069 125 -157 415 -451 559 -565 609 -486
-      1205 -627 1660 -392 208 108 402 307 543 558 43 77 132 301 170 429 169 569
-      184 1266 46 2080 -39 230 -71 375 -110 488 -35 102 -116 259 -172 334 -114
-      151 -337 283 -658 388 -152 50 -175 61 -203 96 -25 32 -27 75 -6 135 51 143
-      192 253 402 314 163 48 321 44 503 -11 144 -44 233 -95 408 -231 173 -135 285
-      -181 416 -170 130 11 263 102 320 219 88 180 36 353 -161 539 -119 111 -251
-      201 -418 284 -241 119 -470 183 -739 205 -71 5 -134 9 -140 9 -6 -1 -57 -5
-      -112 -10z m351 -244 c315 -48 596 -168 827 -354 197 -158 243 -269 152 -362
-      -91 -94 -172 -72 -397 104 -167 131 -310 203 -505 254 -131 34 -328 42 -459
-      19 -403 -70 -693 -339 -693 -641 0 -93 23 -155 80 -218 61 -67 128 -102 305
-      -161 77 -26 200 -76 272 -111 107 -52 146 -78 202 -131 157 -148 229 -331 305
-      -784 140 -824 118 -1491 -65 -2045 -91 -275 -185 -440 -339 -595 -188 -190
-      -353 -263 -595 -263 -401 1 -855 241 -1305 692 -277 278 -488 565 -682 931
-      -77 144 -236 510 -223 510 3 0 50 -36 107 -81 98 -77 453 -319 468 -319 12 0
-      100 -176 121 -246 46 -148 109 -242 271 -400 117 -115 196 -174 234 -174 12 0
-      33 10 48 21 23 18 27 28 24 62 -3 38 -8 44 -61 81 -33 22 -109 93 -171 157
-      -117 123 -164 194 -196 299 l-17 57 85 -35 c99 -40 277 -79 407 -88 l90 -7 45
-      -51 c74 -84 154 -161 200 -195 75 -54 150 -33 150 43 0 31 -9 42 -85 107 -47
-      40 -85 77 -85 82 0 14 191 1 283 -19 92 -20 122 -14 143 30 14 29 15 37 3 62
-      -8 16 -25 34 -39 40 -55 26 -232 46 -480 54 -233 8 -322 17 -461 49 -109 25
-      -352 150 -576 297 -102 67 -115 79 -99 88 19 11 61 43 131 100 19 15 52 34 72
-      42 46 16 279 18 371 4 50 -9 68 -8 91 4 45 24 55 76 23 117 -23 28 -144 47
-      -297 48 -198 1 -281 -23 -380 -110 -58 -51 -141 -99 -171 -99 -23 0 -181 130
-      -276 227 l-76 78 -21 95 c-81 361 -91 748 -30 1095 42 234 100 409 215 636 81
-      162 258 566 338 774 15 39 34 78 41 89 14 18 16 18 75 -4 70 -26 145 -77 172
-      -117 35 -51 0 -152 -120 -350 -78 -129 -97 -182 -96 -263 2 -187 167 -298 446
-      -300 172 0 433 51 554 110 124 60 187 136 299 360 88 176 140 254 235 348 180
-      180 465 326 705 361 98 14 303 12 410 -4z"/>
-      </g>
-      </svg> 
-    </td>
-    <td class="collab-logo" style="text-align:left;">SiOHCA</td>
-    <td class="x" style="width:30pt;">x</td>
-    <td class="collab-logo">EuReCaTHREE</td>
-    <td class="x" style="width:30pt; padding-right:22pt; padding-left:10pt;">x</td>
-    <td id="RS"><img src="http://siohca.um.si/assets/img/SloRS.png"></td>
-  </tr>
-</table>
-
+<div style="padding:30pt 40pt 30pt 40pt;" id="collab-banner"></div>
 
 
 | status sistema        | delujoč                                                |
@@ -126,7 +53,7 @@ ___
 ____
 
 # Kaj je SiOHCA
-SiOHCA je interdisciplinaren študentski projekt, ki deluje z namenom digitalizacije zbiranja podatkov o predbolnišničnih srčnih zastojih (*ang. OHCA*). Končni cilj je vzpostavitev nacionalnega OHCA registra, ki predstavlja zlati standard za raziskave na področju tovrstnih kardiovaskularnih dogodkov. Študija EuReCa 3 v Sloveniji poteka pod okriljem [Slovenskega reanimacijskega sveta](http://slors.szum.si).
+SiOHCA je interdisciplinaren študentski projekt, ki deluje z namenom digitalizacije zbiranja podatkov o predbolnišničnih srčnih zastojih (*ang. OHCA*). Končni cilj je vzpostavitev nacionalnega OHCA registra, ki predstavlja zlati standard za raziskave na področju tovrstnih kardiovaskularnih dogodkov. 
 
 
 # Kaj je EuReCa 3
@@ -265,3 +192,4 @@ Pozor podatki EuReCa tri študije ne smejo biti objavljeni pred objavljenim čla
 Podatki vsebujejo zaupne informacije, ki morajo biti varovane v skladu s pravili in dobro prakso medicinske etike ter GDPR zakonodaje, zato baze ne fotografirajte/objavljajte prosto.
 
 Željene data sete vam bomo izvozili mi.
+<script src="http://127.0.0.1:4000/assets/js/eureca.js"></script>
