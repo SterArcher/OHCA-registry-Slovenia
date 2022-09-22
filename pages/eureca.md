@@ -126,7 +126,7 @@ ___
 ____
 
 # Kaj je SiOHCA
-SiOHCA je interdisciplinaren študentski projekt, ki deluje z namenom digitalizacije zbiranja podatkov o predbolnišničnih srčnih zastojih (*ang. OHCA*). Končni cilj je vzpostavitev nacionalnega OHCA registra, ki predstavlja zlati standard za raziskave na področju tovrstnih kardiovaskularnih dogodkov. 
+SiOHCA je interdisciplinaren študentski projekt, ki deluje z namenom digitalizacije zbiranja podatkov o predbolnišničnih srčnih zastojih (*ang. OHCA*). Končni cilj je vzpostavitev nacionalnega OHCA registra, ki predstavlja zlati standard za raziskave na področju tovrstnih kardiovaskularnih dogodkov. Študija EuReCa 3 v Sloveniji poteka pod okriljem [Slovenskega reanimacijskega sveta](http://slors.szum.si).
 
 
 # Kaj je EuReCa 3
