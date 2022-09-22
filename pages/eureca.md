@@ -192,4 +192,4 @@ Pozor podatki EuReCa tri študije ne smejo biti objavljeni pred objavljenim čla
 Podatki vsebujejo zaupne informacije, ki morajo biti varovane v skladu s pravili in dobro prakso medicinske etike ter GDPR zakonodaje, zato baze ne fotografirajte/objavljajte prosto.
 
 Željene data sete vam bomo izvozili mi.
-<script src="http://127.0.0.1:4000/assets/js/eureca.js"></script>
+<script src="http://siohca.um.si/assets/js/eureca.js"></script>
