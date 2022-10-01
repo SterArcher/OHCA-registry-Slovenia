@@ -11,6 +11,9 @@ if (dateOfCAField) {
 }
 
 function updateDateFields(caller) {
+    if (document.getElementById("popravki").classList.contains("active")) {
+        return;
+    }
     let date = caller.value
     const excludedIds = ["id_dateOfBirth"]
     for (let i = 0; i < datepickers.length; i++) {
