@@ -17,25 +17,28 @@ from .suppl import *
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = False
+DEBUG = os.getenv('SERVER_DEBUG', 'false').lower() == 'true'
+SQLITE = os.getenv('SERVER_LOCAL_DB', 'false').lower() == 'true'
 
 ALLOWED_HOSTS = list(map(str.strip, os.getenv('ALLOWED_HOSTS', '*').split(',')))
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DATABASES = {
-    'default': {
-        'ENGINE': engine[os.getenv('DATABASE')],
-        'NAME': os.getenv('DATABASE_NAME'),
-        'USER': os.getenv('DATABASE_USER'),
-        'PASSWORD': os.getenv('DATABASE_PASS'),
-        'HOST': os.getenv('DATABASE_HOST', 'localhost'),
-        'PORT': int(os.getenv('DATABASE_PORT', db_port[os.getenv('DATABASE')])),
-        'OPTIONS':{
-            "init_command":"SET foreign_key_checks = 0;", # TODO
-            }
-    }
-}
+databases = { 'default': dict() }
+
+if SQLITE:
+    databases['default']['ENGINE'] = 'django.db.backends.sqlite3'
+    databases['default']['NAME'] = os.getenv('DB_PATH', '.') + '/ohca.db'
+else:
+    databases['default']['ENGINE'] = engine[os.getenv('DATABASE')]
+    databases['default']['NAME'] = os.getenv('DATABASE_NAME')
+    databases['default']['USER'] = os.getenv('DATABASE_USER')
+    databases['default']['PASSWORD'] = os.getenv('DATABASE_PASS')
+    databases['default']['HOST'] = os.getenv('DATABASE_HOST', 'localhost')
+    databases['default']['PORT'] = int(os.getenv('DATABASE_PORT', db_port[os.getenv('DATABASE')]))
+    databases['default']['OPTIONS'] = { "init_command":"SET foreign_key_checks = 0;", } #TODO
+
+DATABASES = databases
 
 # Application definition
 
