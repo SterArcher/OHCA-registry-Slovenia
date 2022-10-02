@@ -291,8 +291,8 @@ def second_first_form_name_view(request):
 
             # ------------ generating case id -------------------------
             
-            first_name = (form1.cleaned_data['name']).strip().split(" ")
-            last_name = (form1.cleaned_data['surname']).strip().split(" ")
+            first_name = (form1.cleaned_data['name']).title().strip().split(" ")
+            last_name = (form1.cleaned_data['surname']).title().strip().split(" ")
             date = str(form1.cleaned_data['dateOfCA'])
             date_time = str(form1.cleaned_data["reaTimestamp"])
 
@@ -568,9 +568,9 @@ def error_form_view(request):
                 messages.success(request, 'Podatki uspešno oddani!')
 
                 if form1.cleaned_data['name'] != None:
-                    first_name = (form1.cleaned_data['name']).strip().split(" ")
+                    first_name = (form1.cleaned_data['name']).title().strip().split(" ")
                 if form1.cleaned_data['surname'] != None:
-                    last_name = (form1.cleaned_data['surname']).strip().split(" ")
+                    last_name = (form1.cleaned_data['surname']).title().strip().split(" ")
                 
                 if form1.cleaned_data['dateOfCA'] != None:
                     date = str(form1.cleaned_data['dateOfCA'])
