@@ -56,15 +56,15 @@ function clearSelection(element) {
             radio.checked = false;
         })
     }
+    return false;
 }
 
 function addClearButtons() {
     checkboxes = document.querySelectorAll('input[id$="_0"][type="radio"]');
     checkboxes.forEach(function(e) {
         container = e.parentElement.parentElement;
-        button = document.createElement("button");
-        button.classList.add("btn");
-        button.classList.add("btn-link");
+        button = document.createElement("a");
+        button.href = "javascript:void(0);";
         button.innerText = "Počisti izbiro";
         button.addEventListener('click', clearSelection);
         container.appendChild(button);
