@@ -436,6 +436,9 @@ class ErrorForm(forms.ModelForm):
 		for field in all_fields:
 			self.fields[field].required = False
 
+		# ime zdravnika, ki popravlja, mora bit useeno obvezno 
+		self.fields["doctorName"].required == True
+
 		# delete labels for auxiliary fields
 		fields = ["neuroprognosticTests", "adWithdraw", "adTtmTemp", "adPh", "adTargetBP", "adLactate", "adShocks", "adHospitalName", "adBystAge"]
 		for f in fields:
@@ -465,9 +468,9 @@ class ErrorForm(forms.ModelForm):
 			cleaned_data["ecgOptions"] = ecg_val
 
 		# either date of birth or estimated age have to be put in
-		if cleaned_data["dateOfBirth"] == None and cleaned_data["estimatedAge"] == None:
-			errors["dateOfBirth"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
-			errors["estimatedAge"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
+		# if cleaned_data["dateOfBirth"] == None and cleaned_data["estimatedAge"] == None:
+		# 	errors["dateOfBirth"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
+		# 	errors["estimatedAge"] = "Vpišite ali datum rojstva ali ocenjeno starost!"
 
 		if len(list(errors.keys())) >= 1:
 			raise ValidationError(errors)

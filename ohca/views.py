@@ -597,7 +597,7 @@ def error_form_view(request):
                 if form1.cleaned_data["estimatedAgeBystander"] != None:
                     izracunana_polja.append(("estimatedAgeBystander", form1.cleaned_data["adBystAge"]))
                 
-                print((date, date_birth))
+                # print((date, date_birth))
                 if form1.cleaned_data['discDate'] != None:
                     disch_date = disch_date.split("-")
                     izracunana_polja.append(("dischYear", disch_date[0]))
