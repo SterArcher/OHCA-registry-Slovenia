@@ -560,10 +560,23 @@ def error_form_view(request):
             # -------- rabimo ali podatek za intervention ID ali za case ID (ime, priimek, cas zastoja) ------------
             
             missingNonIdData = form1.cleaned_data["name"] == None or form1.cleaned_data["surname"] == None or form1.cleaned_data["reaTimestamp"] == None or form1.cleaned_data["dateOfCA"] == None
+            
+            cases = []
+            if len(intID) != 12:
+                id = generate_case_id(first_name, last_name, date, str(form1.cleaned_data["reaTimestamp"]))
+                cases = CaseReport.objects.all().filter(caseID__exact=id)#[0]
+            else:
+                dispatch_id = generate_dispatch_id(str(intID), date)
+                cases = CaseReport.objects.all().filter(dispatchID__exact=dispatch_id)#[0]
 
+        
             if len(intID) != 12 and missingNonIdData:
                 messages.error(request, 'Izpolnite ali intervencijsko številko ali naslednje podatke: ime, priimek, datum dogodka, čas dogodka.')
-                
+
+            #--------- posebej primer ko so polja izpolnjena in se zračuna ID ampak ID-ja ni v bazi -----------
+            elif len(cases) == 0:
+                messages.error(request, 'Tega primera ni v bazi! Preverite ali ste pravilno vnesli podatke!')
+  
             else:
                 messages.success(request, 'Podatki uspešno oddani!')
 
@@ -612,6 +625,7 @@ def error_form_view(request):
 
                 
                 field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl", "systemID", "localID"]), second_form))] + izracunana_polja
+                field_list += [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl", "systemID", "localID"]), first_form))]
 
                 # ------------------- call timestamp ---------------------------
                 case = None
