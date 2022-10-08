@@ -561,14 +561,15 @@ def error_form_view(request):
             
             missingNonIdData = form1.cleaned_data["name"] == None or form1.cleaned_data["surname"] == None or form1.cleaned_data["reaTimestamp"] == None or form1.cleaned_data["dateOfCA"] == None
             
-            first_name = (form1.cleaned_data['name']).strip().split(" ")
-            last_name = (form1.cleaned_data['surname']).strip().split(" ")
-
             cases = []
-            if len(intID) != 12:
+            if len(intID) != 12 and missingNonIdData:
+                first_name = (form1.cleaned_data['name']).strip().split(" ")
+                last_name = (form1.cleaned_data['surname']).strip().split(" ")
                 id = generate_case_id(first_name, last_name, str(form1.cleaned_data["dateOfCA"]), str(form1.cleaned_data["reaTimestamp"]))
                 cases = CaseReport.objects.all().filter(caseID__exact=id)#[0]
             else:
+                if form1.cleaned_data["dateOfCA"] == None:
+                    date = "20" + str(intID)[2] + str(intID)[3] + "-" + str(intID)[4] + str(intID)[5] + "-" + str(intID)[6] + str(intID)[7]
                 dispatch_id = generate_dispatch_id(str(intID), date)
                 cases = CaseReport.objects.all().filter(dispatchID__exact=dispatch_id)#[0]
 
