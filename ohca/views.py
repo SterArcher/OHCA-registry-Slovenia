@@ -561,9 +561,12 @@ def error_form_view(request):
             
             missingNonIdData = form1.cleaned_data["name"] == None or form1.cleaned_data["surname"] == None or form1.cleaned_data["reaTimestamp"] == None or form1.cleaned_data["dateOfCA"] == None
             
+            first_name = (form1.cleaned_data['name']).strip().split(" ")
+            last_name = (form1.cleaned_data['surname']).strip().split(" ")
+
             cases = []
             if len(intID) != 12:
-                id = generate_case_id(form1.cleaned_data["name"], form1.cleaned_data["surname"], str(form1.cleaned_data["dateOfCA"]), str(form1.cleaned_data["reaTimestamp"]))
+                id = generate_case_id(first_name, last_name, str(form1.cleaned_data["dateOfCA"]), str(form1.cleaned_data["reaTimestamp"]))
                 cases = CaseReport.objects.all().filter(caseID__exact=id)#[0]
             else:
                 dispatch_id = generate_dispatch_id(str(intID), date)
@@ -660,16 +663,16 @@ def error_form_view(request):
                 doctor_name = form1.cleaned_data["doctorName"] + " - popravek - " + str(datetime.now())
                 changes['doctorName'] = ", ".join(filter(None, (case.doctorName, doctor_name)))
 
-                if len(intID) != 12:
-                    CaseReport.objects.update_or_create(
-                        caseID=id,
-                        defaults=changes
-                    ) 
-                else:
-                    CaseReport.objects.update_or_create(
-                        dispatchID=dispatch_id, 
-                        defaults=changes
-                    )
+                # if len(intID) != 12:
+                #     CaseReport.objects.update_or_create(
+                #         caseID=id,
+                #         defaults=changes
+                #     ) 
+                # else:
+                #     CaseReport.objects.update_or_create(
+                #         dispatchID=dispatch_id, 
+                #         defaults=changes
+                #     )
 
         else:
             print("form invalid")
