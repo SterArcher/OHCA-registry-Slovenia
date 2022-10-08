@@ -563,7 +563,7 @@ def error_form_view(request):
             
             cases = []
             if len(intID) != 12:
-                id = generate_case_id(first_name, last_name, date, str(form1.cleaned_data["reaTimestamp"]))
+                id = generate_case_id(form1.cleaned_data["name"], form1.cleaned_data["surname"], str(form1.cleaned_data["dateOfCA"]), str(form1.cleaned_data["reaTimestamp"]))
                 cases = CaseReport.objects.all().filter(caseID__exact=id)#[0]
             else:
                 dispatch_id = generate_dispatch_id(str(intID), date)
@@ -624,8 +624,8 @@ def error_form_view(request):
                     izracunana_polja.append(("treatmentWithdrawnTimestamp", form1.cleaned_data["adWithdraw"]))
 
                 
-                field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl", "systemID", "localID"]), second_form))] + izracunana_polja
-                field_list += [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["drugs", "airwayControl", "systemID", "localID"]), first_form))]
+                field_list = [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["systemID", "localID"]), second_form))] + izracunana_polja
+                field_list += [(field, form1.cleaned_data[field]) for field in list(filter(lambda x: (x not in ["systemID", "localID"]), first_form))]
 
                 # ------------------- call timestamp ---------------------------
                 case = None

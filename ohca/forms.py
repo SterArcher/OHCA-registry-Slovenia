@@ -301,7 +301,7 @@ class NDSZ_1_DAN(forms.ModelForm):
 		ecg = cleaned_data["ecgopt"]
 		ecg_val = ""
 		for elt in ecg:
-			ecg_val += elt
+			ecg_val = (ecg_val + ", " + str(elt)) if ecg_val != "" else str(elt)
 		cleaned_data["ecgOptions"] = ecg_val
 
 		# this isnt supposed to happen bc of formValidation.js
@@ -437,7 +437,7 @@ class ErrorForm(forms.ModelForm):
 			self.fields[field].required = False
 
 		# ime zdravnika, ki popravlja, mora bit useeno obvezno 
-		self.fields["doctorName"].required == True
+		self.fields["doctorName"].required = True
 
 		# delete labels for auxiliary fields
 		fields = ["neuroprognosticTests", "adWithdraw", "adTtmTemp", "adPh", "adTargetBP", "adLactate", "adShocks", "adHospitalName", "adBystAge"]
@@ -462,10 +462,9 @@ class ErrorForm(forms.ModelForm):
 
 		ecg = cleaned_data["ecgopt"]
 		ecg_val = ""
-		if ecg != None:
-			for elt in ecg:
-				ecg_val += elt
-			cleaned_data["ecgOptions"] = ecg_val
+		for elt in ecg:
+			ecg_val = (ecg_val + ", " + str(elt)) if ecg_val != "" else str(elt)
+		cleaned_data["ecgOptions"] = ecg_val
 
 		# either date of birth or estimated age have to be put in
 		# if cleaned_data["dateOfBirth"] == None and cleaned_data["estimatedAge"] == None:
