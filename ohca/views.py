@@ -663,16 +663,16 @@ def error_form_view(request):
                 doctor_name = form1.cleaned_data["doctorName"] + " - popravek - " + str(datetime.now())
                 changes['doctorName'] = ", ".join(filter(None, (case.doctorName, doctor_name)))
 
-                # if len(intID) != 12:
-                #     CaseReport.objects.update_or_create(
-                #         caseID=id,
-                #         defaults=changes
-                #     ) 
-                # else:
-                #     CaseReport.objects.update_or_create(
-                #         dispatchID=dispatch_id, 
-                #         defaults=changes
-                #     )
+                if len(intID) != 12:
+                    CaseReport.objects.update_or_create(
+                        caseID=id,
+                        defaults=changes
+                    ) 
+                else:
+                    CaseReport.objects.update_or_create(
+                        dispatchID=dispatch_id, 
+                        defaults=changes
+                    )
 
         else:
             print("form invalid")
