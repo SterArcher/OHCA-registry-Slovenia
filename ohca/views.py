@@ -562,7 +562,7 @@ def error_form_view(request):
             missingNonIdData = form1.cleaned_data["name"] == None or form1.cleaned_data["surname"] == None or form1.cleaned_data["reaTimestamp"] == None or form1.cleaned_data["dateOfCA"] == None
             
             cases = []
-            if len(intID) != 12 and missingNonIdData:
+            if len(intID) != 12 and not missingNonIdData:
                 first_name = (form1.cleaned_data['name']).strip().split(" ")
                 last_name = (form1.cleaned_data['surname']).strip().split(" ")
                 id = generate_case_id(first_name, last_name, str(form1.cleaned_data["dateOfCA"]), str(form1.cleaned_data["reaTimestamp"]))
@@ -645,14 +645,14 @@ def error_form_view(request):
                 caseAsDict = vars(case)
                 if callTimestamp == None:
                     callTimestamp = case.callTimestamp
-                timestamps = list(filter(lambda x: x not in ["treatmentWithdrawnTimestamp", "reaTimestamp", "callTimestamp", "drugTimingsTimestamp"], timeline[2:])) # remove reaTimestamp and callTimestamp
-                for timestampName in timestamps:
+                timestamps = list(filter(lambda x: x not in ["treatmentWithdrawnTimestamp", "reaTimestamp", "callTimestamp"], timeline[2:])) # remove reaTimestamp and callTimestamp
+                for timestampName in timestamps: 
                     timestamp = form1.cleaned_data[timestampName]
                     if timestamp == None:
                         timestamp = caseAsDict[timestampName]
                     if timestamp != None and callTimestamp != None:
                         duration = timestamp - callTimestamp
-                        field_list[timestamp_dict[timestampName]] = duration.seconds
+                        field_list.append((timestamp_dict[timestampName], duration.seconds))
                     
 
                 # ----------------- doctor name + shranjevanje podatkov --------------------------------
