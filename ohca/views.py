@@ -343,7 +343,7 @@ def second_first_form_name_view(request):
 
             # everything is dependent on the time of call recieved
             callTimestamp = form1.cleaned_data["callTimestamp"]
-            timestamps = list(filter(lambda x: x not in ["treatmentWithdrawnTimestamp", "reaTimestamp", "callTimestamp", "drugTimingsTimestamp"], timeline[2:])) # remove reaTimestamp and callTimestamp
+            timestamps = list(filter(lambda x: x not in ["treatmentWithdrawnTimestamp", "reaTimestamp", "callTimestamp"], timeline[2:])) # remove reaTimestamp and callTimestamp
             # print(timestamps)
             if callTimestamp != None:
                 beginning = callTimestamp
@@ -599,19 +599,19 @@ def error_form_view(request):
             # ----------- vprašanja kjer je textfield in radio options ---------------
             # če je textfield izpolnjen se bo shranil, če pa je namesto textfielda obkljukan en od radio buttonov je treba to posebej shranit
             # hkrati ne more bit ker tega ne dovoli javascript
-                if form1.cleaned_data["ttmTemp"] != None:
+                if form1.cleaned_data["ttmTemp"] == None:
                     izracunana_polja.append(("ttmTemp", form1.cleaned_data["adTtmTemp"]))
-                if form1.cleaned_data["targetBP"] != None:
+                if form1.cleaned_data["targetBP"] == None:
                     izracunana_polja.append(("targetBP", form1.cleaned_data["adTargetBP"]))
-                if form1.cleaned_data["ph"] != None:
+                if form1.cleaned_data["ph"] == None:
                     izracunana_polja.append(("ph", form1.cleaned_data["adPh"]))
-                if form1.cleaned_data["lactate"] != None:
+                if form1.cleaned_data["lactate"] == None:
                     izracunana_polja.append(("lactate", form1.cleaned_data["adLactate"]))
-                if form1.cleaned_data["shocks"] != None:
+                if form1.cleaned_data["shocks"] == None:
                     izracunana_polja.append(("shocks", form1.cleaned_data["adShocks"]))
-                if form1.cleaned_data["hospitalName"] != None:
+                if form1.cleaned_data["hospitalName"] == None:
                     izracunana_polja.append(("hospitalName", form1.cleaned_data["adHospitalName"]))
-                if form1.cleaned_data["estimatedAgeBystander"] != None:
+                if form1.cleaned_data["estimatedAgeBystander"] == None:
                     izracunana_polja.append(("estimatedAgeBystander", form1.cleaned_data["adBystAge"]))
                 
                 # print((date, date_birth))

@@ -464,7 +464,10 @@ class ErrorForm(forms.ModelForm):
 		ecg_val = ""
 		for elt in ecg:
 			ecg_val = (ecg_val + ", " + str(elt)) if ecg_val != "" else str(elt)
-		cleaned_data["ecgOptions"] = ecg_val
+		if ecg_val == "":
+			cleaned_data["ecgOptions"] = None
+		else:
+			cleaned_data["ecgOptions"] = ecg_val
 
 		# either date of birth or estimated age have to be put in
 		# if cleaned_data["dateOfBirth"] == None and cleaned_data["estimatedAge"] == None:
