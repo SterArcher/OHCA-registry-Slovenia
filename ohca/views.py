@@ -640,12 +640,12 @@ def error_form_view(request):
 
                 # ------------------- call timestamp ---------------------------
                 case = None
-                if len(intID) != 12:
-                    id = generate_case_id(first_name, last_name, date, str(form1.cleaned_data["reaTimestamp"]))
-                    case = CaseReport.objects.all().filter(caseID__exact=id)[0]
-                else:
+                if len(intID) == 12:
                     dispatch_id = generate_dispatch_id(str(intID), date)
                     case = CaseReport.objects.all().filter(dispatchID__exact=dispatch_id)[0]
+                else:
+                    id = generate_case_id(first_name, last_name, date, str(form1.cleaned_data["reaTimestamp"]))
+                    case = CaseReport.objects.all().filter(caseID__exact=id)[0]
 
                 # everything is dependent on the time of call recieved
                 callTimestamp = form1.cleaned_data["callTimestamp"]
@@ -671,14 +671,14 @@ def error_form_view(request):
                 doctor_name = form1.cleaned_data["doctorName"] + " - popravek - " + str(datetime.now())
                 changes['doctorName'] = ", ".join(filter(None, (case.doctorName, doctor_name)))
 
-                if len(intID) != 12:
-                    CaseReport.objects.update_or_create(
-                        caseID=id,
+                if len(intID) == 12:
+                     CaseReport.objects.update_or_create(
+                        dispatchID=dispatch_id, 
                         defaults=changes
-                    ) 
+                    )
                 else:
                     CaseReport.objects.update_or_create(
-                        dispatchID=dispatch_id, 
+                        caseID=id,
                         defaults=changes
                     )
 
