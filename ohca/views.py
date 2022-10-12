@@ -193,6 +193,13 @@ def form_name_view(request):
 
             # ids in this form are identified by dispatch id
             dispatch_id = generate_dispatch_id(str(intID), date)
+
+            # If possible calculate a caseID as well
+            missingNonIdData = form1.cleaned_data["name"] == None or form1.cleaned_data["surname"] == None or form1.cleaned_data["reaTimestamp"] == None or form1.cleaned_data["dateOfCA"] == None
+            if not missingNonIdData:
+                izracunana_polja.append(
+                    ("caseID", generate_case_id(form1.cleaned_data["name"], form1.cleaned_data["surname"], date, form1.cleaned_data["reaTimestamp"]))
+                )
             
             # -------------- age -------------------------------
             birth = form1.cleaned_data['dateOfBirth']
