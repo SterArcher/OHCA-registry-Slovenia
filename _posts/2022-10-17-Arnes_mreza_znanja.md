@@ -20,9 +20,8 @@ The talks regarding high performance computing (HPC), privacy, and open research
 
   
 
-Rok Miklič spoke about our project, focusing on the IT-related innovations we've implemented in our software and the Arnes' technology we're leveraging. In addition to the robust security and adaptability, our open-source base drew the greatest attention and interest. Click here to listen to the speech (in Slovenian) or here to access the slideshow presentation in PDF.
+Rok Miklič spoke about our project, focusing on the IT-related innovations we've implemented in our software and the Arnes' technology we're leveraging. In addition to the robust security and adaptability, our open-source base drew the greatest attention and interest. [Click here](https://video.arnes.si/watch/fcpmm9jbzr7t) to listen to the speech (in Slovenian) or [here](https://zenodo.org/record/7189459#.Y07pdC8RrRY)  to access the slideshow presentation in PDF.
 
-  
 
 ![Rok](https://siohca.um.si/assets/img/arnes_rok.png)
 
