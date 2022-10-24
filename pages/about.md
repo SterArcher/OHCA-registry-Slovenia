@@ -58,4 +58,4 @@ We would like to thank:
 * [Eva Zupan Horaček](https://www.linkedin.com/in/evazupan/) for navigating us through designing a user friendly paper form and giving us UX advice in general
 
 ![Logotypes](https://siohca.um.si/assets/img/logotipi-01.png)
-*We are grateful for the support and collaboration opportunities with these institutions.*
+*We are grateful to be endorsed by these institutions.*
