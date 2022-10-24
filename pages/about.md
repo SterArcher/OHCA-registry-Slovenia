@@ -56,3 +56,6 @@ We would like to thank:
 * [Štefan Baebler](https://github.com/stefanb) for giving us technical advice
 * [Joh Dokler](https://github.com/joahim) for giving us technical advice
 * [Eva Zupan Horaček](https://www.linkedin.com/in/evazupan/) for navigating us through designing a user friendly paper form and giving us UX advice in general
+
+![Logotypes](https://siohca.um.si/assets/img/logotipi-01.png)
+*We are grateful for the support and collaboration opportunities with these institutions.*
