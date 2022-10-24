@@ -16,5 +16,5 @@ Since March 2022, we have engaged and consulted with some of the greatest specia
 
 We’re grateful for the support and excited about the future collaboration possibilities.
 
-![Logotypes](https://siohca.um.si/assets/img/logotipi-01.jpg)
+![Logotypes](https://siohca.um.si/assets/img/logotipi-01.png)
 *We are grateful for the support and collaboration opportunities with these institutions.*
