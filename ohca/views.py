@@ -197,8 +197,10 @@ def form_name_view(request):
             # If possible calculate a caseID as well
             missingNonIdData = form1.cleaned_data["name"] == None or form1.cleaned_data["surname"] == None or form1.cleaned_data["reaTimestamp"] == None or form1.cleaned_data["dateOfCA"] == None
             if not missingNonIdData:
+                first_name = (form1.cleaned_data['name']).title().strip().split(" ")
+                last_name = (form1.cleaned_data['surname']).title().strip().split(" ")
                 izracunana_polja.append(
-                    ("caseID", generate_case_id(form1.cleaned_data["name"], form1.cleaned_data["surname"], date, form1.cleaned_data["reaTimestamp"]))
+                    ("caseID", generate_case_id(first_name, last_name, date, str(form1.cleaned_data["reaTimestamp"])))
                 )
             
             # -------------- age -------------------------------
@@ -577,7 +579,7 @@ def error_form_view(request):
             else:
                 if form1.cleaned_data["dateOfCA"] == None:
                     date = "20" + str(intID)[2] + str(intID)[3] + "-" + str(intID)[4] + str(intID)[5] + "-" + str(intID)[6] + str(intID)[7]
-                dispatch_id = generate_dispatch_id(str(intID), date)
+                dispatch_id = generate_dispatch_id(str(intID), str(date))
                 cases = CaseReport.objects.all().filter(dispatchID__exact=dispatch_id)#[0]
 
         
