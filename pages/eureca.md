@@ -22,7 +22,7 @@ This subpage is in Slovenian language and is intended for use by Slovenian healt
 <div style="padding:30pt 40pt 30pt 40pt;" id="collab-banner"></div>
 
 
-| status sistema        | delujoč                                                |
+| status sistema        | morebitne težave v delovanju ⚠️                       |
 | začetek študije       | 1. september 2022                                      |
 | mail za podporo       | luka.petravic@student.um.si                            |
 | link do baze          | [baza](https://local.siohca.um.si)                     |
