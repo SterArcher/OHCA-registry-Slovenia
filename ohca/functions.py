@@ -12,6 +12,19 @@ def to_CaseReport(json, caseKey):
     except:
         return False
 
+def update_CaseReport(json, caseKey):
+    try:
+        i = 0
+        if caseKey == 'dispatchID':
+            i = CaseReport.objects.filter(dispatchID=json['dispatchID']).update(defaults=json)
+        elif caseKey == 'caseID':
+            i = CaseReport.objects.filter(caseID=json['caseID']).update(defaults=json)
+            if i == 0:
+                return 2
+        return 1
+    except:
+        return 0
+
 def to_Locale(json):
     entry = None
     if id == 'localID':
@@ -90,7 +103,7 @@ def dispatchDataParse(data):
         item["mainInterventionID"] = f'0{row[rowNames["mainInterventionID"]]}'
         item['dispatchID'] = generate_dispatch_id(
             item["interventionID"],
-            f'20{item["interventionID"][2:4]}-{item["interventionID"][4:7]}-{item["interventionID"][6:8]}'
+            f'20{item["interventionID"][2:4]}-{item["interventionID"][4:6]}-{item["interventionID"][6:8]}'
         )
         
         # helperWho is a constant for DSZ cases
