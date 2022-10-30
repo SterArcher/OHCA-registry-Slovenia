@@ -140,7 +140,7 @@ def day_difference(date1, date2):
 
 def dsz(request):
     if request.method == 'POST':
-        uploaded_file = request.FILES['document'].read().decode('utf-8-sig').replace('\r', '').replace('\n\n', '\n').split('\n')
+        uploaded_file = request.FILES['document'].read()
         dataJson = dispatchDataParse(uploaded_file)
         result = None
         for block in dataJson:
