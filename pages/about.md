@@ -44,6 +44,7 @@ Students:
 * Domen Kulovec
 * Gašper Tomič
 * Gašper Šircelj
+* Ema Turnšek
 
 ## Funding
 The project is currently run on volunteer base. 
