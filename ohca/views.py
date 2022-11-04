@@ -419,9 +419,31 @@ def second_form_name_view(request):
                     intID += str(form2.cleaned_data[field])
             print(intID)
 
-            if len(intID) != 12 and form1.cleaned_data["reaTimestamp"] == None:
+               
+            # -------- rabimo ali podatek za intervention ID ali za case ID (ime, priimek, cas zastoja) ------------
+            
+            missingNonIdData = form1.cleaned_data["name"] == None or form1.cleaned_data["surname"] == None or form1.cleaned_data["reaTimestamp"] == None or form1.cleaned_data["dateOfCA"] == None
+            
+            cases = []
+            if len(intID) != 12 and not missingNonIdData:
+                first_name = (form1.cleaned_data['name']).strip().split(" ")
+                last_name = (form1.cleaned_data['surname']).strip().split(" ")
+                id = generate_case_id(first_name, last_name, str(form1.cleaned_data["dateOfCA"]), str(form1.cleaned_data["reaTimestamp"]))
+                cases = CaseReport.objects.all().filter(caseID__exact=id)#[0]
+            else:
+                if form1.cleaned_data["dateOfCA"] == None:
+                    date = "20" + str(intID)[2] + str(intID)[3] + "-" + str(intID)[4] + str(intID)[5] + "-" + str(intID)[6] + str(intID)[7]
+                dispatch_id = generate_dispatch_id(str(intID), str(date))
+                cases = CaseReport.objects.all().filter(dispatchID__exact=dispatch_id)#[0]
+
+        
+            if len(intID) != 12 and missingNonIdData:
                 messages.error(request, 'Izpolnite ali intervencijsko številko ali naslednje podatke: ime, priimek, datum dogodka, čas dogodka.')
-                
+
+            #--------- posebej primer ko so polja izpolnjena in se zračuna ID ampak ID-ja ni v bazi -----------
+            elif len(cases) == 0:
+                messages.error(request, 'Tega primera ni v bazi! Preverite ali ste pravilno vnesli podatke! Čas srčnega zastoja mora biti enak tistemu, ki ste ga vpisali, ko ste prvič izpolnjevali obrazec! Če želite čas spremeniti se obrnite na pomoč.')
+            
             else:
                 messages.success(request, 'Podatki uspešno oddani!')
                 
