@@ -1,7 +1,6 @@
 from ohca.forms import generate_dispatch_id
 from ohca.models import *
-import csv
-from datetime import datetime
+import pandas as pd
 
 def to_CaseReport(json, caseKey):
     try:
@@ -12,6 +11,19 @@ def to_CaseReport(json, caseKey):
         return True
     except:
         return False
+
+def update_CaseReport(json, caseKey):
+    try:
+        i = 0
+        if caseKey == 'dispatchID':
+            i = CaseReport.objects.filter(dispatchID=json['dispatchID']).update(defaults=json)
+        elif caseKey == 'caseID':
+            i = CaseReport.objects.filter(caseID=json['caseID']).update(defaults=json)
+            if i == 0:
+                return 2
+        return 1
+    except:
+        return 0
 
 def to_Locale(json):
     entry = None
@@ -32,74 +44,97 @@ def to_System(json, id):
 def validate_post(request):
     return request.method == 'POST'
 
-def parseTime(time: str):
-    timestampFormat1 = '%Y-%m-%d %H:%M:%S.%f'
-    timestampFormat2 = '%d.%m.%Y %H:%M'
-    if time != None:
-        try:
-            timestamp = datetime.strptime(time, timestampFormat1)
-        except:
-            try:
-               timestamp = datetime.strptime(time, timestampFormat2)
-            except:
-                return None
-        return timestamp
-    
-    return None
-
-def parseHelperCPR(data):
-    if data != None:
-        try:
-            parseTime(data)
-            return 1
-        except:
-            return 0
-    return 0
-
 def calcSeconds(time, beginning):
     timestamp = time
     if timestamp != None and beginning != None:
         delta = timestamp - beginning
         return int(delta.total_seconds())
 
+rowNames = {
+    'interventionID': 'ID_Prevoza',
+    'mainInterventionID': 'ID_Osnovnega_prevoza',
+    'callTimestamp': 'Čas sprejema klica v dispečerski center (dvig telefona)',
+    'dispIdentifiedCA': 'Dispečer je prepoznal prisotnost zastoja srca pred prihodom NMP',
+    'dispProvidedCPRinst': 'Ali je dispečer/NMP dal navodila po telefonu za oživljanje/TPO?',
+    'timestampTCPR': 'Čas, ko je dispečer dal navodila za oživljanje po telefonu',
+    'responseTimestamp': 'Čas prihoda NMP na kraj dogodka',
+    'CPRbystander3Timestamp': 'Čas, ko je očividec pričel z oživljanjem (TPO)',
+    'leftScene5Timestamp': 'Čas odhoda s kraja dogodka',
+    'hospitalArrival6Timestamp': 'čas prihoda v bolnišnico',
+    'firstResponder': 'Ali je bil na kraj zastoja poslana oseba, da nudi pomoč/oživljanje (npr. prvi posredovalec)?',
+    'reaTimestamp': 'Čas nastanka srčnega zastoja iz klica',
+    'AEDconn': 'Na_kraju_AED',
+    'AEDshock': 'Zacetek_AED (1.,def)'
+}
+
+timestampsDSZ = {
+    'timestampTCPR': 'timeTCPR',
+    'responseTimestamp': 'responseTime',
+    'CPRbystander3Timestamp': 'CPRbystander3Time',
+    'leftScene5Timestamp': 'leftScene5Time',
+    'hospitalArrival6Timestamp': 'hospitalArrival6Time',
+    'reaTimestamp': 'reaTime'
+}
+
+copyDSZ = [
+    'dispIdentifiedCA',
+    'dispProvidedCPRinst'
+]
+
+implicitTrueDSZ = [
+    'firstResponder',
+    'AEDconn', 'AEDshock'
+]
+
+def implicitTrue(value):
+    if value in [0, -1, -2]:
+        return value
+    else:
+        return 1
+
 def dispatchDataParse(data):
     output = []
-    reader = csv.DictReader(data, delimiter=';', quotechar='"')
-    for row in reader:
-        if len(row) == 0:
-            continue
-
-        for key,val in row.items():
-            if "NULL" in val:
-                row[key] = None
-
+    reader = pd.read_excel(data, header=1, usecols="A:N")
+    for i, row in reader.iterrows():
         item = dict()
+
+        # Calculate and store identifiers
+        item["interventionID"] = f'0{row[rowNames["interventionID"]]}'
+        item["mainInterventionID"] = f'0{row[rowNames["mainInterventionID"]]}'
         item['dispatchID'] = generate_dispatch_id(
-            row['ID_Prevoza'],
-            str('20' + row['ID_Prevoza'][2:3] + '-' + row['ID_Prevoza'][4:5] + '-' + row['ID_Prevoza'][6:7]
-        ))
-        item["interventionID"] = '0' + row['ID_Prevoza']
-        item["mainInterventionID"] = '0' + row['ID_Osnovnega_prevoza']
-        # item["reaTime"]
-        item["callTimestamp"] = parseTime(row['Dvig'])
-        time0 = item["callTimestamp"]
-        item["dispProvidedCPRinst"] = int(not parseTime(row['Zacetek_TPO']))
-        item["timestampTCPR"] = parseTime(row['Zacetek_TPO'])
-        item["timeTCPR"] = calcSeconds(item['timestampTCPR'], time0)
-        # item["CPRbystander3Time"]
-        item["helperCPR"] = parseHelperCPR(parseTime(row['Aktivacija_PP']))
+            item["interventionID"],
+            f'20{item["interventionID"][2:4]}-{item["interventionID"][4:6]}-{item["interventionID"][6:8]}'
+        )
+        
+        # helperWho is a constant for DSZ cases
         item["helperWho"] = 3
-        # item["CPRhelper3Time"]
-        item["responseTimestamp"] = parseTime(row['Na_kraju_dogodka'])
-        item["responseTime"] = calcSeconds(item["responseTimestamp"], time0)
-        #item["AEDconn"] = int(not parseTime(row['Na_kraju_AED']))
-        item["AEDshock"] = int(not parseTime(row['Zacetek_AED']))
-        item["defibTimestamp"] = parseTime(row['Zacetek_AED'])
-        item["defibTime"] = calcSeconds(item["defibTimestamp"], time0)
-        item["leftScene5Timestamp"] = parseTime(row['S_kraja_dogodka'])
-        item["leftScene5Time"] = calcSeconds(item["leftScene5Timestamp"], time0)
-        item["hospitalArrival6Timestamp"] = parseTime(row['Na_cilju'])
-        item["hospitalArrival6Time"] = calcSeconds(item["hospitalArrival6Timestamp"], time0)
+        
+        # Take care of the fields that should just be copied
+        for name in copyDSZ:
+            value = row[rowNames[name]]
+            if pd.notnull(reader.loc[i, rowNames[name]]):
+                item[name] = int(value)
+
+        # Convert timestamp into implicit true
+        for name in implicitTrueDSZ:
+            value = row[rowNames[name]]
+            if pd.notnull(reader.loc[i, rowNames[name]]):
+                item[name] = implicitTrue(value)
+        
+        # Take care of all the timestamps
+        for name in ['callTimestamp'] + list(timestampsDSZ.keys()):
+            time = row[rowNames[name]].to_pydatetime()
+            if pd.notnull(reader.loc[i, rowNames[name]]):
+                item[name] = time
+
+        # Calculate all the times
+        if "callTimestamp" in item:
+            time0 = item["callTimestamp"]
+            for timestamp, time in timestampsDSZ.items():
+                value = row[rowNames[timestamp]]
+                if pd.notnull(reader.loc[i, rowNames[timestamp]]):
+                    delta = value - time0
+                    item[time] = int(delta.total_seconds())
 
         output.append(item)
 

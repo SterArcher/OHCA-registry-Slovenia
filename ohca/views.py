@@ -138,17 +138,29 @@ def day_difference(date1, date2):
 
 # ================== FOR UPLOADING DSZ DATA DUMPS ===================================
 
+def slovnicno_stevilo(number, ednina, dvojina, mnozina):
+    if number % 100 < 10 and number % 10 == 2:
+        return dvojina
+    if number % 100 < 10 and number % 10 == 1:
+        return ednina
+    else:
+        return mnozina
+
 def dsz(request):
     if request.method == 'POST':
-        uploaded_file = request.FILES['document'].read().decode('utf-8-sig').replace('\r', '').replace('\n\n', '\n').split('\n')
+        uploaded_file = request.FILES['document'].read()
         dataJson = dispatchDataParse(uploaded_file)
-        result = None
+        result = []
         for block in dataJson:
-            result = to_CaseReport(block, 'dispatchID')
-        if result:
-            messages.success(request, 'Podatki uspešno oddani!')
-        else:
-            messages.error(request, "Napaka pri obdelavi podatkov!")     
+            result.append(update_CaseReport(block, 'dispatchID'))
+        if 0 in result:
+            messages.error(request, "Napaka pri obdelavi podatkov!")
+            return render(request, 'ohca/dsz.html')
+        warnings = result.count(2)
+        if warnings > 0:
+            messages.warning(request, f'{warnings} {slovnicno_stevilo(warnings, "primer ni bil posodobljen!", "primera nista bila posodobljena!", "primerov ni bilo posodobljenih!")} Vnos ni obstajal v bazi.')
+        if 1 in result:
+            messages.success(request, 'Podatki uspešno oddani!')     
     return render(request, 'ohca/dsz.html')
 
 # ================== FORMS ==========================================================
