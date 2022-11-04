@@ -445,7 +445,7 @@ def second_form_name_view(request):
             else:
                 if form1.cleaned_data["dateOfCA"] == None:
                     date = "20" + str(intID)[2] + str(intID)[3] + "-" + str(intID)[4] + str(intID)[5] + "-" + str(intID)[6] + str(intID)[7]
-                dispatch_id = generate_dispatch_id(str(intID), str(date))
+                dispatch_id = generate_dispatch_id(str(intID), str(form1.cleaned_data['dateOfCA']))
                 cases = CaseReport.objects.all().filter(dispatchID__exact=dispatch_id)#[0]
 
         
