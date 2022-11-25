@@ -3,7 +3,8 @@
  Featuresdate: 2022-11-25 14:00:00 -0000
  categories: grant, money, funding, collaboration, university of Maribor
  tags: grant, money, funding, collaboration, university of Maribor
- ---
+---
+ 
 We are thrilled to announce that we have been awarded a grant from the University of Maribor.
 
 This means we can begin development on version 2.0 and employ two more team members. We are delighted to get the assistance we require and look forward to working with our mentor, Tomaž Gornik with [Better care company](http://better.care/webinar/openehr-bringing-theory-to-life/).
