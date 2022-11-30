@@ -16,9 +16,9 @@ def update_CaseReport(json, caseKey):
     try:
         i = 0
         if caseKey == 'dispatchID':
-            i = CaseReport.objects.filter(dispatchID=json['dispatchID']).update(defaults=json)
+            i = CaseReport.objects.filter(dispatchID=json['dispatchID']).update(**json)
         elif caseKey == 'caseID':
-            i = CaseReport.objects.filter(caseID=json['caseID']).update(defaults=json)
+            i = CaseReport.objects.filter(caseID=json['caseID']).update(**json)
             if i == 0:
                 return 2
         return 1
@@ -58,7 +58,7 @@ rowNames = {
     'dispProvidedCPRinst': 'Ali je dispečer/NMP dal navodila po telefonu za oživljanje/TPO?',
     'timestampTCPR': 'Čas, ko je dispečer dal navodila za oživljanje po telefonu',
     'responseTimestamp': 'Čas prihoda NMP na kraj dogodka',
-    'CPRbystander3Timestamp': 'Čas, ko je očividec pričel z oživljanjem (TPO)',
+    'cPRbystander3Timestamp': 'Čas, ko je očividec pričel z oživljanjem (TPO)',
     'leftScene5Timestamp': 'Čas odhoda s kraja dogodka',
     'hospitalArrival6Timestamp': 'čas prihoda v bolnišnico',
     'firstResponder': 'Ali je bil na kraj zastoja poslana oseba, da nudi pomoč/oživljanje (npr. prvi posredovalec)?',
@@ -70,7 +70,7 @@ rowNames = {
 timestampsDSZ = {
     'timestampTCPR': 'timeTCPR',
     'responseTimestamp': 'responseTime',
-    'CPRbystander3Timestamp': 'CPRbystander3Time',
+    'cPRbystander3Timestamp': 'cPRbystander3Time',
     'leftScene5Timestamp': 'leftScene5Time',
     'hospitalArrival6Timestamp': 'hospitalArrival6Time',
     'reaTimestamp': 'reaTime'
@@ -136,6 +136,7 @@ def dispatchDataParse(data):
                     delta = value - time0
                     item[time] = int(delta.total_seconds())
 
+        print(item)
         output.append(item)
 
     return output
