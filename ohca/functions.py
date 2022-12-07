@@ -1,6 +1,7 @@
 from ohca.forms import generate_dispatch_id
 from ohca.models import *
 import pandas as pd
+from datetime import datetime
 
 def to_CaseReport(json, caseKey):
     try:
@@ -94,7 +95,7 @@ def implicitTrue(value):
 
 def dispatchDataParse(data):
     output = []
-    reader = pd.read_excel(data, header=1, usecols="A:N")
+    reader = pd.read_excel(data, header=1, usecols="A:N", na_values=[" ", '\xa0'])
     for i, row in reader.iterrows():
         item = dict()
 
@@ -123,7 +124,7 @@ def dispatchDataParse(data):
         
         # Take care of all the timestamps
         for name in ['callTimestamp'] + list(timestampsDSZ.keys()):
-            time = row[rowNames[name]].to_pydatetime()
+            time = row[rowNames[name]] #.to_pydatetime()
             if pd.notnull(reader.loc[i, rowNames[name]]):
                 item[name] = time
 
@@ -132,7 +133,7 @@ def dispatchDataParse(data):
             time0 = item["callTimestamp"]
             for timestamp, time in timestampsDSZ.items():
                 value = row[rowNames[timestamp]]
-                if pd.notnull(reader.loc[i, rowNames[timestamp]]):
+                if pd.notnull(reader.loc[i, rowNames[timestamp]]) and isinstance(value, datetime) and isinstance(time0, datetime):
                     delta = value - time0
                     item[time] = int(delta.total_seconds())
 
