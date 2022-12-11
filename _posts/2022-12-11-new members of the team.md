@@ -3,7 +3,8 @@
  Featuresdate: 2022-12-11 15:00:00 -0000
  categories: growing, HR, team members
  tags: growing, HR, team members
- ---
+---
+
 As the Siohca project continues to grow and evolve, we are excited to welcome three new team members to our ranks.
 
 First, we have Ema, a law student who brings a unique perspective and set of skills to the team. With her background in legal studies, Ema will be a valuable asset as we navigate the complex landscape of regulations and compliance in the tech industry.
