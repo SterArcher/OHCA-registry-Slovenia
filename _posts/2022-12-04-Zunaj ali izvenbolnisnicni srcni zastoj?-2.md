@@ -3,7 +3,7 @@
  Featuresdate: 2022-12-04 22:00:00 -0000
  categories: language, slovenian
  tags: language, slovenian  
- ---
+---
 
 Pri našem projektu nam je pomembno, da pripravljamo rešitev za slovensko okolje v slovenskem jeziku. Pomembno je, da se slovenski jezik uporavblja tudi v raziskovalne namene in se tako krepi in ostaja pomemben.
 
