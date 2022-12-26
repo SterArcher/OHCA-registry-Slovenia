@@ -7,7 +7,7 @@ z = confidence percentage //Confidence Interval	  85%	1.440   90%  	1.645   95%	
 
 
 
-confidence interval = p ± (1.645 * se) //Z for 90% is 1.645
+confidence interval = p ± (z * se) //Z for 90% is 1.645
 
 // table of the total number of patients
 select 
