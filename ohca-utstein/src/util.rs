@@ -44,4 +44,7 @@ mod tests {
 
         assert_eq!(vec_to_hashmap(vec), hashmap);
     }
+
+
+    
 }
