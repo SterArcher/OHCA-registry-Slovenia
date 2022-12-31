@@ -18,6 +18,8 @@ def update_CaseReport(json, caseKey):
         i = 0
         if caseKey == 'dispatchID':
             i = CaseReport.objects.filter(dispatchID=json['dispatchID']).update(**json)
+            if i == 0:
+                return 2
         elif caseKey == 'caseID':
             i = CaseReport.objects.filter(caseID=json['caseID']).update(**json)
             if i == 0:

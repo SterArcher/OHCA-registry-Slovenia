@@ -160,7 +160,7 @@ def dsz(request):
         if warnings > 0:
             messages.warning(request, f'{warnings} {slovnicno_stevilo(warnings, "primer ni bil posodobljen!", "primera nista bila posodobljena!", "primerov ni bilo posodobljenih!")} Vnos ni obstajal v bazi.')
         if 1 in result:
-            messages.success(request, 'Podatki uspešno oddani!')     
+            messages.success(request, f'Podatki uspešno oddani! Posodobljenih je bilo {result.count(1)} vnosov')     
     return render(request, 'ohca/dsz.html')
 
 # ================== FORMS ==========================================================
