@@ -2,6 +2,7 @@ from ohca.forms import generate_dispatch_id
 from ohca.models import *
 import pandas as pd
 from datetime import datetime
+import traceback
 
 def to_CaseReport(json, caseKey):
     try:
@@ -115,7 +116,7 @@ def dispatchDataParse(data):
 
         # helperWho is a constant for DSZ cases
         item["helperWho"] = 3
-        
+
         # Take care of the fields that should just be copied
         for name in copyDSZ:
             value = row[rowNames[name]]
@@ -127,7 +128,7 @@ def dispatchDataParse(data):
             value = row[rowNames[name]]
             if pd.notnull(reader.loc[i, rowNames[name]]):
                 item[name] = implicitTrue(value)
-        
+
         # Take care of all the timestamps
         for name in ['callTimestamp'] + list(timestampsDSZ.keys()):
             time = row[rowNames[name]] #.to_pydatetime()
@@ -143,9 +144,8 @@ def dispatchDataParse(data):
                     delta = value - time0
                     item[time] = int(delta.total_seconds())
 
-        print(item)
         output[item["interventionID"]] = item
-
+    print(ids)
     return ids, output
 
 def createDispatchMinimizedJsonList(IdDict, JSON):
@@ -158,12 +158,13 @@ def createDispatchMinimizedJsonList(IdDict, JSON):
                 value = JSON[intID].get(fieldName)
                 if value != None:
                     values.add(value)
-            output[mainID][fieldName] = min(values)
+            if len(values) != 0:
+                output[mainID][fieldName] = min(values)
         # These should get removed, minimized output is a combination of multiple entries and sould
         # be identified by mainInterventionID
         output[mainID].pop("interventionID")
         output[mainID].pop("dispatchID")
-        
+
         # Calculate all the times just in case any of the timestamps changed
         time0 = output[mainID].get("callTimestamp")
         if time0 != None:
@@ -173,13 +174,13 @@ def createDispatchMinimizedJsonList(IdDict, JSON):
                     continue
                 delta = value - time0
                 output[mainID][time] = int(delta.total_seconds())
-    
-    return output
+
+    return output.values()
 
 def updateMainIds(IdDict):
     result = []
-    try: 
-        for main, interventions in IdDict:
+    try:
+        for main, interventions in IdDict.items():
             i = 0
             for intervention in interventions:
                 i = CaseReport.objects.filter(interventionID=intervention).update(mainInterventionID=main)
@@ -188,8 +189,9 @@ def updateMainIds(IdDict):
                 continue
             result.append(1)
     except:
-        result.append(0) 
-    return result   
+        traceback.print_exc()
+        result.append(0)
+    return result
 
 def updateCaseReportByMainIntId(json):
     try:
@@ -201,4 +203,5 @@ def updateCaseReportByMainIntId(json):
             return 2
         return 1
     except:
-        return 0 
+        traceback.print_exc()
+        return 0
