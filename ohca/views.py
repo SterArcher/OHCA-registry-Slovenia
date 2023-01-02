@@ -149,10 +149,13 @@ def slovnicno_stevilo(number, ednina, dvojina, mnozina):
 def dsz(request):
     if request.method == 'POST':
         uploaded_file = request.FILES['document'].read()
-        dataJson = dispatchDataParse(uploaded_file)
+        idDict, parsedValues = dispatchDataParse(uploaded_file)
+        updateMainIDsResult = updateMainIds(idDict)
+        print(f'updateMainIDsResult: {updateMainIDsResult}')
+        dataJson = createDispatchMinimizedJsonList(idDict, parsedValues)
         result = []
         for block in dataJson:
-            result.append(update_CaseReport(block, 'dispatchID'))
+            result.append(updateCaseReportByMainIntId(block))
         if 0 in result:
             messages.error(request, "Napaka pri obdelavi podatkov!")
             return render(request, 'ohca/dsz.html')

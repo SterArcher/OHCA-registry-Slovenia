@@ -96,7 +96,8 @@ def implicitTrue(value):
         return 1
 
 def dispatchDataParse(data):
-    output = []
+    ids = dict()
+    output = dict()
     reader = pd.read_excel(data, header=1, usecols="A:N", na_values=[" ", '\xa0'])
     for i, row in reader.iterrows():
         item = dict()
@@ -108,7 +109,10 @@ def dispatchDataParse(data):
             item["interventionID"],
             f'20{item["interventionID"][2:4]}-{item["interventionID"][4:6]}-{item["interventionID"][6:8]}'
         )
-        
+
+        # Make a dict with distinct intervention IDs
+        ids[item["mainInterventionID"]] = ids.get(item["mainInterventionID"], []) + [item["interventionID"]]
+
         # helperWho is a constant for DSZ cases
         item["helperWho"] = 3
         
@@ -140,6 +144,61 @@ def dispatchDataParse(data):
                     item[time] = int(delta.total_seconds())
 
         print(item)
-        output.append(item)
+        output[item["interventionID"]] = item
 
+    return ids, output
+
+def createDispatchMinimizedJsonList(IdDict, JSON):
+    output = dict()
+    for mainID, intIDs in IdDict.items():
+        output.setdefault(mainID, JSON[mainID]) # Make sure that an entry exists
+        for fieldName in rowNames.keys():
+            values = set()
+            for intID in intIDs:
+                value = JSON[intID].get(fieldName)
+                if value != None:
+                    values.add(value)
+            output[mainID][fieldName] = min(values)
+        # These should get removed, minimized output is a combination of multiple entries and sould
+        # be identified by mainInterventionID
+        output[mainID].pop("interventionID")
+        output[mainID].pop("dispatchID")
+        
+        # Calculate all the times just in case any of the timestamps changed
+        time0 = output[mainID].get("callTimestamp")
+        if time0 != None:
+            for timestamp, time in timestampsDSZ.items():
+                value = output[mainID].get(timestamp)
+                if value == None:
+                    continue
+                delta = value - time0
+                output[mainID][time] = int(delta.total_seconds())
+    
     return output
+
+def updateMainIds(IdDict):
+    result = []
+    try: 
+        for main, interventions in IdDict:
+            i = 0
+            for intervention in interventions:
+                i = CaseReport.objects.filter(interventionID=intervention).update(mainInterventionID=main)
+            if i == 0:
+                result.append(2)
+                continue
+            result.append(1)
+    except:
+        result.append(0) 
+    return result   
+
+def updateCaseReportByMainIntId(json):
+    try:
+        i = 0
+        count = CaseReport.objects.filter(mainInterventionID=json['mainInterventionID']).count()
+        if count == 1:
+            i = CaseReport.objects.filter(mainInterventionID=json['mainInterventionID']).update(**json)
+        if i == 0:
+            return 2
+        return 1
+    except:
+        return 0 
