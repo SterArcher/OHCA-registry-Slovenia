@@ -94,7 +94,7 @@ class index(TemplateView):
 # ================== EURECA3 EXPORT ==============================
 from ohca.eureca_export import all_cases, header
 
-def download_eureca(request):
+def download_eureca_csv(request):
     
     response = HttpResponse(content_type='text/csv', charset="utf-8-sig")
     writer = csv.writer(response, delimiter=";")
@@ -108,6 +108,25 @@ def download_eureca(request):
     writer.writerows(rows)
 
     response['Content-Disposition'] = 'attachment; filename="eureca_export.csv"'
+    return response
+
+import pandas as pd
+from django.http import HttpResponse
+
+
+def download_eureca(request):
+
+    rows = []
+    for case in all_cases:
+        row = list(case.values())
+        rows.append(list(row))
+
+    df = pd.DataFrame(rows, columns=header)
+
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = f'attachment; filename=excel_filename.xlsx'
+    df.to_excel(response, index=False)
+    
     return response
 
 class eureca(TemplateView):

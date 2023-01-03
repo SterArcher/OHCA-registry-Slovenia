@@ -4,10 +4,10 @@ from ohca.models import CaseReport, Locale
 import datetime
 from datetime import datetime
 
-# TODO should export excel not csv
+# DONE should export excel not csv
 # TODO double check the fields and values in eureca_variables.json
 # DONE our timestamps include the date and time zone - but it has to be just hh:mm:ss
-# TODO municipality names dont contain čžš 
+# DONE municipality names dont contain čžš 
 # DONE reaPop has to be added manually for all municipalities from Locale db
 # TODO update population values in the db!
 # DONE check if the right times are exported or if time has to be 'changed' (based on timezone)
@@ -104,5 +104,6 @@ for case in all_cases:
         elif variable in eureca_variables and case[variable] != None: # if it's in the json file it has to be converted
             # convert the variables based on the eureca_variables.json
             case[variable] = eureca_variables[variable]["encoding"][str(case[variable])]
-        case["reaPop"] = population[case["reaRegion"]]
+        if case["reaRegion"] != None:
+            case["reaPop"] = population[case["reaRegion"]]
 
