@@ -3,6 +3,7 @@ use std::time::Duration;
 use sqlx::mysql::MySqlPoolOptions;
 use sqlx::MySqlPool;
 
+mod confidence_intervals;
 mod types;
 mod util;
 

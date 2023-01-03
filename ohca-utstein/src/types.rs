@@ -28,9 +28,9 @@ impl Utstein {
     pub async fn new(pool: &MySqlPool) -> Self {
         let mean_avg = sqlx::query!(
             r#"
-                select avg(responseTime) as "mean!: f64" , std(responseTime) as "std!: f64"
-                from cases
-                where responseTime is not null;
+                SELECT AVG(responseTime) as "mean!: f64" , STD(responseTime) AS "std!: f64"
+                FROM cases
+                WHERE responseTime IS NOT NULL;
             "#
         )
         .fetch_one(pool)
@@ -42,10 +42,10 @@ impl Utstein {
 
         let sum = sqlx::query!(
             r#"
-                select 
-                    sum(population) as "population!: i64",
-                    sum(attendedCAs) as "attendedCAs!: i64"
-                from systems;
+                SELECT 
+                    SUM(population) AS "population!: i64",
+                    SUM(attendedCAs) AS "attendedCAs!: i64"
+                FROM systems;
             "#
         )
         .fetch_one(pool)
@@ -84,11 +84,11 @@ impl DispatcherIdCA {
         let records = sqlx::query_as!(
             QueryResult::<Option<i16>>,
             r#"
-                select 
-                    dispIdentifiedCA as value,
-                    count(*) as count
-                from cases
-                group by dispIdentifiedCA;
+                SELECT 
+                    dispIdentifiedCA AS value,
+                    count(*) AS count
+                FROM cases
+                GROUP BY dispIdentifiedCA;
             "#,
         )
         .fetch_all(pool)
@@ -116,11 +116,11 @@ impl DispatcherCPR {
         let records = sqlx::query_as!(
             QueryResult::<Option<i16>>,
             r#"
-                select 
-                    dispProvidedCPRinst as value,
-                    count(*) as count
-                from cases
-                group by dispProvidedCPRinst;
+                SELECT 
+                    dispProvidedCPRinst AS value,
+                    count(*) AS count
+                FROM cases
+                GROUP BY dispProvidedCPRinst;
             "#,
         )
         .fetch_all(pool)
@@ -154,14 +154,14 @@ impl RescAttempted {
         let records = sqlx::query_as!(
             QueryResult::<Option<i16>>,
             r#"
-                select 
-                    firstMonitoredRhy as value,
-                    count(*) as count
-                from cases
-                where bystanderResponse between 1 and 2
-                or bystanderAED between 1 and 2
-                or mechanicalCPR between 1 and 3
-                group by firstMonitoredRhy;
+                SELECT 
+                    firstMonitoredRhy AS value,
+                    COUNT(*) AS count
+                FROM cases
+                WHERE bystanderResponse BETWEEN 1 AND 2
+                OR bystanderAED BETWEEN 1 AND 2
+                OR mechanicalCPR BETWEEN 1 AND 3
+                GROUP BY firstMonitoredRhy;
             "#,
         )
         .fetch_all(pool)
@@ -196,14 +196,14 @@ impl RescNotAttempted {
         let records = sqlx::query_as!(
             QueryResult::<Option<i16>>,
             r#"
-                select
-                    firstMonitoredRhy as value,
-                    count(*) as count
-                from cases
-                where bystanderResponse between 1 and 2
-                or bystanderAED between 1 and 2
-                or mechanicalCPR between 1 and 3
-                group by firstMonitoredRhy;
+                SELECT
+                    firstMonitoredRhy AS value,
+                    COUNT(*) AS count
+                FROM cases
+                WHERE bystanderResponse BETWEEN 1 AND 2
+                OR bystanderAED BETWEEN 1 AND 2
+                OR mechanicalCPR BETWEEN 1 AND 3
+                GROUP BY firstMonitoredRhy;
             "#,
         )
         .fetch_all(pool)
@@ -214,9 +214,9 @@ impl RescNotAttempted {
         let system_data = sqlx::query!(
             r#"
                 SELECT 
-                    sum(attendedCAs) - sum(attemptedResusc) as "not_attempted!: i64",
-                    sum(casesDNR) as "dnar!: i64",
-                    sum(casesCirculation) as "signs_of_life!: i64"
+                    SUM(attendedCAs) - SUM(attemptedResusc) AS "not_attempted!: i64",
+                    SUM(casesDNR) AS "dnar!: i64",
+                    SUM(casesCirculation) AS "signs_of_life!: i64"
                 FROM systems;
             "#
         )
@@ -226,7 +226,7 @@ impl RescNotAttempted {
 
         let obv_dead = sqlx::query!(
             r#"
-                select count(*) as count from cases where deadOnArrival = 1;
+                SELECT COUNT(*) AS count FROM cases WHERE deadOnArrival = 1;
             "#,
         )
         .fetch_one(pool)
