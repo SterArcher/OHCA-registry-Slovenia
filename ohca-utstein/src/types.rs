@@ -26,19 +26,22 @@ struct Utstein {
 
 impl Utstein {
     pub async fn new(pool: &MySqlPool) -> Self {
-        let mean_avg = sqlx::query!(
+        let response_times: Vec<i64> = sqlx::query!(
             r#"
-                SELECT AVG(responseTime) as "mean!: f64" , STD(responseTime) AS "std!: f64"
+                SELECT responseTime
                 FROM cases
                 WHERE responseTime IS NOT NULL;
             "#
         )
-        .fetch_one(pool)
+        .fetch_all(pool)
         .await
-        .unwrap();
+        .unwrap()
+        .iter()
+        .filter_map(|r| r.responseTime)
+        .collect();
 
-        let fractile = 1.28 * mean_avg.std + mean_avg.mean;
-        let duration = NaiveTime::from_num_seconds_from_midnight_opt(fractile as u32, 0).unwrap();
+        // let fractile = 1.28 * mean_avg.std + mean_avg.mean;
+        // let duration = NaiveTime::from_num_seconds_from_midnight_opt(fractile as u32, 0).unwrap();
 
         let sum = sqlx::query!(
             r#"
@@ -57,7 +60,7 @@ impl Utstein {
             cardiac_arrests_attended: sum.attendedCAs,
             dispatcher_id_ca: DispatcherIdCA::new(pool).await,
             dispatcher_cpr: DispatcherCPR::new(pool).await,
-            response_times: duration.to_string(), // might be an incorrect format
+            response_times: String::new(),
             resc_attempted: RescAttempted::new(pool).await,
             resc_not_attempted: todo!(),
             location: todo!(),

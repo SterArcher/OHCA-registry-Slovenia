@@ -1,0 +1,2386 @@
+{
+  "db": "MySQL",
+  "2279e686484c2adf3046a61bf88d45a6cf05f5a234c2f30f8a2e801b96d51b3a": {
+    "describe": {
+      "columns": [
+        {
+          "name": "value",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "count",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 129
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        false
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT \n                    dispProvidedCPRinst AS value,\n                    count(*) AS count\n                FROM cases\n                GROUP BY dispProvidedCPRinst;\n            "
+  },
+  "3d549f4fa2e86c6eab7dfb482cf0ef6a80cfcff18c1504a81757c26920c03f55": {
+    "describe": {
+      "columns": [
+        {
+          "name": "numID",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 515
+            },
+            "max_size": 20,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "caseID",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 8
+            },
+            "max_size": 256,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "dispatchID",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 8
+            },
+            "max_size": 256,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "reaPop",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 11,
+            "type": "Long"
+          }
+        },
+        {
+          "name": "interventionID",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 48,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "mainInterventionID",
+          "ordinal": 5,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 48,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "emergencyTransport",
+          "ordinal": 6,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "cardiacArrest",
+          "ordinal": 7,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "dispIdentifiedCA",
+          "ordinal": 8,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "dispProvidedCPRinst",
+          "ordinal": 9,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "callTimestamp",
+          "ordinal": 10,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "estimatedCallTimestamp",
+          "ordinal": 11,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "firstResponder",
+          "ordinal": 12,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "noFirstResponder",
+          "ordinal": 13,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "dateOfCA",
+          "ordinal": 14,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 10,
+            "type": "Date"
+          }
+        },
+        {
+          "name": "name",
+          "ordinal": 15,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 800,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "surname",
+          "ordinal": 16,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 800,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "age",
+          "ordinal": 17,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "estimatedAge",
+          "ordinal": 18,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "dateOfBirth",
+          "ordinal": 19,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 10,
+            "type": "Date"
+          }
+        },
+        {
+          "name": "gender",
+          "ordinal": 20,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "genderUtstein",
+          "ordinal": 21,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "witnesses",
+          "ordinal": 22,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "reaWitnesses",
+          "ordinal": 23,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "location",
+          "ordinal": 24,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "reaLocation",
+          "ordinal": 25,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "CAtimestamp",
+          "ordinal": 26,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "estimatedCAtimestamp",
+          "ordinal": 27,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "bystanderResponse",
+          "ordinal": 28,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "bystanderResponseTime",
+          "ordinal": 29,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 20,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "bystanderResponseTimestamp",
+          "ordinal": 30,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "bystanderCPR",
+          "ordinal": 31,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "CPRdone",
+          "ordinal": 32,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "bystanderAED",
+          "ordinal": 33,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "bystanderAEDTimestamp",
+          "ordinal": 34,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "deadOnArrival",
+          "ordinal": 35,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "diedOnField",
+          "ordinal": 36,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "firstMonitoredRhy",
+          "ordinal": 37,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "iniRythm",
+          "ordinal": 38,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "pathogenesis",
+          "ordinal": 39,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "independentLiving",
+          "ordinal": 40,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "comorbidities",
+          "ordinal": 41,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "vad",
+          "ordinal": 42,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "cardioverterDefib",
+          "ordinal": 43,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "stemiPresent",
+          "ordinal": 44,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "responseTime",
+          "ordinal": 45,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 20,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "responseTimestamp",
+          "ordinal": 46,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "estimatedResponseTime",
+          "ordinal": 47,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "defibTime",
+          "ordinal": 48,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 20,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "defibTimestamp",
+          "ordinal": 49,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "estimatedDefibTimestamp",
+          "ordinal": 50,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "firstDefibWho",
+          "ordinal": 51,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "ttm",
+          "ordinal": 52,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "ttmTemp",
+          "ordinal": 53,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "drugs",
+          "ordinal": 54,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "airwayControl",
+          "ordinal": 55,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "cprQuality",
+          "ordinal": 56,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "shocks",
+          "ordinal": 57,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "drugTimings",
+          "ordinal": 58,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 20,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "drugTimingsTimestamp",
+          "ordinal": 59,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "estimatedDrugTimings",
+          "ordinal": 60,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "vascularAccess",
+          "ordinal": 61,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "mechanicalCPR",
+          "ordinal": 62,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "targetVent",
+          "ordinal": 63,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "reperfusionAttempt",
+          "ordinal": 64,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "reperfusionTime",
+          "ordinal": 65,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "reperfusionTimestamp",
+          "ordinal": 66,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "ecls",
+          "ordinal": 67,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "iabp",
+          "ordinal": 68,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "ph",
+          "ordinal": 69,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 7,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "lactate",
+          "ordinal": 70,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 12,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "glucose",
+          "ordinal": 71,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "neuroprognosticTests",
+          "ordinal": 72,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 16
+            },
+            "max_size": 4294967295,
+            "type": "Blob"
+          }
+        },
+        {
+          "name": "ssep",
+          "ordinal": 73,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "nse",
+          "ordinal": 74,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "eeg",
+          "ordinal": 75,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "ct",
+          "ordinal": 76,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "mri",
+          "ordinal": 77,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "clinicalTest",
+          "ordinal": 78,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "otherNeuroprognosticTests",
+          "ordinal": 79,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "specialistHospital",
+          "ordinal": 80,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "hospitalName",
+          "ordinal": 81,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 4000,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "hospitalVolume",
+          "ordinal": 82,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 11,
+            "type": "Long"
+          }
+        },
+        {
+          "name": "ecg",
+          "ordinal": 83,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "ecgBLOB",
+          "ordinal": 84,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 400,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "ecgOptions",
+          "ordinal": 85,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 4000,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "ecgResult",
+          "ordinal": 86,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 4000,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "targetBP",
+          "ordinal": 87,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 12,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "survived",
+          "ordinal": 88,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "rosc",
+          "ordinal": 89,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "roscTime",
+          "ordinal": 90,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 20,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "roscTimestamp",
+          "ordinal": 91,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "estimatedRoscTimestamp",
+          "ordinal": 92,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "survivalDischarge",
+          "ordinal": 93,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "survival30d",
+          "ordinal": 94,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "SurvivalDischarge30d",
+          "ordinal": 95,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "survived12m",
+          "ordinal": 96,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "cpcDischarge",
+          "ordinal": 97,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "mrsDischarge",
+          "ordinal": 98,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "survivalStatus",
+          "ordinal": 99,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "transportToHospital",
+          "ordinal": 100,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "treatmentWithdrawn",
+          "ordinal": 101,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 11,
+            "type": "Long"
+          }
+        },
+        {
+          "name": "treatmentWithdrawnTimestamp",
+          "ordinal": 102,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "treatmentWithdrawnhours",
+          "ordinal": 103,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "cod",
+          "ordinal": 104,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 24,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "organDonation",
+          "ordinal": 105,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 11,
+            "type": "Long"
+          }
+        },
+        {
+          "name": "patientReportedOutcome",
+          "ordinal": 106,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 16
+            },
+            "max_size": 4294967295,
+            "type": "Blob"
+          }
+        },
+        {
+          "name": "qualityOfLife",
+          "ordinal": 107,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 16
+            },
+            "max_size": 4294967295,
+            "type": "Blob"
+          }
+        },
+        {
+          "name": "qualityOfLifeDone",
+          "ordinal": 108,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "reaLand",
+          "ordinal": 109,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 800,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "reaRegion",
+          "ordinal": 110,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 800,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "reaConf",
+          "ordinal": 111,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "cprEms",
+          "ordinal": 112,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "cPREMS3Time",
+          "ordinal": 113,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 11,
+            "type": "Long"
+          }
+        },
+        {
+          "name": "cPREMS3Timestamp",
+          "ordinal": 114,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "estimatedCPREMStimestamp",
+          "ordinal": 115,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "noCPR",
+          "ordinal": 116,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "reaYr",
+          "ordinal": 117,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "reaMo",
+          "ordinal": 118,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "reaDay",
+          "ordinal": 119,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "reaTime",
+          "ordinal": 120,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 11,
+            "type": "Long"
+          }
+        },
+        {
+          "name": "reaTimestamp",
+          "ordinal": 121,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "reaCause",
+          "ordinal": 122,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "timeTCPR",
+          "ordinal": 123,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 11,
+            "type": "Long"
+          }
+        },
+        {
+          "name": "timestampTCPR",
+          "ordinal": 124,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "estimatedTimestampTCPR",
+          "ordinal": 125,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "gbystnader",
+          "ordinal": 126,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "ageBystander",
+          "ordinal": 127,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "estimatedAgeBystander",
+          "ordinal": 128,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "cPRbystander3Time",
+          "ordinal": 129,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 11,
+            "type": "Long"
+          }
+        },
+        {
+          "name": "cPRbystander3Timestamp",
+          "ordinal": 130,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "estimatedCPRbystander",
+          "ordinal": 131,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "helperCPR",
+          "ordinal": 132,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "helperWho",
+          "ordinal": 133,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "persCPRstart",
+          "ordinal": 134,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "cPRhelper3Time",
+          "ordinal": 135,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 11,
+            "type": "Long"
+          }
+        },
+        {
+          "name": "cPRhelper3Timestamp",
+          "ordinal": 136,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "estimatedCPRhelperTimestamp",
+          "ordinal": 137,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "defiOrig",
+          "ordinal": 138,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "timeROSC",
+          "ordinal": 139,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 11,
+            "type": "Long"
+          }
+        },
+        {
+          "name": "timestampROSC",
+          "ordinal": 140,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "AEDshock",
+          "ordinal": 141,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "AEDconn",
+          "ordinal": 142,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "endCPR4Time",
+          "ordinal": 143,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 11,
+            "type": "Long"
+          }
+        },
+        {
+          "name": "endCPR4Timestamp",
+          "ordinal": 144,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "estimatedEndCPRtimestamp",
+          "ordinal": 145,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "leftScene5Time",
+          "ordinal": 146,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 11,
+            "type": "Long"
+          }
+        },
+        {
+          "name": "leftScene5Timestamp",
+          "ordinal": 147,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "estimatedLeftSceneTimestamp",
+          "ordinal": 148,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "hospitalArrival6Time",
+          "ordinal": 149,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 11,
+            "type": "Long"
+          }
+        },
+        {
+          "name": "hospitalArrival6Timestamp",
+          "ordinal": 150,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 26,
+            "type": "Datetime"
+          }
+        },
+        {
+          "name": "estimatedHospitalArrival",
+          "ordinal": 151,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "hospArri",
+          "ordinal": 152,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "dischDay",
+          "ordinal": 153,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "dischMonth",
+          "ordinal": 154,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "dischYear",
+          "ordinal": 155,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "discDate",
+          "ordinal": 156,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 10,
+            "type": "Date"
+          }
+        },
+        {
+          "name": "doctorName",
+          "ordinal": 157,
+          "type_info": {
+            "char_set": 224,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 4000,
+            "type": "VarString"
+          }
+        },
+        {
+          "name": "localID_id",
+          "ordinal": 158,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 8
+            },
+            "max_size": 20,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "systemID_id",
+          "ordinal": 159,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 8
+            },
+            "max_size": 20,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "SELECT * FROM cases"
+  },
+  "4fc8494e17ddc5e7a7a7038eb812b61e73a8392e18dd59484717e2868c20479c": {
+    "describe": {
+      "columns": [
+        {
+          "name": "population!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 33,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "attendedCAs!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 33,
+            "type": "NewDecimal"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT \n                    SUM(population) AS \"population!: i64\",\n                    SUM(attendedCAs) AS \"attendedCAs!: i64\"\n                FROM systems;\n            "
+  },
+  "537ec5f9db8ad2c157d3c8e0d82986c11b74f28aab8089f5b019ea3dcc15af50": {
+    "describe": {
+      "columns": [
+        {
+          "name": "value",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "count",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 129
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        false
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    firstMonitoredRhy AS value,\n                    COUNT(*) AS count\n                FROM cases\n                WHERE bystanderResponse BETWEEN 1 AND 2\n                OR bystanderAED BETWEEN 1 AND 2\n                OR mechanicalCPR BETWEEN 1 AND 3\n                GROUP BY firstMonitoredRhy;\n            "
+  },
+  "58688b15a6c77b164e8aad3b858e5ed1641053416ea06d497e1c23a94a539115": {
+    "describe": {
+      "columns": [
+        {
+          "name": "responseTime",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 20,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT responseTime\n                FROM cases\n                WHERE responseTime IS NOT NULL;\n            "
+  },
+  "5b5c3c82ac28d1d2f73de84a7f5dc8879208cced0f6ae9187e9be318ea543017": {
+    "describe": {
+      "columns": [
+        {
+          "name": "value",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "count",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 129
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        false
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT \n                    dispIdentifiedCA AS value,\n                    count(*) AS count\n                FROM cases\n                GROUP BY dispIdentifiedCA;\n            "
+  },
+  "85e4a5b6d2017a013605c331eabb18141c35c41270eca83b104f49ee95595a52": {
+    "describe": {
+      "columns": [
+        {
+          "name": "value",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 0
+            },
+            "max_size": 6,
+            "type": "Short"
+          }
+        },
+        {
+          "name": "count",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 129
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        false
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT \n                    firstMonitoredRhy AS value,\n                    COUNT(*) AS count\n                FROM cases\n                WHERE bystanderResponse BETWEEN 1 AND 2\n                OR bystanderAED BETWEEN 1 AND 2\n                OR mechanicalCPR BETWEEN 1 AND 3\n                GROUP BY firstMonitoredRhy;\n            "
+  },
+  "96b53337007d834d1fc06295f9f95597b0f5195582f145865b90d868e460e193": {
+    "describe": {
+      "columns": [
+        {
+          "name": "not_attempted!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 34,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "dnar!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 33,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "signs_of_life!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 33,
+            "type": "NewDecimal"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT \n                    SUM(attendedCAs) - SUM(attemptedResusc) AS \"not_attempted!: i64\",\n                    SUM(casesDNR) AS \"dnar!: i64\",\n                    SUM(casesCirculation) AS \"signs_of_life!: i64\"\n                FROM systems;\n            "
+  },
+  "bcb0ca044dc63e6493d9362917fe4eca9f3e25d3ef282fb0e6e8594bb3827208": {
+    "describe": {
+      "columns": [
+        {
+          "name": "count",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 129
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT COUNT(*) AS count FROM cases WHERE deadOnArrival = 1;\n            "
+  }
+}
