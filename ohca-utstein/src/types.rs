@@ -1,17 +1,14 @@
-use chrono::{Duration, NaiveTime};
+use bigdecimal::ToPrimitive;
+use chrono::NaiveTime;
+use serde::Serialize;
 use sqlx::MySqlPool;
+use statrs::distribution::{Continuous, Normal};
 
-use crate::util::{QueryResult, ToQueryResultHashMap};
-
-#[derive(Debug)]
-struct Utstein {
-    population_served: i64,
-    cardiac_arrests_attended: i64,
+#[derive(Debug, Serialize)]
+pub struct Utstein {
+    system_core: Core,
     dispatcher_id_ca: DispatcherIdCA,
     dispatcher_cpr: DispatcherCPR,
-
-    // mm:ss
-    response_times: String,
     resc_attempted: RescAttempted,
     resc_not_attempted: RescNotAttempted,
     location: Location,
@@ -21,61 +18,73 @@ struct Utstein {
     etiology: Etiology,
     ems_process: EMSProcess,
     hospital_process: HospitalProcess,
-    patient_outcomes: PatientOutcomes,
+    // patient_outcomes: PatientOutcomes,
 }
 
 impl Utstein {
     pub async fn new(pool: &MySqlPool) -> Self {
-        let response_times: Vec<i64> = sqlx::query!(
-            r#"
-                SELECT responseTime
-                FROM cases
-                WHERE responseTime IS NOT NULL;
-            "#
-        )
-        .fetch_all(pool)
-        .await
-        .unwrap()
-        .iter()
-        .filter_map(|r| r.responseTime)
-        .collect();
+        Self {
+            system_core: Core::new(pool).await,
+            dispatcher_id_ca: DispatcherIdCA::new(pool).await,
+            dispatcher_cpr: DispatcherCPR::new(pool).await,
+            resc_attempted: RescAttempted::new(pool).await,
+            resc_not_attempted: RescNotAttempted::new(pool).await,
+            location: Location::new(pool).await,
+            patient: Patient::new(pool).await,
+            witnessed: Witnessed::new(pool).await,
+            bystander_response: BystanderResponse::new(pool).await,
+            etiology: Etiology::new(pool).await,
+            ems_process: EMSProcess::new(pool).await,
+            hospital_process: HospitalProcess::new(pool).await,
+            // patient_outcomes: PatientOutcomes::new(pool).await,
+        }
+    }
+}
 
-        // let fractile = 1.28 * mean_avg.std + mean_avg.mean;
-        // let duration = NaiveTime::from_num_seconds_from_midnight_opt(fractile as u32, 0).unwrap();
+#[derive(Debug, Serialize)]
+struct Core {
+    population_served: i64,
+    cardiac_arrests_attended: i64,
+    response_time_mean: f64,
+    response_time_std: f64,
+    response_time: String,
+}
 
-        let sum = sqlx::query!(
+impl Core {
+    async fn new(pool: &MySqlPool) -> Self {
+        let record = sqlx::query!(
             r#"
                 SELECT 
-                    SUM(population) AS "population!: i64",
-                    SUM(attendedCAs) AS "attendedCAs!: i64"
-                FROM systems;
+                    (SELECT SUM(population) AS "population_served!: i64" FROM systems) AS population_served,
+                    (SELECT SUM(attendedCAs) FROM systems) AS cardiac_arrests_attended,
+                    (SELECT AVG(responseTime) FROM cases WHERE responseTime IS NOT NULL) AS response_time_mean,
+                    (SELECT STD(responseTime) FROM cases WHERE responseTime IS NOT NULL) AS response_time_std,
+                    (SELECT NULL) as "response_time: String"
             "#
         )
         .fetch_one(pool)
         .await
         .unwrap();
 
-        Self {
-            population_served: sum.population,
-            cardiac_arrests_attended: sum.attendedCAs,
-            dispatcher_id_ca: DispatcherIdCA::new(pool).await,
-            dispatcher_cpr: DispatcherCPR::new(pool).await,
-            response_times: String::new(),
-            resc_attempted: RescAttempted::new(pool).await,
-            resc_not_attempted: todo!(),
-            location: todo!(),
-            patient: todo!(),
-            witnessed: todo!(),
-            bystander_response: todo!(),
-            etiology: todo!(),
-            ems_process: todo!(),
-            hospital_process: todo!(),
-            patient_outcomes: todo!(),
-        }
+        let mut core = Core {
+            population_served: record.population_served.unwrap().to_i64().unwrap(),
+            cardiac_arrests_attended: record.cardiac_arrests_attended.unwrap().to_i64().unwrap(),
+            response_time_mean: record.response_time_mean.unwrap().to_f64().unwrap(),
+            response_time_std: record.response_time_std.unwrap(),
+            response_time: String::new(),
+        };
+
+        let distribution = Normal::new(core.response_time_mean, core.response_time_std).unwrap();
+        let pdf = distribution.pdf(90.);
+        let duration = NaiveTime::from_num_seconds_from_midnight_opt(pdf as u32, 0).unwrap();
+
+        core.response_time = duration.to_string();
+
+        core
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 struct DispatcherIdCA {
     yes: i64,
     no: i64,
@@ -84,30 +93,22 @@ struct DispatcherIdCA {
 
 impl DispatcherIdCA {
     async fn new(pool: &MySqlPool) -> Self {
-        let records = sqlx::query_as!(
-            QueryResult::<Option<i16>>,
+        sqlx::query_as!(
+            DispatcherIdCA,
             r#"
-                SELECT 
-                    dispIdentifiedCA AS value,
-                    count(*) AS count
-                FROM cases
-                GROUP BY dispIdentifiedCA;
-            "#,
+                SELECT
+                    (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = 1) AS "yes!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = 0) AS "no!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = -1 OR dispProvidedCprinst IS NULL) AS "unknown!: i64"
+            "#
         )
-        .fetch_all(pool)
+        .fetch_one(pool)
         .await
         .unwrap()
-        .to_hashmap();
-
-        Self {
-            yes: *records.get(&Some(1)).unwrap(),
-            no: *records.get(&Some(0)).unwrap(),
-            unknown: *records.get(&Some(-1)).unwrap() + *records.get(&None).unwrap(),
-        }
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 struct DispatcherCPR {
     yes: i64,
     no: i64,
@@ -116,30 +117,22 @@ struct DispatcherCPR {
 
 impl DispatcherCPR {
     async fn new(pool: &MySqlPool) -> Self {
-        let records = sqlx::query_as!(
-            QueryResult::<Option<i16>>,
+        sqlx::query_as!(
+            DispatcherCPR,
             r#"
-                SELECT 
-                    dispProvidedCPRinst AS value,
-                    count(*) AS count
-                FROM cases
-                GROUP BY dispProvidedCPRinst;
-            "#,
+                SELECT
+                    (SELECT COUNT(*) FROM cases WHERE dispProvidedCPRinst = 1) AS "yes!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE dispProvidedCPRinst = 0) AS "no!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE dispProvidedCPRinst = -1 OR dispProvidedCprinst IS NULL) AS "unknown!: i64"
+            "#
         )
-        .fetch_all(pool)
+        .fetch_one(pool)
         .await
         .unwrap()
-        .to_hashmap();
-
-        Self {
-            yes: *records.get(&Some(1)).unwrap(),
-            no: *records.get(&Some(0)).unwrap(),
-            unknown: *records.get(&Some(-1)).unwrap() + *records.get(&None).unwrap(),
-        }
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 struct RescAttempted {
     vf: i64,
     vt: i64,
@@ -154,39 +147,39 @@ struct RescAttempted {
 
 impl RescAttempted {
     async fn new(pool: &MySqlPool) -> Self {
-        let records = sqlx::query_as!(
-            QueryResult::<Option<i16>>,
+        // Query with a common table expression - CTE
+        // Read more at https://mariadb.com/kb/en/with/
+        sqlx::query_as!(
+            RescAttempted,
             r#"
-                SELECT 
-                    firstMonitoredRhy AS value,
-                    COUNT(*) AS count
-                FROM cases
-                WHERE bystanderResponse BETWEEN 1 AND 2
-                OR bystanderAED BETWEEN 1 AND 2
-                OR mechanicalCPR BETWEEN 1 AND 3
-                GROUP BY firstMonitoredRhy;
-            "#,
+                WITH rescucitaion AS 
+                (
+                    SELECT
+                        firstMonitoredRhy
+                    FROM cases
+                    WHERE bystanderResponse BETWEEN 1 AND 2
+                    OR bystanderAED BETWEEN 1 AND 2
+                    OR mechanicalCPR BETWEEN 1 AND 3
+                )
+                SELECT
+                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 1) AS "vf!: i64",
+                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 2) AS "vt!: i64",
+                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 3) AS "pea!: i64",
+                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 4) AS "asys!: i64",
+                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 5) AS "brady!: i64",
+                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 6) AS "aed_non_shockable!: i64",
+                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 7) AS "aed_shockable!: i64",
+                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy IS NULL) AS "not_recorded!: i64",
+                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = -1) AS "unknown!: i64"
+            "#
         )
-        .fetch_all(pool)
+        .fetch_one(pool)
         .await
         .unwrap()
-        .to_hashmap();
-
-        Self {
-            vf: *records.get(&Some(1)).unwrap(),
-            vt: *records.get(&Some(2)).unwrap(),
-            pea: *records.get(&Some(3)).unwrap(),
-            asys: *records.get(&Some(4)).unwrap(),
-            brady: *records.get(&Some(5)).unwrap(),
-            aed_non_shockable: *records.get(&Some(6)).unwrap(),
-            aed_shockable: *records.get(&Some(7)).unwrap(),
-            not_recorded: *records.get(&None).unwrap(),
-            unknown: *records.get(&Some(-1)).unwrap(),
-        }
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 struct RescNotAttempted {
     all_cases: i64,
     dnar: i64,
@@ -196,56 +189,29 @@ struct RescNotAttempted {
 
 impl RescNotAttempted {
     async fn new(pool: &MySqlPool) -> Self {
-        let records = sqlx::query_as!(
-            QueryResult::<Option<i16>>,
+        let record = sqlx::query!(
             r#"
                 SELECT
-                    firstMonitoredRhy AS value,
-                    COUNT(*) AS count
-                FROM cases
-                WHERE bystanderResponse BETWEEN 1 AND 2
-                OR bystanderAED BETWEEN 1 AND 2
-                OR mechanicalCPR BETWEEN 1 AND 3
-                GROUP BY firstMonitoredRhy;
-            "#,
-        )
-        .fetch_all(pool)
-        .await
-        .unwrap()
-        .to_hashmap();
-
-        let system_data = sqlx::query!(
-            r#"
-                SELECT 
-                    SUM(attendedCAs) - SUM(attemptedResusc) AS "not_attempted!: i64",
-                    SUM(casesDNR) AS "dnar!: i64",
-                    SUM(casesCirculation) AS "signs_of_life!: i64"
-                FROM systems;
+                    (SELECT SUM(attendedCAs) - SUM(attemptedResusc) FROM systems) AS all_cases,
+                    (SELECT SUM(casesDNR) FROM systems) AS dnar,
+                    (SELECT COUNT(*) FROM cases WHERE deadOnArrival = 1) AS obviously_dead,
+                    (SELECT SUM(casesCirculation) FROM systems) AS signs_of_life
             "#
         )
         .fetch_one(pool)
         .await
         .unwrap();
 
-        let obv_dead = sqlx::query!(
-            r#"
-                SELECT COUNT(*) AS count FROM cases WHERE deadOnArrival = 1;
-            "#,
-        )
-        .fetch_one(pool)
-        .await
-        .unwrap();
-
         Self {
-            all_cases: system_data.not_attempted,
-            dnar: system_data.dnar,
-            obviously_dead: obv_dead.count,
-            signs_of_life: system_data.signs_of_life,
+            all_cases: record.all_cases.unwrap().to_i64().unwrap(),
+            dnar: record.dnar.unwrap().to_i64().unwrap(),
+            obviously_dead: record.obviously_dead.unwrap().to_i64().unwrap(),
+            signs_of_life: record.signs_of_life.unwrap().to_i64().unwrap(),
         }
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 struct Location {
     home: i64,
     work: i64,
@@ -257,26 +223,95 @@ struct Location {
     unknown: i64,
 }
 
-#[derive(Debug)]
+impl Location {
+    async fn new(pool: &MySqlPool) -> Self {
+        sqlx::query_as!(
+            Location,
+            r#"
+                SELECT
+                    (SELECT COUNT(*) FROM cases WHERE location = 1) AS "home!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = 2) AS "work!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = 3) AS "rec!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = 5) AS "public!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = 7) AS "educ!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = 6) AS "nursing!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = 8) AS "other!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = -1 OR location IS NULL) AS "unknown!: i64"
+            "#
+        )
+        .fetch_one(pool)
+        .await
+        .unwrap()
+    }
+}
+
+#[derive(Debug, Serialize)]
 struct Patient {
     age: Age,
     sex: Sex,
 }
 
-#[derive(Debug)]
+impl Patient {
+    async fn new(pool: &MySqlPool) -> Self {
+        Self {
+            age: Age::new(pool).await,
+            sex: Sex::new(pool).await,
+        }
+    }
+}
+
+#[derive(Debug, Serialize)]
 struct Age {
-    mean: i64,
+    mean: f64,
     unknown: i64,
 }
 
-#[derive(Debug)]
+impl Age {
+    async fn new(pool: &MySqlPool) -> Self {
+        let record = sqlx::query!(
+            r#"
+                SELECT
+                    AVG(age) AS mean,
+                    (SELECT COUNT(*) FROM cases WHERE age IS NULL) AS "unknown!: i64"
+                FROM cases
+            "#
+        )
+        .fetch_one(pool)
+        .await
+        .unwrap();
+
+        Self {
+            mean: record.mean.unwrap().to_f64().unwrap(),
+            unknown: record.unknown,
+        }
+    }
+}
+
+#[derive(Debug, Serialize)]
 struct Sex {
     male: i64,
     female: i64,
     unknown: i64,
 }
 
-#[derive(Debug)]
+impl Sex {
+    async fn new(pool: &MySqlPool) -> Self {
+        sqlx::query_as!(
+            Sex,
+            r#"
+                SELECT
+                    (SELECT COUNT(*) FROM cases WHERE gender = 0) AS "male!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE gender = 1) AS "female!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE gender = -1 OR gender IS NULL) AS "unknown!: i64"
+            "#
+        )
+        .fetch_one(pool)
+        .await
+        .unwrap()
+    }
+}
+
+#[derive(Debug, Serialize)]
 struct Witnessed {
     bystander: i64,
     ems: i64,
@@ -284,13 +319,40 @@ struct Witnessed {
     unknown: i64,
 }
 
-#[derive(Debug)]
+impl Witnessed {
+    async fn new(pool: &MySqlPool) -> Self {
+        sqlx::query_as!(
+            Witnessed,
+            r#"
+                SELECT
+                    (SELECT COUNT(*) FROM cases WHERE witnesses = 1) AS "bystander!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE witnesses = 2) AS "ems!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE witnesses = 0) AS "unwitnessed!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE witnesses = -1 OR bystanderResponse IS NULL) AS "unknown!: i64"
+            "#
+        )
+        .fetch_one(pool)
+        .await
+        .unwrap()
+    }
+}
+
+#[derive(Debug, Serialize)]
 struct BystanderResponse {
     bystander_cpr: BystanderCPR,
     bystander_aed: BystanderAED,
 }
 
-#[derive(Debug)]
+impl BystanderResponse {
+    async fn new(pool: &MySqlPool) -> Self {
+        Self {
+            bystander_cpr: BystanderCPR::new(pool).await,
+            bystander_aed: BystanderAED::new(pool).await,
+        }
+    }
+}
+
+#[derive(Debug, Serialize)]
 struct BystanderCPR {
     no_bcpr: i64,
     bcpr: i64,
@@ -299,14 +361,50 @@ struct BystanderCPR {
     unknown: i64,
 }
 
-#[derive(Debug)]
+impl BystanderCPR {
+    async fn new(pool: &MySqlPool) -> Self {
+        sqlx::query_as!(
+            BystanderCPR,
+            r#"
+                SELECT
+                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse = 0) AS "no_bcpr!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse = 1) AS "cc_only!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse = 2) AS "cc_or_vent!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse BETWEEN 1 AND 2) AS "bcpr!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse = -1 OR bystanderResponse IS NULL) AS "unknown!: i64"
+            "#
+        )
+        .fetch_one(pool)
+        .await
+        .unwrap()
+    }
+}
+
+#[derive(Debug, Serialize)]
 struct BystanderAED {
     analyse: i64,
     shock: i64,
     unknown: i64,
 }
 
-#[derive(Debug)]
+impl BystanderAED {
+    async fn new(pool: &MySqlPool) -> Self {
+        sqlx::query_as!(
+            BystanderAED,
+            r#"
+                SELECT
+                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = 1) AS "analyse!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = 2) AS "shock!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = -1) AS "unknown!: i64"
+            "#
+        )
+        .fetch_one(pool)
+        .await
+        .unwrap()
+    }
+}
+
+#[derive(Debug, Serialize)]
 struct Etiology {
     medical: i64,
     trauma: i64,
@@ -314,12 +412,33 @@ struct Etiology {
     drowning: i64,
     electrocution: i64,
     asphyxial: i64,
-    not_recored: i64,
+    not_recorded: i64,
 }
 
-#[derive(Debug)]
+impl Etiology {
+    async fn new(pool: &MySqlPool) -> Self {
+        sqlx::query_as!(
+            Etiology,
+            r#"
+                SELECT
+                    (SELECT COUNT(*) FROM cases WHERE pathogenesis = 1) AS "medical!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE pathogenesis = 2) AS "trauma!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE pathogenesis = 3) AS "overdose!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE pathogenesis = 4) AS "drowning!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE pathogenesis = 5) AS "electrocution!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE pathogenesis = 6) AS "asphyxial!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE pathogenesis IS NULL) AS "not_recorded!: i64"
+            "#
+        )
+        .fetch_one(pool)
+        .await
+        .unwrap()
+    }
+}
+
+#[derive(Debug, Serialize)]
 struct EMSProcess {
-    first_defib_time: i64,
+    first_defib_time: f64,
 
     // targeted temp control
     indicated_done: i64,
@@ -331,7 +450,26 @@ struct EMSProcess {
     drugs_given: i64,
 }
 
-#[derive(Debug)]
+impl EMSProcess {
+    async fn new(pool: &MySqlPool) -> Self {
+        sqlx::query_as!(
+            EMSProcess,
+            r#"
+                SELECT
+                    (SELECT AVG(defibTime) FROM cases WHERE defibTime IS NOT NULL OR defibTime != -1) AS "first_defib_time!: f64",
+                    (SELECT COUNT(*) FROM cases WHERE ttm BETWEEN 1 AND 3) AS "indicated_done!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE ttm = 4) AS "indicated_not_done!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE ttm = 5) AS "not_indicated!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE ttm = -1 OR ttm IS NULL) AS "unknown!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE drugs IS NOT NULL OR drugs != -1) AS "drugs_given!: i64"
+            "#
+        ).fetch_one(pool)
+        .await
+        .unwrap()
+    }
+}
+
+#[derive(Debug, Serialize)]
 struct HospitalProcess {
     // reperfusion
     attempted: i64,
@@ -346,7 +484,26 @@ struct HospitalProcess {
     organ_donation: i64,
 }
 
-#[derive(Debug)]
+impl HospitalProcess {
+    async fn new(pool: &MySqlPool) -> Self {
+        sqlx::query_as!(
+            HospitalProcess,
+            r#"
+                SELECT
+                    (SELECT COUNT(*) FROM cases WHERE reperfusionAttempt IS NOT NULL OR reperfusionAttempt != -1) AS "attempted!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE ttm BETWEEN 1 AND 3) AS "indicated_done!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE ttm = 4) AS "indicated_not_done!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE ttm = 5) AS "not_indicated!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE ttm = -1 OR ttm IS NULL) AS "unknown!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE organDonation = 1) AS "organ_donation!: i64"
+            "#
+        ).fetch_one(pool)
+        .await
+        .unwrap()
+    }
+}
+
+#[derive(Debug, Serialize)]
 struct PatientOutcomes {
     all_ems_treated_arrests: Columns,
     shockable_bystander_witnessed: Columns,
@@ -355,33 +512,39 @@ struct PatientOutcomes {
     user_defined_subgroup: Columns,
 }
 
-#[derive(Debug)]
+impl PatientOutcomes {
+    async fn new(pool: &MySqlPool) -> Self {
+        todo!()
+    }
+}
+
+#[derive(Debug, Serialize)]
 struct Columns {
-    any_ROSC: AnyROSC,
+    any_rosc: AnyROSC,
     survived_event: SurvivedEvent,
     survival: Survival,
     fav_neurological: FavNeurological,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 struct AnyROSC {
     yes: i64,
     unknown: i64,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 struct SurvivedEvent {
     yes: i64,
     unknown: i64,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 struct Survival {
     yes: i64,
     unknown: i64,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 struct FavNeurological {
     yes: i64,
     unknown: i64,
