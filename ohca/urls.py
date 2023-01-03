@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from ohca import views
 from django.views.decorators.cache import cache_page
+from ohca.views import eureca
 
 from ohca.views import index
 
@@ -44,4 +45,6 @@ urlpatterns = [
     path("popravki", views.error_form_view, name="error_page"),
     # path("ndsz-retro", views.second_third_form_name_view, name="second_third_form_name"),
     # path("test-form", views.test_view, name="test_page")
+    path('eureca/', eureca.as_view()),
+    path('download-eureca/', views.download_eureca),
 ]
