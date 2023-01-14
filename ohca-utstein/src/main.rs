@@ -4,7 +4,6 @@ use sqlx::MySqlPool;
 
 mod confidence_intervals;
 mod types;
-//mod Confidence_Intervals;
 
 use types::Utstein;
 
