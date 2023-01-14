@@ -2,8 +2,9 @@ use std::{fs::File, io::Write};
 
 use sqlx::MySqlPool;
 
-//mod confidence_intervals;
+mod confidence_intervals;
 mod types;
+//mod Confidence_Intervals;
 
 use types::Utstein;
 
