@@ -141,6 +141,122 @@
     },
     "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE gender = 0) AS \"male!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE gender = 1) AS \"female!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE gender = -1 OR gender IS NULL) AS \"unknown!: i64\"\n            "
   },
+  "323846604b8eb7806753332aece1343abd39695459f1d137ef088d76c53c2137": {
+    "describe": {
+      "columns": [
+        {
+          "name": "any_rosc_yes!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "any_rosc_unknown!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_yes!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_unknown!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_yes!: i64",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_unknown!: i64",
+          "ordinal": 5,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_yes!: i64",
+          "ordinal": 6,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_unknown!: i64",
+          "ordinal": 7,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                WITH witness_included AS \n                (\n                    SELECT\n                        witnesses,\n                        rosc,\n                        survivalStatus,\n                        SurvivalDischarge30d,\n                        mrsDischarge,\n                        cpcDischarge\n                    FROM cases\n                    WHERE bystanderResponse BETWEEN 1 AND 2\n                    OR bystanderAED BETWEEN 1 AND 2\n                    OR mechanicalCPR BETWEEN 1 AND 3\n                    AND witnesses BETWEEN 2 AND 3\n                )\n                SELECT\n                    (SELECT COUNT(*) FROM witness_included WHERE rosc = 1) AS \"any_rosc_yes!: i64\",\n                    (SELECT COUNT(*) FROM witness_included WHERE rosc = -1 OR rosc IS NULL) AS \"any_rosc_unknown!: i64\",\n                    (SELECT COUNT(*) FROM witness_included WHERE survivalStatus = 1) AS \"survived_event_yes!: i64\",\n                    (SELECT COUNT(*) FROM witness_included WHERE survivalStatus = -1 OR survivalStatus IS NULL) AS \"survived_event_unknown!: i64\",\n                    (SELECT COUNT(*) FROM witness_included WHERE SurvivalDischarge30d = 1) AS \"survival_30d_yes!: i64\",\n                    (SELECT COUNT(*) FROM witness_included WHERE SurvivalDischarge30d = -1 OR SurvivalDischarge30d IS NULL) AS \"survival_30d_unknown!: i64\",\n                    (SELECT COUNT(*) FROM witness_included WHERE mrsDischarge = 3 OR cpcDischarge = 2) AS \"fav_neurological_yes!: i64\",    -- TODO preveri\n                    (SELECT COUNT(*) FROM witness_included WHERE mrsDischarge = -1 OR mrsDischarge IS NULL) AS \"fav_neurological_unknown!: i64\"\n            "
+  },
   "408dafdfea9e3836155367eedac85b3290d11c356c94eaa5e1b80f99dc5f2e1b": {
     "describe": {
       "columns": [
@@ -294,6 +410,122 @@
       }
     },
     "query": "\n                SELECT\n                    (SELECT SUM(attendedCAs) - SUM(attemptedResusc) FROM systems) AS all_cases,\n                    (SELECT SUM(casesDNR) FROM systems) AS dnar,\n                    (SELECT COUNT(*) FROM cases WHERE deadOnArrival = 1) AS obviously_dead,\n                    (SELECT SUM(casesCirculation) FROM systems) AS signs_of_life\n            "
+  },
+  "477965ec1620b0c103cead43a996ade3611833e100726d0738db2f6ec9852821": {
+    "describe": {
+      "columns": [
+        {
+          "name": "any_rosc_yes!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "any_rosc_unknown!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_yes!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_unknown!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_yes!: i64",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_unknown!: i64",
+          "ordinal": 5,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_yes!: i64",
+          "ordinal": 6,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_unknown!: i64",
+          "ordinal": 7,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                WITH witness_excluded AS \n                (\n                    SELECT\n                        witnesses,\n                        rosc,\n                        survivalStatus,\n                        SurvivalDischarge30d,\n                        mrsDischarge,\n                        cpcDischarge\n                    FROM cases\n                    WHERE bystanderResponse BETWEEN 1 AND 2\n                    OR bystanderAED BETWEEN 1 AND 2\n                    OR mechanicalCPR BETWEEN 1 AND 3\n                    AND witnesses = 2\n                    AND bystanderResponse = 0   -- TODO: bystander response is between 1 and 2, but also has to be 0?\n                    AND firstMonitoredRhy = 7\n                )\n                SELECT\n                    (SELECT COUNT(*) FROM witness_excluded WHERE rosc = 1) AS \"any_rosc_yes!: i64\",\n                    (SELECT COUNT(*) FROM witness_excluded WHERE rosc = -1 OR rosc IS NULL) AS \"any_rosc_unknown!: i64\",\n                    (SELECT COUNT(*) FROM witness_excluded WHERE survivalStatus = 1) AS \"survived_event_yes!: i64\",\n                    (SELECT COUNT(*) FROM witness_excluded WHERE survivalStatus = -1 OR survivalStatus IS NULL) AS \"survived_event_unknown!: i64\",\n                    (SELECT COUNT(*) FROM witness_excluded WHERE SurvivalDischarge30d = 1) AS \"survival_30d_yes!: i64\",\n                    (SELECT COUNT(*) FROM witness_excluded WHERE SurvivalDischarge30d = -1 OR SurvivalDischarge30d IS NULL) AS \"survival_30d_unknown!: i64\",\n                    (SELECT COUNT(*) FROM witness_excluded WHERE mrsDischarge = 3 OR cpcDischarge = 2) AS \"fav_neurological_yes!: i64\",                     -- todo narobe\n                    (SELECT COUNT(*) FROM witness_excluded WHERE mrsDischarge = -1 OR mrsDischarge IS NULL) AS \"fav_neurological_unknown!: i64\"\n            "
   },
   "6a4e20a5e7096071bb0413230455483975bf97cd21496a0f6f1202ed049b30fd": {
     "describe": {
@@ -1051,5 +1283,121 @@
       }
     },
     "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = 1) AS \"analyse!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = 2) AS \"shock!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = -1) AS \"unknown!: i64\"\n            "
+  },
+  "f44c95fe3a2c07d1d1c015d829df13855c11e1ba0a3a104d8588d36e58e3fb9f": {
+    "describe": {
+      "columns": [
+        {
+          "name": "any_rosc_yes!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "any_rosc_unknown!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_yes!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_unknown!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_yes!: i64",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_unknown!: i64",
+          "ordinal": 5,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_yes!: i64",
+          "ordinal": 6,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_unknown!: i64",
+          "ordinal": 7,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                WITH witness_excluded AS \n                (\n                    SELECT\n                        witnesses,\n                        rosc,\n                        survivalStatus,\n                        SurvivalDischarge30d,\n                        mrsDischarge,\n                        cpcDischarge\n                    FROM cases\n                    WHERE bystanderResponse BETWEEN 1 AND 2\n                    OR bystanderAED BETWEEN 1 AND 2\n                    OR mechanicalCPR BETWEEN 1 AND 3\n                    AND witnesses = 2\n                    AND bystanderResponse = 0   -- TODO: bystander response is between 1 and 2, but also has to be 0?\n                    AND firstMonitoredRhy = 6\n                )\n                SELECT\n                    (SELECT COUNT(*) FROM witness_excluded WHERE rosc = 1) AS \"any_rosc_yes!: i64\",\n                    (SELECT COUNT(*) FROM witness_excluded WHERE rosc = -1 OR rosc IS NULL) AS \"any_rosc_unknown!: i64\",\n                    (SELECT COUNT(*) FROM witness_excluded WHERE survivalStatus = 1) AS \"survived_event_yes!: i64\",\n                    (SELECT COUNT(*) FROM witness_excluded WHERE survivalStatus = -1 OR survivalStatus IS NULL) AS \"survived_event_unknown!: i64\",\n                    (SELECT COUNT(*) FROM witness_excluded WHERE SurvivalDischarge30d = 1) AS \"survival_30d_yes!: i64\",\n                    (SELECT COUNT(*) FROM witness_excluded WHERE SurvivalDischarge30d = -1 OR SurvivalDischarge30d IS NULL) AS \"survival_30d_unknown!: i64\",\n                    (SELECT COUNT(*) FROM witness_excluded WHERE mrsDischarge = 3 OR cpcDischarge = 2) AS \"fav_neurological_yes!: i64\",                     -- todo narobe\n                    (SELECT COUNT(*) FROM witness_excluded WHERE mrsDischarge = -1 OR mrsDischarge IS NULL) AS \"fav_neurological_unknown!: i64\"\n            "
   }
 }

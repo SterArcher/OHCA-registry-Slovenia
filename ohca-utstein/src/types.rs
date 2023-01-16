@@ -18,7 +18,7 @@ pub struct Utstein {
     etiology: Etiology,
     ems_process: EMSProcess,
     hospital_process: HospitalProcess,
-    // patient_outcomes: PatientOutcomes,
+    patient_outcomes: PatientOutcomes,
 }
 
 impl Utstein {
@@ -36,7 +36,7 @@ impl Utstein {
             etiology: Etiology::new(pool).await,
             ems_process: EMSProcess::new(pool).await,
             hospital_process: HospitalProcess::new(pool).await,
-            // patient_outcomes: PatientOutcomes::new(pool).await,
+            patient_outcomes: PatientOutcomes::new(pool).await,
         }
     }
 }
@@ -452,11 +452,10 @@ struct EMSProcess {
 
 impl EMSProcess {
     async fn new(pool: &MySqlPool) -> Self {
-        sqlx::query_as!(
-            EMSProcess,
+        let record = sqlx::query!(
             r#"
                 SELECT
-                    (SELECT AVG(defibTime) FROM cases WHERE defibTime IS NOT NULL OR defibTime != -1) AS "first_defib_time!: f64",
+                    (SELECT AVG(defibTime) FROM cases WHERE defibTime IS NOT NULL OR defibTime != -1) AS first_defib_time,
                     (SELECT COUNT(*) FROM cases WHERE ttm BETWEEN 1 AND 3) AS "indicated_done!: i64",
                     (SELECT COUNT(*) FROM cases WHERE ttm = 4) AS "indicated_not_done!: i64",
                     (SELECT COUNT(*) FROM cases WHERE ttm = 5) AS "not_indicated!: i64",
@@ -465,7 +464,16 @@ impl EMSProcess {
             "#
         ).fetch_one(pool)
         .await
-        .unwrap()
+        .unwrap();
+
+        Self {
+            first_defib_time: record.first_defib_time.unwrap().to_f64().unwrap(),
+            indicated_done: record.indicated_done,
+            indicated_not_done: record.indicated_not_done,
+            not_indicated: record.not_indicated,
+            unknown: record.unknown,
+            drugs_given: record.drugs_given,
+        }
     }
 }
 
@@ -506,46 +514,187 @@ impl HospitalProcess {
 #[derive(Debug, Serialize)]
 struct PatientOutcomes {
     all_ems_treated_arrests: Columns,
-    shockable_bystander_witnessed: Columns,
-    shockable_bystander_cpr: Columns,
-    non_shockable_witnessed: Columns,
-    user_defined_subgroup: Columns,
+    ems_witnessed_excluded: EmsWitnessedExcluded,
 }
 
 impl PatientOutcomes {
     async fn new(pool: &MySqlPool) -> Self {
-        todo!()
+        // TODO: which fields are required for this
+        let all_ems_treated_arrests = Columns {
+            any_rosc_yes: 0,
+            any_rosc_unknown: 0,
+            survived_event_yes: 0,
+            survived_event_unknown: 0,
+            survival_30d_yes: 0,
+            survival_30d_unknown: 0,
+            fav_neurological_yes: 0,
+            fav_neurological_unknown: 0,
+        };
+
+        // let all_ems_treated_arrests = sqlx::query_as!(
+        //     Columns,
+        //     r#"
+        //         WITH witness_included AS
+        //         (
+        //             SELECT
+        //                 witnesses,
+        //                 rosc,
+        //                 survivalStatus,
+        //                 SurvivalDischarge30d,
+        //                 mrsDischarge,
+        //                 cpcDischarge
+        //             FROM cases
+        //             WHERE bystanderResponse BETWEEN 1 AND 2
+        //             OR bystanderAED BETWEEN 1 AND 2
+        //             OR mechanicalCPR BETWEEN 1 AND 3
+        //             AND witnesses BETWEEN 2 AND 3
+        //         )
+        //         SELECT
+        //             (SELECT COUNT(*) FROM witness_included WHERE rosc = 1) AS "any_rosc_yes!: i64",
+        //             (SELECT COUNT(*) FROM witness_included WHERE rosc = -1 OR rosc IS NULL) AS "any_rosc_unknown!: i64",
+        //             (SELECT COUNT(*) FROM witness_included WHERE survivalStatus = 1) AS "survived_event_yes!: i64",
+        //             (SELECT COUNT(*) FROM witness_included WHERE survivalStatus = -1 OR survivalStatus IS NULL) AS "survived_event_unknown!: i64",
+        //             (SELECT COUNT(*) FROM witness_included WHERE SurvivalDischarge30d = 1) AS "survival_30d_yes!: i64",
+        //             (SELECT COUNT(*) FROM witness_included WHERE SurvivalDischarge30d = -1 OR SurvivalDischarge30d IS NULL) AS "survival_30d_unknown!: i64",
+        //             (SELECT COUNT(*) FROM witness_included WHERE mrsDischarge = 3 OR cpcDischarge = 2) AS "fav_neurological_yes!: i64",    -- TODO preveri
+        //             (SELECT COUNT(*) FROM witness_included WHERE mrsDischarge = -1 OR mrsDischarge IS NULL) AS "fav_neurological_unknown!: i64"
+        //     "#
+        // ).fetch_one(pool)
+        // .await
+        // .unwrap();
+
+        Self {
+            all_ems_treated_arrests,
+            ems_witnessed_excluded: EmsWitnessedExcluded::new(pool).await,
+        }
+    }
+}
+
+#[derive(Debug, Serialize)]
+struct EmsWitnessedExcluded {
+    shockable_bystander_witnessed: Columns,
+    shockable_bystander_cpr: Columns,
+    non_shockable_witnessed: Columns,
+}
+
+impl EmsWitnessedExcluded {
+    async fn new(pool: &MySqlPool) -> Self {
+        let shockable_bystander_witnessed = sqlx::query_as!(
+            Columns,
+            r#"
+                WITH witness_included AS 
+                (
+                    SELECT
+                        witnesses,
+                        rosc,
+                        survivalStatus,
+                        SurvivalDischarge30d,
+                        mrsDischarge,
+                        cpcDischarge
+                    FROM cases
+                    WHERE bystanderResponse BETWEEN 1 AND 2
+                    OR bystanderAED BETWEEN 1 AND 2
+                    OR mechanicalCPR BETWEEN 1 AND 3
+                    AND witnesses BETWEEN 2 AND 3
+                )
+                SELECT
+                    (SELECT COUNT(*) FROM witness_included WHERE rosc = 1) AS "any_rosc_yes!: i64",
+                    (SELECT COUNT(*) FROM witness_included WHERE rosc = -1 OR rosc IS NULL) AS "any_rosc_unknown!: i64",
+                    (SELECT COUNT(*) FROM witness_included WHERE survivalStatus = 1) AS "survived_event_yes!: i64",
+                    (SELECT COUNT(*) FROM witness_included WHERE survivalStatus = -1 OR survivalStatus IS NULL) AS "survived_event_unknown!: i64",
+                    (SELECT COUNT(*) FROM witness_included WHERE SurvivalDischarge30d = 1) AS "survival_30d_yes!: i64",
+                    (SELECT COUNT(*) FROM witness_included WHERE SurvivalDischarge30d = -1 OR SurvivalDischarge30d IS NULL) AS "survival_30d_unknown!: i64",
+                    (SELECT COUNT(*) FROM witness_included WHERE mrsDischarge = 3 OR cpcDischarge = 2) AS "fav_neurological_yes!: i64",    -- TODO preveri
+                    (SELECT COUNT(*) FROM witness_included WHERE mrsDischarge = -1 OR mrsDischarge IS NULL) AS "fav_neurological_unknown!: i64"
+            "#
+        ).fetch_one(pool)
+        .await
+        .unwrap();
+
+        let shockable_bystander_cpr = sqlx::query_as!(
+            Columns,
+            r#"
+                WITH witness_excluded AS 
+                (
+                    SELECT
+                        witnesses,
+                        rosc,
+                        survivalStatus,
+                        SurvivalDischarge30d,
+                        mrsDischarge,
+                        cpcDischarge
+                    FROM cases
+                    WHERE bystanderResponse BETWEEN 1 AND 2
+                    OR bystanderAED BETWEEN 1 AND 2
+                    OR mechanicalCPR BETWEEN 1 AND 3
+                    AND witnesses = 2
+                    AND bystanderResponse = 0   -- TODO: bystander response is between 1 and 2, but also has to be 0?
+                    AND firstMonitoredRhy = 7
+                )
+                SELECT
+                    (SELECT COUNT(*) FROM witness_excluded WHERE rosc = 1) AS "any_rosc_yes!: i64",
+                    (SELECT COUNT(*) FROM witness_excluded WHERE rosc = -1 OR rosc IS NULL) AS "any_rosc_unknown!: i64",
+                    (SELECT COUNT(*) FROM witness_excluded WHERE survivalStatus = 1) AS "survived_event_yes!: i64",
+                    (SELECT COUNT(*) FROM witness_excluded WHERE survivalStatus = -1 OR survivalStatus IS NULL) AS "survived_event_unknown!: i64",
+                    (SELECT COUNT(*) FROM witness_excluded WHERE SurvivalDischarge30d = 1) AS "survival_30d_yes!: i64",
+                    (SELECT COUNT(*) FROM witness_excluded WHERE SurvivalDischarge30d = -1 OR SurvivalDischarge30d IS NULL) AS "survival_30d_unknown!: i64",
+                    (SELECT COUNT(*) FROM witness_excluded WHERE mrsDischarge = 3 OR cpcDischarge = 2) AS "fav_neurological_yes!: i64",                     -- todo narobe
+                    (SELECT COUNT(*) FROM witness_excluded WHERE mrsDischarge = -1 OR mrsDischarge IS NULL) AS "fav_neurological_unknown!: i64"
+            "#
+        ).fetch_one(pool)
+        .await
+        .unwrap();
+
+        let non_shockable_witnessed = sqlx::query_as!(
+            Columns,
+            r#"
+                WITH witness_excluded AS 
+                (
+                    SELECT
+                        witnesses,
+                        rosc,
+                        survivalStatus,
+                        SurvivalDischarge30d,
+                        mrsDischarge,
+                        cpcDischarge
+                    FROM cases
+                    WHERE bystanderResponse BETWEEN 1 AND 2
+                    OR bystanderAED BETWEEN 1 AND 2
+                    OR mechanicalCPR BETWEEN 1 AND 3
+                    AND witnesses = 2
+                    AND bystanderResponse = 0   -- TODO: bystander response is between 1 and 2, but also has to be 0?
+                    AND firstMonitoredRhy = 6
+                )
+                SELECT
+                    (SELECT COUNT(*) FROM witness_excluded WHERE rosc = 1) AS "any_rosc_yes!: i64",
+                    (SELECT COUNT(*) FROM witness_excluded WHERE rosc = -1 OR rosc IS NULL) AS "any_rosc_unknown!: i64",
+                    (SELECT COUNT(*) FROM witness_excluded WHERE survivalStatus = 1) AS "survived_event_yes!: i64",
+                    (SELECT COUNT(*) FROM witness_excluded WHERE survivalStatus = -1 OR survivalStatus IS NULL) AS "survived_event_unknown!: i64",
+                    (SELECT COUNT(*) FROM witness_excluded WHERE SurvivalDischarge30d = 1) AS "survival_30d_yes!: i64",
+                    (SELECT COUNT(*) FROM witness_excluded WHERE SurvivalDischarge30d = -1 OR SurvivalDischarge30d IS NULL) AS "survival_30d_unknown!: i64",
+                    (SELECT COUNT(*) FROM witness_excluded WHERE mrsDischarge = 3 OR cpcDischarge = 2) AS "fav_neurological_yes!: i64",                     -- todo narobe
+                    (SELECT COUNT(*) FROM witness_excluded WHERE mrsDischarge = -1 OR mrsDischarge IS NULL) AS "fav_neurological_unknown!: i64"
+            "#
+        ).fetch_one(pool)
+        .await
+        .unwrap();
+
+        Self {
+            shockable_bystander_witnessed,
+            shockable_bystander_cpr,
+            non_shockable_witnessed,
+        }
     }
 }
 
 #[derive(Debug, Serialize)]
 struct Columns {
-    any_rosc: AnyROSC,
-    survived_event: SurvivedEvent,
-    survival: Survival,
-    fav_neurological: FavNeurological,
-}
-
-#[derive(Debug, Serialize)]
-struct AnyROSC {
-    yes: i64,
-    unknown: i64,
-}
-
-#[derive(Debug, Serialize)]
-struct SurvivedEvent {
-    yes: i64,
-    unknown: i64,
-}
-
-#[derive(Debug, Serialize)]
-struct Survival {
-    yes: i64,
-    unknown: i64,
-}
-
-#[derive(Debug, Serialize)]
-struct FavNeurological {
-    yes: i64,
-    unknown: i64,
+    any_rosc_yes: i64,
+    any_rosc_unknown: i64,
+    survived_event_yes: i64,
+    survived_event_unknown: i64,
+    survival_30d_yes: i64,
+    survival_30d_unknown: i64,
+    fav_neurological_yes: i64,
+    fav_neurological_unknown: i64,
 }
