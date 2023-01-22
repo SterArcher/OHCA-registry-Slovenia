@@ -123,7 +123,10 @@ def download_eureca(request):
     rows = []
     for case in all_cases:
         row = list(case.values())
-        row = [system_names[case["systemID"]]] + row
+        if case["systemID"] != None:
+            row = [system_names[case["systemID"]]] + row
+        else:
+            row = ["None"] + row
         rows.append(list(row))
 
     df = pd.DataFrame(rows, columns=["zdravstveni dom"] + header)
