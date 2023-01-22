@@ -1,8 +1,8 @@
 use bigdecimal::ToPrimitive;
-use chrono::NaiveTime;
 use serde::Serialize;
 use sqlx::MySqlPool;
-use statrs::distribution::{Continuous, Normal};
+
+use crate::utils::confidence_interval_90;
 
 #[derive(Debug, Serialize)]
 pub struct Utstein {
@@ -59,7 +59,7 @@ impl Core {
                     (SELECT SUM(attendedCAs) FROM systems) AS cardiac_arrests_attended,
                     (SELECT AVG(responseTime) FROM cases WHERE responseTime IS NOT NULL) AS response_time_mean,
                     (SELECT STD(responseTime) FROM cases WHERE responseTime IS NOT NULL) AS response_time_std,
-                    (SELECT NULL) as "response_time: String"
+                    (SELECT COUNT(*)) as count
             "#
         )
         .fetch_one(pool)
@@ -69,16 +69,22 @@ impl Core {
         let mut core = Core {
             population_served: record.population_served.unwrap().to_i64().unwrap(),
             cardiac_arrests_attended: record.cardiac_arrests_attended.unwrap().to_i64().unwrap(),
-            response_time_mean: record.response_time_mean.unwrap().to_f64().unwrap(),
-            response_time_std: record.response_time_std.unwrap(),
+            response_time_mean: record.response_time_mean.clone().unwrap().to_f64().unwrap(),
+            response_time_std: record.response_time_std.unwrap().clone(),
             response_time: String::new(),
         };
 
-        let distribution = Normal::new(core.response_time_mean, core.response_time_std).unwrap();
-        let pdf = distribution.pdf(90.);
-        let duration = NaiveTime::from_num_seconds_from_midnight_opt(pdf as u32, 0).unwrap();
+        let mean = record.response_time_mean.unwrap().to_f64().unwrap();
+        let std = record.response_time_std.unwrap().to_f64().unwrap();
+        let response_time_ci = confidence_interval_90(record.count, mean, std);
 
-        core.response_time = duration.to_string();
+        let dur_min = (response_time_ci.0 / 60.).floor() as i64;
+        let dur_sec = (response_time_ci.0 % 60.).ceil() as i64;
+
+        let error_min = (response_time_ci.1 / 60.).floor() as i64;
+        let error_sec = (response_time_ci.1 % 60.).ceil() as i64;
+
+        core.response_time = format!("{dur_min}:{dur_sec} ± {error_min}:{error_sec}");
 
         core
     }
