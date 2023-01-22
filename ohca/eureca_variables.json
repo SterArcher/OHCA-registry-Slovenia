@@ -131,6 +131,20 @@
             "1" : "01"
         }
     },
+    "reaWitnesses" : {
+        "eureca_name" : "reaWitnes",
+        "field_name" : "Collapse witnessed", 
+        "description" : "Definition person sent to help: persons sent to help, who was alerted to the scene by the dispatch centre via SMS, app or telephone/radio",
+        "utstein" : "Utstein: A witnessed cardiac arrest is one that is seen or heard by another person or an arrest that is monitored. ",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "02",
+            "1" : "01",
+            "2" : "03",
+            "3" : "04"
+        }
+    },
     "bystanderCPR" : {
         "eureca_name" : "Bystander CPR",
         "description" : "for the EuReCa THREE study 'any bystander-CPR' has been added compared to Utstein definition. Participants should preferably specify between 'full CPR' and 'CCO CPR'",

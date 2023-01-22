@@ -113,18 +113,26 @@ def download_eureca_csv(request):
 import pandas as pd
 from django.http import HttpResponse
 
+systems = System.objects.all().values("systemID", "friendlyName")
+system_names = dict()
+for sys in systems:
+    system_names[sys["systemID"]] = sys["friendlyName"]
 
 def download_eureca(request):
 
     rows = []
     for case in all_cases:
         row = list(case.values())
+        row = [system_names[case["systemID"]]] + row
         rows.append(list(row))
 
-    df = pd.DataFrame(rows, columns=header)
+    df = pd.DataFrame(rows, columns=["zdravstveni dom"] + header)
+
+    date = format(datetime.now())
+    date = date.split(" ")[0]
 
     response = HttpResponse(content_type='application/vnd.ms-excel')
-    response['Content-Disposition'] = f'attachment; filename=excel_filename.xlsx'
+    response['Content-Disposition'] = f'attachment; filename=eureca_{date}.xlsx'
     df.to_excel(response, index=False)
     
     return response

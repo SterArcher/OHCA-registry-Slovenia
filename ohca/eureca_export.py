@@ -1,5 +1,5 @@
 import json
-from ohca.models import CaseReport, Locale
+from ohca.models import CaseReport, Locale, System
 
 import datetime
 from datetime import datetime
@@ -15,7 +15,8 @@ from datetime import datetime
 
 # first define the columns from our db swe will need for eureca based on the eureca-template
 eureca_columns = {
-    # "numID",
+    "systemID" : "Zdravstveni dom",
+    "numID" : "NumID",
     "reaLand" : "ReaLand *",
     "reaRegion" : "ReaRegion *",
     "reaPop" : "ReaPop *", 
@@ -23,7 +24,7 @@ eureca_columns = {
     "CPRdone" : "CPRdone - A2 *",
     "persCPRstart" : "PersCPRstart  - A3",
     "cprEms" : "CprEms - A4 *",
-    "cPREMS3Time" : "CPREMS3Time - A5",
+    "cPREMS3Timestamp" : "CPREMS3Time - A5",
     "noCPR" : "NoCPR - A6 *",
     "numID" : "PatID *", # patID  
     "age" : "PatAge - B1 *", # anonimnost?
@@ -54,7 +55,7 @@ eureca_columns = {
     "defiOrig" : "DefiOrig - F5 *",
     "rosc" : "ROSC - G1 *", 
     "roscTimestamp" : "timeROSC - G2 *",
-    "endCPR4Time" : "EndCPR4Time - G4",
+    "endCPR4Timestamp" : "EndCPR4Time - G4",
     "diedOnField" : "DeadSc - G3 *",
     "leftScene5Timestamp" : "LeftScene5Time - G5",
     "hospitalArrival6Timestamp" : "HospitalArrival6Time - G6",
