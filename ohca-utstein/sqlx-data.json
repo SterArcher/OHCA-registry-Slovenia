@@ -1054,83 +1054,6 @@
     },
     "query": "\n                WITH rescucitaion AS \n                (\n                    SELECT\n                        firstMonitoredRhy\n                    FROM cases\n                    WHERE bystanderResponse BETWEEN 1 AND 2\n                    OR bystanderAED BETWEEN 1 AND 2\n                    OR mechanicalCPR BETWEEN 1 AND 3\n                )\n                SELECT\n                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 1) AS \"vf!: i64\",\n                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 2) AS \"vt!: i64\",\n                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 3) AS \"pea!: i64\",\n                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 4) AS \"asys!: i64\",\n                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 5) AS \"brady!: i64\",\n                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 6) AS \"aed_non_shockable!: i64\",\n                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = 7) AS \"aed_shockable!: i64\",\n                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy IS NULL) AS \"not_recorded!: i64\",\n                    (SELECT COUNT(*) FROM rescucitaion WHERE firstMonitoredRhy = -1) AS \"unknown!: i64\"\n            "
   },
-  "afd31e27fc3a493a8504f2ea36c9601e80842cb40a06f3fa15a6f76813afcd82": {
-    "describe": {
-      "columns": [
-        {
-          "name": "population_served",
-          "ordinal": 0,
-          "type_info": {
-            "char_set": 63,
-            "flags": {
-              "bits": 128
-            },
-            "max_size": 33,
-            "type": "NewDecimal"
-          }
-        },
-        {
-          "name": "cardiac_arrests_attended",
-          "ordinal": 1,
-          "type_info": {
-            "char_set": 63,
-            "flags": {
-              "bits": 128
-            },
-            "max_size": 33,
-            "type": "NewDecimal"
-          }
-        },
-        {
-          "name": "response_time_mean",
-          "ordinal": 2,
-          "type_info": {
-            "char_set": 63,
-            "flags": {
-              "bits": 128
-            },
-            "max_size": 25,
-            "type": "NewDecimal"
-          }
-        },
-        {
-          "name": "response_time_std",
-          "ordinal": 3,
-          "type_info": {
-            "char_set": 63,
-            "flags": {
-              "bits": 128
-            },
-            "max_size": 44,
-            "type": "Double"
-          }
-        },
-        {
-          "name": "response_time: String",
-          "ordinal": 4,
-          "type_info": {
-            "char_set": 63,
-            "flags": {
-              "bits": 128
-            },
-            "max_size": 0,
-            "type": "Null"
-          }
-        }
-      ],
-      "nullable": [
-        true,
-        true,
-        true,
-        true,
-        true
-      ],
-      "parameters": {
-        "Right": 0
-      }
-    },
-    "query": "\n                SELECT \n                    (SELECT SUM(population) AS \"population_served!: i64\" FROM systems) AS population_served,\n                    (SELECT SUM(attendedCAs) FROM systems) AS cardiac_arrests_attended,\n                    (SELECT AVG(responseTime) FROM cases WHERE responseTime IS NOT NULL) AS response_time_mean,\n                    (SELECT STD(responseTime) FROM cases WHERE responseTime IS NOT NULL) AS response_time_std,\n                    (SELECT NULL) as \"response_time: String\"\n            "
-  },
   "cfdc26259bb87b89739d4f5a85b09e05c84574b316f3690dafbad0dea11c6624": {
     "describe": {
       "columns": [
@@ -1232,6 +1155,83 @@
       }
     },
     "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE dispProvidedCPRinst = 1) AS \"yes!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE dispProvidedCPRinst = 0) AS \"no!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE dispProvidedCPRinst = -1 OR dispProvidedCprinst IS NULL) AS \"unknown!: i64\"\n            "
+  },
+  "e607d13603e486e197dafe10e53ef10bd5040d2ba81cefbf395806a1cdc37936": {
+    "describe": {
+      "columns": [
+        {
+          "name": "population_served",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 33,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "cardiac_arrests_attended",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 33,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "response_time_mean",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 25,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "response_time_std",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 44,
+            "type": "Double"
+          }
+        },
+        {
+          "name": "count",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 129
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT \n                    (SELECT SUM(population) AS \"population_served!: i64\" FROM systems) AS population_served,\n                    (SELECT SUM(attendedCAs) FROM systems) AS cardiac_arrests_attended,\n                    (SELECT AVG(responseTime) FROM cases WHERE responseTime IS NOT NULL) AS response_time_mean,\n                    (SELECT STD(responseTime) FROM cases WHERE responseTime IS NOT NULL) AS response_time_std,\n                    (SELECT COUNT(*)) as count\n            "
   },
   "f37350604fe0f703971276f571e977cb02ba33591b406d2cac5e186a568f801b": {
     "describe": {

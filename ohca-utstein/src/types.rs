@@ -4,6 +4,7 @@ use sqlx::MySqlPool;
 
 use crate::utils::confidence_interval_90;
 
+/// The Utstein report template
 #[derive(Debug, Serialize)]
 pub struct Utstein {
     system_core: Core,
@@ -22,6 +23,11 @@ pub struct Utstein {
 }
 
 impl Utstein {
+    /// Creates a new Utstein report given a database connection pool
+    ///
+    /// # Arguments
+    ///
+    /// * `pool` - The `MySqlPool` connection pool for database
     pub async fn new(pool: &MySqlPool) -> Self {
         Self {
             system_core: Core::new(pool).await,
@@ -41,17 +47,35 @@ impl Utstein {
     }
 }
 
+/// The core fields of the report
+///
+/// # Field mappings
+///
+/// * Population served - `population_served`
+/// * Cardiac arrests attended - `cardiac_arrests_attended`
+/// * Response time - `response_time` formatted in `mm:ss ± mm:ss`
 #[derive(Debug, Serialize)]
 struct Core {
     population_served: i64,
     cardiac_arrests_attended: i64,
-    response_time_mean: f64,
-    response_time_std: f64,
     response_time: String,
 }
 
 impl Core {
+    /// Generates a new Core struct
+    ///
+    /// # Arguments
+    ///
+    /// * `pool` - The `MySqlPool` connection pool for database.
+    ///
+    /// # Info
+    ///
+    /// * `population_served` is the sum of the `population` column from the `systems` table
+    /// * `cardiac_arrests_attended` is the sum of the `attendedCAs` column from the `systems` table
+    /// * `response_time` is a string representation of the 90% confidence interval of the `responseTime` column from the `cases` table
     async fn new(pool: &MySqlPool) -> Self {
+        // The mean and standard deviation are calculated in the database. They could also be calculated
+        // in code, but this saves a bit of hassle and doesn't require you to return the values of the entire column.
         let record = sqlx::query!(
             r#"
                 SELECT 
@@ -66,30 +90,35 @@ impl Core {
         .await
         .unwrap();
 
-        let mut core = Core {
-            population_served: record.population_served.unwrap().to_i64().unwrap(),
-            cardiac_arrests_attended: record.cardiac_arrests_attended.unwrap().to_i64().unwrap(),
-            response_time_mean: record.response_time_mean.clone().unwrap().to_f64().unwrap(),
-            response_time_std: record.response_time_std.unwrap().clone(),
-            response_time: String::new(),
-        };
-
+        // Calculate the confidence interval in seconds
         let mean = record.response_time_mean.unwrap().to_f64().unwrap();
         let std = record.response_time_std.unwrap().to_f64().unwrap();
         let response_time_ci = confidence_interval_90(record.count, mean, std);
 
+        // Convert the response time from seconds into minutes and seconds
         let dur_min = (response_time_ci.0 / 60.).floor() as i64;
         let dur_sec = (response_time_ci.0 % 60.).ceil() as i64;
 
+        // Convert the error of the response time from seconds into minutes and seconds
         let error_min = (response_time_ci.1 / 60.).floor() as i64;
         let error_sec = (response_time_ci.1 % 60.).ceil() as i64;
 
-        core.response_time = format!("{dur_min}:{dur_sec} ± {error_min}:{error_sec}");
-
-        core
+        Self {
+            // Using SUM in SQLx returns a BigDecimal type, which should be safe to unwrap.
+            population_served: record.population_served.unwrap().to_i64().unwrap(),
+            cardiac_arrests_attended: record.cardiac_arrests_attended.unwrap().to_i64().unwrap(),
+            response_time: format!("{dur_min}:{dur_sec} ± {error_min}:{error_sec}"),
+        }
     }
 }
 
+/// The Dispatcher ID CA (Dispatcher Identified Cardiac Arrests) field
+///
+/// # Field mappings
+///
+/// * Yes - `yes`
+/// * No - `no`
+/// * Unknown - `unknown`
 #[derive(Debug, Serialize)]
 struct DispatcherIdCA {
     yes: i64,
@@ -98,7 +127,20 @@ struct DispatcherIdCA {
 }
 
 impl DispatcherIdCA {
+    /// Generates a new DispatcherIdCA struct
+    ///
+    /// # Arguments
+    ///
+    /// * `pool` - The `MySqlPool` connection pool for database.
+    ///
+    /// # Info
+    ///
+    /// * `yes` is the number of rows where `dispIdentifiedCA` = 1
+    /// * `no` is the number of rows where `dispIdentifiedCA` = 0
+    /// * `unknown` is the number of rows where `dispIdentifiedCA` is -1 or NULL
     async fn new(pool: &MySqlPool) -> Self {
+        // using the `sqlx::query_as!` you can specify what the output type the query should return
+        // so we don't need to do any explicit mapping of the columns
         sqlx::query_as!(
             DispatcherIdCA,
             r#"
@@ -114,6 +156,13 @@ impl DispatcherIdCA {
     }
 }
 
+/// The Dispatcher CPR (Dispatcher provided CPR instructions) field
+///
+/// # Field mappings
+///
+/// * Yes - `yes`
+/// * No - `no`
+/// * Unknown - `unknown`
 #[derive(Debug, Serialize)]
 struct DispatcherCPR {
     yes: i64,
@@ -122,6 +171,17 @@ struct DispatcherCPR {
 }
 
 impl DispatcherCPR {
+    /// Generates a new DispatcherCPR struct
+    ///
+    /// # Arguments
+    ///
+    /// * `pool` - The `MySqlPool` connection pool for database.
+    ///
+    /// # Info
+    ///
+    /// * `yes` is the number of rows where `dispProvidedCPRinst` = 1
+    /// * `no` is the number of rows where `dispProvidedCPRinst` = 0
+    /// * `unknown` is the number of rows where `dispProvidedCPRinst` is -1 or NULL
     async fn new(pool: &MySqlPool) -> Self {
         sqlx::query_as!(
             DispatcherCPR,
@@ -138,6 +198,19 @@ impl DispatcherCPR {
     }
 }
 
+/// The Resuscitation Attempted field
+///
+/// # Field mappings
+///
+/// * VF - `vf`
+/// * VT - `vt`
+/// * PEA - `pea`
+/// * ASYS - `asys`
+/// * Brady - `brady`
+/// * AED Non-shockable - `aed_non_shockable`
+/// * AED Shockable - `aed_shockable`
+/// * Not recorded - `not_recorded`
+/// * Unknown - `unknown`
 #[derive(Debug, Serialize)]
 struct RescAttempted {
     vf: i64,
@@ -152,9 +225,37 @@ struct RescAttempted {
 }
 
 impl RescAttempted {
+    /// Generates a new RescAttempted struct
+    ///
+    /// # Arguments
+    ///
+    /// * `pool` - The `MySqlPool` connection pool for database.
+    ///
+    /// # Info
+    ///
+    /// First, filters all the cases, with the following filters:
+    ///
+    /// * `bystanedResponse` is 1 or 2,
+    /// * or `bystanderAED` is 1 or 2,
+    /// * or `mechanicalCPR` is 1, 2 or 3.
+    ///
+    /// Then sorts the cases:
+    ///
+    /// * `vf` is the number of rows where `firstMonitoredRhy` = 1
+    /// * `vt` is the number of rows where `firstMonitoredRhy` = 2
+    /// * `pea` is the number of rows where `firstMonitoredRhy` = 3
+    /// * `asys` is the number of rows where `firstMonitoredRhy` = 4
+    /// * `brady` is the number of rows where `firstMonitoredRhy` = 5
+    /// * `aed_non_shockable` is the number of rows where `firstMonitoredRhy` = 6
+    /// * `aed_shockable` is the number of rows where `firstMonitoredRhy` = 7
+    /// * `not_recorded` is the number of rows where `firstMonitoredRhy` is NULL
+    /// * `unknown` is the number of rows where `firstMonitoredRhy` is -1
     async fn new(pool: &MySqlPool) -> Self {
         // Query with a common table expression - CTE
         // Read more at https://mariadb.com/kb/en/with/
+
+        // First create a temporary table, where the only columns is `firstMonitorRhy`
+        // Then get results from that table according to the required filter
         sqlx::query_as!(
             RescAttempted,
             r#"
@@ -185,6 +286,14 @@ impl RescAttempted {
     }
 }
 
+/// The Resuscitation Not Attempted field
+///
+/// # Field mappings
+///
+/// * All Cases - `all_cases`
+/// * DNAR (Did not attempt resuscitation) - `dnar`
+/// * Obviously dead - `obviously_dead`
+/// * Signs of Life - `signs_of_life`
 #[derive(Debug, Serialize)]
 struct RescNotAttempted {
     all_cases: i64,
@@ -194,6 +303,18 @@ struct RescNotAttempted {
 }
 
 impl RescNotAttempted {
+    /// Generates a new RescNotAttempted struct
+    ///
+    /// # Arguments
+    ///
+    /// * `pool` - The `MySqlPool` connection pool for database.
+    ///
+    /// # Info
+    ///
+    /// * `all_cases` is the difference of the sum of the columns `attendedCAs` and `attemptedResusc` from the `systems` table
+    /// * `dnar` is the sum of the column `casesDNR` from the `systems` table
+    /// * `obviously_dead` is the number of rows where `deadOnArrival` = 1 from the `cases` table
+    /// * `signs_of_life` is the sum of the column `casesCirculation` from the `systems` table
     async fn new(pool: &MySqlPool) -> Self {
         let record = sqlx::query!(
             r#"
