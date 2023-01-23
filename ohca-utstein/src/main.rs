@@ -3,8 +3,8 @@ use std::{fs::File, io::Write};
 use sqlx::MySqlPool;
 
 //mod confidence_intervals;
-mod types;
-mod utils;
+pub mod types;
+pub mod utils;
 
 use types::Utstein;
 
