@@ -51,9 +51,9 @@ impl Utstein {
 ///
 /// # Field mappings
 ///
-/// * Population served - `population_served`
-/// * Cardiac arrests attended - `cardiac_arrests_attended`
-/// * Response time - `response_time` formatted in `mm:ss ± mm:ss`
+/// * Population served - `population_served` is the sum of the `population` column from the `systems` table
+/// * Cardiac arrests attended - `cardiac_arrests_attended` is the sum of the `attendedCAs` column from the `systems` table
+/// * Response time - `response_time` formatted in `mm:ss ± mm:ss` is a string representation of the 90% confidence interval of the `responseTime` column from the `cases` table
 #[derive(Debug, Serialize)]
 pub struct Core {
     pub population_served: i64,
@@ -67,12 +67,6 @@ impl Core {
     /// # Arguments
     ///
     /// * `pool` - The `MySqlPool` connection pool for database.
-    ///
-    /// # Info
-    ///
-    /// * `population_served` is the sum of the `population` column from the `systems` table
-    /// * `cardiac_arrests_attended` is the sum of the `attendedCAs` column from the `systems` table
-    /// * `response_time` is a string representation of the 90% confidence interval of the `responseTime` column from the `cases` table
     async fn new(pool: &MySqlPool) -> Self {
         // The mean and standard deviation are calculated in the database. They could also be calculated
         // in code, but this saves a bit of hassle and doesn't require you to return the values of the entire column.
@@ -116,9 +110,9 @@ impl Core {
 ///
 /// # Field mappings
 ///
-/// * Yes - `yes`
-/// * No - `no`
-/// * Unknown - `unknown`
+/// * Yes - `yes` is the number of rows where `dispIdentifiedCA` = 1
+/// * No - `no` is the number of rows where `dispIdentifiedCA` = 0
+/// * Unknown - `unknown` is the number of rows where `dispIdentifiedCA` is -1 or NULL
 #[derive(Debug, Serialize)]
 pub struct DispatcherIdCA {
     pub yes: i64,
@@ -132,12 +126,6 @@ impl DispatcherIdCA {
     /// # Arguments
     ///
     /// * `pool` - The `MySqlPool` connection pool for database.
-    ///
-    /// # Info
-    ///
-    /// * `yes` is the number of rows where `dispIdentifiedCA` = 1
-    /// * `no` is the number of rows where `dispIdentifiedCA` = 0
-    /// * `unknown` is the number of rows where `dispIdentifiedCA` is -1 or NULL
     async fn new(pool: &MySqlPool) -> Self {
         // using the `sqlx::query_as!` you can specify what the output type the query should return
         // so we don't need to do any explicit mapping of the columns
@@ -160,9 +148,9 @@ impl DispatcherIdCA {
 ///
 /// # Field mappings
 ///
-/// * Yes - `yes`
-/// * No - `no`
-/// * Unknown - `unknown`
+/// * Yes - `yes` is the number of rows where `dispProvidedCPRinst` = 1
+/// * No - `no` is the number of rows where `dispProvidedCPRinst` = 0
+/// * Unknown - `unknown` is the number of rows where `dispProvidedCPRinst` is -1 or NULL
 #[derive(Debug, Serialize)]
 pub struct DispatcherCPR {
     pub yes: i64,
@@ -176,12 +164,6 @@ impl DispatcherCPR {
     /// # Arguments
     ///
     /// * `pool` - The `MySqlPool` connection pool for database.
-    ///
-    /// # Info
-    ///
-    /// * `yes` is the number of rows where `dispProvidedCPRinst` = 1
-    /// * `no` is the number of rows where `dispProvidedCPRinst` = 0
-    /// * `unknown` is the number of rows where `dispProvidedCPRinst` is -1 or NULL
     async fn new(pool: &MySqlPool) -> Self {
         sqlx::query_as!(
             DispatcherCPR,
@@ -200,17 +182,23 @@ impl DispatcherCPR {
 
 /// The Resuscitation Attempted field
 ///
+/// Filters all the cases, with the following filters:
+///
+/// * `bystanedResponse` is 1 or 2,
+/// * or `bystanderAED` is 1 or 2,
+/// * or `mechanicalCPR` is 1, 2 or 3.
+///
 /// # Field mappings
 ///
-/// * VF - `vf`
-/// * VT - `vt`
-/// * PEA - `pea`
-/// * ASYS - `asys`
-/// * Brady - `brady`
-/// * AED Non-shockable - `aed_non_shockable`
-/// * AED Shockable - `aed_shockable`
-/// * Not recorded - `not_recorded`
-/// * Unknown - `unknown`
+/// * VF - `vf` is the number of rows where `firstMonitoredRhy` = 1
+/// * VT - `vt` is the number of rows where `firstMonitoredRhy` = 2
+/// * PEA - `pea` is the number of rows where `firstMonitoredRhy` = 3
+/// * ASYS - `asys` is the number of rows where `firstMonitoredRhy` = 4
+/// * Brady - `brady` is the number of rows where `firstMonitoredRhy` = 5
+/// * AED Non-shockable - `aed_non_shockable` is the number of rows where `firstMonitoredRhy` = 6
+/// * AED Shockable - `aed_shockable` is the number of rows where `firstMonitoredRhy` = 7
+/// * Not recorded - `not_recorded` is the number of rows where `firstMonitoredRhy` is NULL
+/// * Unknown - `unknown` is the number of rows where `firstMonitoredRhy` is -1
 #[derive(Debug, Serialize)]
 pub struct RescAttempted {
     pub vf: i64,
@@ -230,26 +218,6 @@ impl RescAttempted {
     /// # Arguments
     ///
     /// * `pool` - The `MySqlPool` connection pool for database.
-    ///
-    /// # Info
-    ///
-    /// First, filters all the cases, with the following filters:
-    ///
-    /// * `bystanedResponse` is 1 or 2,
-    /// * or `bystanderAED` is 1 or 2,
-    /// * or `mechanicalCPR` is 1, 2 or 3.
-    ///
-    /// Then sorts the cases:
-    ///
-    /// * `vf` is the number of rows where `firstMonitoredRhy` = 1
-    /// * `vt` is the number of rows where `firstMonitoredRhy` = 2
-    /// * `pea` is the number of rows where `firstMonitoredRhy` = 3
-    /// * `asys` is the number of rows where `firstMonitoredRhy` = 4
-    /// * `brady` is the number of rows where `firstMonitoredRhy` = 5
-    /// * `aed_non_shockable` is the number of rows where `firstMonitoredRhy` = 6
-    /// * `aed_shockable` is the number of rows where `firstMonitoredRhy` = 7
-    /// * `not_recorded` is the number of rows where `firstMonitoredRhy` is NULL
-    /// * `unknown` is the number of rows where `firstMonitoredRhy` is -1
     async fn new(pool: &MySqlPool) -> Self {
         // Query with a common table expression - CTE
         // Read more at https://mariadb.com/kb/en/with/
@@ -290,10 +258,10 @@ impl RescAttempted {
 ///
 /// # Field mappings
 ///
-/// * All Cases - `all_cases`
-/// * DNAR (Did not attempt resuscitation) - `dnar`
-/// * Obviously dead - `obviously_dead`
-/// * Signs of Life - `signs_of_life`
+/// * All Cases - `all_cases` is the difference of the sum of the columns `attendedCAs` and `attemptedResusc` from the `systems` table
+/// * DNAR (Did not attempt resuscitation) - `dnar` is the sum of the column `casesDNR` from the `systems` table
+/// * Obviously dead - `obviously_dead` is the number of rows where `deadOnArrival` = 1 from the `cases` table
+/// * Signs of Life - `signs_of_life` is the sum of the column `casesCirculation` from the `systems` table
 #[derive(Debug, Serialize)]
 pub struct RescNotAttempted {
     pub all_cases: i64,
@@ -308,13 +276,6 @@ impl RescNotAttempted {
     /// # Arguments
     ///
     /// * `pool` - The `MySqlPool` connection pool for database.
-    ///
-    /// # Info
-    ///
-    /// * `all_cases` is the difference of the sum of the columns `attendedCAs` and `attemptedResusc` from the `systems` table
-    /// * `dnar` is the sum of the column `casesDNR` from the `systems` table
-    /// * `obviously_dead` is the number of rows where `deadOnArrival` = 1 from the `cases` table
-    /// * `signs_of_life` is the sum of the column `casesCirculation` from the `systems` table
     async fn new(pool: &MySqlPool) -> Self {
         let record = sqlx::query!(
             r#"
