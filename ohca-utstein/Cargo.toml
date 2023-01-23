@@ -5,7 +5,7 @@ license-file = "../LICENSE"
 homepage = "https://github.com/SterArcher/OHCA-registry-Slovenia"
 repository = "https://github.com/SterArcher/OHCA-registry-Slovenia/tree/api-dev/ohca-utstein"
 readme = "README.md"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
