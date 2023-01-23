@@ -7,19 +7,19 @@ use crate::utils::confidence_interval_90;
 /// The Utstein report template
 #[derive(Debug, Serialize)]
 pub struct Utstein {
-    system_core: Core,
-    dispatcher_id_ca: DispatcherIdCA,
-    dispatcher_cpr: DispatcherCPR,
-    resc_attempted: RescAttempted,
-    resc_not_attempted: RescNotAttempted,
-    location: Location,
-    patient: Patient,
-    witnessed: Witnessed,
-    bystander_response: BystanderResponse,
-    etiology: Etiology,
-    ems_process: EMSProcess,
-    hospital_process: HospitalProcess,
-    patient_outcomes: PatientOutcomes,
+    pub system_core: Core,
+    pub dispatcher_id_ca: DispatcherIdCA,
+    pub dispatcher_cpr: DispatcherCPR,
+    pub resc_attempted: RescAttempted,
+    pub resc_not_attempted: RescNotAttempted,
+    pub location: Location,
+    pub patient: Patient,
+    pub witnessed: Witnessed,
+    pub bystander_response: BystanderResponse,
+    pub etiology: Etiology,
+    pub ems_process: EMSProcess,
+    pub hospital_process: HospitalProcess,
+    pub patient_outcomes: PatientOutcomes,
 }
 
 impl Utstein {
@@ -55,10 +55,10 @@ impl Utstein {
 /// * Cardiac arrests attended - `cardiac_arrests_attended`
 /// * Response time - `response_time` formatted in `mm:ss ± mm:ss`
 #[derive(Debug, Serialize)]
-struct Core {
-    population_served: i64,
-    cardiac_arrests_attended: i64,
-    response_time: String,
+pub struct Core {
+    pub population_served: i64,
+    pub cardiac_arrests_attended: i64,
+    pub response_time: String,
 }
 
 impl Core {
@@ -120,10 +120,10 @@ impl Core {
 /// * No - `no`
 /// * Unknown - `unknown`
 #[derive(Debug, Serialize)]
-struct DispatcherIdCA {
-    yes: i64,
-    no: i64,
-    unknown: i64,
+pub struct DispatcherIdCA {
+    pub yes: i64,
+    pub no: i64,
+    pub unknown: i64,
 }
 
 impl DispatcherIdCA {
@@ -164,10 +164,10 @@ impl DispatcherIdCA {
 /// * No - `no`
 /// * Unknown - `unknown`
 #[derive(Debug, Serialize)]
-struct DispatcherCPR {
-    yes: i64,
-    no: i64,
-    unknown: i64,
+pub struct DispatcherCPR {
+    pub yes: i64,
+    pub no: i64,
+    pub unknown: i64,
 }
 
 impl DispatcherCPR {
@@ -212,16 +212,16 @@ impl DispatcherCPR {
 /// * Not recorded - `not_recorded`
 /// * Unknown - `unknown`
 #[derive(Debug, Serialize)]
-struct RescAttempted {
-    vf: i64,
-    vt: i64,
-    pea: i64,
-    asys: i64,
-    brady: i64,
-    aed_non_shockable: i64,
-    aed_shockable: i64,
-    not_recorded: i64,
-    unknown: i64,
+pub struct RescAttempted {
+    pub vf: i64,
+    pub vt: i64,
+    pub pea: i64,
+    pub asys: i64,
+    pub brady: i64,
+    pub aed_non_shockable: i64,
+    pub aed_shockable: i64,
+    pub not_recorded: i64,
+    pub unknown: i64,
 }
 
 impl RescAttempted {
@@ -295,11 +295,11 @@ impl RescAttempted {
 /// * Obviously dead - `obviously_dead`
 /// * Signs of Life - `signs_of_life`
 #[derive(Debug, Serialize)]
-struct RescNotAttempted {
-    all_cases: i64,
-    dnar: i64,
-    obviously_dead: i64,
-    signs_of_life: i64,
+pub struct RescNotAttempted {
+    pub all_cases: i64,
+    pub dnar: i64,
+    pub obviously_dead: i64,
+    pub signs_of_life: i64,
 }
 
 impl RescNotAttempted {
@@ -339,15 +339,15 @@ impl RescNotAttempted {
 }
 
 #[derive(Debug, Serialize)]
-struct Location {
-    home: i64,
-    work: i64,
-    rec: i64,
-    public: i64,
-    educ: i64,
-    nursing: i64,
-    other: i64,
-    unknown: i64,
+pub struct Location {
+    pub home: i64,
+    pub work: i64,
+    pub rec: i64,
+    pub public: i64,
+    pub educ: i64,
+    pub nursing: i64,
+    pub other: i64,
+    pub unknown: i64,
 }
 
 impl Location {
@@ -373,9 +373,9 @@ impl Location {
 }
 
 #[derive(Debug, Serialize)]
-struct Patient {
-    age: Age,
-    sex: Sex,
+pub struct Patient {
+    pub age: Age,
+    pub sex: Sex,
 }
 
 impl Patient {
@@ -388,9 +388,9 @@ impl Patient {
 }
 
 #[derive(Debug, Serialize)]
-struct Age {
-    mean: f64,
-    unknown: i64,
+pub struct Age {
+    pub mean: f64,
+    pub unknown: i64,
 }
 
 impl Age {
@@ -415,10 +415,10 @@ impl Age {
 }
 
 #[derive(Debug, Serialize)]
-struct Sex {
-    male: i64,
-    female: i64,
-    unknown: i64,
+pub struct Sex {
+    pub male: i64,
+    pub female: i64,
+    pub unknown: i64,
 }
 
 impl Sex {
@@ -439,11 +439,11 @@ impl Sex {
 }
 
 #[derive(Debug, Serialize)]
-struct Witnessed {
-    bystander: i64,
-    ems: i64,
-    unwitnessed: i64,
-    unknown: i64,
+pub struct Witnessed {
+    pub bystander: i64,
+    pub ems: i64,
+    pub unwitnessed: i64,
+    pub unknown: i64,
 }
 
 impl Witnessed {
@@ -465,9 +465,9 @@ impl Witnessed {
 }
 
 #[derive(Debug, Serialize)]
-struct BystanderResponse {
-    bystander_cpr: BystanderCPR,
-    bystander_aed: BystanderAED,
+pub struct BystanderResponse {
+    pub bystander_cpr: BystanderCPR,
+    pub bystander_aed: BystanderAED,
 }
 
 impl BystanderResponse {
@@ -480,12 +480,12 @@ impl BystanderResponse {
 }
 
 #[derive(Debug, Serialize)]
-struct BystanderCPR {
-    no_bcpr: i64,
-    bcpr: i64,
-    cc_only: i64,
-    cc_or_vent: i64,
-    unknown: i64,
+pub struct BystanderCPR {
+    pub no_bcpr: i64,
+    pub bcpr: i64,
+    pub cc_only: i64,
+    pub cc_or_vent: i64,
+    pub unknown: i64,
 }
 
 impl BystanderCPR {
@@ -508,10 +508,10 @@ impl BystanderCPR {
 }
 
 #[derive(Debug, Serialize)]
-struct BystanderAED {
-    analyse: i64,
-    shock: i64,
-    unknown: i64,
+pub struct BystanderAED {
+    pub analyse: i64,
+    pub shock: i64,
+    pub unknown: i64,
 }
 
 impl BystanderAED {
@@ -532,14 +532,14 @@ impl BystanderAED {
 }
 
 #[derive(Debug, Serialize)]
-struct Etiology {
-    medical: i64,
-    trauma: i64,
-    overdose: i64,
-    drowning: i64,
-    electrocution: i64,
-    asphyxial: i64,
-    not_recorded: i64,
+pub struct Etiology {
+    pub medical: i64,
+    pub trauma: i64,
+    pub overdose: i64,
+    pub drowning: i64,
+    pub electrocution: i64,
+    pub asphyxial: i64,
+    pub not_recorded: i64,
 }
 
 impl Etiology {
@@ -564,17 +564,17 @@ impl Etiology {
 }
 
 #[derive(Debug, Serialize)]
-struct EMSProcess {
-    first_defib_time: f64,
+pub struct EMSProcess {
+    pub first_defib_time: f64,
 
     // targeted temp control
-    indicated_done: i64,
-    indicated_not_done: i64,
-    not_indicated: i64,
-    unknown: i64,
+    pub indicated_done: i64,
+    pub indicated_not_done: i64,
+    pub not_indicated: i64,
+    pub unknown: i64,
 
     // drugs given
-    drugs_given: i64,
+    pub drugs_given: i64,
 }
 
 impl EMSProcess {
@@ -605,18 +605,18 @@ impl EMSProcess {
 }
 
 #[derive(Debug, Serialize)]
-struct HospitalProcess {
+pub struct HospitalProcess {
     // reperfusion
-    attempted: i64,
+    pub attempted: i64,
 
     // targeted temp control
-    indicated_done: i64,
-    indicated_not_done: i64,
-    not_indicated: i64,
-    unknown: i64,
+    pub indicated_done: i64,
+    pub indicated_not_done: i64,
+    pub not_indicated: i64,
+    pub unknown: i64,
 
     // organ donation
-    organ_donation: i64,
+    pub organ_donation: i64,
 }
 
 impl HospitalProcess {
@@ -639,9 +639,9 @@ impl HospitalProcess {
 }
 
 #[derive(Debug, Serialize)]
-struct PatientOutcomes {
-    all_ems_treated_arrests: Columns,
-    ems_witnessed_excluded: EmsWitnessedExcluded,
+pub struct PatientOutcomes {
+    pub all_ems_treated_arrests: Columns,
+    pub ems_witnessed_excluded: EmsWitnessedExcluded,
 }
 
 impl PatientOutcomes {
@@ -698,10 +698,10 @@ impl PatientOutcomes {
 }
 
 #[derive(Debug, Serialize)]
-struct EmsWitnessedExcluded {
-    shockable_bystander_witnessed: Columns,
-    shockable_bystander_cpr: Columns,
-    non_shockable_witnessed: Columns,
+pub struct EmsWitnessedExcluded {
+    pub shockable_bystander_witnessed: Columns,
+    pub shockable_bystander_cpr: Columns,
+    pub non_shockable_witnessed: Columns,
 }
 
 impl EmsWitnessedExcluded {
@@ -815,13 +815,13 @@ impl EmsWitnessedExcluded {
 }
 
 #[derive(Debug, Serialize)]
-struct Columns {
-    any_rosc_yes: i64,
-    any_rosc_unknown: i64,
-    survived_event_yes: i64,
-    survived_event_unknown: i64,
-    survival_30d_yes: i64,
-    survival_30d_unknown: i64,
-    fav_neurological_yes: i64,
-    fav_neurological_unknown: i64,
+pub struct Columns {
+    pub any_rosc_yes: i64,
+    pub any_rosc_unknown: i64,
+    pub survived_event_yes: i64,
+    pub survived_event_unknown: i64,
+    pub survival_30d_yes: i64,
+    pub survival_30d_unknown: i64,
+    pub fav_neurological_yes: i64,
+    pub fav_neurological_unknown: i64,
 }
