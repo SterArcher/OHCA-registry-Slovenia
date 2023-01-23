@@ -1,7 +1,10 @@
 [package]
 name = "siohca-utstein"
 description = "Utstein export script for the registry"
-license = "GNU"
+license-file = "../LICENSE"
+homepage = "https://github.com/SterArcher/OHCA-registry-Slovenia"
+repository = "https://github.com/SterArcher/OHCA-registry-Slovenia"
+readme = "README.md"
 version = "0.1.0"
 edition = "2021"
 
