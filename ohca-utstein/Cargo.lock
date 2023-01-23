@@ -964,7 +964,7 @@ dependencies = [
 
 [[package]]
 name = "siohca-utstein"
-version = "0.1.4"
+version = "0.1.5"
 dependencies = [
  "bigdecimal",
  "chrono",
