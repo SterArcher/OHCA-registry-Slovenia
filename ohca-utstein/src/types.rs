@@ -135,7 +135,7 @@ impl DispatcherIdCA {
                 SELECT
                     (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = 1) AS "yes!: i64",
                     (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = 0) AS "no!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = -1 OR dispProvidedCprinst IS NULL) AS "unknown!: i64"
+                    (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = -1 OR dispIdentifiedCA IS NULL) AS "unknown!: i64"
             "#
         )
         .fetch_one(pool)
@@ -280,9 +280,9 @@ impl RescNotAttempted {
         let record = sqlx::query!(
             r#"
                 SELECT
-                    (SELECT SUM(attendedCAs) - SUM(attemptedResusc) FROM systems) AS all_cases,
-                    (SELECT SUM(casesDNR) FROM systems) AS dnar,
-                    (SELECT COUNT(*) FROM cases WHERE deadOnArrival = 1) AS obviously_dead,
+                    (SELECT COUNT(*) FROM cases WHERE CPRdone = 0) AS all_cases,
+                    (SELECT COUNT(*) from cases where noCPR = 4) AS dnar,
+                    (SELECT COUNT(*) FROM cases WHERE noCPR = 5) AS obviously_dead,
                     (SELECT SUM(casesCirculation) FROM systems) AS signs_of_life
             "#
         )
