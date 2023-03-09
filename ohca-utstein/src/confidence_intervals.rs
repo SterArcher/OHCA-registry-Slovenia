@@ -41,7 +41,7 @@ fn calculate_confidence_interval(values_total: Vec<i64> ,values_sample: Vec<i64>
 
     let standard_deviation = sum_s / value_sample_length as f64;
     let t_value = (mean - population_mean)/(standard_deviation / (value_sample_length as f64).sqrt());
-    // 1.0 / (value_length as f64).sqrt();   what is this formula?
+   
 
     if value_sample_length < 29 {
         confidence_interval_upper = (mean as f64 ) + (t_value as f64) * (((standard_deviation as f64) / (value_sample_length as f64).sqrt()));
@@ -55,6 +55,7 @@ fn calculate_confidence_interval(values_total: Vec<i64> ,values_sample: Vec<i64>
 }
 
 /* 
+No longer applies
 #[cfg(test)]
 mod tests {
     use super::*;

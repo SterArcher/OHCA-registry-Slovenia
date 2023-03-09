@@ -135,7 +135,7 @@ impl DispatcherIdCA {
                 SELECT
                     (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = 1) AS "yes!: i64",
                     (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = 0) AS "no!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = -1 OR dispIdentifiedCA IS NULL) AS "unknown!: i64"
+                    (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = -1 OR dispProvidedCprinst IS NULL) AS "unknown!: i64"
             "#
         )
         .fetch_one(pool)
@@ -280,9 +280,9 @@ impl RescNotAttempted {
         let record = sqlx::query!(
             r#"
                 SELECT
-                    (SELECT COUNT(*) FROM cases WHERE CPRdone = 0) AS all_cases,
-                    (SELECT COUNT(*) from cases where noCPR = 4) AS dnar,
-                    (SELECT COUNT(*) FROM cases WHERE noCPR = 5) AS obviously_dead,
+                    (SELECT SUM(attendedCAs) - SUM(attemptedResusc) FROM systems) AS all_cases,
+                    (SELECT SUM(casesDNR) FROM systems) AS dnar,
+                    (SELECT COUNT(*) FROM cases WHERE deadOnArrival = 1) AS obviously_dead,
                     (SELECT SUM(casesCirculation) FROM systems) AS signs_of_life
             "#
         )
@@ -310,20 +310,20 @@ pub struct Location {
     pub other: i64,
     pub unknown: i64,
 }
-
+//7 and 6 are switched
 impl Location {
     async fn new(pool: &MySqlPool) -> Self {
         sqlx::query_as!(
             Location,
             r#"
                 SELECT
-                    (SELECT COUNT(*) FROM cases WHERE location = 1) AS "home!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE location = 2) AS "work!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE location = 3) AS "rec!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE location = 5) AS "public!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE location = 7) AS "educ!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE location = 6) AS "nursing!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE location = 8) AS "other!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = 0) AS "home!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = 1) AS "work!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = 2) AS "rec!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = 4) AS "public!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = 6) AS "educ!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = 5) AS "nursing!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE location = 7) AS "other!: i64",
                     (SELECT COUNT(*) FROM cases WHERE location = -1 OR location IS NULL) AS "unknown!: i64"
             "#
         )
@@ -352,6 +352,7 @@ impl Patient {
 pub struct Age {
     pub mean: f64,
     pub unknown: i64,
+    pub standard_deviation: f64,
 }
 
 impl Age {
@@ -361,6 +362,7 @@ impl Age {
                 SELECT
                     AVG(age) AS mean,
                     (SELECT COUNT(*) FROM cases WHERE age IS NULL) AS "unknown!: i64"
+                    STD(age) AS standard_deviation,
                 FROM cases
             "#
         )
@@ -371,6 +373,7 @@ impl Age {
         Self {
             mean: record.mean.unwrap().to_f64().unwrap(),
             unknown: record.unknown,
+            standard_deviation: record.standard_deviation.unwrap().to_f64().unwrap(),
         }
     }
 }

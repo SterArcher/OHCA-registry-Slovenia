@@ -473,7 +473,7 @@
         "Right": 0
       }
     },
-    "query": "\n                SELECT\n                    AVG(age) AS mean,\n                    (SELECT COUNT(*) FROM cases WHERE age IS NULL) AS \"unknown!: i64\"\n                FROM cases\n            "
+    "query": "\n                SELECT\n                    AVG(age) AS mean,\n                    (SELECT COUNT(*) FROM cases WHERE age IS NULL) AS \"unknown!: i64\"\n         FROM cases\n  STD(age) AS standard_deviation \n           "
   },
   "6c370e2044d457ca0a710ffb5d185e04e1b26d83bda5b3348ecf7136bc3e8afb": {
     "describe": {
@@ -692,7 +692,7 @@
         "Right": 0
       }
     },
-    "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE location = 1) AS \"home!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 2) AS \"work!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 3) AS \"rec!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 5) AS \"public!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 7) AS \"educ!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 6) AS \"nursing!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 8) AS \"other!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = -1 OR location IS NULL) AS \"unknown!: i64\"\n            "
+    "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE location = 0) AS \"home!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 1) AS \"work!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 2) AS \"rec!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 4) AS \"public!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 6) AS \"educ!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 5) AS \"nursing!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 7) AS \"other!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = -1 OR location IS NULL) AS \"unknown!: i64\"\n            "
   },
   "7f30db1c5cd1fce6aeb4a08a84cbe0e41078f8330c7f1cbaaf7d7cc63dfb9e6a": {
     "describe": {
