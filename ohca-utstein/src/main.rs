@@ -1,5 +1,9 @@
-use std::{fs::File, io::Write};
+use std::{
+    fs::{read_to_string, File},
+    io::Write,
+};
 
+use handlebars::Handlebars;
 use sqlx::MySqlPool;
 use utstein::Utstein;
 
@@ -18,4 +22,12 @@ async fn main() {
     let mut file = File::create("utstein.json").unwrap();
     let serialized = serde_json::to_string_pretty(&utstein).unwrap();
     file.write(serialized.as_bytes()).unwrap();
+
+    let raw_html = read_to_string("index.html").unwrap();
+
+    let reg = Handlebars::new();
+    let html = reg.render_template(&raw_html, &utstein).unwrap();
+
+    let mut html_file = File::create("utstein.html").unwrap();
+    html_file.write(html.as_bytes()).unwrap();
 }
