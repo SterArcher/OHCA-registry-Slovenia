@@ -5,13 +5,13 @@ use sqlx::MySqlPool;
 ///
 /// # Field mappings
 ///
-/// * All Cases - `all_cases` is the difference of the sum of the columns `attendedCAs` and `attemptedResusc` from the `systems` table
-/// * DNAR (Did not attempt resuscitation) - `dnar` is the sum of the column `casesDNR` from the `systems` table
-/// * Obviously dead - `obviously_dead` is the number of rows where `deadOnArrival` = 1 from the `cases` table
-/// * Signs of Life - `signs_of_life` is the sum of the column `casesCirculation` from the `systems` table
+/// * Count - `count` is the number of rows where `CPRdone` = 0
+/// * DNAR (Did not attempt resuscitation) - `dnar` is the number of rows where `noCPR` = 4 from the `cases` table
+/// * Obviously dead - `obviously_dead` is the number of rows where `noCPR` = 5 from the `cases` table
+/// * Signs of Life - `signs_of_life` is the sum of the column `casesCirculation` and `casesFutile` from the `systems` table
 #[derive(Debug, Serialize)]
 pub struct RescNotAttempted {
-    pub all_cases: i64,
+    pub count: i64,
     pub dnar: i64,
     pub obviously_dead: i64,
     pub signs_of_life: i64,
@@ -28,10 +28,10 @@ impl RescNotAttempted {
             RescNotAttempted,
             r#"
                 SELECT
-                    (SELECT SUM(attendedCAs) - SUM(attemptedResusc) FROM systems) AS "all_cases!: i64",
-                    (SELECT SUM(casesDNR) FROM systems) AS "dnar!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE deadOnArrival = 1) AS "obviously_dead!: i64",
-                    (SELECT SUM(casesCirculation) FROM systems) AS "signs_of_life!: i64"
+                    (SELECT COUNT(*) FROM cases WHERE CPRdone = 0) AS "count!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE noCPR = 4) AS "dnar!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE noCPR = 5) AS "obviously_dead!: i64",
+                    (SELECT SUM(casesCirculation) + SUM(casesFutile) FROM systems) AS "signs_of_life!: i64"
             "#
         )
         .fetch_one(pool)

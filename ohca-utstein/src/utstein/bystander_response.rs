@@ -1,6 +1,7 @@
 use serde::Serialize;
 use sqlx::MySqlPool;
 
+/// The Bystander Response CPR field
 #[derive(Debug, Serialize)]
 pub struct BystanderResponse {
     pub bystander_cpr: BystanderCPR,
@@ -16,6 +17,15 @@ impl BystanderResponse {
     }
 }
 
+/// The Bystander Response CPR field
+///
+/// # Field mappings
+///
+/// * No Bystander CPR - `no_bcpr` is the number of rows where `bystanderResponse` = 0
+/// * Bystander CPR - `bcpr` is the number of rows where `bystanderResponse` = 1 or 2
+/// * CC Only - `cc_only` is the number of rows where `bystanderResponse` = 1 or 2
+/// * CC Or Vent - `cc_or_vent` is the number of rows where `bystanderResponse` = 2
+/// * Unknown -`unknown` is the number of rows where `bystanderResponse` = -1 or NULL
 #[derive(Debug, Serialize)]
 pub struct BystanderCPR {
     pub no_bcpr: i64,
@@ -32,9 +42,9 @@ impl BystanderCPR {
             r#"
                 SELECT
                     (SELECT COUNT(*) FROM cases WHERE bystanderResponse = 0) AS "no_bcpr!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse = 1) AS "cc_only!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse = 1 OR bystanderResponse = 2) AS "bcpr!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse = 1 OR bystanderResponse = 2) AS "cc_only!: i64",
                     (SELECT COUNT(*) FROM cases WHERE bystanderResponse = 2) AS "cc_or_vent!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse BETWEEN 1 AND 2) AS "bcpr!: i64",
                     (SELECT COUNT(*) FROM cases WHERE bystanderResponse = -1 OR bystanderResponse IS NULL) AS "unknown!: i64"
             "#
         )
@@ -44,9 +54,16 @@ impl BystanderCPR {
     }
 }
 
+/// The Bystander Response AED field
+///
+/// # Field mappings
+///
+/// * Shock - `no_shock` is the number of rows where `bystanderAED` = 1
+/// * No Shock CPR - `shock` is the number of rows where `bystanderAED` = 0
+/// * Unknown - `unknown` is the number of rows where `bystanderAED` = -1 or NULL
 #[derive(Debug, Serialize)]
 pub struct BystanderAED {
-    pub analyse: i64,
+    pub no_shock: i64,
     pub shock: i64,
     pub unknown: i64,
 }
@@ -57,9 +74,9 @@ impl BystanderAED {
             BystanderAED,
             r#"
                 SELECT
-                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = 1) AS "analyse!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = 2) AS "shock!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = -1) AS "unknown!: i64"
+                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = 1) AS "no_shock!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = 0) AS "shock!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = -1 OR bystanderAED IS NULL) AS "unknown!: i64"
             "#
         )
         .fetch_one(pool)

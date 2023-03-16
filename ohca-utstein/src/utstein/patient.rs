@@ -2,6 +2,7 @@ use bigdecimal::ToPrimitive;
 use serde::Serialize;
 use sqlx::MySqlPool;
 
+/// The Patient field
 #[derive(Debug, Serialize)]
 pub struct Patient {
     pub age: Age,
@@ -17,6 +18,13 @@ impl Patient {
     }
 }
 
+/// The Age field
+///
+/// # Field mappings
+///
+/// * Mean - `mean`
+/// * Unknown - `unknown`
+/// * Standard deviation - `standard_deviation`
 #[derive(Debug, Serialize)]
 pub struct Age {
     pub mean: f64,
@@ -47,6 +55,13 @@ impl Age {
     }
 }
 
+/// The Sex field
+///
+/// # Field mappings
+///
+/// * Male - `male` is the number of rows where `genderUtstein` = 0
+/// * Female - `female` is the number of rows where `genderUtstein` = 1
+/// * Gender unknown - `unknown` is the number of rows where `genderUtstein` = -1 or NULL
 #[derive(Debug, Serialize)]
 pub struct Sex {
     pub male: i64,
@@ -60,9 +75,9 @@ impl Sex {
             Sex,
             r#"
                 SELECT
-                    (SELECT COUNT(*) FROM cases WHERE gender = 0) AS "male!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE gender = 1) AS "female!: i64",
-                    (SELECT COUNT(*) FROM cases WHERE gender = -1 OR gender IS NULL) AS "unknown!: i64"
+                    (SELECT COUNT(*) FROM cases WHERE genderUtstein = 0) AS "male!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE genderUtstein = 1) AS "female!: i64",
+                    (SELECT COUNT(*) FROM cases WHERE genderUtstein = -1 OR genderUtstein IS NULL) AS "unknown!: i64"
             "#
         )
         .fetch_one(pool)

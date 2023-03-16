@@ -1,6 +1,14 @@
 use serde::Serialize;
 use sqlx::MySqlPool;
 
+/// The Witnessed field
+///
+/// # Field mappings
+///
+/// * Bystander - `bystander` is the number of rows where `witnesses` = 1
+/// * EMS - `ems` is the number of rows where `witnesses` = 2
+/// * Unwitnessed - `unwitnessed` is the number of rows where `witnesses` = 0
+/// * Witnessed unknown - `unknown` is the number of rows where `witnesses` = -1 or NULL
 #[derive(Debug, Serialize)]
 pub struct Witnessed {
     pub bystander: i64,
