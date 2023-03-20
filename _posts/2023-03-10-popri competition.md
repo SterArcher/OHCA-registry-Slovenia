@@ -1,8 +1,8 @@
 ---
-title: SiOHCA attended the Digital Health conference in Ljubljana 🖥️⚕️
+title: SiOHCA competed at the POPRI competition 💪🏻
 Featuresdate: 2023-03-01 15:14:12 -0000
-categories: digital health; conference
-tags: siohca, digital health, conference, attendance
+categories: competition
+tags: siohca; competition; popri
 ---
 
 On March 10th, 2023 we had the privilege of attending the POPRI competition at Tehnološki Park Ljubljana. We are proud to have been selected as one of the best projects that had an opportunity to compete at the preliminary selection.
