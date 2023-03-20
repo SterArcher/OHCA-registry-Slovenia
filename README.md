@@ -22,7 +22,7 @@ You can access the complete consensus article [here](https://www.ahajournals.org
 
 ## Data sources
 
-Data flow is for only in Slovenian for now.
+Data flow is only in Slovenian for now.
 
 ![data_flow_en](https://user-images.githubusercontent.com/42324122/160936152-6cb3873f-d992-4c0f-8fb2-0b7e58ae3ae3.png)
 
