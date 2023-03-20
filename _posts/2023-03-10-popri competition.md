@@ -1,6 +1,6 @@
 ---
 title: SiOHCA competed at the POPRI competition 💪🏻
-Featuresdate: 2023-03-01 15:14:12 -0000
+Featuresdate: 2023-03-10 15:14:12 -0000
 categories: competition
 tags: siohca; competition; popri
 ---
