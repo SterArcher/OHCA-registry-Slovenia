@@ -4,11 +4,16 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style.css" />
-        <title>OHCA Utstein Report</title>
+        <link rel="stylesheet" href="railwind.css" />
+        <title>SiOHCA Utstein Report</title>
     </head>
-    <body>
-        <h1>Population served:</h1>
-        <p>{{ system_core.population_served }}</p>
+    <body class="my-12">
+        <div class="flex justify-center">
+            <div class="border-2 rounded-lg">
+                <h1 class="bg-gray-800 text-white p-2">Population Served</h1>
+                <p class="bg-gray-400 p-2">Total population served by EMS</p>
+                <p class="text-center p-2">10000</p>
+            </div>
+        </div>
     </body>
 </html>
