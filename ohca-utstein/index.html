@@ -8,11 +8,76 @@
         <title>SiOHCA Utstein Report</title>
     </head>
     <body class="my-12">
-        <div class="flex justify-center">
-            <div class="border-2 rounded-lg">
-                <h1 class="bg-gray-800 text-white p-2">Population Served</h1>
-                <p class="bg-gray-400 p-2">Total population served by EMS</p>
+        <div class="grid gap-8 grid-cols-2">
+            <div class="flex justify-start flex-col border-2 rounded-lg">
+                <h1 class="bg-gray-800 text-white text-center p-2">Population Served</h1>
+                <p class="bg-gray-400 text-center p-2">Total population served by EMS</p>
                 <p class="text-center p-2">10000</p>
+            </div>
+            <div class="flex justify-start flex-col border-2 rounded-lg">
+                <h1 class="bg-gray-800 text-white text-center p-2">Cardiac Arrests Attended</h1>
+                <p class="bg-gray-400 text-center p-2">Total number of cases</p>
+                <p class="text-center p-2">10000</p>
+            </div>
+            <div class="flex border-2 rounded-lg col-span-2">
+                <div class="flex flex-col justify-start w-1/3 border-r">
+                    <h1 class="bg-gray-800 text-white text-center p-2">Resuscitation Attempted</h1>
+                    <p class="bg-gray-400 text-center p-2">Total number of attempted resuscitations</p>
+                    <p class="text-center p-2">10000</p>
+                </div>
+                <table class="border-collapse border border-slate-500 table-fixed w-full">
+                    <thead>
+                        <tr class="bg-gray-400">
+                            <th class="border border-slate-600 text-left p-2 font-medium">VF</th>
+                            <th class="border border-slate-600 text-left p-2 font-medium">VT</th>
+                            <th class="border border-slate-600 text-left p-2 font-medium">PEA</th>
+                            <th class="border border-slate-600 text-left p-2 font-medium">ASYS</th>
+                            <th class="border border-slate-600 text-left p-2 font-medium">Brady</th>
+                            <th class="border border-slate-600 text-left p-2 font-medium">AED Non-shockable</th>
+                            <th class="border border-slate-600 text-left p-2 font-medium">AED Shockable</th>
+                            <th class="border border-slate-600 text-left p-2 font-medium">Not Recorded</th>
+                            <th class="border border-slate-600 text-left p-2 font-medium">Unknown</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-slate-600 p-2">100</td>
+                            <td class="border border-slate-600 p-2">100</td>
+                            <td class="border border-slate-600 p-2">100</td>
+                            <td class="border border-slate-600 p-2">100</td>
+                            <td class="border border-slate-600 p-2">100</td>
+                            <td class="border border-slate-600 p-2">100</td>
+                            <td class="border border-slate-600 p-2">100</td>
+                            <td class="border border-slate-600 p-2">100</td>
+                            <td class="border border-slate-600 p-2">100</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex border-2 rounded-lg col-span-2">
+                <div class="flex flex-col justify-center w-1/3 bg-gray-800 text-white px-12">
+                    <p class="text-center">Resuscitation Not Attempted</p>
+                </div>
+                <div class="w-2/3">
+                    <table class="border-collapse border border-slate-500 table-fixed w-full">
+                        <thead>
+                            <tr class="bg-gray-400">
+                                <th class="border border-slate-600 text-left p-2 font-medium">All Cases</th>
+                                <th class="border border-slate-600 text-left p-2 font-medium">DNAR</th>
+                                <th class="border border-slate-600 text-left p-2 font-medium">Obviously Dead</th>
+                                <th class="border border-slate-600 text-left p-2 font-medium">Sings of Life</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-slate-600 p-2">100</td>
+                                <td class="border border-slate-600 p-2">100</td>
+                                <td class="border border-slate-600 p-2">100</td>
+                                <td class="border border-slate-600 p-2">100</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </body>
