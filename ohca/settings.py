@@ -17,20 +17,28 @@ from .suppl import *
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = False
+DEBUG = os.getenv('SERVER_DEBUG', 'false').lower() == 'true'
+SQLITE = os.getenv('SERVER_LOCAL_DB', 'false').lower() == 'true'
 
 ALLOWED_HOSTS = list(map(str.strip, os.getenv('ALLOWED_HOSTS', '*').split(',')))
 
-DATABASES = {
-    'default': {
-        'ENGINE': engine[os.getenv('DATABASE')],
-        'NAME': os.getenv('DATABASE_NAME'),
-        'USER': os.getenv('DATABASE_USER'),
-        'PASSWORD': os.getenv('DATABASE_PASS'),
-        'HOST': os.getenv('DATABASE_HOST', 'localhost'),
-        'PORT': int(os.getenv('DATABASE_PORT', db_port[os.getenv('DATABASE')])),
-    }
-}
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+databases = { 'default': dict() }
+
+if SQLITE:
+    databases['default']['ENGINE'] = 'django.db.backends.sqlite3'
+    databases['default']['NAME'] = os.getenv('DB_PATH', '.') + '/ohca.db'
+else:
+    databases['default']['ENGINE'] = engine[os.getenv('DATABASE')]
+    databases['default']['NAME'] = os.getenv('DATABASE_NAME')
+    databases['default']['USER'] = os.getenv('DATABASE_USER')
+    databases['default']['PASSWORD'] = os.getenv('DATABASE_PASS')
+    databases['default']['HOST'] = os.getenv('DATABASE_HOST', 'localhost')
+    databases['default']['PORT'] = int(os.getenv('DATABASE_PORT', db_port[os.getenv('DATABASE')]))
+    databases['default']['OPTIONS'] = { "init_command":"SET foreign_key_checks = 0;", } #TODO
+
+DATABASES = databases
 
 # Application definition
 
@@ -43,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ohca.middleware.NoClientCaching',
 ]
 
 ROOT_URLCONF = 'ohca.urls'
@@ -60,7 +70,7 @@ ROOT_URLCONF = 'ohca.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,6 +116,10 @@ USE_I18N = True
 
 USE_TZ = True
 
+USE_L10N = False
+
+DATE_FORMAT = 'd m y'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -118,9 +132,23 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'TIMEOUT': 60,
+cacheConfig = dict()
+if DEBUG:
+    cacheConfig = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'TIMEOUT': 60
+        }
     }
-}
+else:
+    cacheConfig = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+            'LOCATION': 'memcached:11211',
+            'TIMEOUT': None
+        }
+    }
+
+CACHES = cacheConfig
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

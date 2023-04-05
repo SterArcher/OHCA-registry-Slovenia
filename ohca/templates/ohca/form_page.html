@@ -1,0 +1,185 @@
+{% extends 'ohca/form_base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <form method="POST" action="" id="form2">
+        {% csrf_token %}
+        {% load cache %}
+        {% cache 86600 form1 %}
+        <p> </p>
+        <p> </p>
+        Vpišite 12-mestno številko intervencije
+        <p> </p>
+        <p> </p>
+        <div class="form-row">
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i1|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i2|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i3|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i4|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i5|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i6|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i7|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i8|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i9|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i10|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i11|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i12|as_crispy_field }}
+            </div>
+        </div>
+
+        <script id="int_handle" next-id="id_systemID" src="/static/js/intervention_id.js"></script>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-sm text-center">
+                    <p>Dispečerski center</p>
+                    <p id="dsz">-----</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>Datum intervencije</p>
+                    <p id="dateInt">--/--/----</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>Dnevna št. intervencije</p>
+                    <p id="intNum">-----</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- <p>{{ formset|crispy }}</p> -->
+        
+
+        
+
+        {% with '"adHospitalName", "adBystAge", "ecgopt", "allDrugs", "airway", "adTtmTemp", "adTargetBP", "adPh", "adLactate", "adShocks"' as list %}
+
+        {% for field in form1 %}
+
+        {% if field.name not in list %}
+
+        {% if field.name == "cardiacArrest" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>Če ste na obe vprašanji odgovorili z DA nadaljujte z izpolnjevanjem.</p>
+
+        {% elif field.name == "name" %}
+            <h2 style='font-weight: 600; font-size: 25px'> 1. Podatki o pacientu</h2>
+            <p>{{ field|as_crispy_field }}</p>
+            
+
+
+        {% elif field.name == "dateOfCA" %}
+            <h2 style='font-weight: 600; font-size: 25px'> 2. Osnovni podatki</h2>
+            <p>{{ field|as_crispy_field }}</p>
+  
+        {% elif field.name == "reaTimestamp" %}
+            <h2 style='font-weight: 600; font-size: 25px'> 3. Časovnica</h2>
+            <p>{{ field|as_crispy_field }}</p>
+
+        {% elif field.name == "reaLocation" %}
+            <h2 style='font-weight: 600; font-size: 25px'> 4. Podatki o srčnem zastoju</h2>
+            <p>{{ field|as_crispy_field }}</p>
+
+        {% elif field.name == "noFirstResponder" %}
+            <h2 style='font-weight: 600; font-size: 25px'> 5. Odziv dispečerja in očividca</h2>
+            <p>{{ field|as_crispy_field }}</p>
+
+        {% elif field.name == "helperWho" %}
+            <h2 style='font-weight: 600; font-size: 25px'> 6. Prvi posredovalci </h2>
+            <p>{{ field|as_crispy_field }}</p>
+
+        {% elif field.name == "AEDconn" %}
+            <h2 style='font-weight: 600; font-size: 25px'> 7. Ritem</h2>
+            <p>{{ field|as_crispy_field }}</p>
+
+            {% elif field.name == "stemiPresent" %}
+            <p>{{ form1.ecg|as_crispy_field }}</p>
+            <p>{{ field|as_crispy_field }}</p>
+
+        {% elif field.name == "rosc" %}
+            <h2 style='font-weight: 600; font-size: 25px'> 8. Izhod po oživljanju </h2>
+            <p>{{ field|as_crispy_field }}</p>
+
+        {% elif field.name == "drugs" %}
+            <h2 style='font-weight: 600; font-size: 25px'> 9. Zdravljenje </h2>
+            <p>{{ form1.allDrugs|as_crispy_field }}</p>
+
+        {% elif field.name == "ph" %}
+            <h2 style='font-weight: 600; font-size: 25px'> 10. Laboratorijski izvidi </h2>
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adPh|as_crispy_field }}</p>
+
+        {% elif field.name == "discDate" %}
+            <h2 style='font-weight: 600; font-size: 25px'> 11. Dolgotrajen izid </h2>
+            <p>{{ field|as_crispy_field }}</p>
+        
+        {% elif field.name == "ecgOptions" %}
+       
+        <p>{{ form1.ecgopt|as_crispy_field }}</p>
+        
+        {% elif field.name == "airwayControl" %}
+            <p>{{ form1.airway|as_crispy_field }}</p>
+
+        {% elif field.name == "ttmTemp" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adTtmTemp|as_crispy_field }}</p>
+
+            {% elif field.name == "lactate" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adLactate|as_crispy_field }}</p>
+
+            {% elif field.name == "targetBP" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adTargetBP|as_crispy_field }}</p>
+
+            {% elif field.name == "shocks" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adShocks|as_crispy_field }}</p>
+
+            {% elif field.name == "hospitalName" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adHospitalName|as_crispy_field }}</p>
+
+            {% elif field.name == "ageBystander" %}
+            <p>{{ field|as_crispy_field }}</p>
+            <p>{{ form1.adBystAge|as_crispy_field }}</p>
+
+
+        {% else %}
+            <p>{{ field|as_crispy_field }}</p>
+
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        {% endwith %}
+
+        <!-- <form action="#"> -->
+        <script src="/static/js/formPersistence.js"></script>
+        <script src="/static/js/formValidation.js"></script>
+        <input type="submit" class="btn btn-dark" value="Submit" onclick="saveFormToCookie(); handleDoubleField()" onload="saveFormToCookie()">
+        {% endcache %}
+    </form>
+
+{% endblock %}

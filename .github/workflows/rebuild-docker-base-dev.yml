@@ -1,0 +1,29 @@
+name: Rebuild Docker base (dev)
+
+on:
+  push:
+    branches:
+      - 'api-dev'
+    paths:
+      - 'Pipfile'
+      - 'Pipfile.lock'
+      - 'Dockerfile'
+  workflow_dispatch:
+
+jobs:
+  docker:
+    name: Publish - Docker Hub
+    runs-on: ubuntu-latest
+    env:
+      REPO: ${{ secrets.DOCKER_REPO }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: api-dev
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} 
+             -p ${{ secrets.DOCKER_PASS }}
+      - name: Build Docker image
+        run: docker build -t $REPO:dev -t $REPO:${GITHUB_SHA::8} .
+      - name: Publish Docker image
+        run: docker push $REPO:dev

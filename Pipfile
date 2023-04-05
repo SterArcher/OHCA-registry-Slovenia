@@ -12,6 +12,10 @@ wheel = "*"
 gunicorn = "*"
 mssql-django = "*"
 mysqlclient = "*"
+django-crispy-forms = "*"
+pymemcache = "*"
+pandas = "*"
+openpyxl = "*"
 
 [requires]
 python_version = "3.8"

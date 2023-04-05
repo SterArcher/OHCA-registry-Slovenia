@@ -1,0 +1,1545 @@
+{
+  "db": "MySQL",
+  "01d5b6e714c48ac1c2767a58417e0e6bb6ea42b593bcce477b188521b875c75d": {
+    "describe": {
+      "columns": [
+        {
+          "name": "population_served",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 33,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "cardiac_arrests_attended",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 33,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "response_time_mean",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 25,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "response_time_std",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 44,
+            "type": "Double"
+          }
+        },
+        {
+          "name": "count",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 129
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT \n                    (SELECT SUM(population) FROM systems) AS population_served,\n                    (SELECT SUM(attendedCAs) FROM systems) AS cardiac_arrests_attended,\n                    (SELECT AVG(responseTime) FROM cases WHERE responseTime IS NOT NULL) AS response_time_mean,\n                    (SELECT STD(responseTime) FROM cases WHERE responseTime IS NOT NULL) AS response_time_std,\n                    (SELECT COUNT(*)) as count\n            "
+  },
+  "06e9c165fc523e8d804eae9200bb261dcd69266d9e10f938eb54ced65b1af61b": {
+    "describe": {
+      "columns": [
+        {
+          "name": "any_rosc_yes!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "any_rosc_unknown!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_yes!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_unknown!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_yes!: i64",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_unknown!: i64",
+          "ordinal": 5,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_yes!: i64",
+          "ordinal": 6,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_unknown!: i64",
+          "ordinal": 7,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                WITH w AS \n                (\n                    SELECT\n                        rosc,\n                        hospArri,\n                        survival30d,\n                        cpcDischarge,\n                        mrsDischarge\n                    FROM cases\n                    WHERE witnesses = 1\n                    AND bystanderAED = 1\n                )\n                SELECT\n                    (SELECT COUNT(*) FROM w WHERE rosc = 1) AS \"any_rosc_yes!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE rosc = -1 OR rosc IS NULL) AS \"any_rosc_unknown!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE hospArri = 1) AS \"survived_event_yes!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE hospArri = -1 OR hospArri IS NULL) AS \"survived_event_unknown!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE survival30d = 1) AS \"survival_30d_yes!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE survival30d = -1 OR survival30d IS NULL) AS \"survival_30d_unknown!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE cpcDischarge = 2 OR mrsDischarge < 3) AS \"fav_neurological_yes!: i64\",\n                    (SELECT COUNT(*) FROM w \n                        WHERE mrsDischarge = -2 OR mrsDischarge IS NULL OR cpcDischarge = -1 OR cpcDischarge IS NULL\n                    ) AS \"fav_neurological_unknown!: i64\"\n            "
+  },
+  "0a1a9b2840d216ca5a9f527a20ea9201968466802c6b69945a6948041192f6b3": {
+    "describe": {
+      "columns": [
+        {
+          "name": "any_rosc_yes!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "any_rosc_unknown!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_yes!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_unknown!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_yes!: i64",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_unknown!: i64",
+          "ordinal": 5,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_yes!: i64",
+          "ordinal": 6,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_unknown!: i64",
+          "ordinal": 7,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                WITH w AS \n                (\n                    SELECT\n                        rosc,\n                        hospArri,\n                        survival30d,\n                        cpcDischarge,\n                        mrsDischarge\n                    FROM cases\n                    WHERE reawitnesses = 1\n                )\n                SELECT\n                    (SELECT COUNT(*) FROM w WHERE rosc = 1) AS \"any_rosc_yes!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE rosc = -1 OR rosc IS NULL) AS \"any_rosc_unknown!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE hospArri = 1) AS \"survived_event_yes!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE hospArri = -1 OR hospArri IS NULL) AS \"survived_event_unknown!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE survival30d = 1) AS \"survival_30d_yes!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE survival30d = -1 OR survival30d IS NULL) AS \"survival_30d_unknown!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE cpcDischarge = 2 OR mrsDischarge < 3) AS \"fav_neurological_yes!: i64\",\n                    (SELECT COUNT(*) FROM w \n                        WHERE mrsDischarge = -4 OR mrsDischarge IS NULL OR cpcDischarge = -1 OR cpcDischarge IS NULL\n                    ) AS \"fav_neurological_unknown!: i64\"\n            "
+  },
+  "0a46db476a90467aa91582eb19feae5f5800d88d91aed38b0f2193d84fa709e2": {
+    "describe": {
+      "columns": [
+        {
+          "name": "attempted!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "indicated_done!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "indicated_not_done!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "not_indicated!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "unknown!: i64",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "organ_donation!: i64",
+          "ordinal": 5,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE reperfusionTime BETWEEN 1 AND 3) AS \"attempted!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE ttm BETWEEN 1 AND 3) AS \"indicated_done!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE ttm = 4) AS \"indicated_not_done!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE ttm = 5) AS \"not_indicated!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE ttm = -1 OR ttm IS NULL) AS \"unknown!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE organDonation = 1) AS \"organ_donation!: i64\"\n            "
+  },
+  "0e61815549e5f7e0426970b9460045ec537b9eebee7862e7398ac1d982bdaa02": {
+    "describe": {
+      "columns": [
+        {
+          "name": "mean",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 11,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "unknown!",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "standard_deviation",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 16,
+            "type": "Double"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    AVG(age) AS mean,\n                    (SELECT COUNT(*) FROM cases WHERE age IS NULL) AS \"unknown!\",\n                    STD(age) AS standard_deviation\n                FROM cases;\n            "
+  },
+  "1193353e6576bbf4b6e730e8d93d56c30db999a7fd3ab5cbc990e4bc0342682f": {
+    "describe": {
+      "columns": [
+        {
+          "name": "medical!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "trauma!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "overdose!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "drowning!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "electrocution!: i64",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "asphyxial!: i64",
+          "ordinal": 5,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "not_recorded!: i64",
+          "ordinal": 6,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE pathogenesis = 0) AS \"medical!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE pathogenesis = 1) AS \"trauma!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE pathogenesis = 3) AS \"overdose!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE pathogenesis = 2) AS \"drowning!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE pathogenesis = 4) AS \"electrocution!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE pathogenesis = 5) AS \"asphyxial!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE pathogenesis = -1 or pathogenesis IS NULL) AS \"not_recorded!: i64\"\n            "
+  },
+  "15751d7e6686fe84c7eb257a17a3e740f8c525eefe87a924b679b7a740d5fa8d": {
+    "describe": {
+      "columns": [
+        {
+          "name": "any_rosc_yes!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "any_rosc_unknown!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_yes!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_unknown!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_yes!: i64",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_unknown!: i64",
+          "ordinal": 5,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_yes!: i64",
+          "ordinal": 6,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_unknown!: i64",
+          "ordinal": 7,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                WITH w AS \n                (\n                    SELECT\n                        rosc,\n                        hospArri,\n                        survival30d,\n                        cpcDischarge,\n                        mrsDischarge\n                    FROM cases\n                    WHERE iniRythm = 0\n                    AND reawitnesses != 2\n                )\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE witnesses = 1 AND bystanderAED = 1 AND rosc = 1) AS \"any_rosc_yes!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE rosc = -1 OR rosc IS NULL) AS \"any_rosc_unknown!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE hospArri = 1) AS \"survived_event_yes!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE hospArri = -1 OR hospArri IS NULL) AS \"survived_event_unknown!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE survival30d = 1) AS \"survival_30d_yes!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE survival30d = -1 OR survival30d IS NULL) AS \"survival_30d_unknown!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE cpcDischarge = 2 OR mrsDischarge < 3) AS \"fav_neurological_yes!: i64\",\n                    (SELECT COUNT(*) FROM w \n                        WHERE mrsDischarge = -3 OR mrsDischarge IS NULL OR cpcDischarge = -1 OR cpcDischarge IS NULL\n                    ) AS \"fav_neurological_unknown!: i64\"\n            "
+  },
+  "4dae5b64a0adb3ed65fe48aa4b8f822b99174076032de08457b9b9563bd18b44": {
+    "describe": {
+      "columns": [
+        {
+          "name": "no_shock!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "shock!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "unknown!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = 1) AS \"no_shock!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = 0) AS \"shock!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE bystanderAED = -1 OR bystanderAED IS NULL) AS \"unknown!: i64\"\n            "
+  },
+  "7335741b9e79cb368004ef750dc4aa61abfdcf5ca1b170e6c61d0be90eaf2668": {
+    "describe": {
+      "columns": [
+        {
+          "name": "home!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "work!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "rec!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "public!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "educ!: i64",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "nursing!: i64",
+          "ordinal": 5,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "street!: i64",
+          "ordinal": 6,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "other!: i64",
+          "ordinal": 7,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "unknown!: i64",
+          "ordinal": 8,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE location = 0) AS \"home!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 1) AS \"work!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 2) AS \"rec!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 4) AS \"public!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 6) AS \"educ!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 5) AS \"nursing!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 3) AS \"street!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = 7) AS \"other!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE location = -1 OR location IS NULL) AS \"unknown!: i64\"\n            "
+  },
+  "8aa8e913ca553d735af84b53679dccecc7522498645e27ff661b93e6713a37a1": {
+    "describe": {
+      "columns": [
+        {
+          "name": "bystander!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "ems!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "unwitnessed!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "unknown!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE witnesses = 1) AS \"bystander!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE witnesses = 2) AS \"ems!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE witnesses = 0) AS \"unwitnessed!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE witnesses = -1 OR bystanderResponse IS NULL) AS \"unknown!: i64\"\n            "
+  },
+  "90dab88eb454b993035945ab11c70065af7bacbc9bb364e5f7e410e3fa7789e0": {
+    "describe": {
+      "columns": [
+        {
+          "name": "any_rosc_yes!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "any_rosc_unknown!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_yes!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survived_event_unknown!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_yes!: i64",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "survival_30d_unknown!: i64",
+          "ordinal": 5,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_yes!: i64",
+          "ordinal": 6,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "fav_neurological_unknown!: i64",
+          "ordinal": 7,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                WITH w AS \n                (\n                    SELECT\n                        rosc,\n                        hospArri,\n                        survival30d,\n                        cpcDischarge,\n                        mrsDischarge\n                    FROM cases\n                    WHERE witnesses BETWEEN 1 AND 2\n                )\n                SELECT\n                    (SELECT COUNT(*) FROM w WHERE rosc = 1) AS \"any_rosc_yes!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE rosc = -1 OR rosc IS NULL) AS \"any_rosc_unknown!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE hospArri = 1) AS \"survived_event_yes!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE hospArri = -1 OR hospArri IS NULL) AS \"survived_event_unknown!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE survival30d = 1) AS \"survival_30d_yes!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE survival30d = -1 OR survival30d IS NULL) AS \"survival_30d_unknown!: i64\",\n                    (SELECT COUNT(*) FROM w WHERE cpcDischarge = 2 OR mrsDischarge < 3) AS \"fav_neurological_yes!: i64\",\n                    (SELECT COUNT(*) FROM w \n                        WHERE mrsDischarge = -1 OR mrsDischarge IS NULL OR cpcDischarge = -1 OR cpcDischarge IS NULL\n                    ) AS \"fav_neurological_unknown!: i64\"\n                "
+  },
+  "93f9d3ab932080a212c82ac2afa41936e9fb10f21ab10e320885b2e7b6b79b4b": {
+    "describe": {
+      "columns": [
+        {
+          "name": "male!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "female!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "unknown!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE genderUtstein = 0) AS \"male!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE genderUtstein = 1) AS \"female!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE genderUtstein = -1 OR genderUtstein IS NULL) AS \"unknown!: i64\"\n            "
+  },
+  "abfe8e63ba3e23205e4696b5bbb1b44c29b2860fecbf6b5c35f1902d76b0be7d": {
+    "describe": {
+      "columns": [
+        {
+          "name": "no_bcpr!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "bcpr!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "cc_only!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "cc_or_vent!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "unknown!: i64",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse = 0) AS \"no_bcpr!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse = 1 OR bystanderResponse = 2) AS \"bcpr!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse = 1 OR bystanderResponse = 2) AS \"cc_only!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse = 2) AS \"cc_or_vent!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE bystanderResponse = -1 OR bystanderResponse IS NULL) AS \"unknown!: i64\"\n            "
+  },
+  "cfdc26259bb87b89739d4f5a85b09e05c84574b316f3690dafbad0dea11c6624": {
+    "describe": {
+      "columns": [
+        {
+          "name": "yes!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "no!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "unknown!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = 1) AS \"yes!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = 0) AS \"no!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE dispIdentifiedCA = -1 OR dispProvidedCprinst IS NULL) AS \"unknown!: i64\"\n            "
+  },
+  "d075afd123ccee3f482aa2f50fef2b58339cd3aa13a92388c37dcdc82bed8e2d": {
+    "describe": {
+      "columns": [
+        {
+          "name": "first_defib_time",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 25,
+            "type": "NewDecimal"
+          }
+        },
+        {
+          "name": "indicated_done!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "indicated_not_done!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "not_indicated!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "unknown!: i64",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "drugs_given!: i64",
+          "ordinal": 5,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    (SELECT AVG(defibTime) FROM cases) AS first_defib_time,\n                    (SELECT COUNT(*) FROM cases WHERE ttm BETWEEN 1 AND 3) AS \"indicated_done!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE ttm = 4) AS \"indicated_not_done!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE ttm = 5) AS \"not_indicated!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE ttm = -1 OR ttm IS NULL) AS \"unknown!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE drugs = 1 OR drugs = 2 OR drugs = 4) AS \"drugs_given!: i64\"\n            "
+  },
+  "d565a53d729719f787fafec424252bc4d1ec00e2e981906fb91c11e789fd92b0": {
+    "describe": {
+      "columns": [
+        {
+          "name": "count!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "dnar!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "obviously_dead!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "signs_of_life!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 34,
+            "type": "NewDecimal"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE CPRdone = 0) AS \"count!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE noCPR = 4) AS \"dnar!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE noCPR = 5) AS \"obviously_dead!: i64\",\n                    (SELECT SUM(casesCirculation) + SUM(casesFutile) FROM systems) AS \"signs_of_life!: i64\"\n            "
+  },
+  "d793fd84a17a3a92054eaab2203ec3860c2e0c89c9452b8c2b955db68d7b66fc": {
+    "describe": {
+      "columns": [
+        {
+          "name": "count!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "vt!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "pea!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "asys!: i64",
+          "ordinal": 3,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "brady!: i64",
+          "ordinal": 4,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "aed_non_shockable!: i64",
+          "ordinal": 5,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "aed_shockable!: i64",
+          "ordinal": 6,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "not_recorded!: i64",
+          "ordinal": 7,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "unknown!: i64",
+          "ordinal": 8,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE cprEMS = 1) as \"count!: i64\",\n                    (SELECT COUNT(*) FROM cases \n                        WHERE iniRythm = 0 \n                        OR firstMonitoredRhy = 1 \n                        OR firstMonitoredRhy = 3\n                        OR ecgOptions = 22\n                    ) AS \"vt!: i64\",\n                    (SELECT COUNT(*) FROM cases \n                        WHERE firstMonitoredRhy = 4\n                        OR iniRythm = 1\n                        OR ecgOptions = 25\n                        OR firstMonitoredRhy = 0    \n                    ) AS \"pea!: i64\",\n                    (SELECT COUNT(*) FROM cases \n                        WHERE firstMonitoredRhy = 5\n                        OR iniRythm = 1\n                        OR ecgOptions = 24\n                    ) AS \"asys!: i64\",\n                    (SELECT COUNT(*) FROM cases \n                        WHERE firstMonitoredRhy = 6\n                        OR ecgOptions = 2\n                        OR ecgOptions = 3\n                    ) AS \"brady!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE firstMonitoredRhy = 0) AS \"aed_non_shockable!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE iniRythm = 0 OR firstMonitoredRhy = 1) AS \"aed_shockable!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE iniRythm IS NULL) AS \"not_recorded!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE iniRythm = -1) AS \"unknown!: i64\"\n            "
+  },
+  "d926660d0622ec36c64861e8ca8a97a4abcdef6d5c517677a78d1513e38b1fa0": {
+    "describe": {
+      "columns": [
+        {
+          "name": "yes!: i64",
+          "ordinal": 0,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "no!: i64",
+          "ordinal": 1,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        },
+        {
+          "name": "unknown!: i64",
+          "ordinal": 2,
+          "type_info": {
+            "char_set": 63,
+            "flags": {
+              "bits": 128
+            },
+            "max_size": 21,
+            "type": "LongLong"
+          }
+        }
+      ],
+      "nullable": [
+        true,
+        true,
+        true
+      ],
+      "parameters": {
+        "Right": 0
+      }
+    },
+    "query": "\n                SELECT\n                    (SELECT COUNT(*) FROM cases WHERE dispProvidedCPRinst = 1) AS \"yes!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE dispProvidedCPRinst = 0) AS \"no!: i64\",\n                    (SELECT COUNT(*) FROM cases WHERE dispProvidedCPRinst = -1 OR dispProvidedCprinst IS NULL) AS \"unknown!: i64\"\n            "
+  }
+}

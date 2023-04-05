@@ -1,0 +1,316 @@
+{
+    "reaConf" : {
+        "eureca_name" : "reaConf",
+        "field_name" : "Cardiac arrest confirmed",
+        "description" : "Confirmation by EMS on arrival; 'unknown' may be chosen, e.g. in case of bystander-CPR with ROSC prior to EMS-arrival",
+        "utstein" : "Utstein: Cardiac arrest is the cessation of cardiac mechanical activity as confirmed by the absence of signs of circulation. If an EMS provider or physician did not witness the cardiac arrest, he/she may be uncertain as to whether a cardiac arrest actually occurred",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "02",
+            "1" : "01"
+        }
+    },
+    "CPRdone" : {
+        "eureca_name" : "CPRdone",
+        "field_name" : "CPR attempted",
+        "description" : "any CPR attempted by EMS, person sent to help or bystander, irrespective of countinued or not",
+        "utstein" : "Utstein: Cardiopulmonary resuscitation is an attempt to restore spontaneous circulation by performing chest compressions with or without ventilations, for the EuReCa THREE study it also includes the use of an AED without compressions.",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "02",
+            "1" : "01"
+        }
+    },
+    "persCPRstart" : {
+        "eureca_name" : "PersCPRstart", 
+        "field_name": "Who started CPR",
+        "description" : "Who started the the resuscitation. Was it a person there by chance or was it a person sent to help by the dispatch center for example via App or as a community response",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "0",
+            "1" : "01",
+            "2" : "02",
+            "3" : "03"
+        }
+    },
+    "cprEms" : {
+        "eureca_name" : "CprEms",
+        "field_name" : "CPR by EMS",
+        "description" : "Any CPR by EMS",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "02",
+            "1" : "01"
+        }
+    },
+    "noCPR" : {
+        "eureca_name" : "NoCPR",
+        "field_name" : "CPR not attempted by EMS",
+        "description" : "Reason for no attempt as decided by EMS; this field has to be left blank if CPR is attempted by EMS",
+        "utstein" : "Utstein: EMS personnel may not attempt resuscitation when a do- not-attempt-resuscitation (DNAR) order exists, a resuscitation attempt is considered futile, or resuscitation is not required (e.g., the patient has signs of circulation).",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "5" : "01",
+            "4" : "02",
+            "3" : "03",
+            "2" : "04",
+            "1" : "05",
+            "0" : "06"
+        }
+    },
+    "gender" : {
+        "eureca_name" : "PaGender",
+        "field_name" : "Patient gender/sex",
+        "utstein" : "Utstein: Sex (male or female) may be an important risk factor for cardiac arrest and resuscitation interventions.",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "01",
+            "1" : "02",
+            "2" : "03"
+        }
+    },
+    "reaCause" : {
+        "eureca_name" : "ReaCause",
+        "field_name" : "Aetiology of cardiac arrest",
+        "utstein" : "Utstein: An arrest is presumed to be of cardiac aetiology unless it is known or likely to have been caused by trauma, submersion, drug overdose, asphyxia, exsanguination, or any other non-cardiac cause as best determined by rescuers",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "01",
+            "1" : "02",
+            "2" : "03",
+            "3" : "04",
+            "4" : "11"
+        }
+    },
+    "pathogenesis" : {
+        "eureca_name" : "ReaC2014",
+        "field_name" : "Aetiology of cardiac arrest",
+        "utstein" : "Utstein: Medical: This includes cases where the cause of the cardiac arrest is presumed to be cardiac, other medical (e.g. anaphylaxis, asthma, GI bleed) and where there is no obvious cause of the cardiac arrest;  Traumatic: Cardiac arrest directly caused by blunt, penetrating or burn injury;  Drug overdose: Evidence that the cardiac arrest was caused by deliberate or accidental overdose of prescribed medications, recreational drugs, and ethanol;  Drowning: Victim is found submersed in water without an alternative causation;  Asphyxial: External causes of asphyxia such as foreign body airway obstruction, hanging, strangulation",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "01",
+            "1" : "02",
+            "2" : "03",
+            "3" : "05",
+            "4" : "13",
+            "5" : "14"
+        }
+    },
+    "reaLocation" : {
+        "eureca_name" : "ResLocat",
+        "field_name" : "Place of cardiac arrest OHCA ",
+        "utstein" : "Utstein: Location of arrest is the specific location where the event occurred or the patient was found. Knowledge of where cardiac arrests occur may help a community to determine how it can optimize its resources to reduce response intervals. A basic list of predefined locations will facilitate comparisons. Local factors may make creation of subcategories useful. For example: Place of residence: e.g., home, apartment, back yard of a home. Public place: e.g., the street, city park, shopping center, sports stadium, entertainment center, airport, railway station, church, beach, office building. Other: hotel room, private office, long-term care nursing facility.",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "01",
+            "1" : "03",
+            "2" : "11",
+            "3" : "05",
+            "4" : "06",
+            "5" : "02",
+            "6" : "98"
+        }
+    },
+    "dispProvidedCPRinst" : {
+        "eureca_name" : "TeleCPR",
+        "field_name" : "Dispatch: telephone CPR",
+        "description" : "Info from dispatch centre: is telephone CPR offered? NOT if actually done",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "02",
+            "1" : "01"
+        }
+    },
+    "reaWitnesses" : {
+        "eureca_name" : "reaWitnes",
+        "field_name" : "Collapse witnessed", 
+        "description" : "Definition person sent to help: persons sent to help, who was alerted to the scene by the dispatch centre via SMS, app or telephone/radio",
+        "utstein" : "Utstein: A witnessed cardiac arrest is one that is seen or heard by another person or an arrest that is monitored. ",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "02",
+            "1" : "01",
+            "2" : "03",
+            "3" : "04"
+        }
+    },
+    "bystanderCPR" : {
+        "eureca_name" : "Bystander CPR",
+        "description" : "for the EuReCa THREE study 'any bystander-CPR' has been added compared to Utstein definition. Participants should preferably specify between 'full CPR' and 'CCO CPR'",
+        "utstein" : "Utstein: Bystander CPR is cardiopulmonary resuscitation performed by a person who is not responding as part of an organized emergency response system to a cardiac arrest. Any person alerted to the scene by the dispatch centre is not a bystander. Physicians, nurses, and paramedics may be described as performing bystander CPR if they are not part of the emergency response system involved in the victim’s resuscitation",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "01",
+            "1" : "02",
+            "2" : "03",
+            "3" : "04"
+        }
+    },
+    "gbystnader" : {
+        "eureca_name" : "Gbystander",
+        "field_name" : "Gender of bystander",
+        "description" : "Gender of the person on scene by chance who started CPR",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "01",
+            "1" : "02",
+            "2" : "03"
+        }
+    },
+    "helperCPR" : {
+        "eureca_name" : "HelperCPR",
+        "field_name" : "Person sent to help CPR",
+        "description" : "Any CPR by persons sent to help, who was alerted to the scene by the dispatch centre via SMS, app or telephone/radio",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "01",
+            "1" : "02",
+            "2" : "03",
+            "3" : "04"
+        }
+    },
+    "helperWho" : {
+        "eureca_name" : "HelperWho",
+        "field_name" : "If person sent to help, who?",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "01",
+            "1" : "02",
+            "2" : "03",
+            "3" : "04",
+            "4" : "05",
+            "5" : "06"
+        }
+    }, 
+    "iniRythm" : {
+        "eureca_name" : "IniRythm",
+        "field_name" : "First recorded rhythm",
+        "description" : "From EMS defib. If AED first: from memory or 'shockable' if AED shock given.",
+        "utstein" : "Utstein: The first monitored rhythm is the first cardiac rhythm present when the monitor or defibrillator is attached to the patient after a cardiac arrest. If the AED does not have a rhythm display, it may be possible to determine the first monitored rhythm from a data storage card, hard drive, or other device used by the AED to record data. If the AED has no data recording device, the first monitored rhythm should be classified simply as shockable or nonshockable. This data point can be updated at a later time if the AED has data download capability.",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "01",
+            "1" : "02"
+        }
+    },
+    "AEDconn" : {
+        "eureca_name" : "AEDConn",
+        "field_name" : "AED connected before EMS arrival with or without shocks",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "02",
+            "1" : "01"
+        }
+    },
+    "AEDshock" : {
+        "eureca_name" : "AEDsHOCK",
+        "field_name" : "AED shocks before arrival EMS",
+        "description" : "Can be from AED memory or verbal report and EMS info",
+        "utstein" : "Utstein: When a bystander attempts defibrillation, e.g., public access or lay rescuer defibrillation, it is recorded as a defibrillation attempt before EMS arrival. AEDs are increasingly being made available for access by the general public. In patients with an ICD, a shockable rhythm is likely to have triggered at least one shock by the device before the arrival of EMS personnel. This can be confirmed by analyzing the ICD memory. After extensive discussion, the task force agreed that defibrillation attempts by ICDs are important but difficult for EMS to track. Thus, ICD documentation is optional.",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "02",
+            "1" : "01"
+        }
+    },
+    "defiOrig" : {
+        "eureca_name" : "DefiOrig",
+        "field_name" : "First shock from AED or EMS",
+        "description" : "Device from which the first rhythm was derived; has to be left blank if no shock. AED can be used by bystander or person sent to help.",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "01",
+            "1" : "03"
+        }
+    },
+    "rosc" : {
+        "eureca_name" : "ROSC",
+        "field_name" : "Any rosc",
+        "utstein" : "Utstein: Signs of return of spontaneous circulation include breathing (more than an occasional gasp), coughing, or movement. For healthcare personnel, signs of ROSC may also include evidence of a palpable pulse or a measurable blood pressure. For the purposes of the Utstein registry template, “successful resuscitation,” or ROSC, is defined for all rhythms as the restoration of a spontaneous perfusing rhythm that results in more than an occasional gasp, fleeting palpated pulse, or arterial waveform. Assisted circulation (e.g., extracorporeal support such as extracorporeal membrane oxygenation or biventricular assist device) should not be considered ROSC until “patient-generated” (i.e., spontaneous) circulation is established. Previous reports focused on outcomes from ventricular fibrillation have variably defined “successful defibrillation” as the termination of fibrillation to any rhythm (including asystole) and the termination of fibrillation to an organized electrical rhythm at 5 s after defibrillation (including pulseless electrical activity, PEA). Neither of these definitions of “successful defibrillation” would qualify as ROSC unless accompanied by evidence of restoration of circulation. By consensus, the term “any ROSC” is intended to represent a brief (approximately >30 s) restoration of spontaneous circulation that provides evidence of more than an occasional gasp, occasional fleeting palpable pulse, or arterial waveform. The time that ROSC is achieved is a core data element.",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "1" : "01",
+            "2" : "02"
+        }
+    },
+    "diedOnField" : {
+        "eureca_name" : "DeadSc",
+        "field_name" : "Died on scene",
+        "utstein" : "Utstein: Patients who were not transported to hospital and died on scene",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "02",
+            "1" : "01"
+        }
+    },
+    "hospArri" : {
+        "eureca_name" : "HospArri",
+        "field_name" : "Status of arrival at hosp",
+        "description" : "Admission defined as handover from EMS to emergency department or hospital system with ongoing additional treatment in the next step of care. Patients who die on scene and are not transported should be coded as 01 dead.",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "01",
+            "1" : "02",
+            "2" : "03",
+            "3" : "04" 
+        }
+    },
+    "survivalDischarge" : {
+        "eureca_name" :"HospDisc",
+        "field_name" : "Survival to discharge",
+        "description" : "Either survival to discharge or 30 day survival must be included; Note: interhopital transfer to same or higher level should not be considered discharge. If death in hospital: same as date of discharge",
+        "utstein" : "Utstein: hospital discharge is the point at which the patient is discharged from the hospital acute care unit regardless of neurological status, outcome, or destination. Ideally this should indicate survival to discharge from acute hospital care, including a possible rehabilitation period in a local hospital before longterm care, home care, or death.",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "02",
+            "1" : "01"
+        }
+    },
+    "survival30d" : {
+        "eureca_name" : "surv30d",
+        "field_name" : "30 day survival",
+        "description" : "Either survival to discharge or 30 day survival must be included",
+        "encoding" : {
+            "-2" : "00",
+            "-1" : "99",
+            "0" : "02",
+            "1" : "01"
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

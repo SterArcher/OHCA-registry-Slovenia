@@ -1,0 +1,62 @@
+{% extends 'ohca/form_base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <!-- -------submit message-------- -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>{{message}}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <!-- -------submit message-------- -->
+
+    <h2 style="font-weight: 500;">Izpolnite podatke o dogodku</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {% load cache %}
+        {% cache 86400 form4 %}
+        <p> </p>
+        <p> </p>
+        <!-- <p>{{ formset|crispy }}</p> -->
+        <p>{{form1.Patient_name|as_crispy_field}}</p>
+        <p>{{form1.Patient_surname|as_crispy_field}}</p>
+        <p>{{form1.gender|as_crispy_field}}</p>
+        <p>{{form1.Date_birth|as_crispy_field}}</p>
+        <p>{{form1.Date|as_crispy_field}}</p>
+        <p>{{form1.localID|as_crispy_field}}</p>
+        <p>{{form1.systemID|as_crispy_field}}</p>
+        
+        {% for field in form2 %}
+            {% if field.name == "CAtimestamp" %}
+                <p>{{ field|as_crispy_field}}</p>
+                <p>{{ form1.estim_time|as_crispy_field}}</p>
+            {% elif field.name == "ageBystander" %}
+                <p>{{ form1.ageBystander|as_crispy_field }}</p>
+                <p>{{ form1.estim_age|as_crispy_field }}</p>
+            {% else %}
+                <p>{{ field|as_crispy_field}}</p>
+            {% endif %}
+        {% endfor %}
+        
+        <!-- <input type="time" step="1"> -->
+
+        {% with '"estim_age", "estim_time", "mainInterventionID", "All_drugs", "gender", "localID", "systemID", "Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time"' as list %}
+            {% for field in form1 %}
+                {% if field.name not in list %}
+                    <!-- <p>{{ field.label}}{{ field|as_crispy_field }}</p> -->
+                    <p>{{ field|as_crispy_field }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endwith %}
+
+        <!-- <form action="#"> -->
+        
+        <input type="submit" class="btn btn-dark" value="Submit">
+        {% endcache %}
+    </form>
+
+{% endblock %}

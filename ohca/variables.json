@@ -1,0 +1,1896 @@
+{
+    "cases": {
+        "caseID": {
+            "title": "UUID primera",
+            "description": "Unikaten ID primera",
+            "core": true,
+            "section" : "metadata",
+            "shown" : false
+        },
+        "interventionID" : {
+            "title" : "ID intervencije", 
+            "description" : "", 
+            "section" : "metadata",
+            "shown" : false
+        },
+        "mainInterventionID" : {
+            "title" : "ID intervencije", 
+            "description" : "", 
+            "section" : "metadata",
+            "shown" : false
+        },
+        "systemID": {
+            "title": "Enota NMP",
+            "description": "Navedi enoto NMP, ki je bila aktivirana",
+            "core": true,
+            "form" : "d1",
+            "section" : "metadata",
+            "shown" : true
+        },
+        "localID": {
+            "title": "Občina zastoja",
+            "description": "Občina, v kateri je pacient doživel srčni zastoj",
+            "core": true,
+            "form" : "d1",
+            "section" : "metadata",
+            "shown" : true
+        },
+        "reaLand": {
+            "title" : "Država zastoja",
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : false,
+            "section" : "metadata"
+        },
+        "reaRegion": {
+            "title" : "Regija srčnega zastoja",
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : false,
+            "section" : "metadata"
+        },
+        "reaPop": {
+            "title" : "Število prebivalcev",
+            "description" : "Število prebivalcev, ki jih pokriva vaš NMP",
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : false,
+            "section" : "metadata"
+        },
+        "reaYr": {
+            "title": "Leto srčnega zastoja",
+            "description": "Leto srčnega zastoja v YYYY formi",
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : false,
+            "section" : "general_info"
+        },
+        "reaMo": {
+            "title": "Mesec srčnega zastoja",
+            "description": "Mesec srčnega zastoja v MM formi",
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : false,
+            "section" : "general_info"
+        },
+        "reaDay": {
+            "title": "Dan srčnega zastoja",
+            "description": "Dan srčnega zastoja v DD formi",
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : false,
+            "section" : "general_info"
+        },
+        "emergencyTransport" : {
+            "title" : "Nujna vožnja?",
+            "description" : "Modre luči in sirena",
+            "values" : {
+                "0" : "Ne", 
+                "1" : "Da" 
+            },
+            "form" : "d1",
+            "section" : "general_info"
+        },
+        "cardiacArrest" : {
+            "title" : "Srčni zastoj?",
+            "values" : {
+                "0" : "Ne", 
+                "1" : "Da" 
+            },
+            "form" : "d1",
+            "section" : "general_info"
+        },
+        "name" : {
+            "title" : "Ime pacienta",
+            "section" : "patient",
+            "form" : "d1&d30",
+            "from" : "EuReCa3"
+        },
+        "surname" : {
+            "title" : "Priimek pacienta",
+            "section" : "patient",
+            "form" : "d1&d30",
+            "from" : "EuReCa3"
+        },
+        "gender": {
+            "title" : "Spol pacienta (EuReCa3)",
+            "description" : "",
+            "from" : "EuReCa3",
+            "form" : "d1&d30",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Moški",
+                "1" : "Ženska",
+                "2" : "Ostalo"
+            },
+            "shown" : true,
+            "section" : "patient"
+        },
+        "genderUtstein": {
+            "title" : "Spol pacienta (Utstein)",
+            "description" : "",
+            "from" : "Utstein",
+            "form" : "d1&d30",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Moški",
+                "1" : "Ženska"
+            },
+            "shown" : false,
+            "section" : "patient"
+        },
+        "dateOfBirth" : {
+            "title" : "Datum rojstva pacienta",
+            "form" : "d1&d30",
+            "section" : "patient",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno", 
+                "-1" : "Neznano/ni podatka",
+                "date" : "datum"
+            },
+            "description" : "Če datum rojstva ni znan polje pustite prazno in izpolnite podatek o ocenjeni starosti. "
+        },
+        "estimatedAge" : {
+            "title" : "Ocenjena starost, če datum ni znan",
+            "form" : "d1&d30",
+            "section" : "patient",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                ">=0" : "value"
+            },
+            "description" : "Če je datum rojstva poznan lahko to polje pustite prazno."
+        },
+        "age": {
+            "title" : "Starost bolnika ob srčnem zastoju",
+            "description" : "",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">0": "value"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1&d30",
+            "shown" : false,
+            "section" : "patient"
+        },
+        "independentLiving" : {
+            "title" : "Samostojno življenje",
+            "values" : {
+                "null" :"Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "Utstein",
+            "form" : "d1",
+            "section" : "patient"
+        },
+        "comorbidities" : {
+            "title" : "Pridružene bolezni",
+            "values" : {
+                "null" :"Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "Utstein",
+            "form" : "d1",
+            "section" : "patient"
+        },
+        "vad" : {
+            "title" : "Pacient ima mehansko cirkulatorno podporo srcu",
+            "values" : {
+                "null" :"Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "Utstein",
+            "form" : "d1",
+            "section" : "patient",
+            "description" : "VAD - ventricular assist device"
+        },
+        "cardioverterDefib" : {
+            "title" : "Ima pacient vsajen kardioverter-defibrilator?",
+            "values" : {
+                "null" :"Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka", 
+                "1" : "Interni",
+                "2" : "Eksterni",
+                "0" : "Ne"
+            },
+            "from" : "Utstein",
+            "form" : "d1",
+            "section" : "patient"
+        },
+        "dateOfCA" : {
+            "title" : "Datum srčnega zastoja",
+            "from": "EuReCa3",
+            "form": "d1&d30",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno", 
+                "-1" : "Neznano/ni podatka",
+                "date" : "datum"
+            },
+            "shown" : true,
+            "section" : "general_info"
+        },
+        "reaConf": {
+            "title" : "Potrjen srčni zastoj s strani NMP",
+            "description" : "",
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne",
+                "1" : "Da"
+            },
+            "shown" : true,
+            "section" : "general_info"
+        },
+        "cprEms": {
+            "title": "Ali je služba NMP izvajala oživljanje?",
+            "from": "EuReCa3",
+            "form": "d1",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "shown" : true,
+            "section" : "general_info",
+            "description" : "Definicija oživljanja: Vsak poskus oživljanja s strani NMP, očividca ali osebe, ki je bila poslana s strani DCZ/NMP, da bi nudila pomoč/oživljanje, ne glede na dejstvo ali se je oživljanje nadaljevalo. POJASNILO: včasih NMP prične z oživljanjem in med reanimacijo ugotovi, da je oživljanje zaradi stanja bolnika nesmiselno nadaljevati. Ali pa očividci pričnejo z oživljanjem in ekipa NMP ugotovi, da je nesmiselno nadaljevati. V teh obeh primerih označimo DA. "
+        },
+        "noCPR": {
+            "title": "Vzrok, zakaj NMP ne izvaja oživljanja",
+            "values": {
+                "null": "Ni zabeleženo/ni zavedeno",
+                "-1": "Neznano/ni podatka",
+                "0": "Znaki življenja ob prihodu NMP",
+                "1": "Uspešna defibrilacija ICD (implantiran kardioverter/defibrlator)",
+                "2": "Odločitev zdravnika",
+                "3": "Želja družinskih članov, da bolnika ne oživljajo",
+                "4": "DNAR (angl. Do Not Attempt Resuscitation)/želja bolnika, da ga ne oživljajo",
+                "5": "Umrl pred prihodom NMP"
+            },
+            "description" : "Se odgovori le, če je prejšnji odgovor 'NE'",
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : true,
+            "section" : "general_info"
+        },
+        "CPRdone": {
+            "title" : "Poskus oživljanja (kdorkoli)",
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne",
+                "1" : "Da"
+            },
+            "shown" : true,
+            "section" : "general_info"
+        }, 
+        "persCPRstart": {
+            "title" : "Kdo je pričel z oživljanjem?",
+            "description" : "Očividec, ki izvaja oživljanje, je oseba, ki izvaja TPO in ni pripadnik aktiviranih reševalnih ekip. Katerakoli oseba, ki jo je DCZ/NMP aktiviral na kraj srčnega zastoja ni očividec. Zdravniki, sestre in ostalo zdravstveno osebje, so očividci, ki izvajajo TPO, če v tistem trenutnku niso del aktiviranih reševalnih/urgentnih ekip, ki so poslane na kraj dogodka/srčnega zastoja.",
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "1" : "Očividec",
+                "2" : "Oseba, ki je bila poslana s strani DCZ/NMP na kraj dogodka, da bi nudila pomoč/oživljanje (prvi posredovalec)",
+                "3" : "NMP"
+            },
+            "shown" : true,
+            "section" : "general_info"
+        },
+        "reaTimestamp": {
+            "title": "Čas srčnega zastoja",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1&d30",
+            "shown" : true,
+            "section" : "timeline"
+        },
+        "reaTime": {
+            "title": "Čas srčnega zastoja",
+            "description": "Čas od srčnega zastoja do sprejetja klica",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">=0": "value"
+            },
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : false,
+            "section" : "timeline"
+        },
+        "estimatedCAtimestamp" : {
+            "title" : "Ali je čas srčnega zastoja samo ocenjen?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1&d30",
+            "shown" : true,
+            "section" : "general_info"
+        },
+        "callTimestamp" : {
+            "title" : "Čas sprejema klica v dispečerski center/NMP (dvig telefona)",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "Čas"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "timeline",
+            "dcz" : true
+        },
+        "estimatedCallTimestamp" : {
+            "title" : "Ali je čas zgolj ocenjen?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "general_info",
+            "dcz" : true
+        },
+        "timestampTCPR": {
+            "title": "Čas, ko je dispečer/NMP dal navodila za oživljanje po telefonu",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "shown" : true,
+            "section" : "timeline",
+            "dcz" : true,
+            "form" : "d1",
+            "description" : "Pustite prazno, če dispečer ni dajal navodil za oživljanje po telefonu."
+        },
+        "estimatedTimestampTCPR" : {
+            "title" : "Ali je čas zgolj ocenjen?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "general_info",
+            "dcz" : true
+        },
+        "timeTCPR": {
+            "title": "Čas začetka TPO",
+            "description": "Čas začetka TPO v hh:mm:ss formi",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">0": "value"
+            },
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : false,
+            "section" : "timeline"
+        },
+        "cPRbystander3Timestamp": {
+            "title": "Čas, ko je pričel očividec z oživljanjem (TPO)",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "shown" : true,
+            "section" : "timeline",
+            "dcz" : true,
+            "form" : "d1",
+            "description" : "Pustite prazno, če očividec ni bil prisoten ali ni izvajal oživljanja (TPO)"
+        },
+        "cPRbystander3Time": {
+            "title": "Čas, ko je pričel očividec z oživljanjem (TPO)",
+            "description": "Čas, ko je pričel očividec z oživljanjem (TPO) v hh:mm:ss formi",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">0": "value"
+            },
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : false,
+            "section" : "timeline"
+        },
+        "estimatedCPRbystander" : {
+            "title" : "Ali je čas zgolj ocenjen?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "general_info",
+            "dcz" : true
+        },
+        "cPRhelper3Timestamp": {
+            "title": "Čas, ko je pričela oseba, ki jo je DCZ/NMP poslal na kraj zastoja (npr. prvi posredovalec) z oživljanjem (TPO)",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "core": false,
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "timeline",
+            "description" : "Pustite prazno, če prvi posredovalec ni bil poslan na kraj zastoja ali ni izvajal oživljanja."
+        },
+        "cPRhelper3Time": {
+            "title": "Čas, ko je pričela oseba, ki jo je DCZ/NMP poslal na kraj zastoja (ki bi lahko nudila pomoč/oživljanje), z oživljanjem (TPO) - EuReCa 3",
+            "description": "Čas začetka TPO osebe, ki je poslana da pomaga v hh:mm:ss formi",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">0": "value"
+            },
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : false,
+            "section" : "timeline"
+        },
+        "estimatedCPRhelperTimestamp" : {
+            "title" : "Ali je čas zgolj ocenjen?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "general_info"
+        },
+        "responseTimestamp" : {
+            "title" : "Čas prihoda NMP na kraj dogodka",
+            "values" : {
+                "null" :"Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "timeline",
+            "dcz" : true
+        },
+        "responseTime": {
+            "title": "Odzivni čas",
+            "source": "Čas klica, Čas prihoda do pacienta (protokol predbolnišničnega oživljanja)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">0": "value"
+            },
+            "description": "Odzivni čas v sekundah - od časa sprejema klica do prihoda do pacienta",
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : false,
+            "section" : "timeline"
+        },
+        "estimatedResponseTime" : {
+            "title" : "Ali je čas zgolj ocenjen?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "general_info",
+            "dcz" : true
+        },
+        "cPREMS3Time": {
+            "title": "Čas, ko je pričel NMP z oživljanjem",
+            "description": "Čas od sprejetja klica do začetka oživljanja NMP v sekundah",
+            "core": false,
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">0": "value"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : false,
+            "section" : "timeline"
+        },
+        "cPREMS3Timestamp": {
+            "title": "Čas, ko je pričela služba NMP z oživljanjem",
+            "values" : {
+                "null" :"Ni zapisa",
+                "hh:mm:ss" : "Čas"
+            },
+            "core": false,
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "timeline",
+            "description" : "Pustite prazno, če služba NMP ni pričela z oživljanjem.."
+        },
+        "estimatedCPREMStimestamp" : {
+            "title" : "Ali je čas zgolj ocenjen?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "general_info"
+        },
+        "defibTimestamp" : {
+            "title" : "Čas prve defibrilacije - bodisi, da je defibrilacija izvedena z AED ali s strani NMP",
+            "values" : {
+                "null" :"Ni zapisa",
+                "hh:mm:ss" : "Čas"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "timeline",
+            "description" : "Pustite prazno, če med oživljanjem bolnika niste defibrilirali (npr. ves čas oživljanja prisoten nešokabilen ritem). "
+        },
+        "defibTime": {
+            "title": "Čas prve defibrilacije",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">0": "value"
+            },
+            "description": "Čas prve defibrilacije v sekundah - čas od sprejema klica do prvega šoka",
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : false,
+            "section" : "timeline"
+        },
+        "estimatedDefibTimestamp" : {
+            "title" : "Ali je čas zgolj ocenjen?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "general_info"
+        },
+        "drugTimingsTimestamp" : {
+            "title": "Čas aplikacije zdravil",
+            "values" : {
+                "null" :"Ni zapisa",
+                "hh:mm:ss" : "Čas"
+            },
+            "description": "Pustite prazno, če zdravila niso aplicirana.",
+            "core": false,
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "timeline"
+        },
+        "drugTimings": {
+            "title": "Čas od sprejetega klica do aplikacije zdravil",
+            "core": false,
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">0": "value"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : false,
+            "section" : "timeline"
+        },
+        "estimatedDrugTimings" : {
+            "title" : "Ali je čas zgolj ocenjen?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "general_info"
+        },
+        "roscTimestamp" : {
+            "title" : "Čas prve povrnitve spontanega krvnega obtoka (ROSC)",
+            "from": "EuReCa3",
+            "form": "d1",
+            "values" : {
+                "null" : "Neznano/ni podatka",
+                "hh:mm:ss" : "čas"
+            },
+            "shown" : true,
+            "section" : "timeline",
+            "description" : "Pustite prazno, če ne pride do ROSC."
+        },
+        "roscTime": {
+            "title": "čas prve povrnitve spontanega krvnega obtoka (ROSC)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">=0": "value"
+            },
+            "description": "Čas do ROSC v sekundah",
+            "shown" : false,
+            "section" : "timeline"
+        },
+        "estimatedRoscTimestamp" : {
+            "title" : "Ali je čas zgolj ocenjen?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "general_info"
+        },
+        "endCPR4Timestamp": {
+            "title": "Čas zaključka oživljanja (obvezno izpolnite, ko je bilo oživljanje neuspešno in je bolnik umrl na terenu).",
+            "from": "EuReCa3",
+            "form": "d1",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "shown" : true,
+            "section" : "timeline",
+            "description" : "Pustite prazno, če bolnika ne oživljamo ali z oživljanjem ne zaključimo na terenu/bolnik prepeljan v bolnišnico. "
+        },
+        "endCPR4Time": {
+            "title": "Čas zaključka oživljanja",
+            "description": "Čas konca TPO v hh:mm:ss formi",
+            "from": "EuReCa3",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">=0": "value"
+            },
+            "shown" : false,
+            "section" : "timeline"
+        },
+        "estimatedEndCPRtimestamp" : {
+            "title" : "Ali je čas zgolj ocenjen?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "general_info"
+        },
+        "leftScene5Timestamp": {
+            "title": "Čas odhoda iz kraja dogodka/zastoja",
+            "from": "EuReCa3",
+            "form": "d1",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "shown" : true,
+            "section" : "timeline",
+            "dcz" : true 
+        },
+        "leftScene5Time": {
+            "title": "Čas odhoda iz kraja dogodka/zastoja",
+            "description": "Čas odhoda iz kraja dogodka/zastoja v obliki hh:mm:ss",
+            "from": "EuReCa3",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">=0": "value"
+            },
+            "shown" : false,
+            "section" : "timeline"
+        },
+        "estimatedLeftSceneTimestamp" : {
+            "title" : "Ali je čas zgolj ocenjen?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "general_info",
+            "dcz" : true
+        },
+        "hospitalArrival6Timestamp": {
+            "title": "Čas prihoda v bolnišnico",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "timeline",
+            "dcz" : true,
+            "description" : "Pustite prazno, če bolnik ni pripeljan v bolnišnico."
+        },
+        "hospitalArrival6Time": {
+            "title": "Čas prihoda v bolnišnico",
+            "description": "Čas prihoda v bolnišnico v hh:mm:ss form",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">=0": "value"
+            },
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : false,
+            "section" : "timeline"
+        },
+        "estimatedHospitalArrival" : {
+            "title" : "Ali je čas zgolj ocenjen?",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "general_info",
+            "dcz" : true
+        },
+        "reaLocation": {
+            "title" : "Kraj/mesto/lokacija srčnega zastoja (EuReCa3)",
+            "description" : "",
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Dom/prebivališče (stalno ali začasno)",
+                "1" : "Delovno mesto/pisarna", 
+                "2" : "Športna infrastruktura (dvorana, telovadnica, stadion,..)", 
+                "3" : "Cesta",
+                "4" : "Javna ustanova ",
+                "5" : "Ustanove dolgotrajne oskrbe",
+                "6" : "Drugo/ostalo (npr. hotel,..)"
+            },
+            "shown" : true,
+            "section" : "cardiac_arrest"
+        },
+        "location": {
+            "title" : "Kraj/mesto/lokacija srčnega zastoja (Utstein)",
+            "description" : "",
+            "from" : "Utstein",
+            "form" : "d1",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Dom/prebivališče",
+                "1" : "Delovno mesto", 
+                "2" : "Športni/rekreacijski dogodek", 
+                "3" : "Ulica/avtocesta",
+                "4" : "Javna zgradba",
+                "5" : "Varovano stanovanje/dom za ostarele",
+                "6" : "Učna ustanova",
+                "7" : "Drugo"
+            },
+            "shown" : true,
+            "section" : "cardiac_arrest"
+        },
+        "reaCause": {
+            "title": "Vzrok srčnega zastoja (EuReCa 3)",
+            "values": {
+                "null": "Ni zabeleženo/ni zavedeno",
+                "-1": "Neznano/ni podatka (najverjetneje srčni; angl. Presumed cardiac)",
+                "0": "Srčni",
+                "1": "Poškodba",
+                "2": "Utopitev",
+                "3": "Respiratorni",
+                "4": "Ostali - ne-srčni"
+            },
+            "description" : "Vzrok za srčni zastoj se predvideva, da je srčni; razen če je znano oz. zelo verjetno, da je povzročen zaradi poškodbe, utopitve, prekomernega odmerka drog, zadušitve, izkravitve, ali katerega koli drugega ne-srčnega vzroka potrjenega s strani NMP.",
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : true,
+            "section" : "cardiac_arrest"
+        },
+        "pathogenesis": {
+            "title": "Vzrok srčnega zastoja (Utstein)",
+            "values": {
+                "null": "Ni zabeleženo/ni zavedeno",
+                "-1": "Neznano/ni podatka",
+                "0": "Internistični",
+                "1": "Poškodba",
+                "2": "Utopitev",
+                "3": "Zloraba drog (prekomeren odmerek)",
+                "4": "Poškodba z el. tokom (angl. electrocution)",
+                "5": "Zadušitev"
+            },
+            "from": "Utstein",
+            "form": "d1",
+            "shown" : true,
+            "section" : "cardiac_arrest",
+            "description" : "Internistični: angl. medical; vključuje tako srčne kot tudi vse ostale ne-srčne internistične vzroke; npr. pulmološki, gastrointestinalni, ipd. Poškodba: topa, penetrantna poškodba, opekline. Zadušitev: zunanji vzrok; npr. obešenje, zadavljenje, zadušitev s tujkom."
+        },
+        "dispIdentifiedCA" : {
+            "title" : "Dispečer je prepoznal prisotnost zastoja srca pred prihodom NMP",
+            "values" : {
+                "null" :"Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne",
+                "1" : "Da"
+            },
+            "from" : "Utstein",
+            "form" : "d1",
+            "section" : "dispatch",
+            "dcz" : true
+        },
+        "dispProvidedCPRinst": {
+            "title": "Ali je dispečer/NMP dal navodila po telefonu za oživljanje/TPO?",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": true,
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "dispatch",
+            "dcz" : true
+        },
+        "firstResponder" : {
+            "title" : "Ali je bil na kraj zastoja poslana oseba, da nudi pomoč/oživljanje (npr. prvi posredovalec)?",
+            "values": {
+                "null": "Ni zabeleženo/ni zavedeno",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": true,
+            "form" : "d1",
+            "shown" : true,
+            "section" : "dispatch",
+            "dcz" : true
+        },
+        "noFirstResponder" : {
+            "title" : "Zakaj ni bila na kraj srčnega zastoja poslana oseba, ki bi lahko nudila prvo pomoč/oživljanje (npr. prvi posredovalec)?",
+            "values" : {
+                "null" :"Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Nimamo organiziranih prvih posredovalcev na območju, kjer se je zgodil zastoj", 
+                "1" : "Imamo organizirane prve posredovalce, vendar so bili zasedeni z drugo intervencijo", 
+                "2" : "Dispečer ni prepoznal srčnega zastoja",
+                "3" : "ReCO ni aktiviral prvih posredovalcev"
+            },
+            "form" : "d1",
+            "shown" : true,
+            "section" : "dispatch"
+        },
+        "reaWitnesses" : {
+            "title" : "Ali se je srčni zastoj zgodil vpričo očividcev? (EuReCa 3)",
+            "values": {
+                "null": "Ni zabeleženo/ni zavedeno",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne, brez prič",
+                "1": "Da, v prisotnosti očividca",
+                "2" : "Da, v prisotnosti ekipe NMP",
+                "3" : "Vpričo osebe, ki je bila poslana na kraj srčnega zastoja, da nudi pomoč/oživljanje (npr. prvi posredovalec)"
+            },
+            "form" : "d1",
+            "shown" : true,
+            "section" : "dispatch",
+            "description" : "Srčni zastoj vpričo očividcev je definiran, kadar očividci vidijo srčni zastoj (npr. da se je nekdo zgrudil) ali da slišijo, da se je nekdo zgrudil (oz doživel srčni zastoj) ali zasledijo na monitorju srčni zastoj. Oseba, ki je bila poslana, da nudi pomoč/oživljanje: oseba, ki jo je alarmiral in na kraj dogodka poslal DCZ/NMP preko SMS aplikacije, app, telefona/radijske postaje, itd..."
+        },
+        "bystanderCPR": {
+            "title" : "Ali očividec izvaja TPO? (EuReCa 3)",
+            "description" : "Očividec, ki izvaja oživljanje, je oseba, ki izvaja TPO in ni pripadnik aktiviranih reševalnih ekip. Katerakoli oseba, ki jo je DCZ/NMP aktiviral na kraj srčnega zastoja ni očividec. Zdravniki, sestre in ostalo zdravstveno osebje, so očividci, ki izvajajo TPO, če v tistem trenutnku niso del aktiviranih reševalnih/urgentnih ekip, ki so poslane na kraj dogodka/srčnega zastoja. ",
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne izvaja oživljanja (TPO)",
+                "1" : "Izvaja oživljanje, vendar nimamo dodatnih/podrobnih informacij",
+                "2" : "Vsi elementi oživljanja - TPO (stisi prsnega koša in umetna ventilacija)",
+                "3" : "Samo stisi prsnega koša (angl. Chest compressions only CPR - CCO CPR)"
+            },
+            "shown" : true,
+            "section" : "dispatch"
+        },
+        "witnesses" : {
+            "title" : "Ali se je srčni zastoj zgodil vpričo očividcev? (Utstein)",
+            "values": {
+                "null": "Ni zabeleženo/ni zavedeno",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne, brez prič",
+                "1": "Da, v prisotnosti očividca",
+                "2" : "Da, v prisotnosti ekipe NMP"
+            },
+            "form" : "d1",
+            "shown" : true,
+            "section" : "dispatch",
+            "description" : "Srčni zastoj vpričo očividcev je definiran, kadar očividci vidijo srčni zastoj (npr. da se je nekdo zgrudil) ali da slišijo, da se je nekdo zgrudil (oz doživel srčni zastoj) ali zasledijo na monitorju srčni zastoj. Oseba, ki je bila poslana, da nudi pomoč/oživljanje: oseba, ki jo je alarmiral in na kraj dogodka poslal DCZ/NMP preko SMS aplikacije, app, telefona/radijske postaje, itd..."
+        },
+        "bystanderResponse": {
+            "title": "Odziv očividca (Utstein)",
+            "from": "Utstein",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0": "Očividec ni izvajal TPO",
+                "1": "Samo stisi prsnega koša",
+                "2": "Stisi prsnega koša in umetno predihavanje"
+            },
+            "core": true,
+            "section" : "dispatch"
+        },
+        "gbystnader": {
+            "title" : "Spol očividca",
+            "description" : "Beležimo podatke samo za enega očividca; prvega ali pa tistega, ki je na kraju najbolj uporaben/dejaven (v primeru, da jih je več).",
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Moški",
+                "1" : "Ženska",
+                "2" : "Ostalo"
+            },
+            "shown" : true,
+            "section" : "dispatch"
+        },
+        "ageBystander": {
+            "title" : "Starost očividca (lahko tudi ocenjena)",
+            "description" : "",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">0": "value"
+            },
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "shown" : true,
+            "section" : "dispatch"
+        },
+        "estimatedAgeBystander": {
+            "title": "Ali je starost očividca ocenjena",
+            "from": "EuReCa3",
+            "form": "d1",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "shown" : true,
+            "section" : "dispatch"
+        },
+        "helperWho": {
+            "title": "Katero osebo, ki bi lahko nudila pomoč/oživljanje, je DCZ/NMP poslal na kraj srčnega zastoja?",
+            "from": "EuReCa3",
+            "form": "d1",
+            "values": {
+                "null" :"Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0": "Osebo, ki jo je na kraj zastoja poslal dispečer - katerakoli oseba, za katero ne vemo ali ima opravljen tečaj oživljanja (npr. BLS) ali izpolnjuje katerega izmed spodnjih pogojev",
+                "1": "Osebo, ki ima opravljen tečaj oživljanja (npr. BLS), in jo je na kraj zastoja poslal dispečer",
+                "2": "Gasilec (prvi posredovalec), ki ga je na kraj zastoja poslal dispečer",
+                "3": "Zdravstveni delavec, ki trenutno ni v službi, in ga je na kraj zastoja poslal dispečer",
+                "4" : "Policija",
+                "5": "Ostali, ki jih je na kraj zastoja poslal dispečer (ostale skupine, ki niso navedene zgoraj)"
+            },
+            "shown" : true,
+            "section" : "first_responders",
+            "description" : "Če oseba, ki bi lahko nudila pomoč/oživljanje (npr. prvi posredovalec) ni bila aktivirana, izberi “Neznano/ni podatka."
+        },
+        "helperCPR": {
+            "title": " Ali je oseba (ki bi lahko nudila pomoč/oživljanje) in ki jo je DCZ/NMP poslal na kraj srčnega zastoja, izvajala oživljanje?",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "NE izvaja oživljanja (TPO)",
+                "1" : "Izvaja oživljanje, vendar nimamo dodatnih/podrobnih informacij",
+                "2" : "Vsi elementi oživljanja-TPO (stisi prsnega koša in umetna ventilacija)",
+                "3" : "Samo stisi prsnega koša (angl. Chest compressions only CPR - CCO CPR)"
+            },
+            "description" : "Katerakoli oseba, ki so jo poslali na kraj dogodka, da bi nudila pomoč oz. izvajala oživljanje, in je bila aktivirana s strani DCZ/NMP preko SMS, app, telefon/radijske postaje. Če oseba, ki bi lahko nudila pomoč/oživljanje (npr. prvi posredovalec) ni bila aktivirana, izberi “Neznano/ni podatka .",
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : true,
+            "section" : "first_responders"
+        },
+        "AEDconn": {
+            "title" : "AED priključen pred prihodom NMP?",
+            "description" : "",
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne",
+                "1" : "Da"
+            },
+            "shown" : true,
+            "section" : "rhythm"
+        },
+        "AEDshock": {
+            "title": "Ali je AED izvedel defibrilacijo pred prihodom NMP?",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : true,
+            "section" : "rhythm"
+        },
+        "bystanderAED": {
+            "title": "Uporaba AED s strani očividca",
+            "from": "Utstein",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0": "AED uporabljen, defibrilacija izvedena",
+                "1": "AED uporabljen, defibrilacija ni izvedena",
+                "2": "AED ni bil uporabljen"
+            },
+            "core": true,
+            "section" : "rhythm",
+            "description" : "Kadar je AED uporabljen pred prihodom NMP"
+        },
+        "firstMonitoredRhy": {
+            "title": "Začetni (prvi) ritem (Utstein)",
+            "from": "Utstein",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0": "AED - defibrilacija ni potrebna (angl. non-schockable rhythm)",
+                "1": "AED - defibrilacija je potrebna (angl. schockable rhythm)",
+                "2": "VF",
+                "3" : "VT brez pulza",
+                "4": "PEA",
+                "5": "Asistolija",
+                "6": "Bradikardija"
+            },
+            "description" : "Če je očividec/prvi posredovalec uporabil AED, se izpolnjuje samo odgovore, ki ponujajo možnost AED. Možen le 1 odgovor.",
+            "core": true,
+            "section" : "rhythm"
+        },
+        "ecg": {
+            "title": "EKG z 12 odvodi",
+            "from": "Utstein",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false,
+            "section" : "rhythm"
+        },
+        "stemiPresent" : {
+            "title" : "Prisoten STEMI",
+            "values" : {
+                "null" :"Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne",
+                "1" : "Da"
+            },
+            "from" : "Utstein",
+            "form" : "d1",
+            "section" : "cardiac_arrest"
+        },
+        "iniRythm": {
+            "title" : "Začetni/prvi ritem (EuReCa3)",
+            "description" : "Če AED izvede defibrilacijo, potem se označi za defibrilacijo/šokabilen.",
+            "from" : "EuReCa3",
+            "form" : "d1",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "1" : "Defibrilacija ni potrebna/Nešokabilen (angl. not shockable); npr. PEA, asistolija,..",
+                "0" : "Za defibrilacijo/Šokabilen (angl. Shockable); npr. VF, VT brez pulza,.."
+            },
+            "shown" : true,
+            "section" : "rhythm"
+        },
+        "defiOrig": {
+            "title": "Kdo je izvedel prvo defibrilacijo? - EuReCa 3",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano/ni podatka",
+                "0": "AED",
+                "1": "NMP"
+            },
+            "description" : "Odgovor AED: v ta odgovor so vključeni vsi, ki so uporabili AED; ta odgovor pride v poštev npr. za očividce ali prve posredovalce, ki uporabljajo AED. Tudi, če je NMP uporabil AED npr. MoENRV ali motorist - se označi odgovor AED. ",
+            "from": "EuReCa3",
+            "form": "d1",
+            "shown" : true,
+            "section" : "rhythm"
+        },
+        "shocks": {
+            "title": "Število izvedenih defibrilacij",
+            "from": "Utstein",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">=0": "value"
+            },
+            "core": false,
+            "shown" : true,
+            "section" : "rhythm"
+        },
+        "ecgBLOB": {
+            "title": "EKG datoteka","values": "BLOB",
+            "description": "Naložite največ eno datoteko.",
+            "core": false,
+            "section" : "rhythm",
+            "from": "Utstein",
+            "form": "d1",
+            "shown" : false
+        },
+        "ecgOptions" : {
+            "title" : "Prvi EKG izvid (možnih je več odgovorov)",
+            "form" : "d1",
+            "section" : "rhythm",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "1" : "sinusni ritem",
+                "2" : "SV bradikardija",
+                "3" : "V bradikardija",
+                "4" : "AF / AU",
+                "5" : "SVES",
+                "6" : "SV tahikardija",
+                "7" : "VES monotopne",
+                "8" : "VES politopne",
+                "9" : "VES salve",
+                "10" : "AV blok I.",
+                "11" : "AV blok II.",
+                "12" : "AV blok III.",
+                "13" : "DKB",
+                "14" : "LKB",
+                "15" : "STEMI sprednja stena",
+                "16" : "STEMI stranska stena",
+                "17" : "STEMI spodnja stena",
+                "18" : "STEMI zadnja stena",
+                "19" : "STEMI desni prekat",
+                "20" : "WPW",
+                "21" : "Ritem AV vozla",
+                "22" : "VT",
+                "23" : "VF",
+                "24" : "Asistolija",
+                "25" : "PEA",
+                "26" : "Ritem srčnega spodbujev.",
+                "27" : "Drugo"
+            }
+        },
+        "ecgResult" : {
+            "title" : "Če ste pri zgornjem vprašanju označili 'Drugo' prosim opišite",
+            "core": false,
+            "section" : "rhythm",
+            "from": "Utstein",
+            "form": "d1"
+        },
+        "mechanicalCPR": {
+            "title": "Mehanski stiski prsnega koša",
+            "from": "Utstein",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "1": "Uporabljena aprava za mehanske kompresije prsnega koša (npr. Lucas®)",
+                "2": "Uporabljena mehanska naprava s trakom z razporeditvijo obremenitve (npr. Autopulse)",
+                "3": "Druga mehanska naprava",
+                "-1": "Neznano/ni podatka",
+                "0": "Brez"
+            },
+            "core": false,
+            "section" : "rhythm"
+        },
+        "cprQuality": {
+            "title": "Nadzor kvalitete oživljanja?",
+            "from": "Utstein",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false,
+            "section" : "rhythm",
+            "description" : "Nadzor kvalitete izvajanja oživljanja: ali so bili med oživljanjem uporabljeni mehanizmi ali postopki s katerimi bi lahko nadzorovali/merili kvaliteto izvajanja oživljanja (npr. merjenje etCO2)?"
+        },
+        "rosc": {
+            "title": "Povrnitev spontanega krvnega obtoka (ROSC)",
+            "from": "EuReCa3",
+            "description": "Vsaka povrnitev spontanega krvnega obtoka (ROSC), ki je trajala vsaj 30 sekund, ki jo lahko potrdimo/dokažemo s tipnim utripom/pulzom, izmerjenim krvnim tlakom ali arterijsko krivuljo v primeru, da imamo nastavljen intraarterijski kanal. V primeru nastvaitve zunajtelesnega krvnega obtoka (npr. ECMO) , bolnik ne izpolnjuje pogojev definicije povrnitve spontanega krvnega obtoka, dokler se ne vzpostavi bolnikov lasten krvni obtok oz srčna akcija (patient-generated).",
+            "form": "d1",
+            "values": {
+                "null": "Ni zabeleženo/ni zavedeno",
+                "-1": "Neznano/ni podatka",
+                "1": "ROSC",
+                "2": "Brez ROSC"
+            },
+            "shown" : true,
+            "section" : "result"
+        },
+        "diedOnField" : {
+            "title" : "Bolnik umrl na terenu?",
+            "from": "EuReCa3",
+            "form": "d1",
+            "values" : {
+                "null" : "Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne",
+                "1" : "Da"
+            },
+            "shown" : true,
+            "section" : "result"
+        },
+        "transportToHospital" : {
+            "title": "Bolnik s srčnim zastojem pripeljan v bolnišnico?",
+            "from": "Utstein",
+            "form": "d1",
+            "values": {
+                "null": "Ni zabeleženo/ni zavedeno",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "section" : "result"
+        },
+        "hospArri": {
+            "title": "Status bolnika ob prihodu v bolnišnico",
+            "from": "EuReCa3",
+            "form": "d1",
+            "values": {
+                "null": "Ni zabeleženo",
+                "-1": "Neznano/ni podatka",
+                "3" : "Živ, brez transporta v bolnišnico",
+                "1": "Živ (s spontanim krvnim obtokom, ROSC)",
+                "2" : "Oživljanje v teku (angl. ongoing CPR)",
+                "0": "Mrtev"
+            },
+            "shown" : true,
+            "section" : "result"
+        },
+        "survivalStatus": {
+            "title": "Preživetje (ROSC) do sprejema v bolnišnico",
+            "from": "Utstein",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "shown" : true,
+            "core": false,
+            "section" : "result"
+        },
+        "hospitalVolume": {
+            "title": "Obremenitev bolnišnice",
+            "values": {
+                "null" :"Ni zabeleženo/ni zavedeno",
+                ">=0": "value"
+            },
+            "description": "Število letnih primerov",
+            "from": "Utstein2015",
+            "core": false,
+            "shown" : false,
+            "section" : "result"
+        },
+        "hospitalName": {
+            "title": "Ime sprejemne bolnišnice",
+            "description": "",
+            "from": "Utstein",
+            "shown" : true,
+            "section" : "result",
+            "form" : "d1"
+        },
+        "specialistHospital": {
+            "title": "Tip bolnišnice, ki je sprejela bolnika s srčnim zastojem",
+            "values": {
+                "null": "Ni zabeleženo/ni zavedeno",
+                "-1": "Neznano/ni podatka",
+                "0": "Specialistični center",
+                "1": "Ostale splošne bolnišnice"
+            },
+            "core": false,
+            "section" : "result",
+            "shown" : false,
+            "form" : "d1",
+            "description": "Specialistični centri: UKC LJ, UKC MB, SB CE"
+        },
+        "drugs": {
+            "title": "Zdravila uporabljena med oživljanjem",
+            "source": "Zdravila - adrenalin, amiodaron, glukoza, razno (proočilo o nujnem reševalnem prevozu)",
+            "from": "Utstein",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "1": "Adrenalin",
+                "2": "Amjodaron",
+                "4": "Vazopresin",
+                "0": "Brez aplikacije zdravil"
+            },
+            "description": "Set vseh uporabljenih zdravil, dovoljena izbira večih.",
+            "core": true,
+            "section" : "result"
+        },
+        "airwayControl": {
+            "title": "Oskrba dihalne poti",
+            "from": "Utstein",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "1": "Orofaringealna dihalna pot",
+                "2": "Supraglotična dihalna pot",
+                "4": "Endotrahealni tubus",
+                "8": "Kirurška dihalna pot",
+                "0": "Brez"
+            },
+            "description": "Set vseh uporabljenih tipov nadzora dihalne poti, dovoljena izbira večih.",
+            "core": false,
+            "section" : "result"
+        },
+        "vascularAccess": {
+            "title": "Žilni pristopi",
+            "from": "Utstein",
+            "form": "d1",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "1": "Centralna venska pot",
+                "2": "Periferna IV pot",
+                "3": "IO pot",
+                "4": "Endotrahealna",
+                "0": "Brez"
+            },
+            "core": false,
+            "section" : "therapy"
+        },
+        "ttm": {
+            "title": "Terapevtska hipotermija (TTM, Targeted temperature management)",
+            "from": "Utstein",
+            "form": "d30",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "1": "Med zastojem",
+                "2": "Po-ROSC, predbolnišnično",
+                "3": "Po-ROSC, bolnišnično",
+                "4": "TTM indiciran, neizveden",
+                "5": "TTM ni indiciran"
+            },
+            "core": true,
+            "section" : "therapy"
+        },
+        "ttmTemp": {
+            "title": "Ciljna temperatura, če TTM izveden (v stopinjah celzija)",
+            "from": "Utstein",
+            "form": "d30",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">0": "value"
+            },
+            "description": "",
+            "core": false,
+            "section" : "therapy"
+        },
+        "targetVent": {
+            "title": "Ciljana okisgenacija/ventilacija",
+            "form": "d30",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "1": "Samo O2",
+                "2": "Samo CO2",
+                "3": "O2 & CO2",
+                "0": "Brez"
+            },
+            "description": "Če je ta spremenljivka uporabljena, vključi podrobnosti o specifičnih ciljih v opisu sistema",
+            "core": false,
+            "section" : "result"
+        },
+        "organDonation": {
+            "title": "Ali je bolnik daroval organe",
+            "form": "d30",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false,
+            "section" : "result"
+        },
+        "iabp": {
+            "title": "IABP (intra-aortic balloon pump)?",
+            "from": "Utstein",
+            "form": "d30",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false,
+            "section" : "result"
+        },
+        "reperfusionAttempt": {
+            "title": "Koronarna reperfuzija",
+            "from": "Utstein",
+            "form": "d30",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "1": "Samo angiografija",
+                "2": "PCI - perkutana koronarna intervencija",
+                "4": "Tromboliza",
+                "0": "Brez"
+            },
+            "description": "Set vseh poskusov reperfuzije, dovoljena izbira večih (kot vsota ID-jev vrednosti)",
+            "core": true,
+            "section" : "result"
+        },
+        "reperfusionTime": {
+            "title": "Čas poskusa reperfuzije",
+            "from": "Utstein",
+            "form": "d30",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "1": "Med zastojem",
+                "2": "V 24 ureh od ROSC",
+                "3": "Po >24 urah, a pred odpustom"
+            },
+            "core": true,
+            "section" : "result"
+        },
+        "ecls": {
+            "title": "Uporaba ECMO (ExtraCorporeal Life Support)?",
+            "from": "Utstein",
+            "form": "d30",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "1": "Pred ROSC",
+                "2": "Po ROSC",
+                "0": "Brez"
+            },
+            "core": false,
+            "section" : "result"
+        },
+        "targetBP": {
+            "title": "Ciljano upravljanje srednjega krvnega pritiska (mmHg)",
+            "from": "Utstein",
+            "form": "d30",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0": "Ni opredeljenega cilja",
+                ">0": "value"
+            },
+            "description": "Vnesi vrednost srednjega arterijskega pritiska (MAP). Polje se izpolni, če se po uspešnem oživljanju izvaja ciljano uravnavanje pritiska.",
+            "core": false,
+            "section" : "result"
+        },
+        "ph": {
+            "title": "pH vrednost krvi (prva izmerjena vrednost)",
+            "from": "Utstein",
+            "form": "d30",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0-14": "value"
+            },
+            "core": false,
+            "section" : "lab"
+        },
+        "lactate": {
+            "title": "Vrednost laktata (prva izmerjena)",
+            "from": "Utstein",
+            "form": "d30",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">=0": "value"
+            },
+            "description" : "mmol/L",
+            "core": false,
+            "section" : "lab"
+        },
+        "glucose": {
+            "title": "Glukoza titrirana do določenega cilja?",
+            "from": "Utstein",
+            "form": "d30",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": false,
+            "section" : "lab"
+        },
+        "discDate" : {
+            "title" : "Datum odpusta iz bolnišnice",
+            "from": "EuReCa3",
+            "form": "d30",
+            "shown" : true,
+            "section" : "follow_up",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno", 
+                "-1" : "Neznano/ni podatka",
+                "date" : "datum"
+            }
+        },
+        "dischDay": {
+            "title": "Dan odpusta iz bolnice",
+            "description": "Dan odpusta iz bolnice v DD formi",
+            "from": "EuReCa3",
+            "form": "d30",
+            "shown" : false,
+            "section" : "follow_up"
+        },
+        "dischMonth": {
+            "title": "Mesec odpusta iz bolnice",
+            "description": "Mesec odpusta iz bolnice v MM formi",
+            "from": "EuReCa3",
+            "form": "d30",
+            "shown" : false,
+            "section" : "follow_up"
+        },
+        "dischYear": {
+            "title": "Leto odpusta iz bolnice",
+            "description": "Leto odpusta iz bolnice v YYYY formi",
+            "from": "EuReCa3",
+            "form": "d30",
+            "shown" : false,
+            "section" : "follow_up"
+        },
+        "survivalDischarge" : {
+            "title" : "Preživetje do odpusta iz bolnišnice",
+            "values" : {
+                "null" :"Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne",
+                "1" : "Da"
+            },
+            "from" : "EuReCa3",
+            "form" : "d30",
+            "shown" : true,
+            "section" : "follow_up",
+            "description" : "Preživetje do odpusta iz bolnišnice: medbolnišnična premestitev na enak ali višji nivo se ne upošteva kot odpust iz bolnišice. Če bolnik umre v bolnišnici je dan odpusta enak dnevu smrti."
+        },
+        "survival30d" : {
+            "title" : "30-dnevno preživetje po zastoju",
+            "from": "EuReCa3",
+            "form": "d30",
+            "values" : {
+                "null" :"Ni zapisa",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne",
+                "1" : "Da"
+            },
+            "shown" : true,
+            "section" : "follow_up"
+        },
+        "SurvivalDischarge30d": {
+            "title": "30-dnevno preživetje ali preživetje do odpusta",
+            "from": "Utstein",
+            "form": "d30",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": true,
+            "shown" : false,
+            "section" : "follow_up"
+        },
+        "survived12m": {
+            "title": "Preživetje 12-mesecev po oživljanju",
+            "from": "Utstein",
+            "form": "d30",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne",
+                "1": "Da"
+            },
+            "core": true,
+            "shown" : false,
+            "section" : "follow_up"
+        },
+        "qualityOfLifeDone": {
+            "title": "Opredelitev kvalitete življenja (standardizirani vprašalniki, npr. EQ-5D, SF-12)",
+            "from": "Utstein",
+            "form": "d30",
+            "core": false,
+            "values" : {
+                "null" :"Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            },
+            "section" : "follow_up"
+        },
+        "cpcDischarge": {
+            "title": "Nevrološki izid ob odpustu (CPC, Cerebral performance category score)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "1" : "1 - Dobra možganska zmogljivost: zavesten in pozoren, delovno sposoben, z normalno nevrološko funkcijo oz. le rahlo cerebralno prizadetost.", 
+                "2" : "2 - Zmerna možganska prizadetost: pri zavesti in z zadostno možgansko funkcijo za samostojne dejavnosti vsakdanjega življenja. Sposoben za delo v zaščitenem okolju.", 
+                "3" : "3 - Huda cerebralna prizadetost: zavesten in odvisen od drugih za vsakodnevno podporo zaradi prizadetosti delovanja možganov.", 
+                "4" : "4 - Koma ali vegetativno stanje: katerakoli stopnja kome brez prisotnosti vseh kriterijev možganske smrti. Nezavedanje, tudi če je pacient videti buden brez interakcije z okoljem.", 
+                "5" : "5 - Možganska smrt: apneja, arefleksija, EEG tišina."
+            },
+            "from": "Utstein",
+            "form": "d30",
+            "core": true,
+            "section" : "follow_up"
+        },
+        "mrsDischarge": {
+            "title": "Nevrološki izid ob odpustu (mRS, modified Rankin Score)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0" : "0 - Brez simptomov.",
+                "1" : "1 - Ni pomembne invalidnosti. Kljub nekaterim simptomom lahko opravlja vse običajne dejavnosti.", 
+                "2" : "2 - Lahka invalidnost. Sposoben skrbeti za svoje zadeve brez pomoči, vendar ne zmore izvajati vseh dejavnosti, ki jih je prej lahko.", 
+                "3" : "3 - Zmerna invalidnost. Potrebuje nekaj pomoči, vendar lahko hodi brez pomoči.", 
+                "4" : "4 - Zmerno težka invalidnost. Ni sposoben zadovoljevati lastnih telesnih potreb brez pomoči in ne more hoditi brez pomoči.", 
+                "5" : "5 - Huda invalidnost. Potrebuje stalno nego in pozornost, prikovan na posteljo, inkontinenten.",
+                "6" : "6 - Mrtev."
+            },
+            "core": true,
+            "from": "Utstein",
+            "form": "d30",
+            "section" : "follow_up"
+        },
+        "ssep" : {
+            "title" : "SSEP: somatosenzorni evocirani potenciali",
+            "from": "Utstein",
+            "form": "d30",
+            "core": false,
+            "section" : "follow_up",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            }
+        },
+        "nse" : {
+            "title" : "NSE: biomarker, angl. neuron specific enolase",
+            "from": "Utstein",
+            "form": "d30",
+            "core": false,
+            "section" : "follow_up",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            }
+        },
+        "eeg" : {
+            "title" : "EEG",
+            "from": "Utstein",
+            "form": "d30",
+            "core": false,
+            "section" : "follow_up",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            }
+        },
+        "ct" : {
+            "title" : "CT možganov",
+            "from": "Utstein",
+            "form": "d30",
+            "core": false,
+            "section" : "follow_up",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            }
+        },
+        "mri" : {
+            "title" : "MRI",
+            "from": "Utstein",
+            "form": "d30",
+            "core": false,
+            "section" : "follow_up",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            }
+        },
+        "clinicalTest" : {
+            "title" : "Izveden klinični pregled",
+            "from": "Utstein",
+            "form": "d30",
+            "core": false,
+            "section" : "follow_up",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            }
+        },
+        "otherNeuroprognosticTests" : {
+            "title" : "Drugo (spodaj opišite)",
+            "from": "Utstein",
+            "form": "d30",
+            "core": false,
+            "section" : "follow_up",
+            "values" : {
+                "null" : "Ni zabeleženo/ni zavedeno",
+                "-1" : "Neznano/ni podatka",
+                "0" : "Ne", 
+                "1" : "Da"
+            }
+        },
+        "neuroprognosticTests": {
+            "title": "",
+            "from": "Utstein",
+            "form": "d30",
+            "core": false,
+            "shown" : true,
+            "section" : "follow_up"
+        },
+        "qualityOfLife": {
+            "title": "Opredeli instrumente s katerimi je bila ocenjena kvaliteta življenja in izide/rezultate",
+            "from": "Utstein",
+            "form": "d30",
+            "core": false,
+            "section" : "follow_up",
+            "shown" : false
+        },
+        
+        "treatmentWithdrawn": {
+            "title": "Aktivno zdravljenje prekinjeno (spodaj izpolni datum in čas)",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                "0": "Ne",
+                "1": "Da"
+            },"from": "Utstein",
+            "form": "d30",
+            "core": false,
+            "section" : "result",
+            "description" : "Definicija prekinitve aktivnega zdravljenja: prekinitev zdravljenja po zaključku, da bo prognoza, predvsem nevrološka, slaba. Po opravljeni nevrološki prognostiki ugotovimo, da ni več smisla nadaljevati z vsemi aktivnimi ukrepi invazivne terapije."
+        },
+        "treatmentWithdrawnhours": {
+            "title": "Kdaj je bilo zdravljenje prekinjeno (v urah)?",
+            "source": "/",
+            "values": {
+                "null": "Ni zapisa",
+                "-1": "Neznano/ni podatka",
+                ">0": "value"
+            },
+            "description": "Ure do prekinitve zdravljenja, dnevi naj se pretvorijo v ure (zaokroženo navzgor)",
+            "from": "Utstein",
+            "form": "d30",
+            "core": false,
+            "shown" : false,
+            "section" : "result"
+        },
+        "treatmentWithdrawnTimestamp" : {
+            "title" : "Prekinitev akt. zdravljenja",
+            "form": "d30",
+            "values" : {
+                "null" : "Ni zapisa",
+                "hh:mm:ss" : "čas"
+            },
+            "shown" : true,
+            "section" : "result"
+        },
+        "cod": {
+            "title": "Vzrok smrti",
+            "from": "Utstein",
+            "form": "d30",
+            "description": "Pustite prazno, če bolnik ni umrl.",
+            "core": false,
+            "section" : "result"
+        },
+        "doctorName" : {
+            "title" : "Ime in priimek zdravnika oz. izpolnjevalca obrazca",
+            "shown" : true,
+            "section" : "result",
+            "form": "d1&d30"
+        }       
+    }
+
+}

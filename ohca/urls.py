@@ -16,13 +16,35 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ohca import views
+from django.views.decorators.cache import cache_page
+from ohca.views import eureca
+
+from ohca.views import index
+
+pageCacheTimeout = 24 * 60 * 60
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('case/id/', views.case_by_id.as_view(), name='case'),
-    path('case/id/multi/', views.case_by_id_multi.as_view(), name='case_multi'),
-    path('case/dispatch/', views.case_by_disp.as_view(), name='dispatch'),
-    path('case/dispatch/multi/', views.case_by_disp_multi.as_view(), name='dispatch_multi'),
-    path('system/', views.system_view.as_view(), name='system'),
-    path('locale/', views.locale_view.as_view(), name='locale')
+    path('download/', views.download),
+    path('summary/', index.as_view()),
+    path('dsz/', views.dsz),
+    # path('summary2/', views.http_response),
+    path('case/id/', views.case_by_id, name='case'),
+    path('case/id/multi/', views.case_by_id_multi, name='case_multi'),
+    path('case/dispatch/', views.case_by_disp, name='dispatch'),
+    path('case/dispatch/multi/', views.case_by_disp_multi, name='dispatch_multi'),
+    path('system/', views.system_view, name='system'),
+    path('locale/', views.locale_view, name='locale'),
+    # path('autoform/', views.index22),
+    # path('', index.as_view())
+    path("", cache_page(pageCacheTimeout)(views.new_index), name="index"),
+    path("dsz-1-dan", views.form_name_view, name="form_name"),
+    path("30-dan", views.second_form_name_view, name="second_form_name"),
+    # path("dsz-retro", views.third_form_name_view, name="third_form_name"),
+    path("ndsz-1-dan", views.second_first_form_name_view, name="second_first_formpage"),
+    path("popravki", views.error_form_view, name="error_page"),
+    # path("ndsz-retro", views.second_third_form_name_view, name="second_third_form_name"),
+    # path("test-form", views.test_view, name="test_page")
+    path('eureca/', eureca.as_view()),
+    path('download-eureca/', views.download_eureca),
 ]

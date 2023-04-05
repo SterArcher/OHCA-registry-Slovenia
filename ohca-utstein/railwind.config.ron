@@ -1,0 +1,6 @@
+(
+    content: [
+        "index.html",
+    ],
+    extend_collection_options: None,
+)

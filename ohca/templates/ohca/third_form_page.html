@@ -1,0 +1,119 @@
+{% extends 'ohca/form_base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <!-- -------submit message-------- -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>{{message}}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <!-- -------submit message-------- -->
+
+    <h2 style="font-weight: 500;">Izpolnite podatke o dogodku</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {% load cache %}
+        {% cache 86400 form5 %}
+        <p> </p>
+        <p> </p>
+        Vpišite 12-mestno številko intervencije
+        <p> </p>
+        <p> </p>
+        <div class="form-row">
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i1|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i2|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i3|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i4|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i5|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i6|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i7|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i8|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i9|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i10|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i11|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1 mb-0">
+                {{ form2.i12|as_crispy_field }}
+            </div>
+        </div>
+
+        <script src="/static/js/intervention_id.js"></script>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm text-center">
+                    <p>Dispečerski center</p>
+                    <p id="dsz">-----</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>Datum intervencije</p>
+                    <p id="dateInt">--/--/----</p>
+                </div>
+                <div class="col-sm text-center">
+                    <p>Dnevna št. intervencije</p>
+                    <p id="intNum">-----</p>
+                </div>
+            </div>
+        </div>
+
+        <p>{{ form1.Patient_name|as_crispy_field}}</p>
+        <p>{{form1.Patient_surname|as_crispy_field}}</p>
+        <p>{{form1.Date_birth|as_crispy_field}}</p>
+        <p>{{form1.gender|as_crispy_field}}</p>
+        <p>{{form1.Date|as_crispy_field}}</p>
+        <p>{{form1.Time|as_crispy_field}}</p>
+        <p>{{form1.estim_time|as_crispy_field}}</p>
+        <!-- {% for field in form1 %}
+            {% if field.name != "Patient_name" and field.name != "Patient_surname" and field.name != "Date" and field.name != "Date_birth" and field.name != "Time"%}
+                <p>{{ field|as_crispy_field }}</p>
+            {% endif %}
+        {% endfor %} -->
+
+        {% with '"gender", "All_drugs", "estim_age", "estim_time", "Patient_name", "Patient_surname", "Date", "Date_birth", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "i12", "interventionID", "Time", "mainInterventionID"' as list %}
+            {% for field in form1 %}
+                {% if field.name not in list %}
+                    <!-- <p>{{ field.label}}{{ field|as_crispy_field }}</p> -->
+                    {% if field.name == "drugTimingsTimestamp" %}
+                        <p>{{ form1.All_drugs|as_crispy_field }}</p>
+                        <p>{{ form1.drugTimingsTimestamp|as_crispy_field }}</p>
+                    {% elif field.name == "ageBystander" %}
+                        <p>{{ form1.ageBystander|as_crispy_field }}</p>
+                        <p>{{ form1.estim_age|as_crispy_field }}</p>
+                    {% else %}
+                        <p>{{ field|as_crispy_field }}</p>                        
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% endwith %}
+
+        <input type="submit" class="btn btn-primary" value="Submit">
+        {% endcache %}
+    </form>
+
+{% endblock %}

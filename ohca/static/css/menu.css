@@ -1,0 +1,45 @@
+a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  padding: 0.2em 0;
+}
+
+a.no-underline::after {
+    background-color: transparent;
+}
+
+a.disabled-link {
+    pointer-events: none;
+}
+
+/* Fade in */
+a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0.1em;
+  background-color: white;
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
+}
+
+a:hover::after,
+a:focus::after {
+  opacity: 1;
+  transform: translate3d(0, 0.2em, 0);
+}
+
+li a::after {
+  opacity: 1;
+  transform: scale(0);
+  transform-origin: center;
+}
+
+li a:hover::after,
+li a:focus::after {
+  transform: scale(1);
+}

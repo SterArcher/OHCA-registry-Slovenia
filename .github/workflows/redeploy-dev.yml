@@ -1,0 +1,26 @@
+name: Redeploy development branch 
+
+on:
+  push:
+    branches: 
+    - api-dev
+    paths-ignore:
+      - 'Pipfile'
+      - 'Pipfile.lock'
+      - 'Dockerfile'
+  workflow_run:
+    workflows:
+      - "Rebuild Docker base (dev)"
+    types:
+      - completed    
+  workflow_dispatch:
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Webhook
+      uses: distributhor/workflow-webhook@v2
+      env:
+        webhook_url: ${{ secrets.DEPLOY_WEBHOOK_URL }}/redeploy-dev
+        webhook_secret: ${{ secrets.DEPLOY_KEY }}

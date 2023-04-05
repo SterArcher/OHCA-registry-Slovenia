@@ -1,0 +1,34 @@
+<svg version="1.1" id="Gradient" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 1200 800" style="enable-background:new 0 0 1200 800;" preserveAspectRatio="none" xml:space="preserve">
+  <style>
+    .st0{fill:#111130;enable-background:new;overflow:hidden}
+  </style>
+  <path class="st0" d="M0 0h1200v800H0z"/>
+  <g style="filter:blur(180px);-webkit-filter:blur(180px)">
+    <defs>
+      <clipPath id="bg">
+        <path class="st0" d="M2 3.9h1200v800H2z"/>
+      </clipPath>
+    </defs>
+    <radialGradient id="primary" cx="181.653" cy="-336.122" r="510.098" gradientTransform="matrix(1.9104 0 0 2.0896 -196.57 600.415)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:#0082aa"/>
+      <stop offset=".092" style="stop-color:#007da3;stop-opacity:.8824"/>
+      <stop offset=".221" style="stop-color:#006f91;stop-opacity:.7175"/>
+      <stop offset=".372" style="stop-color:#005873;stop-opacity:.5246"/>
+      <stop offset=".539" style="stop-color:#00384a;stop-opacity:.3105"/>
+      <stop offset=".718" style="stop-color:#001015;stop-opacity:8.158177e-02"/>
+      <stop offset=".782" style="stop-color:#000;stop-opacity:0"/>
+    </radialGradient>
+    <path style="fill:url(#primary)" d="M-995.8-938.8h2292.5V735H-995.8z"/>
+    <radialGradient id="secondary" cx="570.003" cy="657.949" r="733.392" gradientTransform="matrix(1.2217 0 0 .7355 110.162 451.817)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" style="stop-color:#e0144e"/>
+      <stop offset=".074" style="stop-color:#d9134c;stop-opacity:.9018"/>
+      <stop offset=".178" style="stop-color:#c71245;stop-opacity:.7641"/>
+      <stop offset=".299" style="stop-color:#a90f3b;stop-opacity:.603"/>
+      <stop offset=".434" style="stop-color:#7f0b2c;stop-opacity:.4242"/>
+      <stop offset=".58" style="stop-color:#4a071a;stop-opacity:.2307"/>
+      <stop offset=".733" style="stop-color:#090103;stop-opacity:2.791482e-02"/>
+      <stop offset=".754" style="stop-color:#000;stop-opacity:0"/>
+    </radialGradient>
+    <path style="fill:url(#secondary)" d="M-247.4 356h2107.7v1159.5H-247.4z"/>
+  </g>
+</svg>
