@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SiOHCA Utstein Report</title>
+        <style>
+            /*
+1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
+*/
+
+            *,
+            ::before,
+            ::after {
+                box-sizing: border-box;
+                /* 1 */
+                border-width: 0;
+                /* 2 */
+                border-style: solid;
+                /* 2 */
+                border-color: theme("borderColor.DEFAULT", currentColor);
+                /* 2 */
+            }
+
+            ::before,
+            ::after {
+                --tw-content: "";
+            }
+
+            /*
+1. Use a consistent sensible line-height in all browsers.
+2. Prevent adjustments of font size after orientation changes in iOS.
+3. Use a more readable tab size.
+4. Use the user's configured `sans` font-family by default.
+*/
+
+            html {
+                line-height: 1.5;
+                /* 1 */
+                -webkit-text-size-adjust: 100%;
+                /* 2 */
+                -moz-tab-size: 4;
+                /* 3 */
+                tab-size: 4;
+                /* 3 */
+                font-family: theme(
+                    "fontFamily.sans",
+                    ui-sans-serif,
+                    system-ui,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    "Helvetica Neue",
+                    Arial,
+                    "Noto Sans",
+                    sans-serif,
+                    "Apple Color Emoji",
+                    "Segoe UI Emoji",
+                    "Segoe UI Symbol",
+                    "Noto Color Emoji"
+                );
+                /* 4 */
+            }
+
+            /*
+1. Remove the margin in all browsers.
+2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
+*/
+
+            body {
+                margin: 0;
+                /* 1 */
+                line-height: inherit;
+                /* 2 */
+            }
+
+            /*
+1. Add the correct height in Firefox.
+2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
+3. Ensure horizontal rules are visible by default.
+*/
+
+            hr {
+                height: 0;
+                /* 1 */
+                color: inherit;
+                /* 2 */
+                border-top-width: 1px;
+                /* 3 */
+            }
+
+            /*
+Add the correct text decoration in Chrome, Edge, and Safari.
+*/
+
+            abbr:where([title]) {
+                text-decoration: underline dotted;
+            }
+
+            /*
+Remove the default font size and weight for headings.
+*/
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                font-size: inherit;
+                font-weight: inherit;
+            }
+
+            /*
+Reset links to optimize for opt-in styling instead of opt-out.
+*/
+
+            a {
+                color: inherit;
+                text-decoration: inherit;
+            }
+
+            /*
+Add the correct font weight in Edge and Safari.
+*/
+
+            b,
+            strong {
+                font-weight: bolder;
+            }
+
+            /*
+1. Use the user's configured `mono` font family by default.
+2. Correct the odd `em` font sizing in all browsers.
+*/
+
+            code,
+            kbd,
+            samp,
+            pre {
+                font-family: theme(
+                    "fontFamily.mono",
+                    ui-monospace,
+                    SFMono-Regular,
+                    Menlo,
+                    Monaco,
+                    Consolas,
+                    "Liberation Mono",
+                    "Courier New",
+                    monospace
+                );
+                /* 1 */
+                font-size: 1em;
+                /* 2 */
+            }
+
+            /*
+Add the correct font size in all browsers.
+*/
+
+            small {
+                font-size: 80%;
+            }
+
+            /*
+Prevent `sub` and `sup` elements from affecting the line height in all browsers.
+*/
+
+            sub,
+            sup {
+                font-size: 75%;
+                line-height: 0;
+                position: relative;
+                vertical-align: baseline;
+            }
+
+            sub {
+                bottom: -0.25em;
+            }
+
+            sup {
+                top: -0.5em;
+            }
+
+            /*
+1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+3. Remove gaps between table borders by default.
+*/
+
+            table {
+                text-indent: 0;
+                /* 1 */
+                border-color: inherit;
+                /* 2 */
+                border-collapse: collapse;
+                /* 3 */
+            }
+
+            /*
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+3. Remove default padding in all browsers.
+*/
+
+            button,
+            input,
+            optgroup,
+            select,
+            textarea {
+                font-family: inherit;
+                /* 1 */
+                font-size: 100%;
+                /* 1 */
+                font-weight: inherit;
+                /* 1 */
+                line-height: inherit;
+                /* 1 */
+                color: inherit;
+                /* 1 */
+                margin: 0;
+                /* 2 */
+                padding: 0;
+                /* 3 */
+            }
+
+            /*
+Remove the inheritance of text transform in Edge and Firefox.
+*/
+
+            button,
+            select {
+                text-transform: none;
+            }
+
+            /*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Remove default button styles.
+*/
+
+            button,
+            [type="button"],
+            [type="reset"],
+            [type="submit"] {
+                -webkit-appearance: button;
+                /* 1 */
+                background-color: transparent;
+                /* 2 */
+                background-image: none;
+                /* 2 */
+            }
+
+            /*
+Use the modern Firefox focus style for all focusable elements.
+*/
+
+            :-moz-focusring {
+                outline: auto;
+            }
+
+            /*
+Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
+*/
+
+            :-moz-ui-invalid {
+                box-shadow: none;
+            }
+
+            /*
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+
+            progress {
+                vertical-align: baseline;
+            }
+
+            /*
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+
+            ::-webkit-inner-spin-button,
+            ::-webkit-outer-spin-button {
+                height: auto;
+            }
+
+            /*
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+
+            [type="search"] {
+                -webkit-appearance: textfield;
+                /* 1 */
+                outline-offset: -2px;
+                /* 2 */
+            }
+
+            /*
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+
+            ::-webkit-search-decoration {
+                -webkit-appearance: none;
+            }
+
+            /*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to `inherit` in Safari.
+*/
+
+            ::-webkit-file-upload-button {
+                -webkit-appearance: button;
+                /* 1 */
+                font: inherit;
+                /* 2 */
+            }
+
+            /*
+Add the correct display in Chrome and Safari.
+*/
+
+            summary {
+                display: list-item;
+            }
+
+            /*
+Removes the default spacing and border for appropriate elements.
+*/
+
+            blockquote,
+            dl,
+            dd,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            hr,
+            figure,
+            p,
+            pre {
+                margin: 0;
+            }
+
+            fieldset {
+                margin: 0;
+                padding: 0;
+            }
+
+            legend {
+                padding: 0;
+            }
+
+            ol,
+            ul,
+            menu {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            /*
+Prevent resizing textareas horizontally by default.
+*/
+
+            textarea {
+                resize: vertical;
+            }
+
+            /*
+1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
+2. Set the default placeholder color to the user's configured gray 400 color.
+*/
+
+            input::placeholder,
+            textarea::placeholder {
+                opacity: 1;
+                /* 1 */
+                color: theme("colors.gray.400", #9ca3af);
+                /* 2 */
+            }
+
+            /*
+Set the default cursor for buttons.
+*/
+
+            button,
+            [role="button"] {
+                cursor: pointer;
+            }
+
+            /*
+Make sure disabled buttons don't get the pointer cursor.
+*/
+            :disabled {
+                cursor: default;
+            }
+
+            /*
+1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
+2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+   This can trigger a poorly considered lint error in some tools but is included by design.
+*/
+
+            img,
+            svg,
+            video,
+            canvas,
+            audio,
+            iframe,
+            embed,
+            object {
+                display: block;
+                /* 1 */
+                vertical-align: middle;
+                /* 2 */
+            }
+
+            /*
+Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
+*/
+
+            img,
+            video {
+                max-width: 100%;
+                height: auto;
+            }
+
+            /* Make elements with the HTML hidden attribute stay hidden by default */
+            [hidden] {
+                display: none;
+            }
+
+            *,
+            ::before,
+            ::after {
+                --tw-border-spacing-x: 0;
+                --tw-border-spacing-y: 0;
+                --tw-translate-x: 0;
+                --tw-translate-y: 0;
+                --tw-rotate: 0;
+                --tw-skew-x: 0;
+                --tw-skew-y: 0;
+                --tw-scale-x: 1;
+                --tw-scale-y: 1;
+                --tw-pan-x: ;
+                --tw-pan-y: ;
+                --tw-pinch-zoom: ;
+                --tw-scroll-snap-strictness: proximity;
+                --tw-ordinal: ;
+                --tw-slashed-zero: ;
+                --tw-numeric-figure: ;
+                --tw-numeric-spacing: ;
+                --tw-numeric-fraction: ;
+                --tw-ring-inset: ;
+                --tw-ring-offset-width: 0px;
+                --tw-ring-offset-color: #fff;
+                --tw-ring-color: rgb(59 130 246 / 0.5);
+                --tw-ring-offset-shadow: 0 0 #0000;
+                --tw-ring-shadow: 0 0 #0000;
+                --tw-shadow: 0 0 #0000;
+                --tw-shadow-colored: 0 0 #0000;
+                --tw-blur: ;
+                --tw-brightness: ;
+                --tw-contrast: ;
+                --tw-grayscale: ;
+                --tw-hue-rotate: ;
+                --tw-invert: ;
+                --tw-saturate: ;
+                --tw-sepia: ;
+                --tw-drop-shadow: ;
+                --tw-backdrop-blur: ;
+                --tw-backdrop-brightness: ;
+                --tw-backdrop-contrast: ;
+                --tw-backdrop-grayscale: ;
+                --tw-backdrop-hue-rotate: ;
+                --tw-backdrop-invert: ;
+                --tw-backdrop-opacity: ;
+                --tw-backdrop-saturate: ;
+                --tw-backdrop-sepia: ;
+            }
+
+            ::-webkit-backdrop {
+                --tw-border-spacing-x: 0;
+                --tw-border-spacing-y: 0;
+                --tw-translate-x: 0;
+                --tw-translate-y: 0;
+                --tw-rotate: 0;
+                --tw-skew-x: 0;
+                --tw-skew-y: 0;
+                --tw-scale-x: 1;
+                --tw-scale-y: 1;
+                --tw-pan-x: ;
+                --tw-pan-y: ;
+                --tw-pinch-zoom: ;
+                --tw-scroll-snap-strictness: proximity;
+                --tw-ordinal: ;
+                --tw-slashed-zero: ;
+                --tw-numeric-figure: ;
+                --tw-numeric-spacing: ;
+                --tw-numeric-fraction: ;
+                --tw-ring-inset: ;
+                --tw-ring-offset-width: 0px;
+                --tw-ring-offset-color: #fff;
+                --tw-ring-color: rgb(59 130 246 / 0.5);
+                --tw-ring-offset-shadow: 0 0 #0000;
+                --tw-ring-shadow: 0 0 #0000;
+                --tw-shadow: 0 0 #0000;
+                --tw-shadow-colored: 0 0 #0000;
+                --tw-blur: ;
+                --tw-brightness: ;
+                --tw-contrast: ;
+                --tw-grayscale: ;
+                --tw-hue-rotate: ;
+                --tw-invert: ;
+                --tw-saturate: ;
+                --tw-sepia: ;
+                --tw-drop-shadow: ;
+                --tw-backdrop-blur: ;
+                --tw-backdrop-brightness: ;
+                --tw-backdrop-contrast: ;
+                --tw-backdrop-grayscale: ;
+                --tw-backdrop-hue-rotate: ;
+                --tw-backdrop-invert: ;
+                --tw-backdrop-opacity: ;
+                --tw-backdrop-saturate: ;
+                --tw-backdrop-sepia: ;
+            }
+
+            ::backdrop {
+                --tw-border-spacing-x: 0;
+                --tw-border-spacing-y: 0;
+                --tw-translate-x: 0;
+                --tw-translate-y: 0;
+                --tw-rotate: 0;
+                --tw-skew-x: 0;
+                --tw-skew-y: 0;
+                --tw-scale-x: 1;
+                --tw-scale-y: 1;
+                --tw-pan-x: ;
+                --tw-pan-y: ;
+                --tw-pinch-zoom: ;
+                --tw-scroll-snap-strictness: proximity;
+                --tw-ordinal: ;
+                --tw-slashed-zero: ;
+                --tw-numeric-figure: ;
+                --tw-numeric-spacing: ;
+                --tw-numeric-fraction: ;
+                --tw-ring-inset: ;
+                --tw-ring-offset-width: 0px;
+                --tw-ring-offset-color: #fff;
+                --tw-ring-color: rgb(59 130 246 / 0.5);
+                --tw-ring-offset-shadow: 0 0 #0000;
+                --tw-ring-shadow: 0 0 #0000;
+                --tw-shadow: 0 0 #0000;
+                --tw-shadow-colored: 0 0 #0000;
+                --tw-blur: ;
+                --tw-brightness: ;
+                --tw-contrast: ;
+                --tw-grayscale: ;
+                --tw-hue-rotate: ;
+                --tw-invert: ;
+                --tw-saturate: ;
+                --tw-sepia: ;
+                --tw-drop-shadow: ;
+                --tw-backdrop-blur: ;
+                --tw-backdrop-brightness: ;
+                --tw-backdrop-contrast: ;
+                --tw-backdrop-grayscale: ;
+                --tw-backdrop-hue-rotate: ;
+                --tw-backdrop-invert: ;
+                --tw-backdrop-opacity: ;
+                --tw-backdrop-saturate: ;
+                --tw-backdrop-sepia: ;
+            }
+
+            .my-12 {
+                margin-top: 3rem;
+                margin-bottom: 3rem;
+            }
+
+            .font-sans {
+                font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+                    "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            }
+
+            .grid {
+                display: grid;
+            }
+
+            .gap-8 {
+                gap: 2rem;
+            }
+
+            .grid-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .flex {
+                display: flex;
+            }
+
+            .justify-start {
+                justify-content: flex-start;
+            }
+
+            .flex-col {
+                flex-direction: column;
+            }
+
+            .border-2 {
+                border-width: 2px;
+            }
+
+            .rounded-lg {
+                border-radius: 0.5rem;
+            }
+
+            .bg-gray-800 {
+                --tw-bg-opacity: 1;
+                background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+            }
+
+            .text-white {
+                --tw-text-opacity: 1;
+                color: rgb(255 255 255 / var(--tw-text-opacity));
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            .p-2 {
+                padding: 0.5rem;
+            }
+
+            .bg-gray-400 {
+                --tw-bg-opacity: 1;
+                background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+            }
+
+            .col-span-2 {
+                grid-column: span 2 / span 2;
+            }
+
+            .w-24 {
+                width: 6rem;
+            }
+
+            .my-auto {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+
+            .font-bold {
+                font-weight: 700;
+            }
+
+            .border-collapse {
+                border-collapse: collapse;
+            }
+
+            .border {
+                border-width: 1px;
+            }
+
+            .border-slate-500 {
+                --tw-border-opacity: 1;
+                border-color: rgb(100 116 139 / var(--tw-border-opacity));
+            }
+
+            .table-auto {
+                table-layout: auto;
+            }
+
+            .w-full {
+                width: 100%;
+            }
+
+            .border-slate-600 {
+                --tw-border-opacity: 1;
+                border-color: rgb(71 85 105 / var(--tw-border-opacity));
+            }
+
+            .font-medium {
+                font-weight: 500;
+            }
+
+            .col-span-3 {
+                grid-column: span 3 / span 3;
+            }
+        </style>
+    </head>
+    <body class="my-12 font-sans">
+        <div class="grid gap-8 grid-cols-3">
+            <!-- Population served -->
+            <div class="flex justify-start flex-col border-2 rounded-lg">
+                <h1 class="bg-gray-800 text-white text-center p-2">Population Served</h1>
+                <p class="bg-gray-400 text-center p-2">Total population served by EMS</p>
+                <p class="text-center p-2">{{ system_core.population_served }}</p>
+            </div>
+
+            <!-- EMS description -->
+            <div class="flex border-2 rounded-lg col-span-2">
+                <h1 class="bg-gray-800 text-white text-center p-2">EMS Description</h1>
+                <p class="bg-gray-400 text-center p-2 w-24">Text</p>
+            </div>
+
+            <!-- Cardiac arrests attended -->
+            <div class="flex justify-start flex-col border-2 rounded-lg">
+                <h1 class="bg-gray-800 text-white text-center p-2">Cardiac Arrests Attended</h1>
+                <p class="bg-gray-400 text-center p-2">Total number of cases</p>
+                <p class="text-center p-2 my-auto font-bold">{{ system_core.cardiac_arrests_attended }}</p>
+            </div>
+
+            <!-- Dispatcher ID CA and CPR  -->
+            <div class="border-2 rounded-lg col-span-2">
+                <table class="border-collapse border border-slate-500 table-auto w-full">
+                    <tr>
+                        <th class="border border-slate-600 text-center p-2 font-medium text-white bg-gray-800" colspan="3">
+                            Dispatcher ID CA
+                        </th>
+                        <th class="border border-slate-600 text-center p-2 font-medium text-white bg-gray-800" colspan="3">
+                            Dispatcher CPR
+                        </th>
+                    </tr>
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium">Yes</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">No</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Yes</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">No</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                    </tr>
+                    <tr>
+                        <td class="border border-slate-600 text-center p-2">{{ dispatcher_id_ca.yes }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ dispatcher_id_ca.no }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ dispatcher_id_ca.unknown }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ dispatcher_cpr.yes }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ dispatcher_cpr.no }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ dispatcher_cpr.unknown }}</td>
+                    </tr>
+                </table>
+
+                <div class="flex">
+                    <h1 class="bg-gray-800 text-white text-center p-2">Response Times</h1>
+                    <p class="bg-gray-400 text-center p-2">MM:SS, 90% Fractile</p>
+                    <p class="font-bold text-center p-2">{{ system_core.response_time }}</p>
+                </div>
+            </div>
+
+            <!-- Resuscitation not attempted  -->
+            <div class="border-2 rounded-lg col-span-3">
+                <table class="border-collapse border border-slate-500 table-auto w-full">
+                    <thead>
+                        <tr class="bg-gray-400">
+                            <th class="border border-slate-600 text-center p-2 font-medium text-white bg-gray-800">
+                                Resuscitation Not Attempted
+                            </th>
+                            <th class="border border-slate-600 text-center p-2 font-medium">DNAR</th>
+                            <th class="border border-slate-600 text-center p-2 font-medium">Obviously Dead</th>
+                            <th class="border border-slate-600 text-center p-2 font-medium">Sings of Life</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-slate-600 text-center p-2">Total = {{ resc_not_attempted.count }}</td>
+                            <td class="border border-slate-600 text-center p-2">{{ resc_not_attempted.dnar }}</td>
+                            <td class="border border-slate-600 text-center p-2">{{ resc_not_attempted.obviously_dead }}</td>
+                            <td class="border border-slate-600 text-center p-2">{{ resc_not_attempted.signs_of_life }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Resuscitation attempted -->
+            <div class="border-2 rounded-lg col-span-3">
+                <table class="border-collapse border border-slate-500 table-auto w-full">
+                    <thead>
+                        <tr class="bg-gray-400">
+                            <th class="border border-slate-600 text-center p-2 font-medium text-white bg-gray-800">
+                                Resuscitations Attempted
+                            </th>
+                            <th class="border border-slate-600 text-center p-2 font-medium">VF</th>
+                            <th class="border border-slate-600 text-center p-2 font-medium">VT</th>
+                            <th class="border border-slate-600 text-center p-2 font-medium">PEA</th>
+                            <th class="border border-slate-600 text-center p-2 font-medium">ASYS</th>
+                            <th class="border border-slate-600 text-center p-2 font-medium">Brady</th>
+                            <th class="border border-slate-600 text-center p-2 font-medium">AED Non-shockable</th>
+                            <th class="border border-slate-600 text-center p-2 font-medium">AED Shockable</th>
+                            <th class="border border-slate-600 text-center p-2 font-medium">Not Recorded</th>
+                            <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-slate-600 text-center p-2">Total = {{ resc_attempted.count }}</td>
+                            <td class="border border-slate-600 text-center p-2">{{ resc_attempted.vt }}</td>
+                            <td class="border border-slate-600 text-center p-2">Missing</td>
+                            <td class="border border-slate-600 text-center p-2">{{ resc_attempted.pea }}</td>
+                            <td class="border border-slate-600 text-center p-2">{{ resc_attempted.asys }}</td>
+                            <td class="border border-slate-600 text-center p-2">{{ resc_attempted.brady }}</td>
+                            <td class="border border-slate-600 text-center p-2">{{ resc_attempted.aed_non_shockable }}</td>
+                            <td class="border border-slate-600 text-center p-2">{{ resc_attempted.aed_shockable }}</td>
+                            <td class="border border-slate-600 text-center p-2">{{ resc_attempted.not_recorded }}</td>
+                            <td class="border border-slate-600 text-center p-2">{{ resc_attempted.unknown }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Location -->
+            <div class="border-2 rounded-lg col-span-3">
+                <table class="border-collapse border border-slate-500 table-auto w-full">
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium text-white bg-gray-800" rowspan="2">Location</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Home</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Work</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Rec</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Public</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Educ</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Nursing</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Street</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Other</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                    </tr>
+                    <tr>
+                        <td class="border border-slate-600 text-center p-2">{{ location.home }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ location.work }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ location.rec }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ location.public }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ location.educ }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ location.nursing }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ location.street }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ location.unknown }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Patient -->
+            <div class="border-2 rounded-lg col-span-3">
+                <table class="border-collapse border border-slate-500 table-auto w-full">
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium text-white bg-gray-800" rowspan="4">Patient</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="2">Age</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="3">Sex</th>
+                    </tr>
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium">Average</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Male</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Female</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                    </tr>
+
+                    <tr></tr>
+                    <tr>
+                        <td class="border border-slate-600 text-center p-2">{{ patient.age.mean }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ patient.age.unknown }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ patient.sex.male }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ patient.sex.female }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ patient.sex.unknown }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Witnessed -->
+            <div class="border-2 rounded-lg col-span-3">
+                <table class="border-collapse border border-slate-500 table-auto w-full">
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium text-white bg-gray-800" rowspan="2">Witnessed</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Bystander</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">EMS</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unwitnessed</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                    </tr>
+                    <tr>
+                        <td class="border border-slate-600 text-center p-2">{{ witnessed.bystander }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ witnessed.ems }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ witnessed.unwitnessed }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ witnessed.unknown }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Bystander response -->
+            <div class="border-2 rounded-lg col-span-3">
+                <table class="border-collapse border border-slate-500 table-auto w-full">
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium text-white bg-gray-800" rowspan="4">
+                            Bystander Response
+                        </th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="5">Bystander CPR</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="3">Bystander AED</th>
+                    </tr>
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium">No CPR</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">CPR</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">CC Only</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">CC/Vent</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Analysis</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Shock</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                    </tr>
+                    <tr>
+                        <td class="border border-slate-600 text-center p-2">{{ bystander_response.bystander_cpr.no_bcpr }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ bystander_response.bystander_cpr.bcpr }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ bystander_response.bystander_cpr.cc_only }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ bystander_response.bystander_cpr.cc_or_vent }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ bystander_response.bystander_cpr.unknown }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ bystander_response.bystander_aed.no_shock }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ bystander_response.bystander_aed.shock }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ bystander_response.bystander_aed.unknown }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Etiology -->
+            <div class="border-2 rounded-lg col-span-3">
+                <table class="border-collapse border border-slate-500 table-auto w-full">
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium text-white bg-gray-800" rowspan="2">Etiology</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Medical</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Trauma</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Overdose</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Drowning</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Electrocution</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Asphyxial</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Not recorded</th>
+                    </tr>
+                    <tr>
+                        <td class="border border-slate-600 text-center p-2">{{ etiology.medical }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ etiology.trauma }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ etiology.overdose }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ etiology.drowning }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ etiology.electrocution }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ etiology.asphyxial }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ etiology.not_recorded }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- EMS process -->
+            <div class="border-2 rounded-lg col-span-3">
+                <table class="border-collapse border border-slate-500 table-auto w-full">
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium text-white bg-gray-800" rowspan="4">EMS Process</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="1">First Defib Time</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="4">Targeted Temp Control</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="1">Drugs Given</th>
+                    </tr>
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium">mm:ss</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Indicated - Done</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Indicated - Not Done</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Not Indicated</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium"></th>
+                    </tr>
+
+                    <tr></tr>
+                    <tr>
+                        <td class="border border-slate-600 text-center p-2">{{ ems_process.first_defib_time }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ ems_process.indicated_done }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ ems_process.indicated_not_done }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ ems_process.not_indicated }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ ems_process.unknown }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ ems_process.drugs_given }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Hospital process -->
+            <div class="border-2 rounded-lg col-span-3">
+                <table class="border-collapse border border-slate-500 table-auto w-full">
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium text-white bg-gray-800" rowspan="4">
+                            Hospital Process
+                        </th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="1">Reperfusion</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="4">Targeted Temp Control</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="1">Organ Donation</th>
+                    </tr>
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium">Attempted</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Indicated - Done</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Indicated - Not Done</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Not Indicated</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium"></th>
+                    </tr>
+
+                    <tr></tr>
+                    <tr>
+                        <td class="border border-slate-600 text-center p-2">{{ hospital_process.attempted }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ hospital_process.indicated_done }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ hospital_process.indicated_not_done }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ hospital_process.not_indicated }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ hospital_process.unknown }}</td>
+                        <td class="border border-slate-600 text-center p-2">{{ hospital_process.organ_donation }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Patient outcomes -->
+            <div class="border-2 rounded-lg col-span-3">
+                <table class="border-collapse border border-slate-500 table-auto w-full">
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium text-white bg-gray-800" rowspan="2" colspan="2">
+                            Patient Outcomes <br />
+                            Reporting population
+                        </th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="2">Any ROSC</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="2">Survived Event</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="2">
+                            Survival<sup>DC</sup><br />
+                            Survival<sup>30d</sup>
+                        </th>
+                        <th class="border border-slate-600 text-center p-2 font-medium" colspan="2">
+                            Fav neurological<sup>DC</sup><br />
+                            CPC &le; OR MRS &le; 3
+                        </th>
+                    </tr>
+                    <tr class="bg-gray-400">
+                        <th class="border border-slate-600 text-center p-2 font-medium">Yes</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Yes</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Yes</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Yes</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium">Unknown</th>
+                    </tr>
+
+                    <tr></tr>
+                    <tr>
+                        <th class="border border-slate-600 text-center p-2 font-medium bg-gray-400">EMS Witnesses Included</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium bg-gray-400">All EMS Treated Arrests</th>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_included.all_ems_treated_arrests.any_rosc_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_included.all_ems_treated_arrests.any_rosc_unknown }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_included.all_ems_treated_arrests.survived_event_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_included.all_ems_treated_arrests.survived_event_unknown }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_included.all_ems_treated_arrests.survival_30d_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_included.all_ems_treated_arrests.survival_30d_unknown }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_included.all_ems_treated_arrests.fav_neurological_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_included.all_ems_treated_arrests.fav_neurological_unknown }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="border border-slate-600 text-center p-2 font-medium bg-gray-400" rowspan="3">EMS Witnesses Excluded</th>
+                        <th class="border border-slate-600 text-center p-2 font-medium bg-gray-400">Shockable bystander witnessed</th>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_witnessed.any_rosc_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_witnessed.any_rosc_unknown }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_witnessed.survived_event_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_witnessed.survived_event_unknown }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_witnessed.survival_30d_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_witnessed.survival_30d_unknown }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_witnessed.fav_neurological_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_witnessed.fav_neurological_unknown }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="border border-slate-600 text-center p-2 font-medium bg-gray-400">Shockable bystander CPR</th>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_cpr.any_rosc_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_cpr.any_rosc_unknown }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_cpr.survived_event_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_cpr.survived_event_unknown }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_cpr.survival_30d_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_cpr.survival_30d_unknown }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_cpr.fav_neurological_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.shockable_bystander_cpr.fav_neurological_unknown }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="border border-slate-600 text-center p-2 font-medium bg-gray-400">Non-shockable witnessed</th>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.non_shockable_witnessed.any_rosc_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.non_shockable_witnessed.any_rosc_unknown }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.non_shockable_witnessed.survived_event_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.non_shockable_witnessed.survived_event_unknown }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.non_shockable_witnessed.survival_30d_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.non_shockable_witnessed.survival_30d_unknown }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.non_shockable_witnessed.fav_neurological_yes }}
+                        </td>
+                        <td class="border border-slate-600 text-center p-2">
+                            {{ patient_outcomes.ems_witnessed_excluded.non_shockable_witnessed.fav_neurological_unknown }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
