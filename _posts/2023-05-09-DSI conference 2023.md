@@ -5,9 +5,6 @@
  tags: siohca; competition; DSI
 ---
 
-
-## **SiOHCA competed at the DSI 2023** [🤖](https://emojipedia.org/robot/)[🩺](https://emojipedia.org/stethoscope/)
-
 From May 9th to 10th, 2023, we attended the DSI 2023 conference at Hotel Bernardin in Portorož. Although we did not place in the top three projects, the conference provided us with valuable insights.
 
 The DSI conference served as a platform for entrepreneurs and innovators to showcase their ideas and projects to prominent figures in the industry and academia, and for experts to provide their insight into how digitization should be integrated into Slovenian infrastructure. We eagerly anticipated the opportunity to present our work and benefit from this excellent platform. To this end, we refined our business pitch, and Luka presented our project to the audience.
