@@ -1,5 +1,5 @@
 ---
-title: Celebrating: SiOHCA earns 3rd place at PDŠ UM 2022/2023 concluding event 🥉
+title: "Celebrating: SiOHCA earns 3rd place at PDŠ UM 2022/2023 concluding event 🥉"
 Featuresdate: 2023-10-10 10:00:00 -0000
 categories: SiOHCA
 tags: SiOHCA
