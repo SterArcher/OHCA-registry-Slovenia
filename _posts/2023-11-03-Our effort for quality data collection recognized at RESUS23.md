@@ -4,9 +4,9 @@ Featuresdate: 2023-11-03 10:00:00 -0000
 categories: SiOHCA
 tags: SiOHCA
 ---
-Barcelona is currently hosting the European Resuscitation Council's (ERC) annual congress, #RESUS23. The congress is as a vital platform for discussing the latest advancements in resuscitation and emergency medicine. Our menotr, professor Matej Strnad, attended the event.
+Barcelona is currently hosting the European Resuscitation Council's (ERC) annual congress, #RESUS23. The congress is as a vital platform for discussing the latest advancements in resuscitation and emergency medicine. Our mentor, professor Matej Strnad, attended the event.
  
-RESUS23 is a networking opportunity for the EuReCa 3 members. The EuReCa 3 network praised our country for providing high-quality data right from the start, minimizing the need for data adjustments and refinements.
+RESUS23 is also a networking opportunity for the EuReCa 3 members. The EuReCa 3 network praised our country for providing high-quality data right from the start, minimizing the need for data refinements.
 
 This achievement showcases the value of digitalized data collection and our commitment to building a motivated community. We extend our gratitude to all contributors who put in the effort to make quality data collection possible. 
 
