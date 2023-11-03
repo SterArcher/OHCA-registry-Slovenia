@@ -12,5 +12,5 @@ This achievement showcases the value of digitalized data collection and our comm
 
 As we look forward to the publication of the EuReCa 3 study results in 2024, we can take pride in our country's contribution to improving emergency medical care on an international scale. 
 
-![EuReCa3 network at RESUS23.](https://siohca.um.si/assets/img/resus23.jpeg)
+![EuReCa3 network at RESUS23.](https://siohca.um.si/assets/img/resus23.jpg)
 *EuReCa3 network at RESUS23.*
